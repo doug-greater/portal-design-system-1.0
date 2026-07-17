@@ -41,22 +41,59 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
   const cancelClose = () => clearTimeout(closeRef.current);
   React.useEffect(() => { if (!collapsed) { clearTimeout(closeRef.current); setFlyout(null); } }, [collapsed]);
 
+  // Live View nav alert (1.10 §B) — a static (non-pulsing, no count) red dot shown when
+  // today's Live View has ≥1 Incomplete stop. Production: poll GET /api/assignments/live/alerts
+  // every 60s (paused while the tab is hidden, cap-gated sales.view, honoring the ?at= override
+  // captured in a ref at render) → { incomplete }; the dot runs the SAME pipeline as the page so
+  // they can never disagree. Red, matching the Incomplete escalation (§A2) — never amber. Demo: on.
+  const [liveIncomplete] = React.useState(3);
+  const liveAlert = liveIncomplete > 0;
+  const groupHasAlert = (item) => liveAlert && !!item.children && item.children.some((c) => c.alert);
+  const AlertDot = ({ style }) => (
+    <span data-testid="lv-nav-alert-dot" title="Incomplete stops need attention in Live View"
+      style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--p-danger)', flexShrink: 0, display: 'inline-block', ...style }} />
+  );
+
+  // Help Center → in-product Messenger (1.10 §Q). Demo toggles a mock panel; production toggles
+  // Intercom (identity signed server-side via a short-lived JWT), carries an active state while
+  // open, shows an unread badge, pings update() on SPA navigations, has NO floating launcher, and
+  // reverts to an external help.greater.co link when no messenger is configured.
+  const MESSENGER_CONFIGURED = true;
+  const [msgrOpen, setMsgrOpen] = React.useState(false);
+  const [unread] = React.useState(3);
+
   const BRAND_BLUE = '#007CFF';
   const INK = '#101828';
   const GRAY_600 = '#4A5565';
   const GRAY_800 = '#1E2939';
   const BORDER_LIGHT = 'var(--p-border)';
 
-  const nav = [
+  // Capability-per-child nav (1.10 §O). Every child carries its own `cap`; leaf items carry
+  // a top-level `cap` (Home carries none — everyone lands somewhere). Production filters this
+  // tree by the signed-in user's caps: DROP children the user lacks, THEN hide any group left
+  // empty — never render an empty parent group or a DISABLED nav row (nav is hide-not-disable:
+  // wayfinding, not a capability lesson). The backend still require_cap's every endpoint —
+  // hiding is only UX. The `disabled` entries below are demo placeholders ("not built in this
+  // kit"), NOT the capability model.
+  const USER_CAPS = null;                       // demo: null = show everything. Production: a Set of the user's caps.
+  const hasCap = (cap) => !cap || !USER_CAPS || USER_CAPS.has(cap);
+
+  const NAV = [
     { id: 'insights', label: 'Insights', icon: 'line_axis', disabled: true, children: null },
-    { id: 'sales', label: 'Sales', icon: 'ballot', disabled: true, children: null },
+    { id: 'sales', label: 'Sales', icon: 'ballot', children: [
+      { id: 'live-view', label: 'Live View', cap: 'sales.view', alert: true },
+    ]},
     { id: 'orchestration', label: 'Orchestration', icon: 'graph_7', disabled: true, children: null },
     { id: 'products', label: 'Products', icon: 'category', children: [
-      { id: 'in-the-market', label: 'In the Market' },
+      { id: 'in-the-market', label: 'In the Market', cap: 'market.view' },
     ]},
     { id: 'accounts', label: 'Accounts', icon: 'store', disabled: true, children: null },
-    { id: 'users', label: 'Users', icon: 'person', children: null },
+    { id: 'users', label: 'Users', icon: 'person', cap: 'users.view', children: null },
   ];
+  // Drop children the user lacks, then hide any now-empty group. Disabled demo items pass through.
+  const nav = NAV
+    .map((n) => (n.children ? { ...n, children: n.children.filter((c) => hasCap(c.cap)) } : n))
+    .filter((n) => n.disabled ? true : n.children ? n.children.length > 0 : hasCap(n.cap));
 
   const MS = (name, size = 20, color = 'currentColor') => (
     <span className="material-symbols-sharp" style={{
@@ -107,6 +144,7 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
               width: '100%', border: 'none', background: 'transparent', padding: 0, cursor: 'pointer',
             }}>
             <div className="gr-row" style={{
+              position: 'relative',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               width: 40, height: 40, margin: '0 auto', borderRadius: 6,
               background: tint ? 'rgba(0,124,255,0.10)' : '#fff',
@@ -114,6 +152,8 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
               transition: 'background-color 50ms',
             }}>
               {MS(item.icon, 22, tint ? BRAND_BLUE : INK)}
+              {/* §B state 3 — rail icon (whole sidebar collapsed) */}
+              {groupHasAlert(item) && <AlertDot style={{ position: 'absolute', top: 6, right: 6 }} />}
             </div>
           </button>
         </li>
@@ -132,6 +172,8 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
           }}>
             {MS(item.icon, 22, isActiveLeaf ? '#fff' : (groupActive ? BRAND_BLUE : INK))}
             <span style={{ flex: 1, textAlign: 'left', font: `${isActiveLeaf || groupActive ? 500 : 400} 15px/1.25 Inter`, color: isActiveLeaf ? '#fff' : (groupActive ? BRAND_BLUE : INK) }}>{item.label}</span>
+            {/* §B state 2 — parent row when the group is collapsed (child dot not visible) */}
+            {!isOpen && groupHasAlert(item) && <AlertDot style={{ marginRight: 2 }} />}
             {hasChildren && (
               <span style={{
                 display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
@@ -163,6 +205,8 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
                       minHeight: 32,
                     }}>
                       {c.label}
+                      {/* §B state 1 — beside the Live View child row (group expanded) */}
+                      {c.alert && liveAlert && <AlertDot style={{ marginLeft: 8 }} />}
                     </div>
                   </button>
                 </li>
@@ -174,7 +218,7 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
     );
   };
 
-  const BottomRow = ({ icon, label, external, onClick, trailing, testid }) => {
+  const BottomRow = ({ icon, label, external, onClick, trailing, testid, active }) => {
     if (collapsed) {
       return (
         <li style={{ listStyle: 'none' }}>
@@ -185,11 +229,14 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
               width: '100%', border: 'none', background: 'transparent', padding: 0, cursor: 'pointer',
             }}>
             <div className="gr-util" style={{
+              position: 'relative',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               width: 40, height: 36, margin: '0 auto', borderRadius: 6,
-              color: GRAY_600,
+              background: active ? 'rgba(0,124,255,0.10)' : undefined,
+              color: active ? BRAND_BLUE : GRAY_600,
             }}>
-              {MS(icon, 20, GRAY_600)}
+              {MS(icon, 20, active ? BRAND_BLUE : GRAY_600)}
+              {trailing && <span style={{ position: 'absolute', top: 3, right: 3 }}>{trailing}</span>}
             </div>
           </button>
         </li>
@@ -202,10 +249,11 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
         }}>
           <div className="gr-util" style={{
             display: 'flex', alignItems: 'center', padding: '0 8px', minHeight: 34,
-            borderRadius: 6, background: '#fff', color: GRAY_600, gap: 12,
+            borderRadius: 6, background: active ? 'rgba(0,124,255,0.10)' : '#fff',
+            color: active ? BRAND_BLUE : GRAY_600, gap: 12,
             font: '400 14px/20px Inter',
           }}>
-            {MS(icon, 20, GRAY_600)}
+            {MS(icon, 20, active ? BRAND_BLUE : GRAY_600)}
             <span style={{ flex: 1, textAlign: 'left' }}>{label}</span>
             {external && MS('open_in_new', 14, '#99A1AF')}
             {trailing}
@@ -245,6 +293,8 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
                     }}>
                     {on && <span style={{ width: 4, height: 4, borderRadius: '50%', background: 'rgba(255,255,255,.7)', flexShrink: 0 }} />}
                     {c.label}
+                    {/* §B state 4 — collapsed-rail flyout row */}
+                    {c.alert && liveAlert && <AlertDot style={{ marginLeft: 'auto' }} />}
                   </button>
                 </li>
               );
@@ -352,7 +402,20 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
           boxShadow: '0 -8px 16px -8px rgba(255,255,255,1), 0 -1px 0 rgba(0,0,0,0.04)',
         }}>
           <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 0 }}>
-            <BottomRow icon="help_center" label="Help Center" external onClick={() => window.open('https://help.greater.co', '_blank')} />
+            {/* Help Center → in-product Messenger when configured; else external link (§Q) */}
+            {MESSENGER_CONFIGURED ? (
+              <BottomRow icon="help_center" label="Help Center" active={msgrOpen}
+                onClick={() => setMsgrOpen((o) => !o)}
+                trailing={unread > 0 && (
+                  <span data-testid="help-center-unread" style={{
+                    minWidth: 18, height: 18, padding: '0 5px', borderRadius: 999,
+                    background: 'var(--p-danger)', color: '#fff', font: '600 11px/18px Inter',
+                    textAlign: 'center', display: 'inline-block', boxSizing: 'border-box',
+                  }}>{unread > 99 ? '99+' : unread}</span>
+                )} />
+            ) : (
+              <BottomRow icon="help_center" label="Help Center" external onClick={() => window.open('https://help.greater.co', '_blank')} />
+            )}
             <BottomRow icon="history" label="Audit Log" onClick={() => onNavigate?.('audit-log')} />
             <BottomRow icon="settings" label="Settings" onClick={() => onNavigate?.('settings')} />
             <BottomRow icon={themeMeta.icon} label={themeMeta.label} onClick={cycleTheme} testid="theme-toggle" />
@@ -371,6 +434,24 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
         <div onMouseEnter={cancelClose} onMouseLeave={scheduleClose}
           style={{ position: 'fixed', left: flyout.x, top: flyout.y, zIndex: 9999, animation: 'flyout-in 120ms ease-out' }}>
           <FlyoutPanel item={flyout.item} />
+        </div>
+      )}
+
+      {/* In-product Messenger (1.10 §Q) — toggled by the Help Center row; NO floating launcher,
+          so closing it leaves nothing on screen. Production embeds Intercom here. */}
+      {msgrOpen && (
+        <div data-testid="help-messenger" style={{
+          position: 'fixed', right: 20, bottom: 20, width: 340, height: 420, zIndex: 10001,
+          background: 'var(--p-surface)', border: '1px solid var(--p-border)', borderRadius: 12,
+          boxShadow: 'var(--shadow-float)', display: 'flex', flexDirection: 'column', overflow: 'hidden',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 14px', borderBottom: '1px solid var(--p-border)' }}>
+            <span style={{ font: '600 14px/1 Inter', color: 'var(--p-ink)' }}>Messenger</span>
+            <button onClick={() => setMsgrOpen(false)} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--p-muted)', display: 'flex' }}>{MS('close', 18, 'var(--p-muted)')}</button>
+          </div>
+          <div style={{ flex: 1, padding: 16, font: '400 13px/1.5 Inter', color: 'var(--p-muted)' }}>
+            In-product messenger (Intercom). The sidebar Help Center row is the single entry point — there's no floating launcher bubble, and closing this leaves nothing on screen.
+          </div>
         </div>
       )}
     </div>
