@@ -78,7 +78,7 @@ function Button({ variant = 'primary', size = 'md', icon, iconRight, children, o
     height: size === 'sm' ? 30 : size === 'lg' ? 40 : 36,
     padding: size === 'sm' ? '0 16px' : size === 'lg' ? '0 28px' : '0 20px',
     minWidth: size === 'sm' ? 64 : size === 'lg' ? 120 : 88,
-    borderRadius: 4, cursor: disabled ? 'not-allowed' : 'pointer',
+    borderRadius: 1, cursor: disabled ? 'not-allowed' : 'pointer',
     font: '500 14px/1 Inter, sans-serif', border: '1px solid transparent',
     transition: 'background .12s, border-color .12s', opacity: disabled ? 0.45 : 1,
     whiteSpace: 'nowrap',
@@ -86,8 +86,8 @@ function Button({ variant = 'primary', size = 'md', icon, iconRight, children, o
   const variants = {
     primary:   { background: 'var(--p-action)', color: 'var(--p-action-fg)' },
     secondary: { background: 'var(--p-surface)', color: 'var(--p-ink)', borderColor: 'var(--p-ink)' },
-    warning:   { background: '#fff', color: '#E5484D', borderColor: '#E5484D' },
-    danger:    { background: '#E5484D', color: '#fff' },
+    warning:   { background: '#fff', color: '#C94A4E', borderColor: '#C94A4E' },
+    danger:    { background: '#C94A4E', color: '#fff' },
     neutral:   { background: '#fff', color: '#364153', borderColor: '#D1D5DC' },
     ghost:     { background: 'transparent', color: 'var(--p-text)', padding: '0 12px', minWidth: 0 },
     neo:       { background: '#fff', color: '#000', border: '1px solid #000', boxShadow: '2px 2px 0 0 #000', letterSpacing: '.05em', height: 39, padding: '0 30px', minWidth: 120, fontSize: 16 },
@@ -96,7 +96,7 @@ function Button({ variant = 'primary', size = 'md', icon, iconRight, children, o
   const hoverBg = {
     primary:   'var(--p-action-hover)',
     secondary: 'var(--p-surface-tint)',
-    warning:   'rgba(229,72,77,.05)',
+    warning:   'rgba(201,74,78,.05)',
     danger:    '#C93B40',
     neutral:   '#F3F4F6',
     ghost:     'var(--p-surface-tint)',
@@ -105,8 +105,8 @@ function Button({ variant = 'primary', size = 'md', icon, iconRight, children, o
   const disabledStyle = disabled ? ({
     primary:   { background: 'var(--p-action-disabled-bg)', color: 'var(--p-action-disabled-fg)', opacity: 1 },
     secondary: { color: 'var(--p-placeholder)', borderColor: 'var(--p-border)', opacity: 1 },
-    warning:   { color: 'rgba(229,72,77,.25)', borderColor: 'rgba(229,72,77,.25)', opacity: 1 },
-    danger:    { background: 'rgba(229,72,77,.45)', color: '#fff', opacity: 1 },
+    warning:   { color: 'rgba(201,74,78,.25)', borderColor: 'rgba(201,74,78,.25)', opacity: 1 },
+    danger:    { background: 'rgba(201,74,78,.45)', color: '#fff', opacity: 1 },
     neutral:   { background: '#fff', color: '#99A1AF', borderColor: '#E5E7EB', opacity: 1 },
     ghost:     { color: 'var(--p-placeholder)', opacity: 1 },
     neo:       { opacity: 0.4 },
@@ -162,7 +162,7 @@ function Input({ icon, value, onChange, placeholder, type = 'text', error, style
         style={{
           width: '100%', height: 36, padding: icon ? `0 ${rightPad}px 0 32px` : `0 ${rightPad}px`,
           border: `1px solid ${error ? 'var(--p-danger)' : focus ? 'var(--p-primary)' : 'var(--p-border-strong)'}`,
-          borderRadius: 4, font: '400 14px Inter, sans-serif',
+          borderRadius: 1, font: '400 14px Inter, sans-serif',
           color: disabled ? 'var(--p-placeholder)' : 'var(--p-ink)',
           background: disabled ? 'var(--p-surface-tint)' : '#fff',
           cursor: disabled ? 'not-allowed' : 'text',
@@ -199,11 +199,11 @@ function Input({ icon, value, onChange, placeholder, type = 'text', error, style
    `color` overrides the "on" fill (default --p-primary) for concept-colored switches,
    e.g. the General Stock toggle passes color="var(--p-genstock)". */
 function Toggle({ on, onChange, disabled, color }) {
-  const fill = color || '#007CFF';
-  const track = on ? (color ? `color-mix(in srgb, ${color} 30%, transparent)` : 'rgba(0,124,255,.25)') : '#DADADA';
+  const fill = color || 'var(--p-primary)';
+  const track = on ? (color ? `color-mix(in srgb, ${color} 30%, transparent)` : 'var(--g-blue-25)') : '#DADADA';
   return (
     <span onClick={() => !disabled && onChange?.(!on)} style={{ width: 37, height: 20, position: 'relative', cursor: disabled ? 'not-allowed' : 'pointer', display: 'inline-block', opacity: disabled ? .5 : 1 }}>
-      <span style={{ position: 'absolute', left: 0, top: 3, width: 29, height: 14, borderRadius: 10, background: track, transition: 'background .15s' }} />
+      <span style={{ position: 'absolute', left: 0, top: 3, width: 29, height: 14, borderRadius: 2, background: track, transition: 'background .15s' }} />
       <span style={{ position: 'absolute', top: 0, left: on ? 17 : 0, width: 20, height: 20, borderRadius: '50%', background: on ? fill : '#fff', border: on ? `.5px solid ${fill}` : '.5px solid #DADADA', boxShadow: '0 1px 2px rgba(0,0,0,.25)', transition: 'left .15s, background .15s, border-color .15s' }} />
     </span>
   );
@@ -236,7 +236,7 @@ function Select({ value, onChange, options = [], placeholder, disabled, style })
       <select value={value} onChange={(e) => onChange?.(e.target.value)} disabled={disabled}
         style={{
           width: '100%', height: 36, padding: '0 34px 0 12px', appearance: 'none', WebkitAppearance: 'none',
-          border: '1px solid var(--p-border-strong)', borderRadius: 4, font: '400 14px Inter, sans-serif',
+          border: '0.5px solid var(--p-border-strong)', borderRadius: 1, font: '400 14px Inter, sans-serif',
           color: disabled ? 'var(--p-placeholder)' : 'var(--p-ink)',
           background: disabled ? 'var(--p-surface-tint)' : '#fff',
           cursor: disabled ? 'not-allowed' : 'pointer', outline: 'none', boxSizing: 'border-box',
@@ -277,7 +277,7 @@ const CHIP_TONES = {
   amber:   { bg: 'var(--g-gold-10)',      fg: 'var(--p-warning)' },
   atrisk:  { bg: 'var(--g-orange-10)',    fg: 'var(--p-atrisk-strong)' },  // soft orange between amber & danger — "At Risk" / "~N draining" (§C)
   danger:  { bg: 'var(--g-red-10)',       fg: 'var(--p-danger-strong)' },
-  success: { bg: '#ECFDF5',               fg: '#047857' },
+  success: { bg: 'var(--p-success-bg)',   fg: 'var(--p-success-fg)' },
 };
 function Chip({ tone = 'neutral', icon, iconRight, children, title, testid, style }) {
   const t = CHIP_TONES[tone] || CHIP_TONES.neutral;
@@ -365,7 +365,7 @@ function FilterChip({ icon = 'filter_list', label, count, active, onClick }) {
   return (
     <button onClick={onClick} style={{
       display: 'inline-flex', alignItems: 'center', gap: 6, height: 32, padding: '0 12px',
-      background: '#fff', borderRadius: 6, cursor: 'pointer',
+      background: '#fff', borderRadius: 2, cursor: 'pointer',
       border: `1px solid ${active ? 'var(--p-primary)' : 'var(--p-border-strong)'}`,
       color: active ? 'var(--p-primary)' : 'var(--p-ink)',
       font: '500 14px/1 Inter, sans-serif',
@@ -383,7 +383,7 @@ function FilterChip({ icon = 'filter_list', label, count, active, onClick }) {
 /* ---------------- SegmentedTabs — page-level underlined ---------------- */
 function SegmentedTabs({ value, onChange, items }) {
   return (
-    <div style={{ display: 'flex', gap: 12, borderBottom: '1px solid var(--p-border)', padding: '0 4px' }}>
+    <div style={{ display: 'flex', gap: 12, borderBottom: '0.5px solid var(--p-border)', padding: '0 4px' }}>
       {items.map((it) => {
         const on = value === it.id;
         return (
@@ -468,8 +468,8 @@ function StatCard({ value, label, color = 'ink', action, active, onClick }) {
   const c = colors[color] || colors.ink;
   const { text: animated, op: animOp } = useCountUp(value);
   return (
-    <div onClick={onClick} style={{ background: '#fff', border: `1px solid ${active ? c : 'var(--p-border)'}`, borderRadius: 6, padding: '14px 16px', display: 'flex', gap: 10, alignItems: 'baseline', boxShadow: active ? `inset 0 0 0 1px ${c}, var(--shadow-card)` : 'var(--shadow-card)', cursor: onClick ? 'pointer' : 'default', transition: 'border-color .12s, box-shadow .12s' }}>
-      <span style={{ font: "700 20px/1 'Geist Mono', monospace", color: c, opacity: animOp }}>{animated}</span>
+    <div onClick={onClick} style={{ background: '#fff', border: `1px solid ${active ? c : 'var(--p-border)'}`, borderRadius: 2, padding: '14px 16px', display: 'flex', gap: 10, alignItems: 'baseline', boxShadow: active ? `inset 0 0 0 1px ${c}, var(--shadow-card)` : 'var(--shadow-card)', cursor: onClick ? 'pointer' : 'default', transition: 'border-color .12s, box-shadow .12s' }}>
+      <span style={{ font: "700 20px/1 'JetBrains Mono', monospace", color: c, opacity: animOp }}>{animated}</span>
       <span style={{ font: '400 14px/1.3 Inter, sans-serif', color: 'var(--p-text-2)' }}>{label}</span>
       {action && <span style={{ marginLeft: 'auto', font: '500 12px/1 Inter, sans-serif', color: active ? c : 'var(--p-muted)', cursor: 'pointer', textDecoration: 'underline', textDecorationColor: active ? c : '#C4C9D2', textDecorationThickness: '1px', textUnderlineOffset: '2px' }}>{action}</span>}
     </div>
@@ -529,7 +529,7 @@ function Tooltip({ text, children, side = 'top', maxWidth, z = 4000 }) {
           background: 'var(--p-ink)', color: '#fff',
           font: `500 11px/${maxWidth ? '1.5' : '1.3'} Inter, sans-serif`,
           padding: maxWidth ? '7px 10px' : '4px 8px',
-          borderRadius: 6, boxShadow: 'var(--shadow-float)',
+          borderRadius: 2, boxShadow: 'var(--shadow-float)',
           zIndex: z, pointerEvents: 'none', textAlign: 'left',
         }}>{text}</span>,
         document.body
@@ -623,12 +623,12 @@ function Highlight({ text, query }) {
 function CountDeltaCell({ count = 0, adds = 0, discontinues = 0, onAdds, onDiscontinues, unit = 'product', testid }) {
   if (!count && !adds && !discontinues)
     return <span style={{ font: '400 13px Inter', color: 'var(--p-placeholder)' }} data-testid={testid}>—</span>;
-  const chip = { font: "500 11px 'Geist Mono', monospace", padding: '2px 7px', borderRadius: 999, border: 'none' };
+  const chip = { font: "500 11px 'JetBrains Mono', monospace", padding: '2px 7px', borderRadius: 999, border: 'none' };
   const stop = (fn) => (e) => { e.stopPropagation(); fn && fn(); };
   return (
     <span style={{ display: 'inline-flex', alignItems: 'center', gap: 7 }} data-testid={testid}>
       <Tooltip text={`${count} ${unit}${count === 1 ? '' : 's'} carried at this store`}>
-        <span style={{ font: "500 13px 'Geist Mono', monospace", color: count ? 'var(--p-text)' : 'var(--p-placeholder)', cursor: 'default' }}>{count}</span>
+        <span style={{ font: "500 13px 'JetBrains Mono', monospace", color: count ? 'var(--p-text)' : 'var(--p-placeholder)', cursor: 'default' }}>{count}</span>
       </Tooltip>
       {adds > 0 && (
         <Tooltip text={`${adds} pending addition${adds === 1 ? '' : 's'} — view in POD Planner`}>
@@ -651,7 +651,7 @@ function InfoBanner({ tone = 'info', children }) {
     amber: { bg: 'var(--g-gold-10)', fg: 'var(--p-ink)' },
     danger: { bg: 'rgba(255,107,107,.12)', fg: 'var(--p-danger-strong)' },
   };
-  return <div style={{ background: tones[tone].bg, color: tones[tone].fg, borderRadius: 8, padding: '10px 12px', font: '400 14px/1.4 Inter, sans-serif' }}>{children}</div>;
+  return <div style={{ background: tones[tone].bg, color: tones[tone].fg, borderRadius: 2, padding: '10px 12px', font: '400 14px/1.4 Inter, sans-serif' }}>{children}</div>;
 }
 
 /* ---------------- Show / Hide Stats — per-page persisted toggle ---------------- */

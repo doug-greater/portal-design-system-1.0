@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
+<script>/* dark-first (1.11 Dusk): stored pref wins; no pref = dark */(function(){var t=null;try{t=localStorage.getItem('gr-theme')}catch(e){}var d=t==='light'?'light':t==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):'dark';document.documentElement.setAttribute('data-theme',d);})()</script>
 <title>Greater Portal — UI Kit</title>
 <link rel="stylesheet" href="../../colors_and_type.css">
 <link rel="stylesheet" href="../../fonts/fonts.css">

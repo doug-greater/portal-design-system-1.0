@@ -42,7 +42,7 @@ function SaveViewButton({ section, icon = 'bookmark_add', defaultName = '', onSa
 /* ---------------- ViewCard — a Saved View on Home (AppLink to path+search) ---------------- */
 function ViewCard({ fav, onRename, onDelete }) {
   return (
-    <div style={{ position: 'relative', border: '1px solid var(--p-border)', borderRadius: 10, background: 'var(--p-surface)', boxShadow: 'var(--shadow-card)' }}>
+    <div style={{ position: 'relative', border: '0.5px solid var(--p-border)', borderRadius: 2, background: 'var(--p-surface)', boxShadow: 'var(--shadow-card)' }}>
       <AppLink to={fav.path + fav.search} data-testid={`fav-open-link-${fav.id}`}
         style={{ display: 'block', padding: '14px 16px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
@@ -66,12 +66,12 @@ function StatCardCustomizer({ cards, order, hidden, onReorder, onToggle }) {
   // cards: [{id,label}]; order: [id]; hidden: Set(id). Built on DndContext + SortableContext
   // (vertical) + useSortable per row + arrayMove on drop (see DS 1.2 Arrangement Board).
   return (
-    <div data-testid="customize-cards-menu" style={{ width: 320, background: 'var(--p-surface)', border: '1px solid var(--p-border)', borderRadius: 10, boxShadow: 'var(--shadow-float)', padding: 6 }}>
+    <div data-testid="customize-cards-menu" style={{ width: 320, background: 'var(--p-surface)', border: '0.5px solid var(--p-border)', borderRadius: 2, boxShadow: 'var(--shadow-float)', padding: 6 }}>
       <div style={{ font: '500 11px Inter', color: 'var(--p-muted)', padding: '8px 10px 6px' }}>Drag to reorder</div>
       {order.map((id) => {
         const c = cards.find((x) => x.id === id); if (!c) return null;
         return (
-          <div key={id} data-testid={`card-row-${id}`} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 10px', borderRadius: 6 }}>
+          <div key={id} data-testid={`card-row-${id}`} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 10px', borderRadius: 2 }}>
             <Icon name="drag_indicator" size={18} color="var(--p-placeholder)" data-testid={`card-drag-${id}`} style={{ cursor: 'grab', touchAction: 'none' }} />
             <Checkbox on={!hidden.has(id)} onChange={() => onToggle?.(id)} data-testid={`card-toggle-${id}`} />
             <span style={{ flex: 1, font: '400 14px Inter', color: 'var(--p-ink)' }}>{c.label}</span>
@@ -119,12 +119,12 @@ function HomeDashboard({ firstName, greeting, healthCards, favorites, onCustomiz
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 12 }}>
         {healthCards.map((c) => (
-          <div key={c.id} data-testid={`tile-${c.id}`} style={{ border: '1px solid var(--p-border)', borderRadius: 10, background: 'var(--p-surface)', boxShadow: 'var(--shadow-card)', padding: '14px 16px' }}>
+          <div key={c.id} data-testid={`tile-${c.id}`} style={{ border: '0.5px solid var(--p-border)', borderRadius: 2, background: 'var(--p-surface)', boxShadow: 'var(--shadow-card)', padding: '14px 16px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <span style={{ width: 8, height: 8, borderRadius: '50%', background: `var(--p-${c.status === 'green' ? 'success' : c.status === 'red' ? 'danger' : c.status === 'yellow' ? 'warning' : 'placeholder'})` }} />
               <span style={{ font: '500 12px Inter', color: 'var(--p-muted)' }}>{c.label}</span>
             </div>
-            <div style={{ font: "600 26px/1.1 'Geist Mono', monospace", color: 'var(--p-ink)', margin: '6px 0 2px' }}>{c.value}</div>
+            <div style={{ font: "600 26px/1.1 'JetBrains Mono', monospace", color: 'var(--p-ink)', margin: '6px 0 2px' }}>{c.value}</div>
             <div style={{ font: '400 12px/1.4 Inter', color: 'var(--p-muted)' }}>{c.hint}</div>
           </div>
         ))}

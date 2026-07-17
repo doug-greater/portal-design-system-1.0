@@ -47,9 +47,9 @@ function SortHeader({ label, k, sort, onSort, idPrefix = 'dt', align = 'left', d
    "one scroll container + minWidth wrapper" shape is the REQUIRED skeleton — it is
    what makes sticky headers (TableHeader) and the pinned actions column (§M) work.
    A header placed OUTSIDE this scroll container will clip a pinned cell. */
-function TableShell({ minWidth = 720, radius = 8, footer, children, style }) {
+function TableShell({ minWidth = 720, radius = 2, footer, children, style }) {
   return (
-    <div style={{ background: 'var(--p-surface)', border: '1px solid var(--p-border)', borderRadius: radius, boxShadow: 'var(--shadow-surface)', overflow: 'hidden', ...style }}>
+    <div style={{ background: 'var(--p-surface)', border: '0.5px solid var(--p-border)', borderRadius: radius, boxShadow: 'var(--shadow-surface)', overflow: 'hidden', ...style }}>
       <div style={{ overflow: 'auto' }}>
         <div style={{ minWidth }}>{children}</div>
       </div>
@@ -68,7 +68,7 @@ function TableHeader({ cols, columnGap = 0, muted = true, children, style }) {
     <div style={{
       display: 'grid', gridTemplateColumns: cols, columnGap, alignItems: 'center',
       height: 40, padding: '0 16px', background: 'var(--p-surface-alt)',
-      borderBottom: '1px solid var(--p-border)', position: 'sticky', top: 0, zIndex: 3,
+      borderBottom: '0.5px solid var(--p-border)', position: 'sticky', top: 0, zIndex: 3,
       color: muted ? 'var(--p-muted)' : 'var(--p-text-2)', ...style,
     }}>{children}</div>
   );
@@ -86,7 +86,7 @@ function DataTableFooter({ page = 1, pageCount = 1, pageSize, total = 0, shown, 
   const start = total === 0 ? 0 : (page - 1) * per + 1;
   const end = shown != null ? start + shown - 1 : Math.min(page * per, total);
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 16, padding: '10px 16px', background: 'var(--p-surface-alt)', borderTop: '1px solid var(--p-border)', flexWrap: 'wrap' }}>
+    <div style={{ display: 'flex', alignItems: 'center', gap: 16, padding: '10px 16px', background: 'var(--p-surface-alt)', borderTop: '0.5px solid var(--p-border)', flexWrap: 'wrap' }}>
       <span data-testid="dt-summary" style={{ font: '400 13px/1 Inter, sans-serif', color: 'var(--p-muted)' }}>
         Showing <b style={{ color: 'var(--p-text)', fontWeight: 600 }}>{start}–{end}</b> of{' '}
         <b style={{ color: 'var(--p-text)', fontWeight: 600 }}>{total.toLocaleString('en-US')}</b> {noun}

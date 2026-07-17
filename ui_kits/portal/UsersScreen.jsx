@@ -7,7 +7,7 @@
 /* ---------------- model ---------------- */
 const U_ROLES = {
   exec:       { label: 'Executive',            tier: 4, bg: '#F5F3FF', fg: '#6B21A8' },
-  deptmgr:    { label: 'Department Manager',   tier: 3, bg: '#EFF6FF', fg: '#1447E6' },
+  deptmgr:    { label: 'Department Manager',   tier: 3, bg: '#EDF2F8', fg: '#1447E6' },
   itadmin:    { label: 'IT / Admin',           tier: 3, bg: '#ECFDF5', fg: '#047857' },
   supervisor: { label: 'Supervisor',           tier: 2, bg: '#FFF7ED', fg: '#C2410C' },
   rep:        { label: 'Sales Representative', tier: 1, bg: '#F3F4F6', fg: '#4A5565' },
@@ -101,7 +101,7 @@ function URolePill({ role, sm }) {
   const r = U_ROLES[role];
   return <span className={'g-role-pill' + (sm ? ' sm' : '')} style={{ background: r.bg, color: r.fg }}>{r.label}</span>;
 }
-const U_STATUS = { active: { label: 'Active', bg: '#ECFDF5', fg: '#047857', dot: '#00BC57' }, deactivated: { label: 'Deactivated', bg: '#F3F4F6', fg: '#4A5565', dot: '#99A1AF' } };
+const U_STATUS = { active: { label: 'Active', bg: '#ECFDF5', fg: '#047857', dot: '#21C06B' }, deactivated: { label: 'Deactivated', bg: '#F3F4F6', fg: '#4A5565', dot: '#99A1AF' } };
 function UStatus({ status }) {
   const s = U_STATUS[status];
   return <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '2px 10px', borderRadius: 999, background: s.bg, color: s.fg, font: '500 12px/1.5 Inter', whiteSpace: 'nowrap' }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: s.dot }} />{s.label}</span>;
@@ -183,7 +183,7 @@ function UsersList({ onOpen, onNew }) {
           <UAvatar user={u} size={34} />
           <div style={{ minWidth: 0 }}>
             <div style={{ font: '600 15px/1.2 Inter', color: 'var(--p-ink)', whiteSpace: 'nowrap' }}>{u.name}</div>
-            {sub && <div style={{ font: `400 12px/1.3 ${u.role === 'rep' ? 'Geist Mono' : 'Inter'}, sans-serif`, color: 'var(--p-placeholder)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{sub}</div>}
+            {sub && <div style={{ font: `400 12px/1.3 ${u.role === 'rep' ? 'JetBrains Mono' : 'Inter'}, sans-serif`, color: 'var(--p-placeholder)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{sub}</div>}
           </div>
         </div>
         <div><URolePill role={u.role} /></div>
@@ -191,7 +191,7 @@ function UsersList({ onOpen, onNew }) {
           {mn ? <><UAvatar user={mn} size={22} /><span style={{ font: '400 14px Inter', color: 'var(--p-text-2)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{mn.name}</span></> : <span style={{ color: 'var(--p-border-strong)' }}>—</span>}
         </div>
         <div style={{ font: '400 14px Inter', color: 'var(--p-text-2)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{u.warehouses.join(', ')}</div>
-        <div>{dr > 0 ? <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, font: "500 13px 'Geist Mono', monospace", color: 'var(--p-text)' }}><Icon name="group" size={16} color="var(--p-placeholder)" />{dr}</span> : <span style={{ color: 'var(--p-border-strong)' }}>—</span>}</div>
+        <div>{dr > 0 ? <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5, font: "500 13px 'JetBrains Mono', monospace", color: 'var(--p-text)' }}><Icon name="group" size={16} color="var(--p-placeholder)" />{dr}</span> : <span style={{ color: 'var(--p-border-strong)' }}>—</span>}</div>
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}><Icon name="chevron_right" size={20} color="var(--p-placeholder)" /></div>
       </div>
     );
@@ -207,7 +207,7 @@ function UsersList({ onOpen, onNew }) {
       <div onClick={() => toggleGroup(g.id)} style={{ display: 'flex', alignItems: 'center', gap: 10, height: 42, padding: '0 16px 0 34px', background: '#FBFCFD', borderBottom: '1px solid #F0F1F3', cursor: 'pointer' }}>
         <span style={{ display: 'flex', transform: o ? 'none' : 'rotate(-90deg)', transition: 'transform .15s' }}><Icon name="expand_more" size={20} color="var(--p-muted)" /></span>
         {title}
-        <span style={{ font: "500 11px 'Geist Mono', monospace", color: 'var(--p-muted)', background: '#F0F1F3', padding: '1px 7px', borderRadius: 999 }}>{g.members.length}</span>
+        <span style={{ font: "500 11px 'JetBrains Mono', monospace", color: 'var(--p-muted)', background: '#F0F1F3', padding: '1px 7px', borderRadius: 999 }}>{g.members.length}</span>
       </div>
     );
   };
@@ -237,7 +237,7 @@ function UsersList({ onOpen, onNew }) {
       </div>
 
       {/* tabs + filters + group by */}
-      <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', borderBottom: '1px solid var(--p-border)' }}>
+      <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', borderBottom: '0.5px solid var(--p-border)' }}>
         <SegmentedTabs value={statusTab} onChange={setStatusTab} items={[
           { id: 'active', label: 'Active', count: activeCount },
           { id: 'deactivated', label: 'Deactivated', count: deactivatedCount },
@@ -246,17 +246,17 @@ function UsersList({ onOpen, onNew }) {
           <Chip icon="badge" label="Role" />
           <Chip icon="warehouse" label="Warehouse" />
           <span style={{ font: '400 13px/1 Inter', color: 'var(--p-muted)', marginLeft: 4 }}>Group by</span>
-          <div style={{ display: 'inline-flex', gap: 2, padding: 3, background: 'var(--p-surface-tint)', borderRadius: 6 }}>
+          <div style={{ display: 'inline-flex', gap: 2, padding: 3, background: 'var(--p-surface-tint)', borderRadius: 2 }}>
             {[['none', 'None'], ['role', 'Role'], ['manager', 'Manager']].map(([k, lb]) => (
-              <button key={k} onClick={() => setGroupBy(k)} style={{ padding: '5px 12px', border: 'none', borderRadius: 4, cursor: 'pointer', font: '500 13px/1 Inter', background: groupBy === k ? '#fff' : 'transparent', color: groupBy === k ? 'var(--p-ink)' : 'var(--p-text-2)', boxShadow: groupBy === k ? 'var(--shadow-card)' : 'none' }}>{lb}</button>
+              <button key={k} onClick={() => setGroupBy(k)} style={{ padding: '5px 12px', border: 'none', borderRadius: 1, cursor: 'pointer', font: '500 13px/1 Inter', background: groupBy === k ? '#fff' : 'transparent', color: groupBy === k ? 'var(--p-ink)' : 'var(--p-text-2)', boxShadow: groupBy === k ? 'var(--shadow-card)' : 'none' }}>{lb}</button>
             ))}
           </div>
         </div>
       </div>
 
       {/* table — internal scroll, paginated footer (flat only) */}
-      <div style={{ border: '1px solid var(--p-border)', borderRadius: 10, overflow: 'hidden', flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', marginBottom: 4 }}>
-        <div style={{ display: 'grid', gridTemplateColumns: COLS, alignItems: 'center', height: 40, padding: '0 16px', background: 'var(--p-surface-alt)', borderBottom: '1px solid var(--p-border)', font: '500 11px/1 Inter', letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--p-muted)', flexShrink: 0 }}>
+      <div style={{ border: '0.5px solid var(--p-border)', borderRadius: 2, overflow: 'hidden', flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', marginBottom: 4 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: COLS, alignItems: 'center', height: 40, padding: '0 16px', background: 'var(--p-surface-alt)', borderBottom: '0.5px solid var(--p-border)', font: '500 11px/1 Inter', letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--p-muted)', flexShrink: 0 }}>
           <span style={{ display: 'flex' }}><Checkbox on={sortedAll.length > 0 && sortedAll.every((u) => sel.has(u.id))} onChange={() => { const all = sortedAll.every((u) => sel.has(u.id)); setSel(all ? new Set() : new Set(sortedAll.map((u) => u.id))); }} /></span>
           <span>Name</span><span>Role</span><span>Reports To</span><span>Warehouse</span><span>Direct Reports</span><span></span>
         </div>
@@ -271,7 +271,7 @@ function UsersList({ onOpen, onNew }) {
               ))}
         </div>
         {/* footer: only meaningful for flat (paginated) view */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, padding: '10px 16px', background: 'var(--p-surface-alt)', borderTop: '1px solid var(--p-border)', flexShrink: 0 }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, padding: '10px 16px', background: 'var(--p-surface-alt)', borderTop: '0.5px solid var(--p-border)', flexShrink: 0 }}>
           <span style={{ font: '400 13px Inter', color: 'var(--p-muted)' }}>
             {groupBy === 'none'
               ? <>Showing <b style={{ color: 'var(--p-text)', fontWeight: 600 }}>{sortedAll.length === 0 ? 0 : (page - 1) * pageSize + 1}–{Math.min(page * pageSize, sortedAll.length)}</b> of <b style={{ color: 'var(--p-text)', fontWeight: 600 }}>{sortedAll.length}</b> users</>
@@ -281,7 +281,7 @@ function UsersList({ onOpen, onNew }) {
             <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
               <span style={{ display: 'flex', alignItems: 'center', gap: 8, font: '400 13px Inter', color: 'var(--p-muted)' }}>Rows
                 <Popover open={sizeMenu} onClose={() => setSizeMenu(false)}>
-                  <span onClick={() => setSizeMenu((m) => !m)} style={{ display: 'inline-flex', alignItems: 'center', height: 30, border: '1px solid var(--p-border-strong)', borderRadius: 6, background: '#fff', padding: '0 6px 0 10px', font: '500 13px Inter', color: 'var(--p-ink)', cursor: 'pointer' }}>{pageSize}<Icon name="expand_more" size={16} color="var(--p-muted)" /></span>
+                  <span onClick={() => setSizeMenu((m) => !m)} style={{ display: 'inline-flex', alignItems: 'center', height: 30, border: '0.5px solid var(--p-border-strong)', borderRadius: 2, background: '#fff', padding: '0 6px 0 10px', font: '500 13px Inter', color: 'var(--p-ink)', cursor: 'pointer' }}>{pageSize}<Icon name="expand_more" size={16} color="var(--p-muted)" /></span>
                   {sizeMenu && <div style={{ position: 'absolute', bottom: '100%', right: 0, marginBottom: 6, zIndex: 30 }}><Menu items={[25, 50, 100].map((n) => ({ label: String(n), onClick: () => setPageSize(n) }))} onSelect={() => setSizeMenu(false)} /></div>}
                 </Popover>
               </span>
@@ -304,7 +304,7 @@ function UsersList({ onOpen, onNew }) {
 }
 
 function Chip({ icon, label }) {
-  return <button style={{ display: 'inline-flex', alignItems: 'center', gap: 6, height: 32, padding: '0 12px', background: '#fff', borderRadius: 6, cursor: 'pointer', border: '1px solid var(--p-border-strong)', color: 'var(--p-ink)', font: '500 14px/1 Inter' }}><Icon name={icon} size={16} color="var(--p-muted)" />{label}<Icon name="expand_more" size={16} color="var(--p-muted)" /></button>;
+  return <button style={{ display: 'inline-flex', alignItems: 'center', gap: 6, height: 32, padding: '0 12px', background: '#fff', borderRadius: 2, cursor: 'pointer', border: '0.5px solid var(--p-border-strong)', color: 'var(--p-ink)', font: '500 14px/1 Inter' }}><Icon name={icon} size={16} color="var(--p-muted)" />{label}<Icon name="expand_more" size={16} color="var(--p-muted)" /></button>;
 }
 
 /* ============================ DETAIL ============================ */
@@ -374,7 +374,7 @@ function UField({ label, value, placeholder, mono, required }) {
     <label style={{ display: 'block', position: 'relative' }}>
       {label && <span style={{ position: 'absolute', top: -7, left: 10, padding: '0 4px', background: '#fff', font: '400 12px/1 Inter', color: f ? 'var(--p-primary)' : 'var(--p-muted)', zIndex: 1 }}>{label}{required ? ' *' : ''}</span>}
       <input value={v} placeholder={placeholder} onChange={(e) => setV(e.target.value)} onFocus={() => setF(true)} onBlur={() => setF(false)}
-        style={{ width: '100%', height: 44, padding: '0 14px', boxSizing: 'border-box', border: `1px solid ${f ? 'var(--p-primary)' : 'var(--p-border-strong)'}`, borderRadius: 6, font: `400 15px ${mono ? 'Geist Mono' : 'Inter'}, sans-serif`, color: 'var(--p-ink)', background: '#fff', outline: 'none', boxShadow: f ? '0 0 0 3px rgba(0,124,255,.15)' : 'none' }} />
+        style={{ width: '100%', height: 44, padding: '0 14px', boxSizing: 'border-box', border: `1px solid ${f ? 'var(--p-primary)' : 'var(--p-border-strong)'}`, borderRadius: 2, font: `400 15px ${mono ? 'JetBrains Mono' : 'Inter'}, sans-serif`, color: 'var(--p-ink)', background: '#fff', outline: 'none', boxShadow: f ? '0 0 0 3px var(--p-focus-ring)' : 'none' }} />
     </label>
   );
 }
@@ -400,7 +400,7 @@ function ProfileTab({ u, isNew }) {
           <Toggle on={!isNew} onChange={() => {}} />
         </div>
         {!isNew && <UField label="PIN" required value="12345" mono />}
-        <div style={{ background: 'var(--p-primary-tint)', color: 'var(--p-ink)', borderRadius: 8, padding: '10px 12px', font: '400 14px/1.4 Inter' }}>{isNew ? 'Set a password for this user, or leave blank for them to set.' : 'To update password on behalf of this user, enter below.'}</div>
+        <div style={{ background: 'var(--p-primary-tint)', color: 'var(--p-ink)', borderRadius: 2, padding: '10px 12px', font: '400 14px/1.4 Inter' }}>{isNew ? 'Set a password for this user, or leave blank for them to set.' : 'To update password on behalf of this user, enter below.'}</div>
         <UField label="Password" value="" placeholder="Password" />
         <UField label="Confirm Password" value="" placeholder="Confirm Password" />
       </div>
@@ -412,7 +412,7 @@ function RoleSelect({ role, onChange }) {
   const [open, setOpen] = useState(false);
   return (
     <Popover open={open} onClose={() => setOpen(false)} style={{ display: 'block' }}>
-      <div onClick={() => setOpen((o) => !o)} style={{ display: 'flex', alignItems: 'center', height: 44, padding: '0 12px 0 14px', boxSizing: 'border-box', border: `1px solid ${open ? 'var(--p-primary)' : 'var(--p-border-strong)'}`, borderRadius: 6, background: '#fff', font: '500 15px Inter', color: role ? 'var(--p-ink)' : 'var(--p-placeholder)', cursor: 'pointer', boxShadow: open ? '0 0 0 3px rgba(0,124,255,.15)' : 'none' }}>
+      <div onClick={() => setOpen((o) => !o)} style={{ display: 'flex', alignItems: 'center', height: 44, padding: '0 12px 0 14px', boxSizing: 'border-box', border: `1px solid ${open ? 'var(--p-primary)' : 'var(--p-border-strong)'}`, borderRadius: 2, background: '#fff', font: '500 15px Inter', color: role ? 'var(--p-ink)' : 'var(--p-placeholder)', cursor: 'pointer', boxShadow: open ? '0 0 0 3px var(--p-focus-ring)' : 'none' }}>
         <span style={{ flex: 1 }}>{role ? U_ROLES[role].label : 'Select a role'}</span><Icon name="expand_more" size={20} color="var(--p-muted)" />
       </div>
       {open && <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, marginTop: 6, zIndex: 30 }}><Menu style={{ minWidth: 0 }} items={U_ROLE_ORDER.map((r) => ({ label: U_ROLES[r].label, onClick: () => onChange(r) }))} onSelect={() => setOpen(false)} /></div>}
@@ -462,17 +462,17 @@ function AccessTab({ u, isNew, role }) {
       <div style={{ display: 'flex', flexDirection: 'column', gap: 14, minWidth: 0 }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <USectionTitle>Permissions</USectionTitle>
-          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 7, padding: '6px 11px', borderRadius: 8, background: 'var(--p-surface-tint)', color: 'var(--p-muted)', font: '500 12px/1 Inter' }}><Icon name="lock" size={15} color="var(--p-muted)" />Read-only · set by role</span>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 7, padding: '6px 11px', borderRadius: 2, background: 'var(--p-surface-tint)', color: 'var(--p-muted)', font: '500 12px/1 Inter' }}><Icon name="lock" size={15} color="var(--p-muted)" />Read-only · set by role</span>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
           {U_CAPS.map((sec) => {
             const gc = sec.items.filter((it) => granted.has(it.id)).length;
             return (
-              <div key={sec.key} style={{ border: '1px solid var(--p-border)', borderRadius: 10, overflow: 'hidden', background: '#fff' }}>
+              <div key={sec.key} style={{ border: '0.5px solid var(--p-border)', borderRadius: 2, overflow: 'hidden', background: '#fff' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '11px 14px', borderBottom: '1px solid #F0F1F3', background: '#FBFCFD' }}>
                   <span style={{ width: 28, height: 28, borderRadius: 7, background: 'var(--p-surface-tint)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}><Icon name={sec.icon} size={17} color="var(--p-text-2)" /></span>
                   <span style={{ flex: 1, font: '600 13px/1 Inter', color: 'var(--p-ink)' }}>{sec.section}</span>
-                  <span style={{ font: "500 11px 'Geist Mono', monospace", color: 'var(--p-muted)' }}>{gc}/{sec.items.length}</span>
+                  <span style={{ font: "500 11px 'JetBrains Mono', monospace", color: 'var(--p-muted)' }}>{gc}/{sec.items.length}</span>
                 </div>
                 {sec.items.map((it, i) => {
                   const on = granted.has(it.id);
@@ -499,7 +499,7 @@ function TeamTab({ u, isNew, reports }) {
       <div>
         <USectionTitle style={{ marginBottom: 12 }}>Reports To</USectionTitle>
         {mgr ? (
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', border: '1px solid var(--p-border)', borderRadius: 8 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 14px', border: '0.5px solid var(--p-border)', borderRadius: 2 }}>
             <UAvatar user={mgr} size={36} />
             <div style={{ flex: 1 }}>
               <div style={{ font: '600 15px/1.2 Inter', color: 'var(--p-ink)' }}>{mgr.name}</div>
@@ -508,7 +508,7 @@ function TeamTab({ u, isNew, reports }) {
             <Button variant="ghost" onClick={() => window.toast && window.toast('Pick a new manager…')}>Change</Button>
           </div>
         ) : (
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 14px', border: '1px dashed var(--p-border-strong)', borderRadius: 8, background: '#FBFCFD' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '12px 14px', border: '1px dashed var(--p-border-strong)', borderRadius: 2, background: '#FBFCFD' }}>
             <span style={{ flex: 1, font: '400 14px/1.3 Inter', color: 'var(--p-muted)' }}>No manager assigned</span>
             <Button variant="secondary" icon="add">Assign</Button>
           </div>
@@ -521,19 +521,19 @@ function TeamTab({ u, isNew, reports }) {
           <Button variant="ghost" icon="add">Add Report</Button>
         </div>
         {reports.length ? (
-          <div style={{ border: '1px solid var(--p-border)', borderRadius: 10, overflow: 'hidden' }}>
+          <div style={{ border: '0.5px solid var(--p-border)', borderRadius: 2, overflow: 'hidden' }}>
             {reports.map((r, i) => (
               <div key={r.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', borderBottom: i < reports.length - 1 ? '1px solid #F0F1F3' : 'none' }}>
                 <UAvatar user={r} size={32} />
                 <span style={{ flex: 1, font: '500 14px/1 Inter', color: 'var(--p-ink)' }}>{r.name}</span>
                 <URolePill role={r.role} sm />
-                {r.routeId && <span style={{ width: 80, textAlign: 'right', font: "400 12px 'Geist Mono', monospace", color: 'var(--p-muted)' }}>Route {r.routeId}</span>}
+                {r.routeId && <span style={{ width: 80, textAlign: 'right', font: "400 12px 'JetBrains Mono', monospace", color: 'var(--p-muted)' }}>Route {r.routeId}</span>}
                 <span style={{ width: 96, textAlign: 'right', font: '400 13px/1 Inter', color: 'var(--p-placeholder)' }}>{r.warehouses[0]}</span>
               </div>
             ))}
           </div>
         ) : (
-          <div style={{ border: '1px dashed var(--p-border-strong)', borderRadius: 10, padding: '40px 20px', textAlign: 'center', color: 'var(--p-placeholder)' }}>
+          <div style={{ border: '1px dashed var(--p-border-strong)', borderRadius: 2, padding: '40px 20px', textAlign: 'center', color: 'var(--p-placeholder)' }}>
             <div style={{ font: '500 14px/1.4 Inter', color: 'var(--p-muted)' }}>No direct reports</div>
             <div style={{ font: '400 13px/1.5 Inter', marginTop: 4 }}>No direct reports assigned yet.</div>
           </div>
