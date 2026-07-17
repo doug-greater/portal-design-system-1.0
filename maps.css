@@ -191,7 +191,7 @@
 html[data-theme="dark"] .g-map-pin.is-active,
 html[data-theme="dark"] .g-map-pin.is-active > div {
   background: #ADBDD1 !important;
-  color: #161619 !important;
+  color: #0F0F0F !important;
 }
 
 /* Unassigned stop — no number, red ring.
@@ -385,8 +385,8 @@ html[data-theme="dark"] .g-map-pin.is-active > div {
    cards, legend, and the hex tooltip already use DS tokens, so they flip
    automatically — they are NOT repeated here. */
 html[data-theme="dark"] .g-map,
-html[data-theme="dark"] .g-map .leaflet-container { background: #15151A; }
-html[data-theme="dark"] .g-map .leaflet-control-attribution { background: rgba(10,10,11,.82); color: #8A8A93; }
+html[data-theme="dark"] .g-map .leaflet-container { background: #0F0F0F; }
+html[data-theme="dark"] .g-map .leaflet-control-attribution { background: rgba(15,15,15,.82); color: #8A8A93; }
 html[data-theme="dark"] .g-hex-outline { fill: rgba(255,255,255,.04); stroke: rgba(255,255,255,.18); }
 html[data-theme="dark"] .g-hex-cell:hover .g-hex-outline { stroke: #FFFFFF; fill: rgba(255,255,255,.10); }
 html[data-theme="dark"] .g-hex-fill { stroke: rgba(10,10,11,.55); }   /* gap stroke goes dark */
@@ -451,11 +451,11 @@ html[data-theme="dark"] .g-cov-pin { stroke: #0A0A0B; }               /* pin hal
 @keyframes g-live-ping { 0% { transform: scale(1); opacity: .5; } 80% { opacity: 0; } 100% { transform: scale(3.2); opacity: 0; } }
 
 /* Dark variants — Dusk (1.11): steel is LIGHT, so the in-progress pin takes a dark number */
-html[data-theme="dark"] .g-live-pin { background: #1D1D21; border-color: #DCDCE0; color: #DCDCE0; }
-html[data-theme="dark"] .g-live-pin.is-in_progress { background: #ADBDD1; border-color: #ADBDD1; color: #161619; }
-html[data-theme="dark"] .g-live-pin.is-complete { background: #DCDCE0; border-color: #DCDCE0; color: #1D1D21; }
+html[data-theme="dark"] .g-live-pin { background: #131316; border-color: #DCDCE0; color: #DCDCE0; }
+html[data-theme="dark"] .g-live-pin.is-in_progress { background: #ADBDD1; border-color: #ADBDD1; color: #0F0F0F; }
+html[data-theme="dark"] .g-live-pin.is-complete { background: #DCDCE0; border-color: #DCDCE0; color: #131316; }
 html[data-theme="dark"] .g-live-pin.is-incomplete { background: rgba(216,75,75,.22); border-color: #D84B4B; color: #E38080; }
-html[data-theme="dark"] .g-live-rep .core { background: #ADBDD1; border-color: #161619; }
+html[data-theme="dark"] .g-live-rep .core { background: #ADBDD1; border-color: #0F0F0F; }
 html[data-theme="dark"] .g-live-rep .ping { background: rgba(173,189,209,.45); }
 
 @media (prefers-reduced-motion: reduce) {

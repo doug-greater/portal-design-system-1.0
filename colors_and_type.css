@@ -274,12 +274,12 @@
 html[data-theme="dark"] {
   color-scheme: dark;
 
-  /* Neutral ramp (inverted) — SOFTENED (1.11, ported from the app): no true-black
-     base, no pure-white text; gentle elevation steps to reduce eye strain. Dark is
-     the DEFAULT theme since 1.11 — this ramp is the product's primary canvas. */
+  /* Neutral ramp (inverted) — deepened (1.11.1 Theme-Lab tweak on the softened ramp):
+     a near-black shell with clearly-lifted surfaces; text stays off-white (never pure).
+     Dark is the DEFAULT theme since 1.11 — this ramp is the product's primary canvas. */
   --p-ink: #F2F2F4; --p-text: #DCDCE0; --p-text-2: #A1A1AA; --p-muted: #71717A;
   --p-placeholder: #52525B; --p-border: #34343B; --p-border-strong: #45454D;
-  --p-surface: #1D1D21; --p-surface-alt: #252529; --p-surface-tint: #2C2C32; --p-shell: #161619;
+  --p-surface: #131316; --p-surface-alt: #202022; --p-surface-tint: #2C2C32; --p-shell: #0F0F0F;
 
   /* Primary — "Dusk" dusty steel (1.11; was vivid #3B82F6). Links/selection read as
      quiet near-neutral chrome at 8.8:1 on surface — a deliberate, signed-off tradeoff. */
