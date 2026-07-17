@@ -222,7 +222,10 @@ function SplitButton({ children, onClick, items = [], intent = 'primary', icon, 
 }
 
 /* ---------------- Kebab (trigger) ----------------
-   An overflow icon button that opens the Menu. */
+   An overflow icon button that opens the Menu INLINE (position:absolute). Fine for
+   toolbars / headers that live OUTSIDE a scroll container. For TABLE or list ROW
+   actions use RowKebab (RowKebab.jsx, 1.10 §I) instead — it portals the Menu to
+   <body> so the table's overflow can't clip it (the portal law). */
 function Kebab({ items = [], align = 'right' }) {
   const [open, setOpen] = useState(false);
   const ref = useOutside(() => setOpen(false));
