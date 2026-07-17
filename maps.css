@@ -451,9 +451,9 @@ html[data-theme="dark"] .g-cov-pin { stroke: #0A0A0B; }               /* pin hal
 @keyframes g-live-ping { 0% { transform: scale(1); opacity: .5; } 80% { opacity: 0; } 100% { transform: scale(3.2); opacity: 0; } }
 
 /* Dark variants — Dusk (1.11): steel is LIGHT, so the in-progress pin takes a dark number */
-html[data-theme="dark"] .g-live-pin { background: #131316; border-color: #DCDCE0; color: #DCDCE0; }
+html[data-theme="dark"] .g-live-pin { background: #161618; border-color: #DCDCE0; color: #DCDCE0; }
 html[data-theme="dark"] .g-live-pin.is-in_progress { background: #ADBDD1; border-color: #ADBDD1; color: #0F0F0F; }
-html[data-theme="dark"] .g-live-pin.is-complete { background: #DCDCE0; border-color: #DCDCE0; color: #131316; }
+html[data-theme="dark"] .g-live-pin.is-complete { background: #DCDCE0; border-color: #DCDCE0; color: #161618; }
 html[data-theme="dark"] .g-live-pin.is-incomplete { background: rgba(216,75,75,.22); border-color: #D84B4B; color: #E38080; }
 html[data-theme="dark"] .g-live-rep .core { background: #ADBDD1; border-color: #0F0F0F; }
 html[data-theme="dark"] .g-live-rep .ping { background: rgba(173,189,209,.45); }

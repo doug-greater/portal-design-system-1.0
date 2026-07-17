@@ -50,6 +50,7 @@
   --p-border:       #E5E7EB;   /* 1px dividers, table borders         */
   --p-border-strong:#D1D5DC;   /* input borders                       */
   --p-surface:      #FFFFFF;
+  --p-surface-nav:  #FFFFFF;   /* the nav sidebar (1.11.1) — same as surface in light; one step DARKER than surface in dark, so the nav reads recessed */
   --p-surface-alt:  #F9FAFB;   /* table header zebra                  */
   --p-surface-tint: #F3F4F6;   /* tab-strip background                */
   --p-shell:        #FDFCF9;   /* page / canvas background — warm off-white; NOT for cards */
@@ -279,7 +280,8 @@ html[data-theme="dark"] {
      Dark is the DEFAULT theme since 1.11 — this ramp is the product's primary canvas. */
   --p-ink: #F2F2F4; --p-text: #DCDCE0; --p-text-2: #A1A1AA; --p-muted: #71717A;
   --p-placeholder: #52525B; --p-border: #34343B; --p-border-strong: #45454D;
-  --p-surface: #131316; --p-surface-alt: #202022; --p-surface-tint: #2C2C32; --p-shell: #0F0F0F;
+  --p-surface: #161618; --p-surface-alt: #202022; --p-surface-tint: #2C2C32; --p-shell: #0F0F0F;
+  --p-surface-nav: #131316;   /* nav sidebar — between shell and surface: the nav recedes, content lifts */
 
   /* Primary — "Dusk" dusty steel (1.11; was vivid #3B82F6). Links/selection read as
      quiet near-neutral chrome at 8.8:1 on surface — a deliberate, signed-off tradeoff. */

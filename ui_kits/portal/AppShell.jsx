@@ -63,9 +63,9 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
   const [unread] = React.useState(3);
 
   const BRAND_BLUE = 'var(--p-primary)';   // token-driven since 1.11 (Dusk)
-  const INK = '#101828';
-  const GRAY_600 = '#4A5565';
-  const GRAY_800 = '#1E2939';
+  const INK = 'var(--p-ink)';
+  const GRAY_600 = 'var(--p-text-2)';
+  const GRAY_800 = 'var(--p-text)';
   const BORDER_LIGHT = 'var(--p-border)';
 
   // Capability-per-child nav (1.10 §O). Every child carries its own `cap`; leaf items carry
@@ -124,8 +124,8 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
           <div style={collapsed
             ? { display: 'flex', alignItems: 'center', justifyContent: 'center', width: 40, height: 40, margin: '0 auto', borderRadius: 2, opacity: .4, cursor: 'default' }
             : { display: 'flex', alignItems: 'center', padding: 8, gap: 12, borderRadius: 2, opacity: .45, cursor: 'default' }}>
-            {MS(item.icon, 22, '#99A1AF')}
-            {!collapsed && <span style={{ flex: 1, textAlign: 'left', font: '400 15px/1.25 Inter', color: '#99A1AF' }}>{item.label}</span>}
+            {MS(item.icon, 22, 'var(--p-placeholder)')}
+            {!collapsed && <span style={{ flex: 1, textAlign: 'left', font: '400 15px/1.25 Inter', color: 'var(--p-placeholder)' }}>{item.label}</span>}
           </div>
         </li>
       );
@@ -147,7 +147,7 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
               position: 'relative',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               width: 40, height: 40, margin: '0 auto', borderRadius: 2,
-              background: tint ? 'rgba(24,97,175,0.10)' : '#fff',
+              background: tint ? 'var(--p-surface-tint)' : 'transparent',
               color: tint ? BRAND_BLUE : INK,
               transition: 'background-color 50ms',
             }}>
@@ -167,11 +167,11 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
         }}>
           <div className={isActiveLeaf ? undefined : 'gr-row'} style={{
             display: 'flex', alignItems: 'center', padding: 8, borderRadius: 2,
-            background: isActiveLeaf ? BRAND_BLUE : (groupActive ? 'rgba(24,97,175,0.10)' : '#fff'),
-            color: isActiveLeaf ? '#fff' : (groupActive ? BRAND_BLUE : INK), gap: 12, transition: 'background-color 50ms',
+            background: isActiveLeaf ? 'var(--p-action)' : (groupActive ? 'var(--p-surface-tint)' : 'transparent'),
+            color: isActiveLeaf ? 'var(--p-action-fg)' : (groupActive ? BRAND_BLUE : INK), gap: 12, transition: 'background-color 50ms',
           }}>
-            {MS(item.icon, 22, isActiveLeaf ? '#fff' : (groupActive ? BRAND_BLUE : INK))}
-            <span style={{ flex: 1, textAlign: 'left', font: `${isActiveLeaf || groupActive ? 500 : 400} 15px/1.25 Inter`, color: isActiveLeaf ? '#fff' : (groupActive ? BRAND_BLUE : INK) }}>{item.label}</span>
+            {MS(item.icon, 22, isActiveLeaf ? 'var(--p-action-fg)' : (groupActive ? BRAND_BLUE : INK))}
+            <span style={{ flex: 1, textAlign: 'left', font: `${isActiveLeaf || groupActive ? 500 : 400} 15px/1.25 Inter`, color: isActiveLeaf ? 'var(--p-action-fg)' : (groupActive ? BRAND_BLUE : INK) }}>{item.label}</span>
             {/* §B state 2 — parent row when the group is collapsed (child dot not visible) */}
             {!isOpen && groupHasAlert(item) && <AlertDot style={{ marginRight: 2 }} />}
             {hasChildren && (
@@ -198,8 +198,8 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
                     <div className="gr-sub" data-on={on ? '1' : '0'} style={{
                       display: 'flex', alignItems: 'center', padding: '6px 8px 6px 36px',
                       borderRadius: 2,
-                      background: on ? BRAND_BLUE : '#fff',
-                      color: on ? '#fff' : GRAY_800,
+                      background: on ? 'var(--p-action)' : 'transparent',
+                      color: on ? 'var(--p-action-fg)' : GRAY_800,
                       font: `${on ? 500 : 400} 14px/20px Inter`,
                       transition: 'background-color 50ms',
                       minHeight: 32,
@@ -249,13 +249,13 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
         }}>
           <div className="gr-util" style={{
             display: 'flex', alignItems: 'center', padding: '0 8px', minHeight: 34,
-            borderRadius: 2, background: active ? 'rgba(24,97,175,0.10)' : '#fff',
+            borderRadius: 2, background: active ? 'var(--p-surface-tint)' : 'transparent',
             color: active ? BRAND_BLUE : GRAY_600, gap: 12,
             font: '400 14px/20px Inter',
           }}>
             {MS(icon, 20, active ? BRAND_BLUE : GRAY_600)}
             <span style={{ flex: 1, textAlign: 'left' }}>{label}</span>
-            {external && MS('open_in_new', 14, '#99A1AF')}
+            {external && MS('open_in_new', 14, 'var(--p-placeholder)')}
             {trailing}
           </div>
         </button>
@@ -268,7 +268,7 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
     if (!item) return null;
     return (
       <div style={{
-        width: 208, background: '#fff', border: `1px solid ${BORDER_LIGHT}`,
+        width: 208, background: 'var(--p-surface)', border: `0.5px solid ${BORDER_LIGHT}`,
         borderRadius: 2, boxShadow: 'var(--shadow-float)', overflow: 'hidden',
       }}>
         <div style={{
@@ -287,7 +287,7 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
                     onClick={() => { onNavigate?.(c.id); clearTimeout(closeRef.current); setFlyout(null); }}
                     style={{
                       width: '100%', border: 'none', padding: '7px 14px',
-                      background: on ? BRAND_BLUE : 'transparent', color: on ? '#fff' : INK,
+                      background: on ? 'var(--p-action)' : 'transparent', color: on ? 'var(--p-action-fg)' : INK,
                       font: `${on ? 600 : 400} 13px/20px Inter`, cursor: 'pointer', textAlign: 'left',
                       transition: 'background 100ms', display: 'flex', alignItems: 'center', gap: 8,
                     }}>
@@ -308,18 +308,18 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
   const W = collapsed ? 72 : 248;
 
   return (
-    <div style={{ height: '100vh', display: 'flex', background: '#fff', overflow: 'hidden' }}>
+    <div style={{ height: '100vh', display: 'flex', background: 'var(--p-shell)', overflow: 'hidden' }}>
       <style>{`
-        .gr-row:hover { background: rgba(24,97,175,0.05) !important; }
-        .gr-sub:hover[data-on="0"] { background: rgba(24,97,175,0.05) !important; }
-        .gr-util:hover { background: #F3F4F6 !important; }
-        .gr-collapse-btn:hover { background: #F3F4F6 !important; color: ${INK} !important; }
-        .flyout-child:hover { background: rgba(24,97,175,0.06) !important; }
+        .gr-row:hover { background: var(--p-surface-tint) !important; }
+        .gr-sub:hover[data-on="0"] { background: var(--p-surface-tint) !important; }
+        .gr-util:hover { background: var(--p-surface-tint) !important; }
+        .gr-collapse-btn:hover { background: var(--p-surface-tint) !important; color: ${INK} !important; }
+        .flyout-child:hover { background: var(--p-surface-tint) !important; }
         @keyframes flyout-in { from { transform: translateX(-7px); } to { transform: translateX(0); } }
       `}</style>
       <aside style={{
         position: 'relative',
-        width: W, flexShrink: 0, background: '#fff',
+        width: W, flexShrink: 0, background: 'var(--p-surface-nav)',
         display: 'block', height: '100vh', overflow: 'visible',
         borderRight: `1px solid ${BORDER_LIGHT}`,
         font: '400 16px/24px Inter', color: 'rgba(0,0,0,0.87)',
@@ -333,7 +333,7 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
           style={{
             position: 'absolute', top: 28, right: -13,
             width: 26, height: 26, borderRadius: '50%',
-            border: `1px solid ${BORDER_LIGHT}`, background: '#fff',
+            border: `0.5px solid ${BORDER_LIGHT}`, background: 'var(--p-surface-nav)',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             color: GRAY_600, cursor: 'pointer', zIndex: 10,
             boxShadow: '0 1px 3px rgba(0,0,0,0.10)',
@@ -376,7 +376,7 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
                 <button type="button" style={{
                   display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                   width: '100%', minHeight: 28, padding: '4px 4px 4px 8px', gap: 8,
-                  borderRadius: 2, border: '0.5px solid #D1D5DB', background: '#fff',
+                  borderRadius: 2, border: '0.5px solid var(--p-border-strong)', background: 'var(--p-surface)',
                   font: '500 13px/20px Inter', color: INK, cursor: 'pointer',
                 }}>
                   <span>Elizabeth City</span>
@@ -398,8 +398,8 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
         <nav style={{
           position: 'absolute', left: 0, right: 0, bottom: 0, zIndex: 2,
           padding: collapsed ? '8px 12px 16px' : '8px 16px 16px 24px',
-          background: '#fff',
-          boxShadow: '0 -8px 16px -8px rgba(255,255,255,1), 0 -1px 0 rgba(0,0,0,0.04)',
+          background: 'var(--p-surface-nav)',
+          boxShadow: '0 -1px 0 var(--p-border)',
         }}>
           <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 0 }}>
             {/* Help Center → in-product Messenger when configured; else external link (§Q) */}

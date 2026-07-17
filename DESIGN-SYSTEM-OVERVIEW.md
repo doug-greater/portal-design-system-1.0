@@ -387,8 +387,9 @@ coverage:
   `SCREENS-1.10.md`.
 
 - **New in Portal 1.11 "Dusk" (dark-first restyle)** — **dark is the default theme** (first-run pref
-  `dark`; deepened dark neutrals — near-black shell `#0F0F0F`, surface `#131316`, surface-alt
-  `#202022`, ink stays off-white `#F2F2F4`; every preview bootstraps dark-first); the **Dusk palette** — primary `#1861AF` light / `#ADBDD1` dusty-steel dark
+  `dark`; deepened dark neutrals — near-black shell `#0F0F0F` → nav `--p-surface-nav` `#131316` →
+  surface `#161618` → surface-alt `#202022`, ink stays off-white `#F2F2F4`; every preview bootstraps
+  dark-first); the **Dusk palette** — primary `#1861AF` light / `#ADBDD1` dusty-steel dark
   (light link contrast 3.9→6.3:1), dusted feedback trio in both modes, all derived tints / focus rings /
   `::selection` / `--p-pulse` re-based; the **`--p-pal-1…10` badge ramp** (one fg per slot + computed
   15% `color-mix` tints; role/category pairs are pal-derived aliases; dusty dark variants incl. the
