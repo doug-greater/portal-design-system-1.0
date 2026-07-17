@@ -462,6 +462,16 @@ mark.gr-hl { background: var(--p-highlight); color: var(--p-highlight-fg); borde
 .g-split.error .g-split-main:hover, .g-split.error .g-split-caret:hover { background: rgba(255,255,255,.14); }
 .g-split .g-split-main:focus-visible, .g-split .g-split-caret:focus-visible { outline: none; background: rgba(255,255,255,.22); }
 
+/* Pinned right-hand actions column (1.10 §M) — keeps a row's kebab / navigation
+   chevron glued to the visible right edge while the table scrolls horizontally.
+   Requires the DataTable TableShell skeleton (ONE overflow:auto container wrapping a
+   minWidth div, sticky header INSIDE it) and OPAQUE row backgrounds (the cell uses
+   background:inherit to mask content scrolling beneath it). No divider/shadow — the
+   column pins silently. In grouped tables the header identity cluster pins left:16
+   and any trailing button right:16. */
+.gr-sticky-actions { position: sticky; right: 0; z-index: 1; background: inherit; align-self: stretch; display: flex; align-items: center; justify-content: flex-end; }
+.gr-sticky-actions-head { z-index: 3; }
+
 /* Stacked mono ID under a name (tables / wizards) */
 .g-mono-id { font-family: var(--font-mono); font-size: var(--fs-11); line-height: 1; color: var(--p-muted); letter-spacing: .02em; }
 
@@ -521,6 +531,12 @@ body, aside { transition: background-color .2s ease, color .2s ease; }
 .gr-tab-in    { animation: gr-tab-in .26s cubic-bezier(0.22,1,0.36,1) both; }
 .gr-bar-in    { animation: gr-bar-in .26s cubic-bezier(0.22,1,0.36,1) both; }
 .gr-emptybadge{ animation: gr-emptyfloat 3.6s ease-in-out infinite; will-change: transform; }  /* floating empty‑state badge (§ Empty States); auto‑off under prefers‑reduced‑motion */
+
+/* Live "pulsing dot" (1.10) — a small status dot that breathes a blue halo. Used by
+   the Live View table + group-header live-activity line (rep en_route / on_site) and
+   the Orchestration "Active" plan badge. Auto-stilled by the reduced-motion rule below. */
+@keyframes gr-livedot { 0% { box-shadow: 0 0 0 0 rgba(0,124,255,.45); } 70% { box-shadow: 0 0 0 4px rgba(0,124,255,0); } 100% { box-shadow: 0 0 0 0 rgba(0,124,255,0); } }
+.gr-livedot { animation: gr-livedot 1.8s ease-out infinite; }
 
 /* Echo Pulse — branded post-auth loading mark: raven + expanding intelligence-gradient rings. */
 .echo-pulse { --ep-size: 92px; --ep-ring: 150px; --ep-speed: 2.4s; position: relative; display: inline-flex; align-items: center; justify-content: center; }
