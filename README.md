@@ -14,7 +14,7 @@ This repository is our **shared design system** — the single source of truth f
 - **`DESIGN-SYSTEM-OVERVIEW.md`** — detailed index and origin of the system
 - **`SKILL.md`** — Claude-Code-compatible skill entry point
 - **`colors_and_type.css`** — design tokens (CSS variables)
-- **`fonts/`** — Inter + Geist Mono
+- **`fonts/`** — Inter + JetBrains Mono (self-hosted, 1.11)
 - **`assets/`** — logos and brand marks
 - **`ui_kits/portal/`** — component library and sample screens
 - **`preview/`** — specimen cards for reference
@@ -125,3 +125,15 @@ This repository is our **shared design system** — the single source of truth f
 - **Governance & app shell.** Nav gating is **capability-per-child** (drop child → hide empty group; *supersedes 1.9 role-id nav gating*) over a versioned 22-cap catalog; dev quick sign-in is **id-based** (passwords never reach the client; *supersedes 1.9/1.5*); Help Center **toggles an in-product Messenger** (active state + unread badge, no floating launcher; external-link fallback).
 - **Search-highlight law:** match painting is always the yellow `mark.gr-hl` — never a local blue.
 - **Also:** Store Layouts **Templates** tab, the plan-relative **week selector** (`?week=`), `gr-livedot` + `.g-live-*` + ported `.g-routemap*` CSS, and `SCREENS-1.10.md`.
+
+## What's new in Portal 1.11 — "Dusk"
+
+> *the restyle pass: dark-first, dusty palette, sharp corners, JetBrains Mono.*
+
+- **Dark mode is the default.** First-run theme preference is `dark` (returning users keep their saved choice; Light/System stay one click away). Every preview page carries a dark-first no-flash bootstrap; the dark neutral ramp is **softened** (ink `#F2F2F4`, surface `#1D1D21`, shell `#161619` — no true black, no pure white).
+- **The Dusk palette.** Primary goes muted: light `#007CFF → #1861AF` (link contrast on white 3.9:1 → **6.3:1**, AA at last) and dark `#3B82F6 → #ADBDD1` (dusty steel — selection reads quiet, 8.8:1). The feedback trio dusts in both modes (dark: success `#44AB89`, warning `#E2A336`, danger `#D84B4B`). Every derived tint — hovers, softs, focus rings, `::selection`, the live pulse — re-bases on the new hues.
+- **The `--p-pal-1…10` badge ramp** (ported from the app): one theme-aware foreground per slot + computed 15% `color-mix` tints; the legacy role/category pill pairs become pal-derived compat aliases that flip automatically; **dusty dark variants** across all ten slots; dark General-Stock purple aligns to pal-1.
+- **Sharper geometry.** Radii square off — controls 4 → **1px**, cards/menus/floating surfaces 6–10 → **2px** (pills stay round); fields, cards & tables move to **0.5px hairline strokes**; light-mode shadow alphas drop to **×0.25** (dark's inset-highlight elevation is untouched).
+- **JetBrains Mono** replaces Geist Mono for data & numbers — self-hosted variable woff2 in `fonts/` (no CDN dependency); page titles settle at **28px** (`--fs-28`).
+- **Deliberately vivid:** the Conditions map palette (CARTO legibility + color-blind-safe separation) and the Intelligence gradient (the sanctioned brand moment) are exempt from dusting.
+- **Hardcode sweep:** `BRAND_BLUE`, Toggle/Checkbox fills, the `.g-link` underline dot (light + new dark variant), live-map pins/rep dots, and `gr-livedot` (now token-driven via `--p-pulse`) all re-based.

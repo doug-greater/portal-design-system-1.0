@@ -12,7 +12,7 @@ If the user invokes this skill without any other guidance, ask them what they wa
 
 Key entry points:
 - `colors_and_type.css` — all design tokens
-- `fonts/fonts.css` — Inter + Geist Mono imports
+- `fonts/fonts.css` — Inter import + self-hosted JetBrains Mono (1.11)
 - `assets/greater-logotype.png` — in-product wordmark (raven mark: `greater-crow.png`)
 - `ui_kits/portal/` — component library and sample screens
 - `preview/` — one-off specimen cards (useful as reference)
