@@ -30,14 +30,14 @@
   --g-black-10:  rgba(0,0,0,.10);  /* label-tag backgrounds      */
   --g-black-05:  rgba(0,0,0,.05);  /* selected row backgrounds   */
 
-  /* Tinted surfaces (25%/10%/5% of the accent) */
-  --g-blue-25:   rgba(0,124,255,.25);
-  --g-blue-10:   rgba(0,124,255,.10);
-  --g-blue-05:   rgba(0,124,255,.05);
-  --g-red-10:    rgba(229,72,77,.12);
-  --g-green-10:  rgba(0,188,87,.12);
-  --g-gold-10:   rgba(219,158,3,.12);
-  --g-gold-04:   rgba(219,158,3,.05);   /* faintest amber — whole-row "this row changed" tint (§Amber/Red editing law, 1.8) */
+  /* Tinted surfaces (25%/10%/5% of the accent) — follow the Dusk navy (1.11) */
+  --g-blue-25:   rgba(24,97,175,.25);
+  --g-blue-10:   rgba(24,97,175,.10);
+  --g-blue-05:   rgba(24,97,175,.05);
+  --g-red-10:    rgba(201,74,78,.12);
+  --g-green-10:  rgba(33,192,107,.12);
+  --g-gold-10:   rgba(185,138,46,.14);
+  --g-gold-04:   rgba(185,138,46,.06);   /* faintest amber — whole-row "this row changed" tint (§Amber/Red editing law, 1.8) */
   --g-purple-10: rgba(123,104,238,.12);
   --g-orange-10: #FFF7ED;   /* 10% orange tint over white — Chip "atrisk" bg (§C) */
 
@@ -54,12 +54,15 @@
   --p-surface-tint: #F3F4F6;   /* tab-strip background                */
   --p-shell:        #FDFCF9;   /* page / canvas background — warm off-white; NOT for cards */
 
-  /* ---------- Portal: primary blue ---------- */
-  --p-primary:       #007CFF;
-  --p-primary-hover: #0066D6;
-  --p-primary-soft:  #DBEAFE;  /* pill bg for active count badges     */
-  --p-primary-tint:  #EFF6FF;  /* row hover / info backgrounds        */
-  --p-primary-ink:   #007CFF;  /* link text — consolidated to the single brand blue (was #155DFC) */
+  /* ---------- Portal: primary blue — "Dusk" muted navy (1.11) ----------
+     Supersedes the vivid #007CFF. Links / selection / focus keep the blue LAW
+     but the hue goes dusty: #1861AF clears 6.3:1 on white (the old blue was
+     3.9:1 — link text is finally AA). All derived tints re-based on the navy. */
+  --p-primary:       #1861AF;
+  --p-primary-hover: #134E8C;
+  --p-primary-soft:  #D9E3F0;  /* pill bg for active count badges · ::selection */
+  --p-primary-tint:  #EDF2F8;  /* row hover / info backgrounds        */
+  --p-primary-ink:   #1861AF;  /* link text — the single brand navy   */
 
   /* ---------- Portal: action (INK‑FORWARD) ----------
      The primary‑action & active‑navigation color. Ink‑forward: the brand's near‑black is the
@@ -85,20 +88,38 @@
   --p-genstock-ink:  #6B21A8;                /* label / strong fg     */
   --p-genstock-tint: rgba(124,58,237,.12);   /* badge / modal disc bg */
 
-  /* ---------- Portal: semantic category pills ---------- */
-  --p-pill-beer-bg:    #FFFBEB;  --p-pill-beer-fg:    #BB4D00;  /* amber   */
-  --p-pill-wine-bg:    #F5F3FF;  --p-pill-wine-fg:    #6B21A8;  /* purple  */
-  --p-pill-spirits-bg: #FFF7ED;  --p-pill-spirits-fg: #C2410C;  /* orange  */
-  --p-pill-rtd-bg:     #EFF6FF;  --p-pill-rtd-fg:     #1447E6;  /* blue    */
-  --p-pill-nonalc-bg:  #ECFDF5;  --p-pill-nonalc-fg:  #047857;  /* green   */
+  /* ---------- Portal: badge palette ramp — --p-pal-1…10 (ported from the app, 1.11) ----------
+     ONE theme-aware foreground per slot; a badge's background is always a computed
+     15% tint (color-mix) of its slot — never a hand-picked pastel. Roles & product
+     categories reference slot numbers (the app's roles.py stores the slot). The
+     legacy --p-role-* / --p-pill-* pairs below are COMPAT ALIASES derived from the
+     ramp — new work should reference slots directly. Light stays vivid (Dusk Q3);
+     the dark block carries the dusty variants. */
+  --p-pal-1: #6B21A8;  /* violet — exec, wine */
+  --p-pal-2: #1447E6;  /* blue — deptmgr, rtd */
+  --p-pal-3: #047857;  /* green — itadmin, non-alc */
+  --p-pal-4: #BB4D00;  /* amber — beer */
+  --p-pal-5: #4A5565;  /* slate — rep */
+  --p-pal-6: #C2410C;  /* orange — supervisor, spirits */
+  --p-pal-7: #BE185D;  /* pink — reserved */
+  --p-pal-8: #0E7490;  /* cyan — reserved */
+  --p-pal-9: #4338CA;  /* indigo — reserved */
+  --p-pal-10: #57534E; /* stone — reserved */
 
-  /* ---------- Portal: feedback ---------- */
-  --p-success:       #00BC57;
-  --p-warning:       #DB9E03;
-  --p-danger:        #E5484D;
+  /* ---------- Portal: semantic category pills — pal-derived (1.11) ---------- */
+  --p-pill-beer-bg:    color-mix(in oklab, var(--p-pal-4) 15%, transparent);  --p-pill-beer-fg:    var(--p-pal-4);
+  --p-pill-wine-bg:    color-mix(in oklab, var(--p-pal-1) 15%, transparent);  --p-pill-wine-fg:    var(--p-pal-1);
+  --p-pill-spirits-bg: color-mix(in oklab, var(--p-pal-6) 15%, transparent);  --p-pill-spirits-fg: var(--p-pal-6);
+  --p-pill-rtd-bg:     color-mix(in oklab, var(--p-pal-2) 15%, transparent);  --p-pill-rtd-fg:     var(--p-pal-2);
+  --p-pill-nonalc-bg:  color-mix(in oklab, var(--p-pal-3) 15%, transparent);  --p-pill-nonalc-fg:  var(--p-pal-3);
+
+  /* ---------- Portal: feedback — dusted (1.11) ---------- */
+  --p-success:       #21C06B;   /* was #00BC57 — non-text use (dots/fills), same as before */
+  --p-warning:       #B98A2E;   /* was #DB9E03 — dustier amber, still icon/dot-grade */
+  --p-danger:        #C94A4E;   /* was #E5484D — 4.6:1 on white (up from 4.0) */
   --p-danger-strong: #DC2626;
-  --p-danger-soft:   #FCEBEC;   /* red WASH for "conflict" calendar cells / buffer flags (§Amber/Red law, 1.8) — fill counterpart to --p-danger text; distinct from the --g-red-10 chip/banner tint */
-  --p-atrisk-strong: #C2410C;  /* readable orange text on --g-orange-10 — Chip "atrisk" / "draining" (§C) */
+  --p-danger-soft:   #F8EAEA;   /* red WASH for "conflict" calendar cells / buffer flags (§Amber/Red law, 1.8) — fill counterpart to --p-danger text; distinct from the --g-red-10 chip/banner tint */
+  --p-atrisk-strong: var(--p-pal-6);  /* readable orange text on --g-orange-10 — Chip "atrisk" / "draining" (§C); pal-derived since 1.11 */
 
   /* ---------- Inventory Condition palette — "Palette A" (1.5) ----------
      Colour-blind-safe (deuteranopia/protanopia) diverging ramp Orange → Gold → Teal →
@@ -132,20 +153,26 @@
   --p-intel-gradient: linear-gradient(90deg, #007CFF 0%, #5359F1 50%, #F153A9 100%);
   --p-intel-tint:     linear-gradient(90deg, rgba(0,124,255,.10) 0%, rgba(83,89,241,.10) 50%, rgba(241,83,169,.10) 100%);
 
-  /* ---------- Radii ---------- */
-  --radius-xs: 2px;
-  --radius-sm: 4px;      /* buttons, pills-with-text, inputs        */
-  --radius-md: 6px;      /* filter chips, stat cards                */
-  --radius-lg: 8px;      /* prompt callouts, large cards            */
-  --radius-xl: 10px;     /* elevated floating cards (TableView)     */
+  /* ---------- Radii — squared off (1.11 "Dusk") ----------
+     Controls (buttons, inputs, search, nav rows) sharpen 4px → 1px; containers
+     (cards, panels, menus, floating map cards) sharpen 6–10px → 2px. Pills stay
+     fully round. Anything referencing these tokens updates automatically. */
+  --radius-xs: 1px;
+  --radius-sm: 1px;      /* buttons, pills-with-text, inputs        */
+  --radius-md: 2px;      /* filter chips, stat cards, menus         */
+  --radius-lg: 2px;      /* prompt callouts, large cards            */
+  --radius-xl: 2px;      /* elevated floating cards (TableView)     */
   --radius-pill: 999px;  /* badges, "tag"                           */
 
-  /* ---------- Elevation ---------- */
-  --shadow-tooltip: 0 2px 6px 0 rgba(0,0,0,.15);
-  --shadow-card:    0 1px 2px -1px rgba(0,0,0,.10), 0 1px 3px 0 rgba(0,0,0,.10);
-  --shadow-surface: 0 1px 2px 0 rgba(16,24,40,.04), 0 6px 16px -8px rgba(16,24,40,.10);  /* large resting surfaces (cards/tables) on shell */
-  --shadow-float:   0 4px 6px -4px rgba(0,0,0,.10), 0 10px 15px -3px rgba(0,0,0,.10);
-  --shadow-brutal:  2px 2px 0 0 var(--p-ink);  /* adaptive (black in light / white in dark) — Greater-brand "neo" buttons */
+  /* ---------- Elevation — whisper-quiet (1.11: light alphas × 0.25) ----------
+     Dusk pulls light-mode shadows down to a quarter of their former weight; the
+     hairline borders now carry the structure. Dark-mode elevation (inset highlight
+     + deep shadow) is untouched — it's a strategy, not an alpha. */
+  --shadow-tooltip: 0 2px 6px 0 rgba(0,0,0,.04);
+  --shadow-card:    0 1px 2px -1px rgba(0,0,0,.03), 0 1px 3px 0 rgba(0,0,0,.03);
+  --shadow-surface: 0 1px 2px 0 rgba(16,24,40,.01), 0 6px 16px -8px rgba(16,24,40,.03);  /* large resting surfaces (cards/tables) on shell */
+  --shadow-float:   0 4px 6px -4px rgba(0,0,0,.03), 0 10px 15px -3px rgba(0,0,0,.03);
+  --shadow-brutal:  2px 2px 0 0 var(--p-ink);  /* adaptive (black in light / white in dark) — Greater-brand "neo" buttons; a solid offset, exempt from the ×0.25 */
 
   /* ---------- Spacing (4px base) ---------- */
   --space-0-5: 2px;
@@ -163,7 +190,7 @@
   /* ---------- Type families ---------- */
   --font-sans: "Inter", "Inter Fallback", -apple-system, BlinkMacSystemFont,
                "Segoe UI", Helvetica, Arial, sans-serif;
-  --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --font-mono: "JetBrains Mono", "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;  /* JetBrains Mono since 1.11 (self-hosted, fonts/); Geist kept as fallback */
 
   /* ---------- Type — raw sizes (px) ---------- */
   --fs-10: 10px;  /* legal / fine print                             */
@@ -173,7 +200,8 @@
   --fs-16: 16px;  /* default page body                              */
   --fs-18: 18px;  /* headline 3 / sign-in heading                   */
   --fs-20: 20px;  /* headline 2 / stat values                       */
-  --fs-24: 24px;  /* headline 1 (page title)                        */
+  --fs-24: 24px;  /* compact headline (phone page title)            */
+  --fs-28: 28px;  /* headline 1 (page title — 1.11, resolves the 24/30 drift) */
   --fs-32: 32px;  /* Headline 1 display (reporting)                 */
   --fs-40: 40px;  /* hero                                           */
   --fs-48: 48px;  /* brand                                          */
@@ -211,15 +239,17 @@
      luminous fg. Components must NEVER hardcode hex for these surfaces — always
      reference the token, or dark mode silently breaks. */
   /* Status tint pairs */
-  --p-success-bg: #ECFDF5;              --p-success-fg: #047857;
+  --p-success-bg: #ECFDF5;              --p-success-fg: var(--p-pal-3);
   --p-atrisk-bg:  var(--g-orange-10);   --p-atrisk-fg:  var(--p-atrisk-strong);
   --p-neutral-bg: var(--p-surface-tint);--p-neutral-fg: var(--p-text-2);
-  /* Role tone pairs (role pills + avatars) */
-  --p-role-exec-bg: #F5F3FF;            --p-role-exec-fg: #6B21A8;   /* purple */
-  --p-role-deptmgr-bg: #EFF6FF;         --p-role-deptmgr-fg: #1447E6;/* blue   */
-  --p-role-itadmin-bg: #ECFDF5;         --p-role-itadmin-fg: #047857;/* green  */
-  --p-role-supervisor-bg: #FFF7ED;      --p-role-supervisor-fg: #C2410C;/* orange */
-  --p-role-rep-bg: var(--p-surface-tint);--p-role-rep-fg: var(--p-text-2);/* neutral */
+  /* Role tone pairs (role pills + avatars) — pal-derived compat aliases (1.11).
+     fg = the slot; bg = the computed 15% tint. They flip in dark automatically
+     because the PAL flips — the dark block no longer overrides these pairs. */
+  --p-role-exec-bg: color-mix(in oklab, var(--p-pal-1) 15%, transparent);       --p-role-exec-fg: var(--p-pal-1);
+  --p-role-deptmgr-bg: color-mix(in oklab, var(--p-pal-2) 15%, transparent);    --p-role-deptmgr-fg: var(--p-pal-2);
+  --p-role-itadmin-bg: color-mix(in oklab, var(--p-pal-3) 15%, transparent);    --p-role-itadmin-fg: var(--p-pal-3);
+  --p-role-supervisor-bg: color-mix(in oklab, var(--p-pal-6) 15%, transparent); --p-role-supervisor-fg: var(--p-pal-6);
+  --p-role-rep-bg: color-mix(in oklab, var(--p-pal-5) 15%, transparent);        --p-role-rep-fg: var(--p-pal-5);
   /* Interaction helpers */
   --p-overlay-hover: rgba(0,0,0,.04);
   --p-focus-ring:    rgba(0,124,255,.15);
@@ -227,6 +257,7 @@
   --p-skeleton-1:    #F1F3F5;           --p-skeleton-2: #E5E7EB;
   --g-gold-30:       rgba(219,158,3,.30);
   --p-scroll-thumb:  #D1D5DC;           --p-scroll-thumb-hover: #B9BBBF;
+  --p-pulse:         rgba(24,97,175,.45);  /* live-pulse halo (gr-livedot) — follows --p-primary (1.11) */
   --ms-grad:         0;   /* Material Symbols grade — 0 in light, negative in dark */
 }
 
@@ -243,41 +274,53 @@
 html[data-theme="dark"] {
   color-scheme: dark;
 
-  /* Neutral ramp (inverted) */
-  --p-ink: #FFFFFF; --p-text: #E4E4E7; --p-text-2: #A1A1AA; --p-muted: #71717A;
-  --p-placeholder: #52525B; --p-border: #27272A; --p-border-strong: #3F3F46;
-  --p-surface: #121214; --p-surface-alt: #18181B; --p-surface-tint: #27272A; --p-shell: #0A0A0B;
+  /* Neutral ramp (inverted) — deepened (1.11.1 Theme-Lab tweak on the softened ramp):
+     a near-black shell with clearly-lifted surfaces; text stays off-white (never pure).
+     Dark is the DEFAULT theme since 1.11 — this ramp is the product's primary canvas. */
+  --p-ink: #F2F2F4; --p-text: #DCDCE0; --p-text-2: #A1A1AA; --p-muted: #71717A;
+  --p-placeholder: #52525B; --p-border: #34343B; --p-border-strong: #45454D;
+  --p-surface: #131316; --p-surface-alt: #202022; --p-surface-tint: #2C2C32; --p-shell: #0F0F0F;
 
-  /* Primary blue (brighter for dark contrast) */
-  --p-primary: #3B82F6; --p-primary-hover: #60A5FA; --p-primary-soft: rgba(59,130,246,.18);
-  --p-primary-tint: rgba(59,130,246,.08); --p-primary-ink: #93C5FD;
+  /* Primary — "Dusk" dusty steel (1.11; was vivid #3B82F6). Links/selection read as
+     quiet near-neutral chrome at 8.8:1 on surface — a deliberate, signed-off tradeoff. */
+  --p-primary: #ADBDD1; --p-primary-hover: #C3CFDE; --p-primary-soft: rgba(173,189,209,.18);
+  --p-primary-tint: rgba(173,189,209,.10); --p-primary-ink: #BFCBDB;
 
   /* Action (ink‑forward) — INVERTS to a white surface on dark (Linear/macOS treatment) */
   --p-action: #FFFFFF; --p-action-hover: #E4E4E7; --p-action-fg: #0A0A0B;
   --p-action-disabled-bg: #3F3F46; --p-action-disabled-fg: #71717A;
 
-  /* Search-highlight + General Stock purple — dark */
+  /* Search-highlight + General Stock purple — dark (genstock aligned to the dusty pal-1, 1.11) */
   --p-highlight: rgba(250,204,21,.32); --p-highlight-fg: #FDE68A;
-  --p-genstock: #A78BFA; --p-genstock-ink: #D8B4FE; --p-genstock-tint: rgba(167,139,250,.18);
+  --p-genstock: #AF98C8; --p-genstock-ink: #C9B6DE; --p-genstock-tint: rgba(175,152,200,.18);
 
-  /* Category pills → subtle dark tints + luminous fg */
-  --p-pill-beer-bg: rgba(217,119,6,.15);  --p-pill-beer-fg: #FCD34D;
-  --p-pill-wine-bg: rgba(147,51,234,.15); --p-pill-wine-fg: #D8B4FE;
-  --p-pill-spirits-bg: rgba(234,88,12,.15); --p-pill-spirits-fg: #FDBA74;
-  --p-pill-rtd-bg: rgba(59,130,246,.15);  --p-pill-rtd-fg: #93C5FD;
-  --p-pill-nonalc-bg: rgba(16,185,129,.15); --p-pill-nonalc-fg: #6EE7B7;
+  /* Badge palette ramp — DUSTY dark variants (1.11 Theme-Lab export). The pill/role
+     pairs are pal-derived in :root, so flipping the ramp flips every badge — no
+     per-pair dark overrides needed anymore. */
+  --p-pal-1: #AF98C8;
+  --p-pal-2: #84A8D2;
+  --p-pal-3: #9CCEBA;
+  --p-pal-4: #D8C997;
+  --p-pal-5: #B8B8C1;
+  --p-pal-6: #E5CAAE;
+  --p-pal-7: #C9A6B6;
+  --p-pal-8: #96C3CB;
+  --p-pal-9: #A6AFD2;
+  --p-pal-10: #D6D3D1;
 
-  /* Feedback */
-  --p-success: #10B981; --p-warning: #F59E0B; --p-danger: #EF4444; --p-danger-strong: #F87171;
-  --p-atrisk-strong: #FDBA74;
+  /* Feedback — dusted (1.11 Theme-Lab export) */
+  --p-success: #44AB89; --p-warning: #E2A336; --p-danger: #D84B4B; --p-danger-strong: #E38080;
+  --p-atrisk-strong: var(--p-pal-6);
 
-  /* Foundation rgba tints (Chip / InfoBanner) */
-  --g-red-10: rgba(239,68,68,.16); --g-green-10: rgba(16,185,129,.16);
-  --g-gold-10: rgba(245,158,11,.16); --g-purple-10: rgba(147,51,234,.16);
-  --p-danger-soft: rgba(239,68,68,.16); --g-gold-04: rgba(245,158,11,.08);   /* §Amber/Red editing law — dark */
-  --g-orange-10: rgba(234,88,12,.15); --g-blue-10: rgba(59,130,246,.16);
+  /* Foundation rgba tints (Chip / InfoBanner) — re-based on the dusty feedback hues */
+  --g-red-10: rgba(216,75,75,.16); --g-green-10: rgba(68,171,137,.16);
+  --g-gold-10: rgba(226,163,54,.16); --g-purple-10: rgba(175,152,200,.18);
+  --p-danger-soft: rgba(216,75,75,.18); --g-gold-04: rgba(226,163,54,.08);   /* §Amber/Red editing law — dark */
+  --g-orange-10: rgba(229,202,174,.15); --g-blue-10: rgba(173,189,209,.16);
 
-  /* Intelligence gradient (shifted for dark) */
+  /* Intelligence gradient — stays VIVID by design (1.11 Q2): the one sanctioned loud
+     brand moment. Its start hue no longer matches --p-primary; that's fine — it's a
+     brand asset, not a UI state. */
   --p-intel-gradient: linear-gradient(90deg, #3B82F6 0%, #6366F1 50%, #EC4899 100%);
 
   /* Elevation — inset highlight + deep shadow (NOT light drop shadows) */
@@ -286,25 +329,20 @@ html[data-theme="dark"] {
   --shadow-surface: inset 0 1px 1px rgba(255,255,255,.04), 0 4px 10px rgba(0,0,0,.5);
   --shadow-float:   inset 0 1px 1px rgba(255,255,255,.07), 0 12px 24px rgba(0,0,0,.6), 0 0 0 1px var(--p-border-strong);
 
-  /* Status tint pairs */
-  --p-success-bg: rgba(16,185,129,.15); --p-success-fg: #6EE7B7;
-  --p-atrisk-bg:  rgba(234,88,12,.15);  --p-atrisk-fg:  #FDBA74;
-  --p-neutral-bg: #27272A;              --p-neutral-fg: #A1A1AA;
-
-  /* Role tone pairs (role pills + avatars) */
-  --p-role-exec-bg: rgba(147,51,234,.15);   --p-role-exec-fg: #D8B4FE;
-  --p-role-deptmgr-bg: rgba(59,130,246,.15); --p-role-deptmgr-fg: #93C5FD;
-  --p-role-itadmin-bg: rgba(16,185,129,.15); --p-role-itadmin-fg: #6EE7B7;
-  --p-role-supervisor-bg: rgba(234,88,12,.15); --p-role-supervisor-fg: #FDBA74;
-  --p-role-rep-bg: #27272A;                  --p-role-rep-fg: #A1A1AA;
+  /* Status tint pairs — fgs are pal-derived (flip via the ramp); bgs re-based dusty */
+  --p-success-bg: rgba(68,171,137,.16); --p-success-fg: var(--p-pal-3);
+  --p-atrisk-bg:  rgba(229,202,174,.14); --p-atrisk-fg: var(--p-pal-6);
+  --p-neutral-bg: #2C2C32;              --p-neutral-fg: #A1A1AA;
+  /* (Role tone pairs no longer need dark overrides — pal-derived in :root, 1.11.) */
 
   /* Interaction helpers */
   --p-overlay-hover: rgba(255,255,255,.06);
-  --p-focus-ring: rgba(59,130,246,.32);
+  --p-focus-ring: rgba(173,189,209,.35);
   --p-backdrop: rgba(0,0,0,.62);
-  --p-skeleton-1: #18181B; --p-skeleton-2: #27272A;
-  --g-gold-30: rgba(245,158,11,.35);
-  --p-scroll-thumb: #3F3F46; --p-scroll-thumb-hover: #52525B;
+  --p-skeleton-1: #212126; --p-skeleton-2: #2C2C32;
+  --g-gold-30: rgba(226,163,54,.35);
+  --p-scroll-thumb: #45454D; --p-scroll-thumb-hover: #52525B;
+  --p-pulse: rgba(173,189,209,.45);   /* live-pulse halo — dusty steel in dark (1.11) */
   --ms-grad: -25;
 
   /* Condition scale — Palette A dark variants, brightened to clear ≥3:1 against
@@ -325,9 +363,9 @@ html[data-theme="dark"] {
   color: var(--fg-1);
 }
 
-/* Page title used across the PORTAL (Inter Bold 24, tight tracking) */
+/* Page title used across the PORTAL (Inter Semibold 28, tight tracking — 28px since 1.11) */
 .g-h1 {
-  font: 600 var(--fs-24)/1.33 var(--font-sans);
+  font: 600 var(--fs-28)/1.25 var(--font-sans);
   letter-spacing: -0.025em;
   color: var(--fg-1);
 }
@@ -404,11 +442,15 @@ html[data-theme="dark"] {
   font-weight: 500;
   color: var(--p-primary);
   text-decoration: none;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='3' viewBox='0 0 6 3'><circle cx='1.5' cy='1.5' r='1.5' fill='%23007CFF'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='3' viewBox='0 0 6 3'><circle cx='1.5' cy='1.5' r='1.5' fill='%231861AF'/></svg>");
   background-repeat: repeat-x;
   background-position: 0 100%;
   background-size: 6px 3px;
   padding-bottom: 4px;
+}
+/* the dotted underline is a baked data-URI, so it needs its own dark variant (dusty steel) */
+html[data-theme="dark"] .g-link {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='3' viewBox='0 0 6 3'><circle cx='1.5' cy='1.5' r='1.5' fill='%23ADBDD1'/></svg>");
 }
 .g-link:hover { color: var(--p-primary-hover); }
 
@@ -478,8 +520,8 @@ mark.gr-hl { background: var(--p-highlight); color: var(--p-highlight-fg); borde
 /* Wizard selection-table row states */
 .wz-row:hover { background: var(--p-surface-alt) !important; }
 .wz-row-selected { background: var(--p-primary-tint) !important; }
-.wz-row-selected:hover { background: #E4EFFE !important; }
-.wz-num:focus { outline: none; border-color: var(--p-primary) !important; box-shadow: 0 0 0 3px rgba(0,124,255,.15); }
+.wz-row-selected:hover { background: #E2EAF3 !important; }
+.wz-num:focus { outline: none; border-color: var(--p-primary) !important; box-shadow: 0 0 0 3px var(--p-focus-ring); }
 
 /* Base body reset */
 html, body {
@@ -535,7 +577,7 @@ body, aside { transition: background-color .2s ease, color .2s ease; }
 /* Live "pulsing dot" (1.10) — a small status dot that breathes a blue halo. Used by
    the Live View table + group-header live-activity line (rep en_route / on_site) and
    the Orchestration "Active" plan badge. Auto-stilled by the reduced-motion rule below. */
-@keyframes gr-livedot { 0% { box-shadow: 0 0 0 0 rgba(0,124,255,.45); } 70% { box-shadow: 0 0 0 4px rgba(0,124,255,0); } 100% { box-shadow: 0 0 0 0 rgba(0,124,255,0); } }
+@keyframes gr-livedot { 0% { box-shadow: 0 0 0 0 var(--p-pulse); } 70% { box-shadow: 0 0 0 4px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
 .gr-livedot { animation: gr-livedot 1.8s ease-out infinite; }
 
 /* Echo Pulse — branded post-auth loading mark: raven + expanding intelligence-gradient rings. */

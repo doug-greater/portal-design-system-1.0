@@ -1,5 +1,5 @@
 # Greater Design System
-### Portal 1.10 · July 2026
+### Portal 1.11 "Dusk" · July 2026
 
 > Greater Industries builds AI that helps wholesalers and distributors make the smartest, most efficient, most profitable decisions across their entire business. From warehouse workers and truck drivers to sales reps and owners — Greater's portal is the cockpit that connects the people who power local economies.
 
@@ -44,6 +44,7 @@
    - **New in 1.7 (Search · ⌘K · General Stock):** [Command Palette (⌘K)](#command-palette-k--17) + portal-wide [Search Query Grammar & Highlight](#search--highlight-17) (`AND` default · uppercase `OR` · `"phrase"` · accent-insensitive) · search-highlight token `--p-highlight` (the only sanctioned yellow) + **General Stock purple** concept tokens `--p-genstock*` (§3) · **Entity-icon canon** (§8 — POD Planner `blur_medium`, Store Promotions `award_star`) · `Input` clearable ✕ + `?` hint · `Toggle.color` · `Chip.iconRight` · `Tooltip.z` · `Modal tone="general"` (§9) · **Arrangement Board** tray kebab (Add to Section / Discontinue), `Adding` / `Discontinuing` badges, single-indicator purple General Stock, "Suggested →" + **Section Picker** (§9) · z-index ladder + the fixed-inside-`sticky`/`transform` rule (§7)
    - **New in 1.8 (Governed RBAC · Global Nav Guard · Assignment-Edit):** the unsaved-changes guard goes **global** — sidebar + programmatic + in-page tabs + hard unload under the declarative router (new `NavGuard.jsx`) *[supersedes the 1.5 data-router caveat]* · **role-derived RBAC** — one role→capability matrix in **Settings → Roles & Permissions** that re-syncs all users on save; the user page is **read-only** *[supersedes the 1.5 per-user editor]* · **Masonry** card packing (§12) · the **Assignment-Edit** modal + the **Amber = edit / Red = conflict** color law + **legend-as-mini-cell** + amber **"(preview)"** (§9 / §3 / Maps) · Maps **hover-reveal pins** + in-popup **Edit** deep-link (`.g-map-popup-edit`) · native **`title=` → portal Tooltip** · **Cancel = ghost / neutral** (retire blue links) · tokens `--p-danger-soft` / `--g-gold-04` (§6) · icon adds (§8) · `SCREENS-1.8.md`
    - **New in 1.9 (Home + shareable URLs + anchor navigation):** **AppLink** — navigation renders a real `<a href>` (open-in-new-tab / ⌘-click) while routing plain clicks through the NavGuard; the **anchor-navigation law** (§9 / §12 / §15) · **stretched-link rows** for clickable table rows (§9 Tables) · `BackLink` gains `to`; external links are real `<a target=_blank>` · **URL filter-state** (`urlFilters.js`) is the single source of truth, relative presets persist as a key *[supersedes `sessionStorage`/`filterPersist`]* (§ Deep-linking / State & URLs) · **Saved Views** + `SaveViewButton` (§9) · **Home dashboard** — role-gated drag-orderable Health Stat Cards + a Saved-Views grid + the Crow Fact easter egg (§9 / §12) · **Login → single page** *[supersedes the 1.5 two-step]* (§9) · App Shell nav **collapsed-by-default + auto-expand-active + animated** (grid-rows + stagger), landing item **Home** (`home`) (§8 / §9 / §10) · role-gating keys off **real role ids** (§15)
+   - **New in 1.11 "Dusk" (dark-first · dusty palette · sharp corners · JetBrains Mono):** **dark is the default theme** — first-run pref = `dark`, previews bootstrap dark, docs author dark-first (§3 Theming) · **Dusk palette** — primary `#007CFF/#3B82F6 → #1861AF/#ADBDD1` (light link contrast 3.9→6.3:1; dark selection goes quiet steel), feedback trio dusted in both modes, all derived tints/focus rings/`::selection`/live-pulse re-based (§3) · the **`--p-pal-1…10` badge ramp** ported from the app — one fg per slot + computed 15% `color-mix` tints; role/category pill pairs are now pal-derived compat aliases; **dusty dark variants** incl. reserved slots 7–10; dark genstock aligns to pal-1 (§3 / §9 Role Pills) · **deepened dark neutrals** (near-black shell `#0F0F0F`, surface `#131316`, surface-alt `#202022`; ink stays off-white `#F2F2F4`) (§3) · **radii squared** — controls 4→**1px**, cards/menus/floats 6–10→**2px**, pills stay round (§6) · **0.5px hairline strokes** on fields/cards/tables + **×0.25 light shadows** (§6/§7) · **JetBrains Mono** replaces Geist Mono (self-hosted variable woff2) (§4 / `fonts/`) · page title **28px** (`--fs-28`) (§4) · **exempt by design:** the Conditions map palette (legibility) and the Intelligence gradient (brand moment) stay vivid · hardcoded old blues swept portal-wide (`BRAND_BLUE`, Toggle/Checkbox, `.g-link` dot, live-map pins, `gr-livedot` → `--p-pulse`)
    - **New in 1.10 (Live Ops · Most-Severe · Expected Impact · Portal Overlays):** **Live View** — a new *live-surface* page archetype (auto-refreshing map + grouped table of every rep's day, a five-state stop vocabulary, a monochrome-routes map law) + an App-Shell **nav alert dot** ([Live Surfaces](#live-surfaces-live-view--110) / §9 App Shell / Maps) · Coverage-Map hexes now aggregate by **Most Severe** business severity *[supersedes the 1.4/1.5 averaging]* (§9 Maps / Inventory Conditions) · **Expected Impact** (categorical) + the **radio-card** input + `ImpactBars` *[supersedes numeric "Anticipated Lift"]* + **conditional Subtype** (§9 Inputs) · shared **DataTable** primitives (`SortHeader`/`TableShell`/`TableHeader`/`DataTableFooter`), **RowKebab** portal row-menu *[supersedes inline kebabs]*, **pinned actions column**, nested-table sorting (§9 Tables) · **Tooltip** measured viewport clamp *[supersedes the 1.4 fixed clamp]* (§9) · search-highlight **yellow-only** (§9) · relative **week selector** (§9 Filters) · nav gating **capability-per-child** *[supersedes 1.9 role-id gating]* + feature-aligned cap catalog (§9 App Shell / Appendix A) · dev sign-in **id-based, no client secrets** (§9 Login) · Help Center → **in-product Messenger** (§9 App Shell) · **Store Layout Templates** tab (§9) · tokens `gr-livedot` / `.g-live-*` / `.g-routemap*` / `.gr-sticky-actions` · `SCREENS-1.10.md`
 10. [Motion](#motion)
 11. [Voice & Copy](#voice--copy)
@@ -140,17 +141,17 @@ There is **one** neutral ramp: the Portal ink-forward ramp. Use the `--p-*` name
 | `--p-surface-tint` | `#F3F4F6` | Tab-strip background |
 | `--p-shell` | `#FDFCF9` | **Page / canvas background** — warm off-white; never for cards |
 
-### Portal Primary Blue
+### Portal Primary — "Dusk" muted navy / dusty steel (1.11 · supersedes the vivid blues)
 
-| Token | Hex | Role |
-|---|---|---|
-| `--p-primary` | `#007CFF` | Links, focus, selection (state inside content) |
-| `--p-primary-hover` | `#0066D6` | Hover state |
-| `--p-primary-soft` | `#DBEAFE` | Active count badge backgrounds |
-| `--p-primary-tint` | `#EFF6FF` | Row hover / info backgrounds |
-| `--p-primary-ink` | `#007CFF` | Link text (consolidated to the single brand blue; was `#155DFC`) |
+| Token | Light | Dark | Role |
+|---|---|---|---|
+| `--p-primary` | `#1861AF` | `#ADBDD1` | Links, focus, selection (state inside content) |
+| `--p-primary-hover` | `#134E8C` | `#C3CFDE` | Hover state |
+| `--p-primary-soft` | `#D9E3F0` | `rgba(173,189,209,.18)` | Active count badge backgrounds · `::selection` |
+| `--p-primary-tint` | `#EDF2F8` | `rgba(173,189,209,.10)` | Row hover / info backgrounds |
+| `--p-primary-ink` | `#1861AF` | `#BFCBDB` | Link text |
 
-> **Blue's job narrowed in 1.6.** `--p-primary` is now reserved for **selection, state & focus _inside content_** — links, focus rings, input/field focus, selected rows, applied filters, checkboxes/toggles, calendar selection, info. The **commitment & navigation** color moved to `--p-action` (below).
+> **Blue's job narrowed in 1.6; its hue dusted in 1.11.** `--p-primary` remains reserved for **selection, state & focus _inside content_** — links, focus rings, input/field focus, selected rows, applied filters, checkboxes/toggles, calendar selection, info. The **commitment & navigation** color stays `--p-action` (below). Dusk consequences: light-mode link contrast on white rises **3.9:1 → 6.3:1** (AA for text); dark-mode selection/link chrome reads as **quiet, nearly-neutral steel** at 8.8:1 — a deliberate, signed-off tradeoff of pop for calm. The old vivid `#007CFF` survives **only** inside the Intelligence gradient (a brand asset, not a UI state).
 
 ### Portal Action (Ink-Forward)
 
@@ -164,15 +165,17 @@ The **commitment & active-navigation** color (1.6): primary buttons, the active 
 | `--p-action-disabled-bg` | `#C7CBD3` | `#3F3F46` | Disabled action surface |
 | `--p-action-disabled-fg` | `#FFFFFF` | `#71717A` | Label on disabled action |
 
-### Portal Feedback
+### Portal Feedback — dusted (1.11)
 
-| Token | Hex | Role |
-|---|---|---|
-| `--p-success` | `#00BC57` | Success |
-| `--p-warning` | `#DB9E03` | Warning |
-| `--p-danger` | `#E5484D` | Danger / error |
-| `--p-danger-strong` | `#DC2626` | Strong danger |
-| `--p-danger-soft` (1.8) | `#FCEBEC` / dark `rgba(239,68,68,.16)` | Red **wash** for "conflict" calendar cells / buffer flags (§Amber/Red law) — the fill under `--p-danger` text; distinct from the `--g-red-10` chip/banner tint |
+| Token | Light | Dark | Role |
+|---|---|---|---|
+| `--p-success` | `#21C06B` | `#44AB89` | Success (dots / fills; text uses the `-bg/-fg` pair) |
+| `--p-warning` | `#B98A2E` | `#E2A336` | Warning / unsaved-edit amber |
+| `--p-danger` | `#C94A4E` | `#D84B4B` | Danger / error (light: 4.6:1 on white, up from 4.0) |
+| `--p-danger-strong` | `#DC2626` | `#E38080` | Strong danger (small text) |
+| `--p-danger-soft` (1.8) | `#F8EAEA` | `rgba(216,75,75,.18)` | Red **wash** for "conflict" calendar cells / buffer flags (§Amber/Red law) — the fill under `--p-danger` text; distinct from the `--g-red-10` chip/banner tint |
+
+The semantic **laws are unchanged** — amber = your unsaved edit, red = real-world conflict, green = genuine success — only the hues went dusty. The `--g-red/green/gold-10` tints re-base on these values in both modes.
 
 ### Portal Search Highlight (1.7)
 
@@ -193,15 +196,24 @@ Concept accent for the Store-Layout **"General Stock Area"** section type only. 
 | `--p-genstock-ink` | `#6B21A8` | `#D8B4FE` | Label text / strong fg |
 | `--p-genstock-tint` | `rgba(124,58,237,.12)` | `rgba(167,139,250,.18)` | Badge / modal icon-disc bg |
 
-### Portal Category Pills
+### Portal Badge Palette — `--p-pal-1…10` (1.11, ported from the app; supersedes hand-picked pill pastels)
 
-| Category | Background Token | Foreground Token | Bg Hex | Fg Hex |
-|---|---|---|---|---|
-| Beer | `--p-pill-beer-bg` | `--p-pill-beer-fg` | `#FFFBEB` | `#BB4D00` |
-| Wine | `--p-pill-wine-bg` | `--p-pill-wine-fg` | `#F5F3FF` | `#6B21A8` |
-| Spirits | `--p-pill-spirits-bg` | `--p-pill-spirits-fg` | `#FFF7ED` | `#C2410C` |
-| RTD | `--p-pill-rtd-bg` | `--p-pill-rtd-fg` | `#EFF6FF` | `#1447E6` |
-| Non-Alcoholic | `--p-pill-nonalc-bg` | `--p-pill-nonalc-fg` | `#ECFDF5` | `#047857` |
+**One theme-aware foreground per slot; a badge's background is always a computed 15% tint** (`color-mix(in oklab, var(--p-pal-N) 15%, transparent)`) — never a hand-picked pastel. Roles and product categories reference **slot numbers** (the app's `roles.py` stores the slot). Light stays vivid (Dusk Q3); **dark carries the dusty variants** from the Theme-Lab export. To expand the role/category set, take a reserved slot — don't mint new tokens.
+
+| Slot | Light | Dark (dusty) | Assigned to |
+|---|---|---|---|
+| `--p-pal-1` | `#6B21A8` | `#AF98C8` | violet — Executive, Wine |
+| `--p-pal-2` | `#1447E6` | `#84A8D2` | blue — Dept Manager, RTD |
+| `--p-pal-3` | `#047857` | `#9CCEBA` | green — IT Admin, Non-Alc |
+| `--p-pal-4` | `#BB4D00` | `#D8C997` | amber — Beer |
+| `--p-pal-5` | `#4A5565` | `#B8B8C1` | slate — Sales Rep |
+| `--p-pal-6` | `#C2410C` | `#E5CAAE` | orange — Supervisor, Spirits |
+| `--p-pal-7` | `#BE185D` | `#C9A6B6` | pink — reserved |
+| `--p-pal-8` | `#0E7490` | `#96C3CB` | cyan — reserved |
+| `--p-pal-9` | `#4338CA` | `#A6AFD2` | indigo — reserved |
+| `--p-pal-10` | `#57534E` | `#D6D3D1` | stone — reserved |
+
+**Category pills** are pal-derived compat aliases (`--p-pill-{beer|wine|spirits|rtd|nonalc}-bg/fg`): fg = the slot, bg = the 15% mix. New work should reference slots directly.
 
 ### Semantic Aliases
 
@@ -237,23 +249,23 @@ Concept accent for the Store-Layout **"General Stock Area"** section type only. 
 
 ---
 
-### Theming — light + dark (1.5)
+### Theming — DARK-FIRST light + dark (1.5 · dark default since 1.11)
 
-The portal ships a full **light + dark theme**, toggled live with no reload. This is the largest 1.5 change and the reason the dark token block, the dark Coverage-Map basemap, and the colour-blind-safe Conditions palette exist.
+The portal ships a full **light + dark theme**, toggled live with no reload. **Since 1.11 "Dusk", dark is the default**: a first-run user (no stored pref) gets **`dark`** — not `system` — and the dark theme is the product's primary authored canvas (docs, previews, and screenshots lead with it). Returning users keep their saved choice; Light / System remain one click away on the toggle.
 
 **Theme model — three preferences, two resolved themes:**
 
-- **`pref`** — `"system" | "light" | "dark"`, persisted in `localStorage["gr-theme"]` (default `"system"`).
+- **`pref`** — `"system" | "light" | "dark"`, persisted in `localStorage["gr-theme"]` (**default `"dark"` since 1.11**; was `"system"`).
 - **`resolved`** — `"light" | "dark"`. `system` resolves via `window.matchMedia("(prefers-color-scheme: dark)")` and **follows OS changes live** while the pref is `system`.
 - Applied by setting **`document.documentElement.setAttribute("data-theme", resolved)`**. All dark tokens live under the **`html[data-theme="dark"]`** selector; light is the bare `:root`.
 
 > **Single-store rule (this caused a real bug — keep it).** Theme state **must live in one module-level store** read via **`useSyncExternalStore`**, not per-component `useState`. JS-driven views (the Leaflet Coverage Map) rebuild their tiles inside an effect keyed on `resolved`; if each `useTheme()` hook held its own copy, the map would **not** re-render on toggle. Reference module: `ui_kits/portal/theme.js`.
 
-> **No-flash bootstrap (required).** A tiny inline script in `index.html` must read `localStorage["gr-theme"]` and set `data-theme` **before React mounts**, so there is no white→dark flash on load.
+> **No-flash bootstrap (required).** A tiny inline script in `index.html` must read `localStorage["gr-theme"]` and set `data-theme` **before React mounts**, so there is no light→dark flash on load — doubly important now that dark is the default. (Every `preview/*.html` page carries the same bootstrap since 1.11.)
 
-**Dark token model.** The dark theme is a complete inverted-neutral set using **deep tinted blacks** (Vercel/Linear lineage). **Elevation in dark is expressed by surface lightening + an inset highlight + a deep shadow** — *not* the light-mode soft drop shadows (see §7). The full block is in `colors_and_type.css` under `html[data-theme="dark"]`.
+**Dark token model.** The dark theme is a complete inverted-neutral set using **deep tinted blacks** (Vercel/Linear lineage) — re-based in 1.11: a **near-black shell** with clearly-lifted surfaces (shell `#0F0F0F`, surface `#131316`, surface-alt `#202022`, borders `#34343B`/`#45454D`) while text stays off-white (ink `#F2F2F4` — never pure white). **Elevation in dark is expressed by surface lightening + an inset highlight + a deep shadow** — *not* the light-mode soft drop shadows (see §7). The full block is in `colors_and_type.css` under `html[data-theme="dark"]`.
 
-> **Flip-pairs rule (the #1 authoring rule that makes dark "just work").** Any tinted **status / role / category** surface must be authored as a **bg/fg token pair** (`--p-*-bg` / `--p-*-fg`) so the dark block can flip both. Pattern: **light = pale tint bg + saturated fg; dark = low-alpha rgba tint of the same hue + luminous (light) fg.** Components must **never hardcode hex** for these surfaces — always reference the token, or dark mode silently breaks. Tokens that flip: the neutral ramp, primary set, the **action set** (`--p-action*` — inverts to a white surface), 5 category-pill pairs, 4 feedback colors, the `--g-*-10` tints, the intel gradient, the 4 shadows, 3 status pairs (`--p-success/atrisk/neutral-bg/fg`), 5 role pairs, `--p-overlay-hover`, `--p-focus-ring`, `--p-backdrop`, 2 skeleton stops, `--g-gold-30`, 2 scrollbar stops, `--ms-grad`, and the 8 `--cond-*`.
+> **Flip-pairs rule (the #1 authoring rule that makes dark "just work").** Any tinted **status / role / category** surface must be authored as a **bg/fg token pair** (`--p-*-bg` / `--p-*-fg`) so the dark block can flip both. **1.11 refinement:** the role + category-pill pairs are now **derived from the `--p-pal-1…10` ramp** (fg = the slot, bg = a computed 15% `color-mix` tint), so flipping the **ramp** flips every badge — the dark block no longer overrides the pairs individually. Components must **never hardcode hex** for these surfaces — always reference the token, or dark mode silently breaks. Tokens that flip: the neutral ramp, primary set, the **action set** (`--p-action*` — inverts to a white surface), the **pal ramp** (dusty in dark), 4 feedback colors, the `--g-*-10` tints, the intel gradient (deliberately vivid), the 4 shadows, 3 status pairs (`--p-success/atrisk/neutral-bg/fg`), `--p-overlay-hover`, `--p-focus-ring`, `--p-backdrop`, 2 skeleton stops, `--g-gold-30`, 2 scrollbar stops, `--p-pulse`, `--ms-grad`, and the 8 `--cond-*`.
 
 **Brand marks.** The wordmark + crow swap to **knock-out (KO) variants** in dark (`greater-logotype-ko.png` / `greater-crow-ko.png`), keyed on `resolved`.
 
@@ -278,9 +290,9 @@ The portal ships a full **light + dark theme**, toggled live with no reload. Thi
 | Token | Stack | Role |
 |---|---|---|
 | `--font-sans` | `"Inter", "Inter Fallback", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif` | All UI text |
-| `--font-mono` | `"Geist Mono", ui-monospace, "SF Mono", Menlo, monospace` | IDs, codes, tabular data |
+| `--font-mono` | `"JetBrains Mono", "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace` | IDs, codes, tabular data — **JetBrains Mono since 1.11** (self-hosted variable woff2 in `fonts/`; Geist kept as fallback) |
 
-Inter is the **only** UI family (Regular / Medium / Semibold / Bold / Light). No serif, no display face.
+Inter is the **only** UI family (Regular / Medium / Semibold / Bold / Light). No serif, no display face. **Page title = 28px since 1.11** (`--fs-28`, `.g-h1` — resolves the 24px-doc / 30px-app drift).
 
 ### Type Scale
 
@@ -412,38 +424,40 @@ Base unit is **4px**. All spacing tokens are multiples of this base.
 | Inputs (error) | `1px solid #E5484D` |
 | Inputs (disabled) | `1px solid #E5E7EB`, bg `#fff` (white, dimmed via uniform `#99A1AF`) |
 
-### Border Radius Tokens
+### Border Radius Tokens — squared off (1.11 "Dusk"; supersedes the 4/6/8/10 scale)
 
 | Token | Value | Usage |
 |---|---|---|
-| `--radius-xs` | 2px | — |
-| `--radius-sm` | 4px | **All interactive controls** — buttons, inputs, `Select`, filter chips & Filter Menu, pagination controls, secondary toolbar buttons |
-| `--radius-md` | 6px | Stat cards |
-| `--radius-lg` | 8px | Prompt callouts, info banners |
-| `--radius-xl` | 10px | Cards / large surfaces, map overlay cards, elevated floating cards (TableView) |
-| `--radius-pill` | 999px | Status Chips, role/category pills, count & "N selected" badges, toggle track |
+| `--radius-xs` | **1px** | — |
+| `--radius-sm` | **1px** | **All interactive controls** — buttons, inputs, `Select`, filter chips & Filter Menu, pagination controls, secondary toolbar buttons, nav rows |
+| `--radius-md` | **2px** | Stat cards, menus, icon-button hovers |
+| `--radius-lg` | **2px** | Prompt callouts, info banners, cards & panels |
+| `--radius-xl` | **2px** | Cards / large surfaces, map overlay cards, elevated floating cards (TableView) |
+| `--radius-pill` | 999px | Status Chips, role/category pills, count & "N selected" badges, toggle track — **pills stay fully round** |
+
+> **Hairline strokes (1.11).** Entry fields, attention fields, cards & tables carry **0.5px** border widths (rendering as true hairlines on retina, 1px elsewhere). With the ×0.25 shadow quieting (§7), the hairline is now what carries structure.
 
 > **Dense edit surfaces use the scale, no magic numbers (reaffirmed 1.8).** In the Assignment-Edit surface: number / sequence inputs, calendar day cells, and legend cells → `--radius-sm` (4px); icon buttons (calendar prev/next, undo) → `--radius-md` (6px); the map/preview container and the changes ledger → `--radius-lg` (8px); count pills → `--radius-pill`. The scale itself is unchanged.
 
-> **4px control-radius normalization (1.5, usage clarification).** Interactive **control** corners are squared to a single small radius for a crisper, more "operational" feel. **Form controls, filter chips/menus, `Select`, pagination, and secondary toolbar buttons → `--radius-sm` (4px), standard height 36px.** (Login inputs were 10px → now 4px / 56px tall on the auth screen specifically.) **Pills stay fully round (`--radius-pill`)** — status Chips, role/category pills, count badges, the "N selected" pill are *labels*, not controls. **Cards / surfaces keep `--radius-xl` (10px).** The scale itself is unchanged; this is which element maps to which step — don't use 8–10px on inputs/chips/pagination anymore.
+> **Control-radius normalization (1.5, values re-based 1.11).** Interactive **control** corners are squared to a single small radius for a crisper, more "operational" feel — **`--radius-sm`, now 1px** (form controls, filter chips/menus, `Select`, pagination, secondary toolbar buttons; standard height 36px; auth inputs 56px tall). **Pills stay fully round (`--radius-pill`)** — status Chips, role/category pills, count badges, the "N selected" pill are *labels*, not controls. **Cards / surfaces → `--radius-xl` (now 2px).** The mapping of element → step is unchanged from 1.5/1.8; Dusk only sharpened the step values.
 
 ---
 
 ## 7. Elevation & Shadows
 
-| Token | Value | Usage |
+| Token | Value (light — alphas ×0.25 since 1.11) | Usage |
 |---|---|---|
-| `--shadow-tooltip` | `0 2px 6px 0 rgba(0,0,0,.15)` | Tooltip popovers |
-| `--shadow-card` | `0 1px 2px -1px rgba(0,0,0,.10), 0 1px 3px 0 rgba(0,0,0,.10)` | **Small** elements (stat cards, secondary buttons) |
-| `--shadow-surface` | `0 1px 2px 0 rgba(16,24,40,.04), 0 6px 16px -8px rgba(16,24,40,.10)` | **Large** resting surfaces (tables, detail cards, ledgers) lifting off the shell |
-| `--shadow-float` | `0 4px 6px -4px rgba(0,0,0,.10), 0 10px 15px -3px rgba(0,0,0,.10)` | Elevated floating / transient layers (menus, popovers, tooltips, toasts) |
-| `--shadow-brutal` | `2px 2px 0 0 var(--p-ink)` | Adaptive (black in light / white in dark) — brand-moment "neo" buttons |
+| `--shadow-tooltip` | `0 2px 6px 0 rgba(0,0,0,.04)` | Tooltip popovers |
+| `--shadow-card` | `0 1px 2px -1px rgba(0,0,0,.03), 0 1px 3px 0 rgba(0,0,0,.03)` | **Small** elements (stat cards, secondary buttons) |
+| `--shadow-surface` | `0 1px 2px 0 rgba(16,24,40,.01), 0 6px 16px -8px rgba(16,24,40,.03)` | **Large** resting surfaces (tables, detail cards, ledgers) lifting off the shell |
+| `--shadow-float` | `0 4px 6px -4px rgba(0,0,0,.03), 0 10px 15px -3px rgba(0,0,0,.03)` | Elevated floating / transient layers (menus, popovers, tooltips, toasts) |
+| `--shadow-brutal` | `2px 2px 0 0 var(--p-ink)` | Adaptive (black in light / white in dark) — brand-moment "neo" buttons; a solid offset, exempt from the ×0.25 |
 
 Cards in-table have **no shadow**.
 
-> **Two elevation tiers by size.** Small elements use the tight `--shadow-card`; large resting surfaces (tables, detail cards, ledgers) use the soft diffuse `--shadow-surface` (ink-tinted `rgba(16,24,40,…)`, softer against the warm shell). Keep the 1px `--p-border` on surfaces — **border + soft shadow together**; the shadow doesn't replace the border. Floating transient layers keep `--shadow-float`.
+> **Whisper shadows (1.11 "Dusk").** Light-mode shadow **alphas dropped to ×0.25** of their 1.3 values — with the new **0.5px hairline strokes** (§6) carrying structure, shadows recede to a hint of depth. The two-tier size rule is unchanged: small elements → `--shadow-card`, large resting surfaces → `--shadow-surface` (ink-tinted, softer against the warm shell), floating transient layers → `--shadow-float`. Keep the hairline `--p-border` on surfaces — **border + soft shadow together**; the shadow doesn't replace the border.
 
-> **Dark elevation is inverted in technique (1.5).** In dark mode the four shadow tokens flip to **inset highlight + deep shadow** rather than soft drop shadows — `inset 0 1px 1px rgba(255,255,255,.04–.08)` for a top-edge catch-light, a deep `rgba(0,0,0,.5–.6)` drop, and a `0 0 0 1px` border ring on floating layers. Depth in dark comes from **surface lightening** (`--p-surface` `#121214` lifts off `--p-shell` `#0A0A0B`) plus the inset highlight — not from a darker shadow alone. Reference the tokens; they swap automatically (see §3 Theming).
+> **Dark elevation is inverted in technique (1.5 — unchanged by Dusk).** In dark mode the four shadow tokens flip to **inset highlight + deep shadow** rather than soft drop shadows — `inset 0 1px 1px rgba(255,255,255,.04–.08)` for a top-edge catch-light, a deep `rgba(0,0,0,.5–.6)` drop, and a `0 0 0 1px` border ring on floating layers. Depth in dark comes from **surface lightening** (`--p-surface` `#131316` lifts off the near-black `--p-shell` `#0F0F0F`; `--p-surface-alt` `#202022` lifts again) plus the inset highlight — not from a darker shadow alone. The ×0.25 quieting does **not** apply here: dark elevation is a strategy, not an alpha. Reference the tokens; they swap automatically (see §3 Theming).
 
 ### Z-index ladder (1.7)
 
@@ -1569,19 +1583,19 @@ letter-spacing: .02em;
 white-space: nowrap;
 ```
 
-#### Role → palette mapping
+#### Role → palette mapping (pal-slot based since 1.11)
 
-Roles draw from the same 10-color pill palette as categories (see Category Pills / the Pills color card). The **ring** column is the role's avatar ring — always the *same* color as the Pill's text.
+Roles draw from the **`--p-pal-1…10` badge palette** (§3): text/ring = the slot's foreground; background = the computed 15% `color-mix` tint. The **ring** column is the role's avatar ring — always the *same* color as the Pill's text. Because the pairs are pal-derived, they flip to the dusty dark variants automatically.
 
-| Role | Palette color | Background | Text | Ring |
-|---|---|---|---|---|
-| Executive | Purple | `#F5F3FF` | `#6B21A8` | `#6B21A8` |
-| Department Manager | Blue | `#EFF6FF` | `#1447E6` | `#1447E6` |
-| Supervisor | Orange | `#FFF7ED` | `#C2410C` | `#C2410C` |
-| Sales Representative | Gray | `#F3F4F6` | `#4A5565` | `#4A5565` |
-| IT / Admin | Green | `#ECFDF5` | `#047857` | `#047857` |
+| Role | Slot | Text / Ring (light → dark) |
+|---|---|---|
+| Executive | `--p-pal-1` (violet) | `#6B21A8` → `#AF98C8` |
+| Department Manager | `--p-pal-2` (blue) | `#1447E6` → `#84A8D2` |
+| Supervisor | `--p-pal-6` (orange) | `#C2410C` → `#E5CAAE` |
+| Sales Representative | `--p-pal-5` (slate) | `#4A5565` → `#B8B8C1` |
+| IT / Admin | `--p-pal-3` (green) | `#047857` → `#9CCEBA` |
 
-Sizes: `md` (default, 12px) and `sm` (11px, 1px vertical padding). To expand the role set, pick another palette color — don't mint new tokens.
+Sizes: `md` (default, 12px) and `sm` (11px, 1px vertical padding). To expand the role set, take a **reserved slot** (`pal-7…10`) — don't mint new tokens.
 
 ---
 
@@ -3043,4 +3057,4 @@ So the affordance rules in §Permissions & Affordances have a shared vocabulary,
 
 ---
 
-*Greater Design System · Portal 1.10 · Exported July 2026*
+*Greater Design System · Portal 1.11 "Dusk" · Exported July 2026*

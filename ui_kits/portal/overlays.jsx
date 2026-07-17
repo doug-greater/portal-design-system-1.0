@@ -12,23 +12,23 @@
     @keyframes g-modal-in { from { transform: scale(.98); } to { transform: scale(1); } }
     @keyframes g-drawer-in { from { transform: translateX(16px); } to { transform: translateX(0); } }
     @media (prefers-reduced-motion: reduce) { [style*="g-modal-in"],[style*="g-drawer-in"]{ animation: none !important; } }
-    .g-split { display:inline-flex; height:28px; border-radius:6px; overflow:hidden; font:500 13px/1 Inter,sans-serif; vertical-align:middle; box-sizing:border-box; }
+    .g-split { display:inline-flex; height:28px; border-radius:2px; overflow:hidden; font:500 13px/1 Inter,sans-serif; vertical-align:middle; box-sizing:border-box; }
     .g-split .g-split-main { display:inline-flex; align-items:center; gap:6px; padding:0 11px; cursor:pointer; border:none; background:transparent; font:inherit; color:inherit; }
     .g-split .g-split-caret { display:inline-flex; align-items:center; justify-content:center; width:26px; cursor:pointer; border:none; background:transparent; color:inherit; }
     .g-split.primary { background:var(--p-action); color:var(--p-action-fg); }
     .g-split.primary .g-split-caret { border-left:1px solid rgba(127,127,127,.32); }
     .g-split.primary .g-split-main:hover, .g-split.primary .g-split-caret:hover { background:var(--p-action-hover); }
-    .g-split.error { background:#E5484D; color:#fff; }
+    .g-split.error { background:#C94A4E; color:#fff; }
     .g-split.error .g-split-caret { border-left:1px solid rgba(255,255,255,.32); }
     .g-split.error .g-split-main:hover, .g-split.error .g-split-caret:hover { background:rgba(255,255,255,.14); }
-    .g-menu { background:#fff; border:1px solid var(--p-border); border-radius:8px; box-shadow:var(--shadow-float); padding:4px; min-width:208px; }
-    .g-menu-item { display:flex; align-items:center; gap:10px; height:34px; padding:0 10px; border-radius:6px; font:400 14px/1 Inter,sans-serif; color:var(--p-ink); cursor:pointer; white-space:nowrap; }
+    .g-menu { background:#fff; border:0.5px solid var(--p-border); border-radius:2px; box-shadow:var(--shadow-float); padding:4px; min-width:208px; }
+    .g-menu-item { display:flex; align-items:center; gap:10px; height:34px; padding:0 10px; border-radius:2px; font:400 14px/1 Inter,sans-serif; color:var(--p-ink); cursor:pointer; white-space:nowrap; }
     .g-menu-item:hover { background:var(--p-surface-alt); }
     .g-menu-item.danger { color:var(--p-danger); }
-    .g-menu-kbd { margin-left:auto; font:400 11px 'Geist Mono',monospace; color:var(--p-placeholder); }
+    .g-menu-kbd { margin-left:auto; font:400 11px 'JetBrains Mono',monospace; color:var(--p-placeholder); }
     .g-menu-label { font:500 10px/1 Inter,sans-serif; letter-spacing:.07em; text-transform:uppercase; color:var(--p-muted); padding:9px 10px 5px; }
     .g-menu-div { height:1px; background:var(--p-border); margin:4px -4px; }
-    .g-kebab { width:28px; height:28px; border-radius:6px; display:inline-flex; align-items:center; justify-content:center; color:var(--p-muted); cursor:pointer; border:none; background:transparent; }
+    .g-kebab { width:28px; height:28px; border-radius:2px; display:inline-flex; align-items:center; justify-content:center; color:var(--p-muted); cursor:pointer; border:none; background:transparent; }
     .g-kebab:hover { background:rgba(0,0,0,.05); color:var(--p-text); }
   `;
   document.head.appendChild(s);
@@ -103,25 +103,25 @@ function Modal({ open, onClose, title, subtitle, children, footer, size = 'md', 
   // size map, or a custom width for dense content (e.g. the 560px audit timeline)
   const w = width || ({ sm: 420, md: 520, lg: 640 }[size] || 520);
   const TONES = {
-    danger:  { tint: 'rgba(229,72,77,.12)', color: 'var(--p-danger)' },
-    warning: { tint: 'rgba(219,158,3,.12)', color: 'var(--p-warning)' },
+    danger:  { tint: 'var(--g-red-10)', color: 'var(--p-danger)' },
+    warning: { tint: 'rgba(185,138,46,.12)', color: 'var(--p-warning)' },
     primary: { tint: 'var(--p-primary-tint)', color: 'var(--p-primary)' },
-    success: { tint: 'rgba(0,188,87,.12)', color: 'var(--p-success)' },
+    success: { tint: 'rgba(33,192,107,.12)', color: 'var(--p-success)' },
     general: { tint: 'var(--p-genstock-tint)', color: 'var(--p-genstock)' },  // General Stock (purple concept accent)
   };
   const t = TONES[tone] || TONES.danger;
   return (
     <Scrim onClose={confirm ? undefined : onClose}>
-      <div style={{ width: w, background: '#fff', borderRadius: 12, border: '1px solid var(--p-border)', boxShadow: confirm ? '0 8px 28px rgba(0,0,0,.12), 0 2px 6px rgba(0,0,0,.06)' : '0 8px 28px rgba(0,0,0,.18), 0 2px 6px rgba(0,0,0,.08)', overflow: 'hidden', animation: 'g-modal-in .18s ease-out' }}>
+      <div style={{ width: w, background: '#fff', borderRadius: 2, border: '0.5px solid var(--p-border)', boxShadow: confirm ? '0 8px 28px rgba(0,0,0,.12), 0 2px 6px rgba(0,0,0,.06)' : '0 8px 28px rgba(0,0,0,.18), 0 2px 6px rgba(0,0,0,.08)', overflow: 'hidden', animation: 'g-modal-in .18s ease-out' }}>
         {confirm ? (
           <div style={{ padding: '22px 24px 16px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-              <span style={{ width: 34, height: 34, borderRadius: 8, flexShrink: 0, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: t.tint, color: t.color }}><MIcon name={icon} size={20} /></span>
+              <span style={{ width: 34, height: 34, borderRadius: 2, flexShrink: 0, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: t.tint, color: t.color }}><MIcon name={icon} size={20} /></span>
               <h2 style={{ margin: 0, font: '700 19px/1.2 Inter, sans-serif', color: 'var(--p-ink)' }}>{title}</h2>
             </div>
             <div style={{ font: '400 14px/1.5 Inter, sans-serif', color: 'var(--p-text-2)' }}>{children}</div>
             {warning && (
-              <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', marginTop: 14, padding: '10px 12px', background: '#FFF7ED', borderRadius: 8 }}>
+              <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', marginTop: 14, padding: '10px 12px', background: '#FFF7ED', borderRadius: 2 }}>
                 <MIcon name="warning" size={18} color="#C2410C" style={{ flexShrink: 0, marginTop: 1 }} />
                 <span style={{ font: '400 13px/1.45 Inter, sans-serif', color: '#C2410C' }}>{warning}</span>
               </div>
@@ -134,7 +134,7 @@ function Modal({ open, onClose, title, subtitle, children, footer, size = 'md', 
                 <h2 style={{ margin: 0, font: '600 18px/1.3 Inter, sans-serif', letterSpacing: '-.01em', color: 'var(--p-ink)' }}>{title}</h2>
                 {subtitle && <div style={{ font: '400 13px/1.3 Inter, sans-serif', color: 'var(--p-muted)', marginTop: 2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{subtitle}</div>}
               </div>
-              <span onClick={onClose} style={{ width: 32, height: 32, borderRadius: 6, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'var(--p-muted)', cursor: 'pointer', flexShrink: 0 }}><MIcon name="close" size={20} /></span>
+              <span onClick={onClose} style={{ width: 32, height: 32, borderRadius: 2, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'var(--p-muted)', cursor: 'pointer', flexShrink: 0 }}><MIcon name="close" size={20} /></span>
             </div>
             <div style={{ padding: '4px 24px 8px', display: 'flex', flexDirection: 'column', gap: 20 }}>{children}</div>
           </>
@@ -152,16 +152,16 @@ function Drawer({ open, onClose, title, overline, children, footer, size = 'md' 
   const width = { sm: 400, md: 460, lg: 560 }[size] || 460;
   return (
     <Scrim onClose={onClose} justify="right">
-      <div style={{ width, height: '100vh', background: '#fff', borderLeft: '1px solid var(--p-border)', boxShadow: 'var(--shadow-float)', display: 'flex', flexDirection: 'column', animation: 'g-drawer-in .18s ease-out' }}>
-        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: '20px 20px 16px 24px', borderBottom: '1px solid var(--p-border)' }}>
+      <div style={{ width, height: '100vh', background: '#fff', borderLeft: '0.5px solid var(--p-border)', boxShadow: 'var(--shadow-float)', display: 'flex', flexDirection: 'column', animation: 'g-drawer-in .18s ease-out' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: '20px 20px 16px 24px', borderBottom: '0.5px solid var(--p-border)' }}>
           <div>
             {overline && <div style={{ font: '500 11px/1 Inter, sans-serif', textTransform: 'uppercase', letterSpacing: '.06em', color: 'var(--p-muted)', marginBottom: 6 }}>{overline}</div>}
             <h3 style={{ margin: 0, font: '600 20px/1.25 Inter, sans-serif', letterSpacing: '-.01em', color: 'var(--p-ink)' }}>{title}</h3>
           </div>
-          <span onClick={onClose} style={{ width: 32, height: 32, borderRadius: 6, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'var(--p-muted)', cursor: 'pointer' }}><MIcon name="close" size={20} /></span>
+          <span onClick={onClose} style={{ width: 32, height: 32, borderRadius: 2, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'var(--p-muted)', cursor: 'pointer' }}><MIcon name="close" size={20} /></span>
         </div>
         <div style={{ padding: '20px 24px', overflowY: 'auto', flex: 1, display: 'flex', flexDirection: 'column', gap: 18 }}>{children}</div>
-        {footer && <div style={{ padding: '14px 24px', borderTop: '1px solid var(--p-border)', display: 'flex', gap: 10 }}>{footer}</div>}
+        {footer && <div style={{ padding: '14px 24px', borderTop: '0.5px solid var(--p-border)', display: 'flex', gap: 10 }}>{footer}</div>}
       </div>
     </Scrim>
   );
@@ -286,8 +286,8 @@ function CommandPalette({ open, onClose, query = '', onQuery, groups = [] }) {
     <div data-testid="command-palette" onMouseDown={onClose}
       style={{ position: 'fixed', inset: 0, zIndex: CMDK_Z, background: 'var(--p-backdrop, rgba(16,24,40,.45))', display: 'flex', justifyContent: 'center', alignItems: 'flex-start', padding: '56px 24px' }}>
       <div onMouseDown={(e) => e.stopPropagation()}
-        style={{ width: 560, maxWidth: '100%', background: 'var(--p-surface)', border: '1px solid var(--p-border)', borderRadius: 12, boxShadow: 'var(--shadow-float)', overflow: 'hidden' }}>
-        <div style={{ display: 'flex', alignItems: 'center', height: 52, padding: '0 14px', borderBottom: '1px solid var(--p-border)', gap: 10 }}>
+        style={{ width: 560, maxWidth: '100%', background: 'var(--p-surface)', border: '0.5px solid var(--p-border)', borderRadius: 2, boxShadow: 'var(--shadow-float)', overflow: 'hidden' }}>
+        <div style={{ display: 'flex', alignItems: 'center', height: 52, padding: '0 14px', borderBottom: '0.5px solid var(--p-border)', gap: 10 }}>
           <Icon name="search" size={20} color="var(--p-placeholder)" />
           <input autoFocus value={query} onChange={(e) => onQuery?.(e.target.value)} placeholder="Search…" data-testid="command-palette-input"
             style={{ flex: 1, border: 'none', outline: 'none', background: 'transparent', font: '400 16px Inter, sans-serif', color: 'var(--p-ink)' }} />

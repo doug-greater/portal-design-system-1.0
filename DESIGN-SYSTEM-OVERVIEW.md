@@ -386,6 +386,17 @@ coverage:
   **Templates** tab; the plan-relative **week selector** (`?week=`); ported `.g-routemap*` CSS; and
   `SCREENS-1.10.md`.
 
+- **New in Portal 1.11 "Dusk" (dark-first restyle)** — **dark is the default theme** (first-run pref
+  `dark`; deepened dark neutrals — near-black shell `#0F0F0F`, surface `#131316`, surface-alt
+  `#202022`, ink stays off-white `#F2F2F4`; every preview bootstraps dark-first); the **Dusk palette** — primary `#1861AF` light / `#ADBDD1` dusty-steel dark
+  (light link contrast 3.9→6.3:1), dusted feedback trio in both modes, all derived tints / focus rings /
+  `::selection` / `--p-pulse` re-based; the **`--p-pal-1…10` badge ramp** (one fg per slot + computed
+  15% `color-mix` tints; role/category pairs are pal-derived aliases; dusty dark variants incl. the
+  reserved slots; dark genstock → pal-1); **radii squared** (controls 1px · cards/menus/floats 2px ·
+  pills round); **0.5px hairline strokes** + **×0.25 light shadows**; **JetBrains Mono** (self-hosted)
+  replaces Geist Mono; page title 28px; the Conditions palette and Intelligence gradient stay vivid
+  **by design**; portal-wide old-blue hardcode sweep.
+
 **Terminology (1.1 canon).** "Store Promotions" (short "Store Promos", `/store-promotions`),
 "POD Planner" (`/pod-planner`), "Audit Log" (events Created / Updated / Restored / Deleted;
 value columns Removed / Added), "Batch Actions" (not "Bulk actions"), "Restore This Version"

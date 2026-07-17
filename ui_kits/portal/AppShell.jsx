@@ -12,7 +12,7 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
   // store); this kit inlines an equivalent so the demo flips live. Cycles
   // light → dark → system; sets data-theme on <html>, persisted in gr-theme.
   const [themePref, setThemePref] = React.useState(() => {
-    try { const v = localStorage.getItem('gr-theme'); return v === 'light' || v === 'dark' || v === 'system' ? v : 'system'; } catch { return 'system'; }
+    try { const v = localStorage.getItem('gr-theme'); return v === 'light' || v === 'dark' || v === 'system' ? v : 'dark'; } catch { return 'dark'; }   // dark-first (1.11)
   });
   const resolveTheme = (p) => p === 'dark' ? 'dark' : p === 'light' ? 'light' : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
   React.useEffect(() => {
@@ -62,7 +62,7 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
   const [msgrOpen, setMsgrOpen] = React.useState(false);
   const [unread] = React.useState(3);
 
-  const BRAND_BLUE = '#007CFF';
+  const BRAND_BLUE = 'var(--p-primary)';   // token-driven since 1.11 (Dusk)
   const INK = '#101828';
   const GRAY_600 = '#4A5565';
   const GRAY_800 = '#1E2939';
@@ -122,8 +122,8 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
       return (
         <li style={{ listStyle: 'none' }}>
           <div style={collapsed
-            ? { display: 'flex', alignItems: 'center', justifyContent: 'center', width: 40, height: 40, margin: '0 auto', borderRadius: 6, opacity: .4, cursor: 'default' }
-            : { display: 'flex', alignItems: 'center', padding: 8, gap: 12, borderRadius: 6, opacity: .45, cursor: 'default' }}>
+            ? { display: 'flex', alignItems: 'center', justifyContent: 'center', width: 40, height: 40, margin: '0 auto', borderRadius: 2, opacity: .4, cursor: 'default' }
+            : { display: 'flex', alignItems: 'center', padding: 8, gap: 12, borderRadius: 2, opacity: .45, cursor: 'default' }}>
             {MS(item.icon, 22, '#99A1AF')}
             {!collapsed && <span style={{ flex: 1, textAlign: 'left', font: '400 15px/1.25 Inter', color: '#99A1AF' }}>{item.label}</span>}
           </div>
@@ -146,8 +146,8 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
             <div className="gr-row" style={{
               position: 'relative',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              width: 40, height: 40, margin: '0 auto', borderRadius: 6,
-              background: tint ? 'rgba(0,124,255,0.10)' : '#fff',
+              width: 40, height: 40, margin: '0 auto', borderRadius: 2,
+              background: tint ? 'rgba(24,97,175,0.10)' : '#fff',
               color: tint ? BRAND_BLUE : INK,
               transition: 'background-color 50ms',
             }}>
@@ -166,8 +166,8 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
           width: '100%', border: 'none', background: 'transparent', padding: 0, cursor: 'pointer',
         }}>
           <div className={isActiveLeaf ? undefined : 'gr-row'} style={{
-            display: 'flex', alignItems: 'center', padding: 8, borderRadius: 6,
-            background: isActiveLeaf ? BRAND_BLUE : (groupActive ? 'rgba(0,124,255,0.10)' : '#fff'),
+            display: 'flex', alignItems: 'center', padding: 8, borderRadius: 2,
+            background: isActiveLeaf ? BRAND_BLUE : (groupActive ? 'rgba(24,97,175,0.10)' : '#fff'),
             color: isActiveLeaf ? '#fff' : (groupActive ? BRAND_BLUE : INK), gap: 12, transition: 'background-color 50ms',
           }}>
             {MS(item.icon, 22, isActiveLeaf ? '#fff' : (groupActive ? BRAND_BLUE : INK))}
@@ -197,7 +197,7 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
                   }}>
                     <div className="gr-sub" data-on={on ? '1' : '0'} style={{
                       display: 'flex', alignItems: 'center', padding: '6px 8px 6px 36px',
-                      borderRadius: 6,
+                      borderRadius: 2,
                       background: on ? BRAND_BLUE : '#fff',
                       color: on ? '#fff' : GRAY_800,
                       font: `${on ? 500 : 400} 14px/20px Inter`,
@@ -231,8 +231,8 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
             <div className="gr-util" style={{
               position: 'relative',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              width: 40, height: 36, margin: '0 auto', borderRadius: 6,
-              background: active ? 'rgba(0,124,255,0.10)' : undefined,
+              width: 40, height: 36, margin: '0 auto', borderRadius: 2,
+              background: active ? 'rgba(24,97,175,0.10)' : undefined,
               color: active ? BRAND_BLUE : GRAY_600,
             }}>
               {MS(icon, 20, active ? BRAND_BLUE : GRAY_600)}
@@ -249,7 +249,7 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
         }}>
           <div className="gr-util" style={{
             display: 'flex', alignItems: 'center', padding: '0 8px', minHeight: 34,
-            borderRadius: 6, background: active ? 'rgba(0,124,255,0.10)' : '#fff',
+            borderRadius: 2, background: active ? 'rgba(24,97,175,0.10)' : '#fff',
             color: active ? BRAND_BLUE : GRAY_600, gap: 12,
             font: '400 14px/20px Inter',
           }}>
@@ -269,7 +269,7 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
     return (
       <div style={{
         width: 208, background: '#fff', border: `1px solid ${BORDER_LIGHT}`,
-        borderRadius: 8, boxShadow: 'var(--shadow-float)', overflow: 'hidden',
+        borderRadius: 2, boxShadow: 'var(--shadow-float)', overflow: 'hidden',
       }}>
         <div style={{
           padding: '9px 14px 8px', font: '500 11px/1 Inter', letterSpacing: '0.06em',
@@ -310,11 +310,11 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
   return (
     <div style={{ height: '100vh', display: 'flex', background: '#fff', overflow: 'hidden' }}>
       <style>{`
-        .gr-row:hover { background: rgba(0,124,255,0.05) !important; }
-        .gr-sub:hover[data-on="0"] { background: rgba(0,124,255,0.05) !important; }
+        .gr-row:hover { background: rgba(24,97,175,0.05) !important; }
+        .gr-sub:hover[data-on="0"] { background: rgba(24,97,175,0.05) !important; }
         .gr-util:hover { background: #F3F4F6 !important; }
         .gr-collapse-btn:hover { background: #F3F4F6 !important; color: ${INK} !important; }
-        .flyout-child:hover { background: rgba(0,124,255,0.06) !important; }
+        .flyout-child:hover { background: rgba(24,97,175,0.06) !important; }
         @keyframes flyout-in { from { transform: translateX(-7px); } to { transform: translateX(0); } }
       `}</style>
       <aside style={{
@@ -376,7 +376,7 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
                 <button type="button" style={{
                   display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                   width: '100%', minHeight: 28, padding: '4px 4px 4px 8px', gap: 8,
-                  borderRadius: 8, border: '0.5px solid #D1D5DB', background: '#fff',
+                  borderRadius: 2, border: '0.5px solid #D1D5DB', background: '#fff',
                   font: '500 13px/20px Inter', color: INK, cursor: 'pointer',
                 }}>
                   <span>Elizabeth City</span>
@@ -442,10 +442,10 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
       {msgrOpen && (
         <div data-testid="help-messenger" style={{
           position: 'fixed', right: 20, bottom: 20, width: 340, height: 420, zIndex: 10001,
-          background: 'var(--p-surface)', border: '1px solid var(--p-border)', borderRadius: 12,
+          background: 'var(--p-surface)', border: '0.5px solid var(--p-border)', borderRadius: 2,
           boxShadow: 'var(--shadow-float)', display: 'flex', flexDirection: 'column', overflow: 'hidden',
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 14px', borderBottom: '1px solid var(--p-border)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 14px', borderBottom: '0.5px solid var(--p-border)' }}>
             <span style={{ font: '600 14px/1 Inter', color: 'var(--p-ink)' }}>Messenger</span>
             <button onClick={() => setMsgrOpen(false)} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--p-muted)', display: 'flex' }}>{MS('close', 18, 'var(--p-muted)')}</button>
           </div>

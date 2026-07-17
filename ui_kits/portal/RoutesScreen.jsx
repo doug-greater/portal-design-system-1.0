@@ -29,7 +29,7 @@ function RoutesScreen() {
     }).addTo(map);
 
     L.polyline(stops.map(s => s.coords), {
-      color: '#007CFF', opacity: 0.7, weight: 3, lineCap: 'round', lineJoin: 'round',
+      color: '#1861AF', opacity: 0.7, weight: 3, lineCap: 'round', lineJoin: 'round',
     }).addTo(map);
 
     stops.forEach((s, i) => {
@@ -65,13 +65,13 @@ function RoutesScreen() {
 
       <div style={{ display: 'grid', gridTemplateColumns: '360px 1fr', gap: 16, alignItems: 'flex-start' }}>
         {/* sidebar list */}
-        <div style={{ background: '#fff', border: '1px solid var(--p-border)', borderRadius: 10, overflow: 'hidden' }}>
-          <div style={{ padding: '14px 16px', borderBottom: '1px solid var(--p-border)' }}>
+        <div style={{ background: '#fff', border: '0.5px solid var(--p-border)', borderRadius: 2, overflow: 'hidden' }}>
+          <div style={{ padding: '14px 16px', borderBottom: '0.5px solid var(--p-border)' }}>
             <div style={{ font: '600 16px Inter', color: 'var(--p-ink)' }}>Thursday, Apr 23 · Kenny D’Amica</div>
             <div style={{ font: '400 13px Inter', color: 'var(--p-muted)', marginTop: 2 }}>5 stops · 227 cs planned</div>
           </div>
           {stops.map((s) => (
-            <div key={s.n} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', borderBottom: '1px solid var(--p-border)' }}>
+            <div key={s.n} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', borderBottom: '0.5px solid var(--p-border)' }}>
               <span className="g-map-pin" style={{ flex: '0 0 auto' }}>
                 <div>{s.n}</div>
               </span>

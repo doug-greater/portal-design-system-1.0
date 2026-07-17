@@ -19,7 +19,7 @@ const DEV_LOGIN_ENABLED = true;   // production: from /auth/config; defaults FAL
 
 const authField = {
   width: '100%', height: 56, padding: '0 16px', boxSizing: 'border-box',
-  border: '1px solid var(--p-border-strong)', borderRadius: 4,  // §H: 4px on auth
+  border: '0.5px solid var(--p-border-strong)', borderRadius: 1,  // §H: 4px on auth
   font: '400 16px Inter', color: 'var(--p-ink)', background: 'var(--p-surface)', outline: 'none',
 };
 
@@ -29,7 +29,7 @@ function LoginScreen({ onSignIn }) {
   const [error, setError] = useState(false);
 
   // Inline theme toggle (mirrors theme.js; flat, bottom-left on Login).
-  const [pref, setPref] = useState(() => { try { const v = localStorage.getItem('gr-theme'); return v === 'light' || v === 'dark' || v === 'system' ? v : 'system'; } catch { return 'system'; } });
+  const [pref, setPref] = useState(() => { try { const v = localStorage.getItem('gr-theme'); return v === 'light' || v === 'dark' || v === 'system' ? v : 'dark'; } catch { return 'dark'; } });   // dark-first (1.11)
   const resolve = (p) => p === 'dark' ? 'dark' : p === 'light' ? 'light' : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
   useEffect(() => { document.documentElement.setAttribute('data-theme', resolve(pref)); try { localStorage.setItem('gr-theme', pref); } catch {} }, [pref]);
   const tMeta = { light: { icon: 'light_mode', label: 'Light' }, dark: { icon: 'dark_mode', label: 'Dark' }, system: { icon: 'contrast', label: 'System' } }[pref];
@@ -51,7 +51,7 @@ function LoginScreen({ onSignIn }) {
         </div>
 
         {error && (
-          <div className="gr-rise" style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'var(--g-red-10)', color: 'var(--p-danger-strong)', borderRadius: 6, padding: '9px 12px', font: '500 13px Inter' }}>
+          <div className="gr-rise" style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'var(--g-red-10)', color: 'var(--p-danger-strong)', borderRadius: 2, padding: '9px 12px', font: '500 13px Inter' }}>
             <Icon name="error" size={16} color="currentColor" /> Incorrect email or password.
           </div>
         )}
@@ -72,7 +72,7 @@ function LoginScreen({ onSignIn }) {
         </div>
 
         <button data-testid="login-signin-btn" onClick={finish} className="gr-rise" data-i="4"
-          style={{ width: '100%', height: 48, border: 'none', borderRadius: 4, background: 'var(--p-action)', color: 'var(--p-action-fg)', font: '600 15px/1 Inter', cursor: 'pointer' }}>
+          style={{ width: '100%', height: 48, border: 'none', borderRadius: 1, background: 'var(--p-action)', color: 'var(--p-action-fg)', font: '600 15px/1 Inter', cursor: 'pointer' }}>
           Sign In
         </button>
 
@@ -86,7 +86,7 @@ function LoginScreen({ onSignIn }) {
             <span style={{ font: '500 11px/1.2 Inter', color: 'var(--p-placeholder)', letterSpacing: '.04em', textTransform: 'uppercase', textAlign: 'center' }}>Dev quick sign-in</span>
             {DEV_ACCOUNTS.map((a) => (
               <button key={a.id} data-testid={`dev-login-${a.label.toLowerCase().replace(/\s+/g, '-')}`} onClick={() => devSignIn(a)}
-                style={{ display: 'flex', alignItems: 'center', gap: 8, justifyContent: 'center', width: '100%', height: 38, padding: '0 12px', borderRadius: 4, cursor: 'pointer',
+                style={{ display: 'flex', alignItems: 'center', gap: 8, justifyContent: 'center', width: '100%', height: 38, padding: '0 12px', borderRadius: 1, cursor: 'pointer',
                   border: '1px dashed var(--p-border-strong)', background: 'transparent', color: 'var(--p-text-2)', font: '500 13px Inter' }}>
                 <Icon name="bolt" size={15} color="var(--p-muted)" />
                 Sign in as {a.label} ({a.email})

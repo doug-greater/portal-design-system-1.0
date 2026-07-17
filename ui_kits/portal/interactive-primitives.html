@@ -1,4 +1,5 @@
 <!doctype html><html><head><meta charset="utf-8">
+<script>/* dark-first (1.11 Dusk): stored pref wins; no pref = dark */(function(){var t=null;try{t=localStorage.getItem('gr-theme')}catch(e){}var d=t==='light'?'light':t==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):'dark';document.documentElement.setAttribute('data-theme',d);})()</script>
 <title>Greater Portal — Interactive Primitives</title>
 <link rel="stylesheet" href="../../colors_and_type.css">
 <link rel="stylesheet" href="../../fonts/fonts.css">
@@ -8,20 +9,20 @@
   .wrap { max-width: 880px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
   h1 { font: 600 24px/1.2 Inter; letter-spacing: -.025em; margin: 0 0 4px; }
   .lead { font: 400 14px Inter; color: var(--p-muted); margin: 0 0 8px; }
-  .panel { background: #fff; border: 1px solid var(--p-border); border-radius: 10px; padding: 20px 22px; }
+  .panel { background: #fff; border: 0.5px solid var(--p-border); border-radius: 2px; padding: 20px 22px; }
   .panel h2 { font: 600 11px/1 Inter; letter-spacing: .08em; text-transform: uppercase; color: var(--p-muted); margin: 0 0 16px; }
   .controls { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-  .b { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 18px; border-radius: 4px; font: 500 14px/1 Inter; border: 1px solid transparent; cursor: pointer; white-space: nowrap; }
-  .b.primary { background: #007CFF; color: #fff; }
+  .b { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 18px; border-radius: 1px; font: 500 14px/1 Inter; border: 1px solid transparent; cursor: pointer; white-space: nowrap; }
+  .b.primary { background: #1861AF; color: #fff; }
   .b.neutral { background: #fff; color: #364153; border-color: #D1D5DC; }
-  .b.warning { background: #fff; color: #E5484D; border-color: #E5484D; }
-  .b.ghost { background: transparent; color: #007CFF; }
-  .tbl { border: 1px solid var(--p-border); border-radius: 8px; overflow: visible; }
+  .b.warning { background: #fff; color: #C94A4E; border-color: #C94A4E; }
+  .b.ghost { background: transparent; color: #1861AF; }
+  .tbl { border: 0.5px solid var(--p-border); border-radius: 2px; overflow: visible; }
   .trw { display: grid; grid-template-columns: 1.5fr 110px 170px; align-items: center; gap: 12px; padding: 0 16px; height: 52px; }
-  .trw + .trw { border-top: 1px solid var(--p-border); }
-  .trw .id { font: 400 12px 'Geist Mono', monospace; color: var(--p-muted); }
+  .trw + .trw { border-top: 0.5px solid var(--p-border); }
+  .trw .id { font: 400 12px 'JetBrains Mono', monospace; color: var(--p-muted); }
   .trw .right { display: flex; justify-content: flex-end; }
-  .ftr { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px 16px; background: var(--p-surface-alt); border: 1px solid var(--p-border); border-top: none; border-radius: 0 0 8px 8px; }
+  .ftr { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px 16px; background: var(--p-surface-alt); border: 0.5px solid var(--p-border); border-top: none; border-radius: 0 0 2px 2px; }
   .ftr .count { font: 400 13px Inter; color: var(--p-muted); }
 </style>
 </head>
@@ -113,14 +114,14 @@ function Demo() {
       <div className="panel">
         <h2>Loading &amp; Skeleton</h2>
         <div className="controls" style={{ marginBottom: 16 }}>
-          <button className="b primary" onClick={() => { setLoading(true); setTimeout(() => setLoading(false), 2200); }} disabled={loading} style={loading ? { background: 'rgba(0,124,255,.85)' } : {}}>
+          <button className="b primary" onClick={() => { setLoading(true); setTimeout(() => setLoading(false), 2200); }} disabled={loading} style={loading ? { background: 'rgba(24,97,175,.85)' } : {}}>
             {loading ? <><Spinner size={16} onFill /> Loading…</> : 'Reload table'}
           </button>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: 'var(--p-muted)' }}><Spinner size={16} /> inline</span>
         </div>
-        <div style={{ border: '1px solid var(--p-border)', borderRadius: 8, overflow: 'hidden' }}>
+        <div style={{ border: '0.5px solid var(--p-border)', borderRadius: 2, overflow: 'hidden' }}>
           {[0,1,2].map(i => (
-            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 16, padding: '0 16px', height: 52, borderTop: i ? '1px solid var(--p-border)' : 'none' }}>
+            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 16, padding: '0 16px', height: 52, borderTop: i ? '0.5px solid var(--p-border)' : 'none' }}>
               {loading ? <>
                 <Skeleton width={16} height={16} radius={3} />
                 <Skeleton width="40%" height={13} />
@@ -143,7 +144,7 @@ function Demo() {
 
       <div className="panel">
         <h2>Pagination · page {page} of 72</h2>
-        <div className="ftr" style={{ border: '1px solid var(--p-border)', borderRadius: 8 }}>
+        <div className="ftr" style={{ border: '0.5px solid var(--p-border)', borderRadius: 2 }}>
           <span className="count">Showing <b style={{ color: 'var(--p-text)' }}>{(page-1)*50+1}–{page*50}</b> of <b style={{ color: 'var(--p-text)' }}>3,600</b></span>
           <Pagination page={page} pageCount={72} onPage={setPage} />
         </div>
@@ -158,7 +159,7 @@ function Demo() {
         footer={<><button className="b ghost" onClick={() => setModal(false)}>Cancel</button><button className="b primary" onClick={() => { setModal(false); window.toast('Invite sent'); }}>Send invite</button></>}>
         <div style={{ position: 'relative' }}>
           <label style={{ position: 'absolute', top: -7, left: 10, padding: '0 4px', background: '#fff', font: '400 12px/1 Inter', color: 'var(--p-muted)' }}>Work email *</label>
-          <input style={{ width: '100%', height: 44, border: '1px solid var(--p-border-strong)', borderRadius: 6, padding: '0 14px', font: '400 15px Inter', boxSizing: 'border-box' }} placeholder="name@greater.co" />
+          <input style={{ width: '100%', height: 44, border: '0.5px solid var(--p-border-strong)', borderRadius: 2, padding: '0 14px', font: '400 15px Inter', boxSizing: 'border-box' }} placeholder="name@greater.co" />
         </div>
       </Modal>
 

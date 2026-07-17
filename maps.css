@@ -38,7 +38,7 @@
   --map-attribution-fg:     #555555;
 
   /* ----- Route polyline ----- */
-  --map-route-stroke:       #007CFF;   /* = var(--p-primary)          */
+  --map-route-stroke:       var(--p-primary);   /* Dusk navy in light / dusty steel in dark (1.11) */
   --map-route-opacity:      0.7;
   --map-route-width:        3px;
 
@@ -58,13 +58,13 @@
   --map-pin-active-shadow:     0 2px 8px rgba(218, 16, 16, 0.35);
 
   /* ----- Active / focused pin halo (overlays a numbered pin) ----- */
-  --map-pin-focus-halo:        0 0 0 4px rgba(0, 124, 255, 0.18),
-                               0 0 0 8px rgba(0, 124, 255, 0.10),
-                               0 4px 10px rgba(0, 124, 255, 0.35);
+  --map-pin-focus-halo:        0 0 0 4px rgba(24, 97, 175, 0.18),
+                               0 0 0 8px rgba(24, 97, 175, 0.10),
+                               0 4px 10px rgba(24, 97, 175, 0.35);
 
   /* ----- Container chrome ----- */
-  --map-radius:             var(--radius-xl);   /* 10px floating card */
-  --map-border:             1px solid var(--p-border);
+  --map-radius:             var(--radius-xl);   /* 2px floating card (squared, 1.11) */
+  --map-border:             0.5px solid var(--p-border);   /* hairline (1.11) */
   --map-shadow:             var(--shadow-float);
 }
 
@@ -173,21 +173,25 @@
   color: #282838;
 }
 
-/* Active / focused pin — inverted to blue, numbered, with halo.
+/* Active / focused pin — inverted to the primary navy, numbered, with halo.
    Apply to the currently-selected stop. Never more than one per map. */
 .g-map-pin.is-active {
-  background: #007CFF !important;
-  box-shadow:
-    0 0 0 4px rgba(0, 124, 255, 0.18),
-    0 0 0 8px rgba(0, 124, 255, 0.10),
-    0 4px 10px rgba(0, 124, 255, 0.35) !important;
+  background: #1861AF !important;
+  box-shadow: var(--map-pin-focus-halo) !important;
   transform: scale(1.07);
   transform-origin: center;
 }
 
 .g-map-pin.is-active > div {
-  background: #007CFF !important;
+  background: #1861AF !important;
   color: #ffffff !important;
+}
+
+/* Dark: dusty steel is LIGHT, so the active pin flips to a dark number (1.11) */
+html[data-theme="dark"] .g-map-pin.is-active,
+html[data-theme="dark"] .g-map-pin.is-active > div {
+  background: #ADBDD1 !important;
+  color: #0F0F0F !important;
 }
 
 /* Unassigned stop — no number, red ring.
@@ -381,8 +385,8 @@
    cards, legend, and the hex tooltip already use DS tokens, so they flip
    automatically — they are NOT repeated here. */
 html[data-theme="dark"] .g-map,
-html[data-theme="dark"] .g-map .leaflet-container { background: #15151A; }
-html[data-theme="dark"] .g-map .leaflet-control-attribution { background: rgba(10,10,11,.82); color: #8A8A93; }
+html[data-theme="dark"] .g-map .leaflet-container { background: #0F0F0F; }
+html[data-theme="dark"] .g-map .leaflet-control-attribution { background: rgba(15,15,15,.82); color: #8A8A93; }
 html[data-theme="dark"] .g-hex-outline { fill: rgba(255,255,255,.04); stroke: rgba(255,255,255,.18); }
 html[data-theme="dark"] .g-hex-cell:hover .g-hex-outline { stroke: #FFFFFF; fill: rgba(255,255,255,.10); }
 html[data-theme="dark"] .g-hex-fill { stroke: rgba(10,10,11,.55); }   /* gap stroke goes dark */
@@ -426,33 +430,33 @@ html[data-theme="dark"] .g-cov-pin { stroke: #0A0A0B; }               /* pin hal
   font: 600 10px/1 var(--font-sans);
   transition: transform 120ms ease-out, opacity 120ms ease-out;
 }
-.g-live-pin.is-in_progress { background: #007CFF; border-color: #007CFF; color: #fff; }
+.g-live-pin.is-in_progress { background: #1861AF; border-color: #1861AF; color: #fff; }
 .g-live-pin.is-complete    { background: #282838; border-color: #282838; color: #fff; }
-.g-live-pin.is-incomplete  { background: #FDECEC; border-color: #E5484D; color: #C62A30; }
-.g-live-pin.is-focus { transform: scale(1.18); box-shadow: 0 2px 8px rgba(0,124,255,.35); z-index: 2; }
+.g-live-pin.is-incomplete  { background: #F8EAEA; border-color: #C94A4E; color: #B03A3E; }
+.g-live-pin.is-focus { transform: scale(1.18); box-shadow: 0 2px 8px rgba(24,97,175,.35); z-index: 2; }
 .g-live-pin.is-dim   { opacity: .18; }
 
 /* Rep current-location dot — blue core (white ring) + expanding ping ring */
 .g-live-rep { position: relative; width: 14px; height: 14px; }
 .g-live-rep .core {
   position: absolute; inset: 0; border-radius: 50%; box-sizing: border-box;
-  background: #007CFF; border: 2.5px solid #fff; box-shadow: 0 1px 3px rgba(0,0,0,.3);
+  background: #1861AF; border: 2.5px solid #fff; box-shadow: 0 1px 3px rgba(0,0,0,.3);
 }
 .g-live-rep .ping {
   position: absolute; top: 50%; left: 50%; width: 14px; height: 14px; margin: -7px 0 0 -7px;
-  border-radius: 50%; background: rgba(0,124,255,.45);
+  border-radius: 50%; background: rgba(24,97,175,.45);
   animation: g-live-ping 1.9s cubic-bezier(0,0,.2,1) infinite;
 }
 .g-live-rep.is-dim { opacity: .25; }
 @keyframes g-live-ping { 0% { transform: scale(1); opacity: .5; } 80% { opacity: 0; } 100% { transform: scale(3.2); opacity: 0; } }
 
-/* Dark variants */
-html[data-theme="dark"] .g-live-pin { background: #121214; border-color: #E4E4E7; color: #E4E4E7; }
-html[data-theme="dark"] .g-live-pin.is-in_progress { background: #3B82F6; border-color: #3B82F6; color: #fff; }
-html[data-theme="dark"] .g-live-pin.is-complete { background: #E4E4E7; border-color: #E4E4E7; color: #121214; }
-html[data-theme="dark"] .g-live-pin.is-incomplete { background: rgba(239,68,68,.22); border-color: #EF4444; color: #FCA5A5; }
-html[data-theme="dark"] .g-live-rep .core { background: #3B82F6; border-color: #0A0A0B; }
-html[data-theme="dark"] .g-live-rep .ping { background: rgba(59,130,246,.45); }
+/* Dark variants — Dusk (1.11): steel is LIGHT, so the in-progress pin takes a dark number */
+html[data-theme="dark"] .g-live-pin { background: #131316; border-color: #DCDCE0; color: #DCDCE0; }
+html[data-theme="dark"] .g-live-pin.is-in_progress { background: #ADBDD1; border-color: #ADBDD1; color: #0F0F0F; }
+html[data-theme="dark"] .g-live-pin.is-complete { background: #DCDCE0; border-color: #DCDCE0; color: #131316; }
+html[data-theme="dark"] .g-live-pin.is-incomplete { background: rgba(216,75,75,.22); border-color: #D84B4B; color: #E38080; }
+html[data-theme="dark"] .g-live-rep .core { background: #ADBDD1; border-color: #0F0F0F; }
+html[data-theme="dark"] .g-live-rep .ping { background: rgba(173,189,209,.45); }
 
 @media (prefers-reduced-motion: reduce) {
   .g-live-rep .ping { animation: none !important; opacity: 0 !important; }
@@ -466,7 +470,7 @@ html[data-theme="dark"] .g-live-rep .ping { background: rgba(59,130,246,.45); }
    controls (§A1). On phones the pop-out becomes a full-screen sheet. */
 .g-routemap {
   position: fixed; z-index: 10001; background: var(--p-surface);
-  border: 1px solid var(--p-border); border-radius: var(--radius-xl);
+  border: 0.5px solid var(--p-border); border-radius: var(--radius-xl);
   box-shadow: var(--shadow-float); overflow: hidden;
   display: flex; flex-direction: column;
   animation: gr-pop-in .15s ease-out;

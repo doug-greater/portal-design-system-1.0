@@ -1,11 +1,12 @@
-<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css"><link rel="stylesheet" href="../fonts/fonts.css"><style>
-body { margin: 0; padding: 20px; background: #fff; }
-.section-label { font: 500 11px/1.2 'Geist Mono', monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--p-muted); margin: 0 0 14px; }
-.divider { border: none; border-top: 1px solid var(--p-border); margin: 4px 0 24px; }
+<!doctype html><html><head><meta charset="utf-8">
+<script>/* dark-first (1.11 Dusk): stored pref wins; no pref = dark */(function(){var t=null;try{t=localStorage.getItem('gr-theme')}catch(e){}var d=t==='light'?'light':t==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):'dark';document.documentElement.setAttribute('data-theme',d);})()</script><link rel="stylesheet" href="../colors_and_type.css"><link rel="stylesheet" href="../fonts/fonts.css"><style>
+body { margin: 0; padding: 20px; background: var(--p-surface); }
+.section-label { font: 500 11px/1.2 'JetBrains Mono', monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--p-muted); margin: 0 0 14px; }
+.divider { border: none; border-top: 0.5px solid var(--p-border); margin: 4px 0 24px; }
 .row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 28px; }
 
 /* ── Swatch cards ── */
-.sw-card { width: 220px; border-radius: 8px; overflow: hidden; border: 1px solid var(--p-border); box-shadow: var(--shadow-card); }
+.sw-card { width: 220px; border-radius: 2px; overflow: hidden; border: 0.5px solid var(--p-border); box-shadow: var(--shadow-card); }
 .sw-chip { height: 140px; }
 .sw-body { padding: 12px 14px 14px; background: #fff; }
 .sw-name { font: 600 13px/1.2 var(--font-sans); color: var(--p-ink); margin-bottom: 4px; }
@@ -13,7 +14,7 @@ body { margin: 0; padding: 20px; background: #fff; }
 .sw-sub  { font: 400 12px/1.4 var(--font-sans); color: var(--p-muted); margin-top: 2px; }
 
 /* ── Color stops row ── */
-.stops { display: flex; gap: 0; border-radius: 6px; overflow: hidden; border: 1px solid var(--p-border); margin-bottom: 28px; }
+.stops { display: flex; gap: 0; border-radius: 2px; overflow: hidden; border: 0.5px solid var(--p-border); margin-bottom: 28px; }
 .stop { flex: 1; height: 48px; display: flex; align-items: flex-end; padding: 6px 10px; }
 .stop-lbl { font: 500 10px/1.2 var(--font-mono); color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,.3); }
 
@@ -29,7 +30,7 @@ body { margin: 0; padding: 20px; background: #fff; }
   padding: 7px 16px;
   border-radius: 999px;
   /* true 10% gradient tint fill */
-  background: linear-gradient(90deg, rgba(0,124,255,.10) 0%, rgba(83,89,241,.10) 50%, rgba(241,83,169,.10) 100%);
+  background: linear-gradient(90deg, rgba(24,97,175,.10) 0%, rgba(83,89,241,.10) 50%, rgba(241,83,169,.10) 100%);
   font: 500 14px/1 var(--font-sans);
   color: var(--p-ink);
   white-space: nowrap;
@@ -41,7 +42,7 @@ body { margin: 0; padding: 20px; background: #fff; }
   inset: 0;
   border-radius: 999px;
   padding: 1px;
-  background: linear-gradient(90deg, #007CFF 0%, #5359F1 50%, #F153A9 100%);
+  background: linear-gradient(90deg, #1861AF 0%, #5359F1 50%, #F153A9 100%);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
           mask-composite: exclude;
@@ -56,7 +57,7 @@ body { margin: 0; padding: 20px; background: #fff; }
 
 /* Gradient text utility */
 .intel-text {
-  background: linear-gradient(90deg, #007CFF 0%, #5359F1 50%, #F153A9 100%);
+  background: linear-gradient(90deg, #1861AF 0%, #5359F1 50%, #F153A9 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -73,16 +74,16 @@ body { margin: 0; padding: 20px; background: #fff; }
 <div class="row">
   <!-- Full gradient swatch -->
   <div class="sw-card">
-    <div class="sw-chip" style="background: linear-gradient(90deg, #007CFF 0%, #5359F1 50%, #F153A9 100%)"></div>
+    <div class="sw-chip" style="background: linear-gradient(90deg, #1861AF 0%, #5359F1 50%, #F153A9 100%)"></div>
     <div class="sw-body">
       <div class="sw-name">Intelligence Gradient</div>
-      <div class="sw-hex">#007CFF → #5359F1 → #F153A9</div>
+      <div class="sw-hex">#1861AF → #5359F1 → #F153A9</div>
       <div class="sw-sub">linear · 0% / 50% / 100%</div>
     </div>
   </div>
   <!-- Tint 8% swatch -->
   <div class="sw-card">
-    <div class="sw-chip" style="background: linear-gradient(90deg, rgba(0,124,255,.10) 0%, rgba(83,89,241,.10) 50%, rgba(241,83,169,.10) 100%)"></div>
+    <div class="sw-chip" style="background: linear-gradient(90deg, rgba(24,97,175,.10) 0%, rgba(83,89,241,.10) 50%, rgba(241,83,169,.10) 100%)"></div>
     <div class="sw-body">
       <div class="sw-name">Tint 10% — card bg</div>
       <div class="sw-hex">--p-intel-tint</div>
@@ -94,7 +95,7 @@ body { margin: 0; padding: 20px; background: #fff; }
 <!-- Color stops -->
 <div class="section-label">Color stops</div>
 <div class="stops">
-  <div class="stop" style="background:#007CFF"><span class="stop-lbl">0% · #007CFF</span></div>
+  <div class="stop" style="background:#1861AF"><span class="stop-lbl">0% · #1861AF</span></div>
   <div class="stop" style="background:#5359F1"><span class="stop-lbl">50% · #5359F1</span></div>
   <div class="stop" style="background:#F153A9"><span class="stop-lbl">100% · #F153A9</span></div>
 </div>

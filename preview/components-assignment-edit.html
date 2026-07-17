@@ -1,19 +1,20 @@
 <!doctype html><html><head><meta charset="utf-8">
+<script>/* dark-first (1.11 Dusk): stored pref wins; no pref = dark */(function(){var t=null;try{t=localStorage.getItem('gr-theme')}catch(e){}var d=t==='light'?'light':t==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):'dark';document.documentElement.setAttribute('data-theme',d);})()</script>
 <link rel="stylesheet" href="../colors_and_type.css">
 <link rel="stylesheet" href="../fonts/fonts.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,400,0..1,0">
 <style>
 body { margin: 0; padding: 28px; background: var(--p-backdrop, rgba(16,24,40,.45)); font: 400 14px Inter; color: var(--p-ink); }
 .mi { font-family: 'Material Symbols Sharp'; line-height: 1; display: inline-flex; align-items: center; vertical-align: middle; }
-.sec { font: 500 11px/1.2 'Geist Mono', monospace; color: rgba(255,255,255,.85); text-transform: uppercase; letter-spacing: .08em; margin: 0 0 14px; }
-.modal { width: 1040px; max-width: 100%; margin: 0 auto; background: var(--p-surface); border: 1px solid var(--p-border); border-radius: 12px; box-shadow: var(--shadow-float); overflow: hidden; }
-.m-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--p-border) }
+.sec { font: 500 11px/1.2 'JetBrains Mono', monospace; color: rgba(255,255,255,.85); text-transform: uppercase; letter-spacing: .08em; margin: 0 0 14px; }
+.modal { width: 1040px; max-width: 100%; margin: 0 auto; background: var(--p-surface); border: 0.5px solid var(--p-border); border-radius: 2px; box-shadow: var(--shadow-float); overflow: hidden; }
+.m-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 0.5px solid var(--p-border) }
 .m-title { font: 600 18px Inter; color: var(--p-ink) }
 .grid5 { display: grid; grid-template-columns: 1fr 1px 300px 1px 1fr; gap: 18px; padding: 18px 20px }
 .divider { background: var(--p-border) }
 .fld { margin-bottom: 16px }
 .flabel { font: 500 11px Inter; letter-spacing: .04em; text-transform: uppercase; color: var(--p-muted); margin-bottom: 6px }
-.val { height: 36px; display: flex; align-items: center; padding: 0 12px; border: 1px solid var(--p-border-strong); border-radius: 4px; font: 400 14px Inter; color: var(--p-ink); background: var(--p-surface) }
+.val { height: 36px; display: flex; align-items: center; padding: 0 12px; border: 0.5px solid var(--p-border-strong); border-radius: 1px; font: 400 14px Inter; color: var(--p-ink); background: var(--p-surface) }
 /* amber = staged edit (§Amber/Red law) */
 .val.edited { border-color: var(--p-warning); background: var(--g-gold-10); color: var(--p-warning); font-weight: 600 }
 .between { display: flex; align-items: center; justify-content: space-between }
@@ -27,7 +28,7 @@ body { margin: 0; padding: 28px; background: var(--p-backdrop, rgba(16,24,40,.45
 .day.sel { background: var(--p-primary); color: #fff } .day.sel .pt { background: #fff }
 .day.bad { background: var(--p-danger-soft); color: var(--p-danger) }   /* red = real-world conflict (buffer violation) */
 .day.off { color: var(--p-placeholder) }
-.callout { display: flex; gap: 8px; margin-top: 12px; padding: 9px 11px; border-left: 3px solid var(--p-danger); background: var(--p-danger-soft); border-radius: 0 6px 6px 0; font: 400 12.5px/1.4 Inter; color: var(--p-danger) }
+.callout { display: flex; gap: 8px; margin-top: 12px; padding: 9px 11px; border-left: 3px solid var(--p-danger); background: var(--p-danger-soft); border-radius: 0 2px 2px 0; font: 400 12.5px/1.4 Inter; color: var(--p-danger) }
 /* legend — legend-as-mini-cell (§F) */
 .legend { display: flex; gap: 16px; margin-top: 12px; font: 400 12px Inter; color: var(--p-text-2) }
 .legend > span { display: inline-flex; align-items: center; gap: 6px }
@@ -37,20 +38,20 @@ body { margin: 0; padding: 28px; background: var(--p-backdrop, rgba(16,24,40,.45
 /* preview pane */
 .pv-head { font: 600 13px Inter; color: var(--p-ink); margin-bottom: 10px }
 .pv-head .prev { color: var(--p-warning); font-weight: 600 }
-.stop { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border: 1px solid var(--p-border); border-radius: 8px; margin-bottom: 6px; background: var(--p-surface) }
+.stop { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border: 0.5px solid var(--p-border); border-radius: 2px; margin-bottom: 6px; background: var(--p-surface) }
 .stop.active { border-color: var(--p-warning); background: var(--g-gold-10) }
 .pin { width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font: 600 11px Inter; background: var(--p-ink); color: #fff; flex-shrink: 0 }
 .stop.active .pin { background: var(--p-warning) }
 /* changes ledger */
-.ledger { border-top: 1px solid var(--p-border); padding: 14px 20px; background: var(--p-surface-alt) }
+.ledger { border-top: 0.5px solid var(--p-border); padding: 14px 20px; background: var(--p-surface-alt) }
 .ledger-h { display: flex; align-items: center; gap: 8px; margin-bottom: 10px }
-.ledger-h .ttl { font: 600 13px Inter } .pillc { font: 500 11px 'Geist Mono', monospace; color: var(--p-muted); background: var(--p-surface); border: 1px solid var(--p-border); border-radius: 999px; padding: 1px 7px }
+.ledger-h .ttl { font: 600 13px Inter } .pillc { font: 500 11px 'JetBrains Mono', monospace; color: var(--p-muted); background: var(--p-surface); border: 0.5px solid var(--p-border); border-radius: 999px; padding: 1px 7px }
 .reset { margin-left: auto; border: none; background: transparent; cursor: pointer; font: 500 13px Inter; color: var(--p-text) }  /* neutral, NOT blue (§J) */
 .chg { display: flex; align-items: center; gap: 10px; padding: 7px 0; font: 400 13px Inter }
 .chg .k { color: var(--p-muted); width: 130px } .chg .v { color: var(--p-ink) } .chg .ar { color: var(--p-placeholder) }
-.undo { margin-left: auto; width: 28px; height: 28px; border-radius: 6px; border: 1px solid var(--p-border-strong); background: var(--p-surface); display: inline-flex; align-items: center; justify-content: center; color: var(--p-muted); cursor: pointer }
-.m-foot { display: flex; justify-content: flex-end; gap: 10px; padding: 14px 20px; border-top: 1px solid var(--p-border) }
-.btn { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 18px; border-radius: 4px; font: 500 14px/1 Inter; cursor: pointer; border: 1px solid transparent }
+.undo { margin-left: auto; width: 28px; height: 28px; border-radius: 2px; border: 0.5px solid var(--p-border-strong); background: var(--p-surface); display: inline-flex; align-items: center; justify-content: center; color: var(--p-muted); cursor: pointer }
+.m-foot { display: flex; justify-content: flex-end; gap: 10px; padding: 14px 20px; border-top: 0.5px solid var(--p-border) }
+.btn { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 18px; border-radius: 1px; font: 500 14px/1 Inter; cursor: pointer; border: 1px solid transparent }
 .btn-neutral { background: var(--p-surface); color: var(--p-text); border-color: var(--p-border-strong) }   /* Cancel = neutral beside a filled primary (§J) */
 .btn-primary { background: var(--p-action); color: var(--p-action-fg) }
 </style></head>
