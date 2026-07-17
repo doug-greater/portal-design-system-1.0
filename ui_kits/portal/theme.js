@@ -1,4 +1,4 @@
-// Portal UI Kit — Theme store (1.5)
+// Portal UI Kit — Theme store (1.5 · dark-first since 1.11)
 // ---------------------------------------------------------------------------
 // The production theming module (ES module, ~80 lines). Three preferences,
 // two resolved themes:
@@ -6,6 +6,10 @@
 //   resolved : "light" | "dark"             ("system" → matchMedia, follows OS live)
 // Applied by setting document.documentElement.setAttribute("data-theme", resolved).
 // Light is the bare :root; all dark tokens live under html[data-theme="dark"].
+//
+// DARK IS THE DEFAULT (1.11 "Dusk"): a first-run user (no stored pref) gets "dark",
+// not "system" — returning users keep their saved choice; Light / System remain one
+// click away on the toggle. The no-flash bootstrap must apply the same default.
 //
 // CRITICAL: theme state MUST live in ONE module-level store (not per-component
 // useState) and be read via useSyncExternalStore. JS-driven views (the Leaflet
@@ -22,8 +26,8 @@ const mql = () => window.matchMedia("(prefers-color-scheme: dark)");
 
 export function getPref() {
   try { const v = localStorage.getItem(STORAGE_KEY);
-    return v === "light" || v === "dark" || v === "system" ? v : "system";
-  } catch { return "system"; }
+    return v === "light" || v === "dark" || v === "system" ? v : "dark";   // first-run default = dark (1.11)
+  } catch { return "dark"; }
 }
 export function resolveTheme(pref) {
   if (pref === "dark") return "dark";

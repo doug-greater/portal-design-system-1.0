@@ -6,7 +6,7 @@
 const gMonths = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 const gFmt = (d) => d ? `${gMonths[d.getMonth()].slice(0,3)} ${d.getDate()}, ${d.getFullYear()}` : '';
 const gSameDay = (a, b) => a && b && a.toDateString() === b.toDateString();
-const gNavStyle = { width: 28, height: 28, borderRadius: 6, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'var(--p-muted)', cursor: 'pointer' };
+const gNavStyle = { width: 28, height: 28, borderRadius: 2, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'var(--p-muted)', cursor: 'pointer' };
 
 function CalendarGrid({ view, value, range, onPick, min, max }) {
   const y = view.getFullYear(), m = view.getMonth();
@@ -84,16 +84,16 @@ function Calendar({ value, range, onChange, onPickRange, min, max, direction }) 
   const [view, setView] = useState(value || (range && range.start) || new Date());
   const presets = direction ? RANGE_PRESETS[direction] : null;
   return (
-    <div style={{ display: 'flex', background: '#fff', border: '1px solid var(--p-border)', borderRadius: 10, boxShadow: 'var(--shadow-float)', overflow: 'hidden' }}>
+    <div style={{ display: 'flex', background: '#fff', border: '0.5px solid var(--p-border)', borderRadius: 2, boxShadow: 'var(--shadow-float)', overflow: 'hidden' }}>
       {presets && (
-        <div style={{ width: 150, background: 'var(--p-surface-alt)', borderRight: '1px solid var(--p-border)', padding: 8, display: 'flex', flexDirection: 'column', gap: 2 }}>
+        <div style={{ width: 150, background: 'var(--p-surface-alt)', borderRight: '0.5px solid var(--p-border)', padding: 8, display: 'flex', flexDirection: 'column', gap: 2 }}>
           {presets.map((p) => (
             <button key={p.label} onClick={() => onPickRange && onPickRange(computePreset(p.d))}
-              style={{ textAlign: 'left', border: 'none', background: 'transparent', borderRadius: 6, padding: '7px 10px', font: '500 13px/1 Inter, sans-serif', color: 'var(--p-text-2)', cursor: 'pointer' }}>{p.label}</button>
+              style={{ textAlign: 'left', border: 'none', background: 'transparent', borderRadius: 2, padding: '7px 10px', font: '500 13px/1 Inter, sans-serif', color: 'var(--p-text-2)', cursor: 'pointer' }}>{p.label}</button>
           ))}
           <div style={{ flex: 1, minHeight: 8 }} />
           <button onClick={() => onPickRange && onPickRange({ start: null, end: null })}
-            style={{ textAlign: 'left', border: 'none', background: 'transparent', borderRadius: 6, padding: '7px 10px', font: '500 13px/1 Inter, sans-serif', color: 'var(--p-danger)', cursor: 'pointer' }}>Clear</button>
+            style={{ textAlign: 'left', border: 'none', background: 'transparent', borderRadius: 2, padding: '7px 10px', font: '500 13px/1 Inter, sans-serif', color: 'var(--p-danger)', cursor: 'pointer' }}>Clear</button>
         </div>
       )}
       <div style={{ width: 280 }}>
@@ -125,7 +125,7 @@ function DateField({ value, onChange, label = 'Date', range = false, min, max, d
   return (
     <div ref={ref} style={{ position: 'relative', width: isRange ? 280 : 240 }}>
       <label style={{ position: 'absolute', top: -7, left: 10, padding: '0 4px', background: '#fff', font: '400 12px/1 Inter, sans-serif', color: open ? 'var(--p-primary)' : 'var(--p-muted)', zIndex: 2 }}>{label}</label>
-      <div onClick={() => setOpen((o) => !o)} style={{ width: '100%', height: 44, border: `1px solid ${open ? 'var(--p-primary)' : 'var(--p-border-strong)'}`, borderRadius: 6, padding: '0 14px 0 40px', font: '400 15px Inter, sans-serif', color: display ? 'var(--p-ink)' : 'var(--p-placeholder)', background: '#fff', boxSizing: 'border-box', display: 'flex', alignItems: 'center', cursor: 'pointer', boxShadow: open ? '0 0 0 3px rgba(0,124,255,.15)' : 'none' }}>
+      <div onClick={() => setOpen((o) => !o)} style={{ width: '100%', height: 44, border: `1px solid ${open ? 'var(--p-primary)' : 'var(--p-border-strong)'}`, borderRadius: 2, padding: '0 14px 0 40px', font: '400 15px Inter, sans-serif', color: display ? 'var(--p-ink)' : 'var(--p-placeholder)', background: '#fff', boxSizing: 'border-box', display: 'flex', alignItems: 'center', cursor: 'pointer', boxShadow: open ? '0 0 0 3px var(--p-focus-ring)' : 'none' }}>
         <span style={{ position: 'absolute', left: 12, color: 'var(--p-muted)' }}><MIcon name={isRange ? 'date_range' : 'calendar_today'} size={20} /></span>
         {display || (isRange ? 'Select a range' : 'Select a date')}
       </div>

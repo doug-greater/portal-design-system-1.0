@@ -20,8 +20,8 @@ function Pagination({ page = 1, pageCount = 1, onPage }) {
 
   const navBtn = (icon, target, disabled, key) => (
     <span key={key} onClick={disabled ? undefined : () => go(target)} style={{
-      minWidth: 30, height: 30, borderRadius: 6, display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-      background: '#fff', border: '1px solid var(--p-border-strong)',
+      minWidth: 30, height: 30, borderRadius: 2, display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+      background: '#fff', border: '0.5px solid var(--p-border-strong)',
       color: disabled ? 'var(--p-placeholder)' : 'var(--p-muted)', cursor: disabled ? 'default' : 'pointer',
     }}><MIcon name={icon} size={18} /></span>
   );
@@ -32,7 +32,7 @@ function Pagination({ page = 1, pageCount = 1, onPage }) {
       {range.map((p, i) => p === '…'
         ? <span key={'e' + i} style={{ minWidth: 22, textAlign: 'center', color: 'var(--p-placeholder)', font: '500 13px Inter, sans-serif' }}>…</span>
         : <span key={p} onClick={() => go(p)} style={{
-            minWidth: 30, height: 30, padding: '0 8px', borderRadius: 6, display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+            minWidth: 30, height: 30, padding: '0 8px', borderRadius: 2, display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
             font: '500 13px/1 Inter, sans-serif', cursor: 'pointer',
             background: p === page ? 'var(--p-action)' : 'transparent', color: p === page ? 'var(--p-action-fg)' : 'var(--p-text)',
           }}>{p}</span>

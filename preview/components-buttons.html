@@ -1,10 +1,11 @@
-<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css"><link rel="stylesheet" href="../fonts/fonts.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,400,0..1,0"><style>
+<!doctype html><html><head><meta charset="utf-8">
+<script>/* dark-first (1.11 Dusk): stored pref wins; no pref = dark */(function(){var t=null;try{t=localStorage.getItem('gr-theme')}catch(e){}var d=t==='light'?'light':t==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):'dark';document.documentElement.setAttribute('data-theme',d);})()</script><link rel="stylesheet" href="../colors_and_type.css"><link rel="stylesheet" href="../fonts/fonts.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,400,0..1,0"><style>
 body{margin:0;padding:20px;background:var(--p-shell)}
 .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
-.lbl{font:500 11px/1.2 'Geist Mono',monospace;color:var(--p-muted);width:100%;margin-bottom:4px;text-transform:uppercase;letter-spacing:.06em}
+.lbl{font:500 11px/1.2 'JetBrains Mono',monospace;color:var(--p-muted);width:100%;margin-bottom:4px;text-transform:uppercase;letter-spacing:.06em}
 
 /* Portal buttons */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:36px;padding:0 20px;min-width:88px;border-radius:4px;font:500 14px/1 Inter;cursor:pointer;border:1px solid transparent;background:#fff;transition:background .12s,border-color .12s,color .12s}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:36px;padding:0 20px;min-width:88px;border-radius:1px;font:500 14px/1 Inter;cursor:pointer;border:1px solid transparent;background:#fff;transition:background .12s,border-color .12s,color .12s}
 
 /* Primary — ink fill (INK‑FORWARD; inverts to a white surface in dark via --p-action) */
 .btn-primary{background:var(--p-action);color:var(--p-action-fg)}
@@ -17,14 +18,14 @@ body{margin:0;padding:20px;background:var(--p-shell)}
 .btn-secondary[disabled]{color:var(--p-placeholder);border-color:var(--p-border);cursor:not-allowed}
 
 /* Secondary warning — red stroke, white fill, red text (UNCHANGED — error stays red) */
-.btn-secondary-warn{background:#fff;color:#E5484D;border-color:#E5484D}
-.btn-secondary-warn:hover{background:rgba(229,72,77,.05)}
-.btn-secondary-warn[disabled]{color:rgba(229,72,77,.25);border-color:rgba(229,72,77,.25);cursor:not-allowed}
+.btn-secondary-warn{background:#fff;color:#C94A4E;border-color:#C94A4E}
+.btn-secondary-warn:hover{background:rgba(201,74,78,.05)}
+.btn-secondary-warn[disabled]{color:rgba(201,74,78,.25);border-color:rgba(201,74,78,.25);cursor:not-allowed}
 
 /* Danger (solid) — terminal, already-confirmed destructive action (UNCHANGED) */
-.btn-danger{background:#E5484D;color:#fff}
+.btn-danger{background:#C94A4E;color:#fff}
 .btn-danger:hover{background:#C93B40}
-.btn-danger[disabled]{background:rgba(229,72,77,.45);color:#fff;cursor:not-allowed}
+.btn-danger[disabled]{background:rgba(201,74,78,.45);color:#fff;cursor:not-allowed}
 
 /* Tertiary — ghost, neutral text (was blue; reserve blue for true links) */
 .btn-tertiary{background:transparent;color:var(--p-text);padding:0 12px;min-width:0}
@@ -37,7 +38,7 @@ body{margin:0;padding:20px;background:var(--p-shell)}
 .btn-neutral[disabled]{background:#fff;color:#99A1AF;border-color:#E5E7EB;cursor:not-allowed}
 
 /* Foundation neo — adaptive offset shadow + tactile press; brand moments only */
-.btn-neo{display:inline-flex;align-items:center;justify-content:center;height:39px;padding:0 30px;min-width:120px;border-radius:4px;background:var(--p-surface);color:var(--p-ink);border:1px solid var(--p-ink);box-shadow:var(--shadow-brutal);font:500 16px/1 Inter;letter-spacing:.05em;cursor:pointer;transition:transform .08s ease,box-shadow .08s ease,background .12s}
+.btn-neo{display:inline-flex;align-items:center;justify-content:center;height:39px;padding:0 30px;min-width:120px;border-radius:1px;background:var(--p-surface);color:var(--p-ink);border:1px solid var(--p-ink);box-shadow:var(--shadow-brutal);font:500 16px/1 Inter;letter-spacing:.05em;cursor:pointer;transition:transform .08s ease,box-shadow .08s ease,background .12s}
 .btn-neo:hover{background:var(--p-surface-tint)}
 .btn-neo:active{transform:translate(2px,2px);box-shadow:0 0 0 0 var(--p-ink)}  /* collapses onto its shadow */
 
@@ -47,13 +48,13 @@ body{margin:0;padding:20px;background:var(--p-shell)}
 
 /* ════════ Table row actions ════════ */
 .mi{font-family:'Material Symbols Sharp';line-height:1;font-feature-settings:'liga';display:inline-flex;align-items:center}
-.section{margin-top:34px;padding-top:22px;border-top:1px solid var(--p-border)}
+.section{margin-top:34px;padding-top:22px;border-top:0.5px solid var(--p-border)}
 .section:first-of-type{border-top:none}
 .h{font:600 13px/1.3 Inter;color:var(--p-ink);margin:0 0 4px}
 .d{font:400 13px/1.6 Inter;color:var(--p-text-2);margin:0 0 16px;max-width:660px}
 
 /* Split button — slim, for data-table rows (28px so it never grows the row) */
-.split{display:inline-flex;height:28px;border-radius:6px;overflow:hidden;font:500 13px/1 Inter;vertical-align:middle;box-sizing:border-box}
+.split{display:inline-flex;height:28px;border-radius:2px;overflow:hidden;font:500 13px/1 Inter;vertical-align:middle;box-sizing:border-box}
 .split .main{display:inline-flex;align-items:center;gap:6px;padding:0 11px;cursor:pointer;border:none;background:transparent;font:inherit;color:inherit}
 .split .caret{display:inline-flex;align-items:center;justify-content:center;width:26px;cursor:pointer;border:none;background:transparent;color:inherit}
 .split .main .mi{font-size:15px}
@@ -61,7 +62,7 @@ body{margin:0;padding:20px;background:var(--p-shell)}
 .split.primary{background:var(--p-action);color:var(--p-action-fg)}
 .split.primary .caret{border-left:1px solid rgba(127,127,127,.32)}  /* neutral divider survives both fills */
 .split.primary .main:hover,.split.primary .caret:hover{background:var(--p-action-hover)}
-.split.error{background:#E5484D;color:#fff}
+.split.error{background:#C94A4E;color:#fff}
 .split.error .caret{border-left:1px solid rgba(255,255,255,.32)}
 .split.error .main:hover,.split.error .caret:hover{background:rgba(255,255,255,.14)}
 .split.secondary{background:var(--p-surface);color:var(--p-ink);border:1px solid var(--p-ink)}
@@ -70,46 +71,46 @@ body{margin:0;padding:20px;background:var(--p-shell)}
 .split.open .caret{background:rgba(0,0,0,.10)}
 
 /* Menu popover (the dropdown the caret opens; also used standalone by the kebab) */
-.menu{display:inline-block;background:#fff;border:1px solid var(--p-border);border-radius:8px;box-shadow:var(--shadow-float);padding:4px;min-width:208px}
-.mitem{display:flex;align-items:center;gap:10px;height:34px;padding:0 10px;border-radius:6px;font:400 14px/1 Inter;color:var(--p-ink);cursor:pointer}
+.menu{display:inline-block;background:#fff;border:0.5px solid var(--p-border);border-radius:2px;box-shadow:var(--shadow-float);padding:4px;min-width:208px}
+.mitem{display:flex;align-items:center;gap:10px;height:34px;padding:0 10px;border-radius:2px;font:400 14px/1 Inter;color:var(--p-ink);cursor:pointer}
 .mitem:hover{background:var(--p-surface-alt)}
 .mitem .mi{font-size:18px;color:var(--p-muted)}
 .mitem.danger{color:var(--p-danger)}.mitem.danger .mi{color:var(--p-danger)}
-.mitem .kbd{margin-left:auto;font:400 11px 'Geist Mono',monospace;color:var(--p-placeholder)}
+.mitem .kbd{margin-left:auto;font:400 11px 'JetBrains Mono',monospace;color:var(--p-placeholder)}
 .mdiv{height:1px;background:var(--p-border);margin:4px -4px}
 .mlabel{font:500 10px/1 Inter;letter-spacing:.07em;text-transform:uppercase;color:var(--p-muted);padding:9px 10px 5px}
 
 /* Kebab / overflow */
-.kebab{width:28px;height:28px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;color:var(--p-muted);cursor:pointer;border:none;background:transparent}
+.kebab{width:28px;height:28px;border-radius:2px;display:inline-flex;align-items:center;justify-content:center;color:var(--p-muted);cursor:pointer;border:none;background:transparent}
 .kebab:hover{background:rgba(0,0,0,.05);color:var(--p-text)}
 .kebab .mi{font-size:20px}
 
 /* Neutral icon button — repeated per-row action (e.g. single-product coverage Map). Soft-gray
    border keeps the affordance visible at rest even over the row-hover tint; glyph is INK, not blue. */
-.btn-iconaction{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:32px;min-width:32px;padding:0;border-radius:6px;border:1px solid var(--p-border-strong);background:var(--p-surface);color:var(--p-ink);cursor:pointer;font:500 13px/1 Inter}
+.btn-iconaction{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:32px;min-width:32px;padding:0;border-radius:2px;border:0.5px solid var(--p-border-strong);background:var(--p-surface);color:var(--p-ink);cursor:pointer;font:500 13px/1 Inter}
 .btn-iconaction.labeled{padding:0 10px}
 .btn-iconaction:hover{background:var(--p-surface-tint)}
 .btn-iconaction .mi{font-size:18px}
 
 /* In-row demo table */
-.tbl{border:1px solid var(--p-border);border-radius:8px;overflow:hidden;max-width:660px;margin-top:6px}
+.tbl{border:0.5px solid var(--p-border);border-radius:2px;overflow:hidden;max-width:660px;margin-top:6px}
 .thd,.trw{display:grid;grid-template-columns:1.5fr 110px 160px;align-items:center;gap:12px;padding:0 16px}
 .thd{background:var(--p-surface-alt);height:38px;font:500 11px/1 Inter;letter-spacing:.08em;text-transform:uppercase;color:var(--p-muted)}
-.trw{height:45px;border-top:1px solid var(--p-border);font:400 14px Inter;color:var(--p-ink)}
-.trw .id{font:400 12px 'Geist Mono',monospace;color:var(--p-muted)}
+.trw{height:45px;border-top:0.5px solid var(--p-border);font:400 14px Inter;color:var(--p-ink)}
+.trw .id{font:400 12px 'JetBrains Mono',monospace;color:var(--p-muted)}
 .trw .right{display:flex;justify-content:flex-end;align-items:center}
 .trw.hov{background:var(--p-primary-tint)}
 .notes{font:400 13px/1.8 Inter;color:var(--p-text-2);max-width:680px}
 .notes b{color:var(--p-ink);font-weight:600}
-code{font:400 11px 'Geist Mono',monospace;background:#F3F4F6;padding:1px 5px;border-radius:2px}
-.tag{display:inline-block;font:600 9px/1 Inter;letter-spacing:.06em;text-transform:uppercase;color:#1447E6;background:#EFF6FF;border:1px solid #BFDBFE;padding:3px 7px;border-radius:999px;margin-left:8px;vertical-align:middle}
+code{font:400 11px 'JetBrains Mono',monospace;background:#F3F4F6;padding:1px 5px;border-radius:2px}
+.tag{display:inline-block;font:600 9px/1 Inter;letter-spacing:.06em;text-transform:uppercase;color:#1447E6;background:#EDF2F8;border:1px solid #BFDBFE;padding:3px 7px;border-radius:999px;margin-left:8px;vertical-align:middle}
 .tag.rec{color:#047857;background:#ECFDF5;border-color:#A7F3D0}
-.tag.scoped{color:#1447E6;background:#EFF6FF;border-color:#BFDBFE}
+.tag.scoped{color:#1447E6;background:#EDF2F8;border-color:#BFDBFE}
 .tag.spar{color:#B45309;background:#FFFBEB;border-color:#FDE68A}
 .tag.avoid{color:#C8252B;background:#FEECEC;border-color:#F7CFCF}
 .rule{border-collapse:collapse;width:100%;max-width:680px;font:400 13px Inter;margin-top:4px}
-.rule th{text-align:left;font:500 10px/1 Inter;letter-spacing:.07em;text-transform:uppercase;color:var(--p-muted);padding:0 12px 8px;border-bottom:1px solid var(--p-border)}
-.rule td{padding:10px 12px;border-bottom:1px solid var(--p-border);color:var(--p-text-2);vertical-align:top}
+.rule th{text-align:left;font:500 10px/1 Inter;letter-spacing:.07em;text-transform:uppercase;color:var(--p-muted);padding:0 12px 8px;border-bottom:0.5px solid var(--p-border)}
+.rule td{padding:10px 12px;border-bottom:0.5px solid var(--p-border);color:var(--p-text-2);vertical-align:top}
 .rule tr:last-child td{border-bottom:none}
 .rule td:first-child{color:var(--p-ink);font-weight:500;width:40%}
 .rule b{color:var(--p-ink);font-weight:600}
@@ -117,7 +118,7 @@ code{font:400 11px 'Geist Mono',monospace;background:#F3F4F6;padding:1px 5px;bor
 .notes p{margin:0 0 8px}
 </style></head><body>
 
-<div style="max-width:680px;margin:0 0 22px;padding:12px 14px;border:1px solid var(--p-border);border-radius:8px;background:var(--p-surface)">
+<div style="max-width:680px;margin:0 0 22px;padding:12px 14px;border:0.5px solid var(--p-border);border-radius:2px;background:var(--p-surface)">
   <p style="margin:0 0 6px;font:600 13px/1.3 Inter;color:var(--p-ink)">Ink‑forward color rule</p>
   <p style="margin:0;font:400 13px/1.6 Inter;color:var(--p-text-2)">Primary actions and active navigation use <b style="color:var(--p-ink)">brand ink</b> (<code>--p-action</code> — near‑black in light, a white surface in dark). <b style="color:var(--p-ink)">Blue</b> (<code>--p-primary</code>) is reserved for links, focus, and selection inside content. <b style="color:var(--p-ink)">Focus rings stay blue</b> — focus is state inside content, not chrome.</p>
 </div>

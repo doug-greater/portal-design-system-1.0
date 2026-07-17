@@ -38,8 +38,8 @@ const ALL_ACCOUNTS = _genAccounts();
 const fmStyles = {
   bar: { display: 'inline-flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' },
   token: {
-    display: 'inline-flex', alignItems: 'center', gap: 0, height: 32, borderRadius: 6,
-    border: '1px solid var(--p-border-strong)', background: '#fff', overflow: 'hidden',
+    display: 'inline-flex', alignItems: 'center', gap: 0, height: 32, borderRadius: 2,
+    border: '0.5px solid var(--p-border-strong)', background: '#fff', overflow: 'hidden',
   },
   tokenBody: {
     display: 'inline-flex', alignItems: 'center', gap: 6, height: '100%', padding: '0 4px 0 10px',
@@ -48,42 +48,42 @@ const fmStyles = {
   tokenLabel: { color: 'var(--p-muted)' },
   tokenX: {
     display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 26, height: '100%',
-    borderLeft: '1px solid var(--p-border)', cursor: 'pointer', color: 'var(--p-placeholder)', background: 'transparent', borderTop: 'none', borderRight: 'none', borderBottom: 'none',
+    borderLeft: '0.5px solid var(--p-border)', cursor: 'pointer', color: 'var(--p-placeholder)', background: 'transparent', borderTop: 'none', borderRight: 'none', borderBottom: 'none',
   },
   clearAll: { background: 'transparent', border: 'none', cursor: 'pointer', font: '500 13px/1 Inter, sans-serif', color: 'var(--p-primary)', padding: '0 4px' },
   pop: {
     position: 'absolute', top: 'calc(100% + 8px)', left: 0, zIndex: 60,
-    width: 540, background: '#fff', border: '1px solid var(--p-border)', borderRadius: 10,
+    width: 540, background: '#fff', border: '0.5px solid var(--p-border)', borderRadius: 2,
     boxShadow: 'var(--shadow-float, 0 10px 30px rgba(0,0,0,.14))', overflow: 'hidden',
     display: 'flex', flexDirection: 'column',
   },
   panes: { display: 'flex', height: 360 },
-  rail: { width: 184, borderRight: '1px solid var(--p-border)', padding: 8, overflowY: 'auto', flexShrink: 0, background: 'var(--p-surface-alt)' },
+  rail: { width: 184, borderRight: '0.5px solid var(--p-border)', padding: 8, overflowY: 'auto', flexShrink: 0, background: 'var(--p-surface-alt)' },
   railItem: (on) => ({
     display: 'flex', alignItems: 'center', gap: 8, width: '100%', height: 38, padding: '0 10px',
-    borderRadius: 6, cursor: 'pointer', border: 'none', textAlign: 'left',
+    borderRadius: 2, cursor: 'pointer', border: 'none', textAlign: 'left',
     background: on ? 'var(--p-primary-tint)' : 'transparent',
     font: on ? '600 14px/1 Inter, sans-serif' : '400 14px/1 Inter, sans-serif',
     color: on ? 'var(--p-primary)' : 'var(--p-text)',
   }),
   railCount: { marginLeft: 'auto', font: '500 11px Geist Mono, monospace', color: 'var(--p-primary)', background: 'var(--p-primary-soft)', padding: '1px 6px', borderRadius: 999 },
   pane: { flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 },
-  paneHead: { padding: '14px 16px 10px', borderBottom: '1px solid var(--p-border)' },
+  paneHead: { padding: '14px 16px 10px', borderBottom: '0.5px solid var(--p-border)' },
   list: { flex: 1, overflowY: 'auto', padding: '6px 8px' },
   groupLabel: { font: '500 10px/1 Inter, sans-serif', letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--p-muted)', padding: '10px 10px 6px' },
   valRow: {
     display: 'flex', alignItems: 'center', gap: 10, minHeight: 34, padding: '4px 10px',
-    borderRadius: 6, cursor: 'pointer', font: '400 14px/1.3 Inter, sans-serif', color: 'var(--p-ink)',
+    borderRadius: 2, cursor: 'pointer', font: '400 14px/1.3 Inter, sans-serif', color: 'var(--p-ink)',
   },
   selectAll: {
     display: 'flex', alignItems: 'center', gap: 10, minHeight: 36, padding: '4px 10px', margin: '2px 0 4px',
-    borderRadius: 6, cursor: 'pointer', font: '500 14px/1.3 Inter, sans-serif',
-    borderBottom: '1px solid var(--p-border)',
+    borderRadius: 2, cursor: 'pointer', font: '500 14px/1.3 Inter, sans-serif',
+    borderBottom: '0.5px solid var(--p-border)',
   },
   valSub: { font: '400 12px Inter, sans-serif', color: 'var(--p-muted)', marginLeft: 'auto', whiteSpace: 'nowrap' },
   capNote: { font: '400 12px/1.4 Inter, sans-serif', color: 'var(--p-muted)', padding: '10px 12px', textAlign: 'center' },
   empty: { font: '400 13px/1.4 Inter, sans-serif', color: 'var(--p-muted)', padding: '24px 12px', textAlign: 'center' },
-  footer: { display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', borderTop: '1px solid var(--p-border)', background: 'var(--p-surface-alt)' },
+  footer: { display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', borderTop: '0.5px solid var(--p-border)', background: 'var(--p-surface-alt)' },
   footCount: { font: '400 13px Inter, sans-serif', color: 'var(--p-muted)' },
 };
 
@@ -201,7 +201,7 @@ function FilterMenu({ attributes, value, onChange, resultLabel }) {
       {/* Filters button */}
       <button onClick={() => setOpen((o) => !o)} style={{
         display: 'inline-flex', alignItems: 'center', gap: 6, height: 32, padding: '0 12px',
-        background: totalCount > 0 ? 'var(--p-primary-tint)' : '#fff', borderRadius: 6, cursor: 'pointer',
+        background: totalCount > 0 ? 'var(--p-primary-tint)' : '#fff', borderRadius: 2, cursor: 'pointer',
         border: `1px solid ${(open || totalCount > 0) ? 'var(--p-primary)' : 'var(--p-border-strong)'}`,
         color: (open || totalCount > 0) ? 'var(--p-primary)' : 'var(--p-ink)', font: '500 14px/1 Inter, sans-serif',
       }}>

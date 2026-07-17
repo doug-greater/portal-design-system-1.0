@@ -13,7 +13,7 @@ function ScenarioScreen() {
         <p className="g-body-1" style={{ color: 'var(--p-muted)', margin: 0 }}>Tune how Greater plans routes and reorders for this scenario.</p>
       </div>
 
-      <div style={{ background: '#fff', border: '1px solid var(--p-border)', borderRadius: 10, padding: 24, display: 'flex', flexDirection: 'column', gap: 20 }}>
+      <div style={{ background: '#fff', border: '0.5px solid var(--p-border)', borderRadius: 2, padding: 24, display: 'flex', flexDirection: 'column', gap: 20 }}>
         <section>
           <h2 className="g-section-title" style={{ margin: '0 0 4px' }}>Sales rep defaults</h2>
           <p className="g-subtitle-1" style={{ margin: 0, textTransform: 'none', color: 'var(--p-muted)', letterSpacing: 0 }}>These values seed every rep in this scenario.</p>
@@ -29,7 +29,7 @@ function ScenarioScreen() {
           <Toggle on={notify} onChange={setNotify} />
         </FormRow>
 
-        <div style={{ borderTop: '1px solid var(--p-border)', paddingTop: 20, display: 'flex', flexDirection: 'column', gap: 14 }}>
+        <div style={{ borderTop: '0.5px solid var(--p-border)', paddingTop: 20, display: 'flex', flexDirection: 'column', gap: 14 }}>
           <h2 className="g-section-title" style={{ margin: 0 }}>Work-week constraints</h2>
           <FormRow label="Max stops / day">
             <Input value="12" style={{ width: 90 }} />
@@ -43,7 +43,7 @@ function ScenarioScreen() {
           </FormRow>
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 10, borderTop: '1px solid var(--p-border)', paddingTop: 20 }}>
+        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 10, borderTop: '0.5px solid var(--p-border)', paddingTop: 20 }}>
           <Button variant="secondary">Cancel</Button>
           <Button variant="primary">Save changes</Button>
         </div>
