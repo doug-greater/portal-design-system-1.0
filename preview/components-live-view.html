@@ -1,4 +1,5 @@
 <!doctype html><html><head><meta charset="utf-8">
+<script>/* dark-first (1.11 Dusk): stored pref wins; no pref = dark */(function(){var t=null;try{t=localStorage.getItem('gr-theme')}catch(e){}var d=t==='light'?'light':t==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):'dark';document.documentElement.setAttribute('data-theme',d);})()</script>
 <link rel="stylesheet" href="../colors_and_type.css">
 <link rel="stylesheet" href="../maps.css">
 <link rel="stylesheet" href="../fonts/fonts.css">
@@ -10,39 +11,42 @@ body { margin: 0; padding: 24px 28px; background: var(--p-shell); font: 400 14px
 .head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px }
 .title { margin: 0; font: 600 24px/1.2 Inter; letter-spacing: -.02em; color: var(--p-ink) }
 .sub { margin: 4px 0 0; font: 400 14px Inter; color: var(--p-muted) }
-.saveview { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 14px; border-radius: 4px; font: 500 13px/1 Inter; cursor: pointer; background: var(--p-surface); color: var(--p-text); border: 1px solid var(--p-border-strong) }
+.saveview { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 14px; border-radius: 1px; font: 500 13px/1 Inter; cursor: pointer; background: var(--p-surface); color: var(--p-text); border: 0.5px solid var(--p-border-strong) }
 /* Alert banner (red) */
-.alert { display: flex; align-items: center; gap: 10px; background: var(--p-danger-soft); border-radius: 8px; padding: 10px 12px; font: 400 14px/1.4 Inter; color: var(--p-ink) }
+.alert { display: flex; align-items: center; gap: 10px; background: var(--p-danger-soft); border-radius: 2px; padding: 10px 12px; font: 400 14px/1.4 Inter; color: var(--p-ink) }
 .alert .lnk { margin-left: auto; color: var(--p-primary); font-weight: 500; cursor: pointer; white-space: nowrap; text-decoration: none }
 /* Filter row */
 .filters { display: flex; align-items: center; gap: 10px; flex-wrap: wrap }
-.sel { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 10px 0 12px; border: 1px solid var(--p-border-strong); border-radius: 4px; background: var(--p-surface); color: var(--p-ink); font: 400 14px Inter; cursor: pointer }
+.sel { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 10px 0 12px; border: 0.5px solid var(--p-border-strong); border-radius: 1px; background: var(--p-surface); color: var(--p-ink); font: 400 14px Inter; cursor: pointer }
 .sel .mi { color: var(--p-placeholder) }
-.chip { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 6px; border: 1px solid var(--p-primary); background: var(--p-primary-tint); color: var(--p-primary-ink); font: 500 13px/1 Inter; cursor: pointer }
-.fmenu { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 6px; border: 1px solid var(--p-border-strong); background: var(--p-surface); color: var(--p-ink); font: 500 14px/1 Inter; cursor: pointer }
+.chip { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 2px; border: 1px solid var(--p-primary); background: var(--p-primary-tint); color: var(--p-primary-ink); font: 500 13px/1 Inter; cursor: pointer }
+.fmenu { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 2px; border: 0.5px solid var(--p-border-strong); background: var(--p-surface); color: var(--p-ink); font: 500 14px/1 Inter; cursor: pointer }
 .fmenu .mi { color: var(--p-muted) }
 /* Map strip */
-.strip { border: 1px solid var(--p-border); border-radius: 10px; background: var(--p-surface); box-shadow: var(--shadow-surface); overflow: hidden }
-.strip-head { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-bottom: 1px solid var(--p-border) }
+.strip { border: 0.5px solid var(--p-border); border-radius: 2px; background: var(--p-surface); box-shadow: var(--shadow-surface); overflow: hidden }
+.strip-head { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-bottom: 0.5px solid var(--p-border) }
 .strip-summary { font: 500 13px/1 Inter; color: var(--p-text) }
 .livechip { display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 9px; border-radius: 999px; background: var(--p-primary-tint); color: var(--p-primary-ink); font: 600 11px/1 Inter }
 .map { position: relative; height: 150px; background: var(--p-surface-tint); }
+.lv-route { stroke: #A9B2BE }
+html[data-theme="dark"] .lv-route { stroke: #50565F }
+.lv-route-focus { stroke: var(--p-primary) }
 /* Table */
-.card { border: 1px solid var(--p-border); border-radius: 8px; background: var(--p-surface); box-shadow: var(--shadow-surface); overflow: hidden }
+.card { border: 0.5px solid var(--p-border); border-radius: 2px; background: var(--p-surface); box-shadow: var(--shadow-surface); overflow: hidden }
 .scroll { overflow: auto }
 .min { min-width: 980px }
-.dt-head { display: grid; grid-template-columns: 84px minmax(240px,1.7fr) 104px 118px 168px 104px 104px; align-items: center; height: 40px; padding: 0 16px; background: var(--p-surface-alt); border-bottom: 1px solid var(--p-border); position: sticky; top: 0; z-index: 3; font: 500 11px/1 Inter; letter-spacing: .07em; text-transform: uppercase; color: var(--p-muted) }
-.grp { display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 16px; background: var(--p-surface-alt); border-top: 1px solid var(--p-border); border-bottom: 1px solid var(--p-border) }
+.dt-head { display: grid; grid-template-columns: 84px minmax(240px,1.7fr) 104px 118px 168px 104px 104px; align-items: center; height: 40px; padding: 0 16px; background: var(--p-surface-alt); border-bottom: 0.5px solid var(--p-border); position: sticky; top: 0; z-index: 3; font: 500 11px/1 Inter; letter-spacing: .07em; text-transform: uppercase; color: var(--p-muted) }
+.grp { display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 16px; background: var(--p-surface-alt); border-top: 0.5px solid var(--p-border); border-bottom: 0.5px solid var(--p-border) }
 .grp .av { width: 22px; height: 22px; border-radius: 50%; background: var(--p-role-rep-bg); color: var(--p-role-rep-fg); display: inline-flex; align-items: center; justify-content: center; font: 600 10px/1 Inter; flex-shrink: 0 }
 .grp .nm { font: 600 13px/1 Inter; color: var(--p-ink) }
-.bar { width: 56px; height: 4px; border-radius: 999px; background: var(--p-surface-tint); border: 1px solid var(--p-border); overflow: hidden }
+.bar { width: 56px; height: 4px; border-radius: 999px; background: var(--p-surface-tint); border: 0.5px solid var(--p-border); overflow: hidden }
 .bar > i { display: block; height: 100%; background: var(--p-success) }
-.mono { font: 500 13px 'Geist Mono', monospace; color: var(--p-text) }
+.mono { font: 500 13px 'JetBrains Mono', monospace; color: var(--p-text) }
 .muted { color: var(--p-muted) }
 .live-line { display: inline-flex; align-items: center; gap: 6px; font: 400 12px Inter; color: var(--p-text-2) }
 .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0 }
-.locate { margin-left: auto; display: inline-flex; align-items: center; gap: 5px; height: 28px; padding: 0 10px; border: 1px solid var(--p-border-strong); border-radius: 6px; background: var(--p-surface); color: var(--p-text-2); font: 500 12px/1 Inter; cursor: pointer }
-.row { display: grid; grid-template-columns: 84px minmax(240px,1.7fr) 104px 118px 168px 104px 104px; align-items: center; height: 54px; padding: 0 16px; border-bottom: 1px solid var(--p-border); font: 400 13px Inter; color: var(--p-text) }
+.locate { margin-left: auto; display: inline-flex; align-items: center; gap: 5px; height: 28px; padding: 0 10px; border: 0.5px solid var(--p-border-strong); border-radius: 2px; background: var(--p-surface); color: var(--p-text-2); font: 500 12px/1 Inter; cursor: pointer }
+.row { display: grid; grid-template-columns: 84px minmax(240px,1.7fr) 104px 118px 168px 104px 104px; align-items: center; height: 54px; padding: 0 16px; border-bottom: 0.5px solid var(--p-border); font: 400 13px Inter; color: var(--p-text) }
 .row:last-child { border-bottom: none }
 .acct { font: 500 13px Inter; color: var(--p-ink) }
 /* Status badges */
@@ -53,8 +57,8 @@ body { margin: 0; padding: 24px 28px; background: var(--p-shell); font: 400 14px
 .b-complete { background: var(--p-success-bg); color: var(--p-success-fg) } .b-complete .dot { background: currentColor }
 .b-incomplete { background: var(--p-danger-soft); color: var(--p-danger) } .b-incomplete .dot { background: currentColor }
 .b-skipped { color: var(--p-text-2) } .b-skipped .dot { background: var(--p-border-strong) }
-.notes { font: 400 13px/1.6 Inter; color: var(--p-text-2); max-width: 1000px; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--p-border) }
-.notes b { color: var(--p-ink) } code { font: 400 12px 'Geist Mono', monospace; background: var(--p-surface-tint); padding: 1px 5px; border-radius: 4px }
+.notes { font: 400 13px/1.6 Inter; color: var(--p-text-2); max-width: 1000px; margin-top: 22px; padding-top: 18px; border-top: 0.5px solid var(--p-border) }
+.notes b { color: var(--p-ink) } code { font: 400 12px 'JetBrains Mono', monospace; background: var(--p-surface-tint); padding: 1px 5px; border-radius: 1px }
 </style></head>
 <body>
 <div class="wrap">
@@ -90,9 +94,9 @@ body { margin: 0; padding: 24px 28px; background: var(--p-shell); font: 400 14px
     </div>
     <div class="map" id="lvmap">
       <svg width="100%" height="100%" viewBox="0 0 1120 150" preserveAspectRatio="none" style="position:absolute;inset:0">
-        <!-- dimmed route (gray) + focused route (blue) -->
-        <polyline points="120,110 260,60 420,90 560,40" fill="none" stroke="#A9B2BE" stroke-width="2.5" stroke-opacity=".7"/>
-        <polyline points="640,100 780,50 900,95 1010,55" fill="none" stroke="#007CFF" stroke-width="2.5" stroke-opacity=".9"/>
+        <!-- dimmed route (monochrome gray) + focused route (theme primary) -->
+        <polyline class="lv-route" points="120,110 260,60 420,90 560,40" fill="none" stroke-width="2.5" stroke-opacity=".7"/>
+        <polyline class="lv-route-focus" points="640,100 780,50 900,95 1010,55" fill="none" stroke-width="2.5" stroke-opacity=".9"/>
       </svg>
       <!-- Planned (base) / In Progress / Complete / Incomplete pins + a rep dot -->
       <div class="g-live-pin" style="position:absolute;left:110px;top:100px">1</div>
