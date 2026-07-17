@@ -1,5 +1,5 @@
 # Greater Design System
-### Portal 1.9 · June 2026
+### Portal 1.10 · July 2026
 
 > Greater Industries builds AI that helps wholesalers and distributors make the smartest, most efficient, most profitable decisions across their entire business. From warehouse workers and truck drivers to sales reps and owners — Greater's portal is the cockpit that connects the people who power local economies.
 
@@ -34,7 +34,7 @@
    - [Date Picker](#date-picker)
    - [Page Detail Header](#page-detail-header)
    - [App Shell & Navigation Sidebar](#app-shell--navigation-sidebar)
-   - [Maps](#maps)
+   - [Maps](#maps) · [Live Surfaces (Live View)](#live-surfaces-live-view--110)
    - **New in 1.1:** [Wizard (multi-step flow)](#wizard-multi-step-flow) · [Audit Log, Change Row & Restore](#audit-log-change-row--restore) · [Echo Pulse](#echo-pulse-brand-moment) · [Expandable Rows](#expandable-rows) · [Batch Actions](#batch-actions-multi-select)
    - **New in Phase 3 (Store Layouts):** [Chip](#chip-micro-status) · [Tooltip](#tooltip) · [MenuButton](#menubutton-off-table-disclosure) · [Arrangement Board](#arrangement-board-drag-and-drop) · [Meta Row](#meta-row-progressive-disclosure) · [General Stock Area](#general-stock-area-arrangement-board-sub-pattern) · [Inline Quantity Control](#inline-quantity-control) · [Add-items Picker](#add-items-picker-grouped-multi-select) · [CSV Import](#csv-import)
    - **New in 1.3 (shell + motion):** [Deep-linking (URL facets)](#deep-linking-url-facets) · StatCard count-up + informational variant (§9 Stat Cards) · `--p-shell` / `--shadow-surface` (§3 / §7) · pending-delta count cell (§9 Tables) · App Shell collapse motion (§9 App Shell)
@@ -44,6 +44,7 @@
    - **New in 1.7 (Search · ⌘K · General Stock):** [Command Palette (⌘K)](#command-palette-k--17) + portal-wide [Search Query Grammar & Highlight](#search--highlight-17) (`AND` default · uppercase `OR` · `"phrase"` · accent-insensitive) · search-highlight token `--p-highlight` (the only sanctioned yellow) + **General Stock purple** concept tokens `--p-genstock*` (§3) · **Entity-icon canon** (§8 — POD Planner `blur_medium`, Store Promotions `award_star`) · `Input` clearable ✕ + `?` hint · `Toggle.color` · `Chip.iconRight` · `Tooltip.z` · `Modal tone="general"` (§9) · **Arrangement Board** tray kebab (Add to Section / Discontinue), `Adding` / `Discontinuing` badges, single-indicator purple General Stock, "Suggested →" + **Section Picker** (§9) · z-index ladder + the fixed-inside-`sticky`/`transform` rule (§7)
    - **New in 1.8 (Governed RBAC · Global Nav Guard · Assignment-Edit):** the unsaved-changes guard goes **global** — sidebar + programmatic + in-page tabs + hard unload under the declarative router (new `NavGuard.jsx`) *[supersedes the 1.5 data-router caveat]* · **role-derived RBAC** — one role→capability matrix in **Settings → Roles & Permissions** that re-syncs all users on save; the user page is **read-only** *[supersedes the 1.5 per-user editor]* · **Masonry** card packing (§12) · the **Assignment-Edit** modal + the **Amber = edit / Red = conflict** color law + **legend-as-mini-cell** + amber **"(preview)"** (§9 / §3 / Maps) · Maps **hover-reveal pins** + in-popup **Edit** deep-link (`.g-map-popup-edit`) · native **`title=` → portal Tooltip** · **Cancel = ghost / neutral** (retire blue links) · tokens `--p-danger-soft` / `--g-gold-04` (§6) · icon adds (§8) · `SCREENS-1.8.md`
    - **New in 1.9 (Home + shareable URLs + anchor navigation):** **AppLink** — navigation renders a real `<a href>` (open-in-new-tab / ⌘-click) while routing plain clicks through the NavGuard; the **anchor-navigation law** (§9 / §12 / §15) · **stretched-link rows** for clickable table rows (§9 Tables) · `BackLink` gains `to`; external links are real `<a target=_blank>` · **URL filter-state** (`urlFilters.js`) is the single source of truth, relative presets persist as a key *[supersedes `sessionStorage`/`filterPersist`]* (§ Deep-linking / State & URLs) · **Saved Views** + `SaveViewButton` (§9) · **Home dashboard** — role-gated drag-orderable Health Stat Cards + a Saved-Views grid + the Crow Fact easter egg (§9 / §12) · **Login → single page** *[supersedes the 1.5 two-step]* (§9) · App Shell nav **collapsed-by-default + auto-expand-active + animated** (grid-rows + stagger), landing item **Home** (`home`) (§8 / §9 / §10) · role-gating keys off **real role ids** (§15)
+   - **New in 1.10 (Live Ops · Most-Severe · Expected Impact · Portal Overlays):** **Live View** — a new *live-surface* page archetype (auto-refreshing map + grouped table of every rep's day, a five-state stop vocabulary, a monochrome-routes map law) + an App-Shell **nav alert dot** ([Live Surfaces](#live-surfaces-live-view--110) / §9 App Shell / Maps) · Coverage-Map hexes now aggregate by **Most Severe** business severity *[supersedes the 1.4/1.5 averaging]* (§9 Maps / Inventory Conditions) · **Expected Impact** (categorical) + the **radio-card** input + `ImpactBars` *[supersedes numeric "Anticipated Lift"]* + **conditional Subtype** (§9 Inputs) · shared **DataTable** primitives (`SortHeader`/`TableShell`/`TableHeader`/`DataTableFooter`), **RowKebab** portal row-menu *[supersedes inline kebabs]*, **pinned actions column**, nested-table sorting (§9 Tables) · **Tooltip** measured viewport clamp *[supersedes the 1.4 fixed clamp]* (§9) · search-highlight **yellow-only** (§9) · relative **week selector** (§9 Filters) · nav gating **capability-per-child** *[supersedes 1.9 role-id gating]* + feature-aligned cap catalog (§9 App Shell / Appendix A) · dev sign-in **id-based, no client secrets** (§9 Login) · Help Center → **in-product Messenger** (§9 App Shell) · **Store Layout Templates** tab (§9) · tokens `gr-livedot` / `.g-live-*` / `.g-routemap*` / `.gr-sticky-actions` · `SCREENS-1.10.md`
 10. [Motion](#motion)
 11. [Voice & Copy](#voice--copy)
 12. [Layout](#layout)
@@ -513,6 +514,8 @@ Use variable-font axes (`FILL`, `wght`, `GRAD`, `opsz`) sparingly — prefer out
 
 **New in 1.8:** `difference` (Changes/diff ledger header), `undo` (per-row / ledger Undo + Reset), `open_in_full` (expand map to full screen), `badge` (edit Sales Rep — row action), `calendar_today` (edit Service Date — row action), `block` (skip service — danger row action), `group` (role-permission save-confirm modal).
 
+**New in 1.10:** `radar` (**Live View** — nav + the `SaveViewButton` section icon), `my_location` (Locate a rep's route on the live map), `refresh` (manual live refresh), `signal_cellular_alt` / `signal_cellular_alt_2_bar` / `signal_cellular_alt_1_bar` (**Expected-Impact scale** — `ImpactBars`, §9 Inputs), `help_center` (Help Center → Messenger row), `dashboard_customize` (Apply Template to Accounts).
+
 ### Entity icons (the canon · 1.7)
 
 Each first-class Portal entity has exactly **one** canonical Material Symbol (Sharp). Use it everywhere the entity is *represented* — global search (⌘K) page-jumps and result rows, related-entity deep-link chips, nav, and empty-state badges. Authoritative source: the shipped `CommandPalette` `PAGES` table + the App Shell nav.
@@ -525,6 +528,7 @@ Each first-class Portal entity has exactly **one** canonical Material Symbol (Sh
 | **Store Layouts** | `dashboard` | Per-account physical placement. |
 | Accounts group / **Accounts List** | `store` | Point of distribution. |
 | **Orchestration / View Plans** | `graph_7` | Routing plans. |
+| **Live View** (Sales) | `radar` | Live operational surface — every rep's route today, read-only (§ Live Surfaces, 1.10). First child under Sales. |
 | **Users** | `person` | People / roles. |
 | **Audit Log** | `history` | Immutable ledger. |
 | Settings | `settings` | — |
@@ -693,6 +697,12 @@ Actions attached to a table row. There is **one primitive and two triggers** —
 - **Kebab:** `28×28px`, `border-radius: 6px`, `more_horiz` at 20px, `--p-muted`; hover `rgba(0,0,0,.05)`.
 - **Menu popover:** `border-radius: 8px`, `--shadow-float`, 1px `--p-border`, `padding: 4px`, `min-width: ~208px`. Items `34px`, `padding: 0 10px`, `400 14px Inter`, optional 18px `--p-muted` leading icon. Group with an uppercase label + `1px --p-border` divider when there are more than ~5 items; destructive items go **last**, in `--p-danger`. Opens on click; closes on outside-click, `Escape`, or selection.
 
+#### RowKebab — the portal row-action menu (1.10)
+
+**Portal law (restated, broadened).** *Any floating UI born inside a scrolling or transformed container — tooltips, row-action menus, popovers, hover cards — must render into `document.body` via `createPortal`, position `fixed`, and re-measure on scroll/resize.* Never rely on `position: absolute` inside a table: the scroll container's `overflow` clips it (a bug reported twice, fixed twice). This generalizes the 1.4 Tooltip-to-portal rule to the whole overlay layer.
+
+**`RowKebab`** (`RowKebab.jsx`) is the canonical **row-action** trigger and supersedes the inline `Kebab` for rows. The `.g-kebab` `more_horiz` trigger opens the shared `Menu` **portaled to `<body>`** (`position: fixed; width: 200; z-index: 10002`, right-aligned to the trigger — `right: innerWidth − rect.right` — with a 6px gap), **flips up** when `spaceBelow < 220px` and there's more room above, re-measures the trigger rect on **capture-phase scroll + resize** while open, and closes on outside `mousedown` / `Escape`. Open state paints `--p-overlay-hover` + `--p-text`; the trigger `stopPropagation`s so a row-click never fires behind it. API: `RowKebab({ items, testid })` (items are `Menu` items). **Adoption:** every table / list row-action menu uses `RowKebab` (Planned Assignments, POD Planner, Route Assignments, Home saved-view cards, Store-Layout Templates); any remaining inline `Menu`-in-a-span kebab is a latent clipping bug — sweep it. The inline `Kebab` stays valid **only** for toolbars / headers that live *outside* a scroll container.
+
 #### MenuButton (off-table disclosure)
 
 SplitButton and Kebab are tuned for **28px table rows**. In a page header, detail action bar, or toolbar you often want the same "primary action + a menu of alternatives" but at **full button height** so it lines up with its neighbors — that's **MenuButton**: a normal `Button` (any variant) with a trailing `expand_more` that opens the **identical Menu popover**.
@@ -714,10 +724,11 @@ Example (`StoreLayoutEditor` action bar): `Publish ▾` → `[Publish Now · Sch
 
 A dark popover (`--p-ink` bg, white text) anchored to its trigger; hover-only, `pointer-events: none`. Pairs naturally with a 14px `info` glyph (`cursor: help`). Default is a single nowrap line (`font: 500 11px/1.3 Inter; padding: 4px 8px; border-radius: 6px; box-shadow: var(--shadow-float)`). Reference: `preview/components-tooltip.html`.
 
-> **Portal-rendered (changed in 1.4).** The `Tooltip` now renders into `document.body` via `ReactDOM.createPortal` with **`position: fixed`** and **`z-index: 4000`** — it is **not** an absolutely-positioned child of its anchor anymore. On hover it measures the anchor with `getBoundingClientRect()` and **clamps its horizontal center to the viewport** (`[90, innerWidth − 90]` px). The upshot: it never clips inside `overflow:hidden` / transformed / stacking-context containers — scrolling tables, transformed cards, **map overlays (Leaflet panes)** — and it floats above page content and the map overlay. *(1.7 ladder, §7: the default `4000` sits below modals (`10000`) and the ⌘K palette (`12000`) — a tooltip fired from inside one of those passes a higher `z` to clear it.)* *(Supersedes the 1.2 absolutely-positioned, `z-index: 200` implementation; the `maxWidth` wrapping behavior is preserved, just re-homed.)*
+> **Portal-rendered (changed in 1.4).** The `Tooltip` now renders into `document.body` via `ReactDOM.createPortal` with **`position: fixed`** and **`z-index: 4000`** — it is **not** an absolutely-positioned child of its anchor anymore. On hover it measures the anchor with `getBoundingClientRect()` and **clamps its center by the bubble's own measured half-width** against a 12px viewport margin (1.10 — see the Measured-clamp bullet below; supersedes the 1.4 fixed `[90, innerWidth − 90]` center clamp). The upshot: it never clips inside `overflow:hidden` / transformed / stacking-context containers — scrolling tables, transformed cards, **map overlays (Leaflet panes)** — and it floats above page content and the map overlay. *(1.7 ladder, §7: the default `4000` sits below modals (`10000`) and the ⌘K palette (`12000`) — a tooltip fired from inside one of those passes a higher `z` to clear it.)* *(Supersedes the 1.2 absolutely-positioned, `z-index: 200` implementation; the `maxWidth` wrapping behavior is preserved, just re-homed.)*
 
 - **`maxWidth` (px)** — for multi-line / educational copy. Switches to `white-space: normal`, sets `width: {maxWidth}`, caps at `min({maxWidth}px, calc(100vw − 24px))`, `line-height: 1.5`, `padding: 7px 10px`, left-aligned. **Required** whenever the body runs longer than ~6 words — otherwise it shrink-wraps to one nowrap line.
 - **`side`** — `"top"` (default) or `"bottom"`. Controls vertical placement (the horizontal center-clamp handles left/right overflow on its own, so `"bottom"` is now only about which way the bubble opens, not an anti-clipping workaround).
+- **Measured viewport clamp (1.10 — supersedes the 1.4 fixed `[90, iw−90]` center clamp).** After the bubble renders, a `useLayoutEffect` measures its real width and clamps the center by its own half-width against a 12px margin (before paint). The old fixed margin failed for wide bubbles — a `maxWidth: 300` bubble's 150px half still hung ~60px off-screen. A hard CSS backstop remains: `maxWidth: min({maxWidth}px, calc(100vw − 24px))` (and `calc(100vw − 24px)` for the no-`maxWidth` nowrap variant).
 - **Re-measures on each open.** Positions from `getBoundingClientRect` at hover time; for an anchor that moves *while* the tooltip is shown, re-open to re-measure.
 - **`z` (1.7)** — z-index override, default `4000`. Raise it when a tooltip is triggered from inside a higher-z overlay (e.g. the ⌘K palette backdrop is `12000`, so its in-field `?` hint passes `z={12001}`). See the z-index ladder in §7. Signature: `Tooltip({ text, children, side = "top", maxWidth, z = 4000 })`.
 - **Never native `title=` for interactive affordances (1.8).** Use the component `Tooltip` for any **interactive control** whose meaning isn't obvious (icon-only buttons, kebab actions, undo/reset glyphs, map controls) — native `title` is inconsistent across OSes, slow to appear, un-styleable, and invisible on touch. **Native `title` is acceptable only** for (a) **non-interactive** decorative marks where a tooltip would be overkill (a 7px "unsaved" status dot, a map delivery-dot), and (b) strings inside **raw HTML injected into Leaflet popups** where a React component can't mount. Everything a user can click / operate gets the component. Tooltip copy is **terse, sentence-case, verb-first** for actions (*"Open full map"*, *"Undo date change"*).
@@ -838,6 +849,8 @@ Some fields exist only in a particular state, and some hold credentials that mus
 
 > **Rule.** **Conditional fields** appear only when their controlling input enables them, are **required only while shown**, and validate in the submit handler (clear their error when hidden). **Mask** input at the boundary (`onChange` sanitize). **Secrets are write-only:** the API returns a `*Set` boolean, never the value; when set, the field is optional and shows "leave blank to keep current," and a blank submit preserves it.
 
+**Conditional subtype (1.10 §F).** A dependent *select* follows the same law: render a type's **Subtype** field **only when that type actually has subtypes** (`step1ok` requires subtype only when `subtypesFor(type).length > 0`); otherwise it is hidden **and** not required. Generalize it: *never render a disabled/placeholder dependent field — conditionally mount it.* (Store Promotions: Multibuy → "Buy N for $X"; Buy-X-Get-Y → the X/Y matrix; TPR / % Off / $ Off / Bundle / Spend-Save have none. The retired "Minor/Significant Discount" depth subtypes moved into **Expected Impact**, §E below.) A list row with no subtype shows **nothing**, not an em-dash.
+
 #### Async field-level uniqueness check (§1.4)
 
 On the New/Edit User form, the email must be unique. Rather than only failing on submit, check on **blur** and branch the UI on the *state* of any existing match — turning a dead-end error into a recovery path.
@@ -873,6 +886,8 @@ API: `parseQuery(q) → { mode, tokens }` · `matchesQuery(q, text) → bool` ·
 Wraps the substrings of `text` that satisfy `query` in `<mark class="gr-hl">` (token `--p-highlight` / `--p-highlight-fg` — the only sanctioned yellow). Diacritic-folds per character with an index map back to the original string, so highlights land on the **un-normalized** characters (`pina` highlights `Piña`); mirrors the backend matcher. Returns the plain string when nothing matches.
 
 **Usage:** wrap the *searched* fields of every result row/card (names, ids, and any field the backend matches on) and the ⌘K result titles/subtitles. Pass the same **debounced** query that drove the fetch, so highlights stay consistent with the visible rows. Reference: `preview/components-search-highlight.html`.
+
+> **Rule (1.10 §K).** **Match painting is always `<mark class="gr-hl">`** — the theme-aware `--p-highlight` / `--p-highlight-fg` yellow (the only sanctioned yellow, 1.7) — **never a local color.** A portal-wide sweep found local `Hi` helpers tinting matches blue (`--p-primary-soft`); those are bugs. Blue never marks a text match; blue marks selection / state.
 
 ---
 
@@ -920,6 +935,17 @@ Disabled (1.5): bg --p-surface-tint, placeholder-grey check, cursor not-allowed,
 Off: border 1.5px solid #D1D5DC, bg #fff
 On:  border 1.5px solid #007CFF, inner 8px circle bg #007CFF
 ```
+
+#### Radio-card group (single choice among rich options · 1.10)
+
+The canonical input for **one choice among 2–4 options that each deserve a glyph + blurb** — an alternative to `Select` when the options merit explanation. Shipped for **Expected Impact** (Store Promotions), which replaced the numeric "Anticipated Lift".
+
+- Container `role="radiogroup"`; a label row above (e.g. "Expected Impact" + red `*`) and a helper sentence below. Grid `repeat(N, 1fr)`, `gap: 10`.
+- Each card = `<button role="radio" aria-checked>`, `padding: 12px 14px; border-radius: 8; text-align: left`, a column (`gap: 6`) of **glyph → value → blurb** (value `600 14px/1`, blurb `400 12px/1.35` `--p-muted`).
+- **Selected** = `border: 1px solid var(--p-primary)` + `background: var(--p-primary-tint)` + `box-shadow: inset 0 0 0 1px var(--p-primary)` (a **doubled inner ring**, not a thicker border — no layout shift); the value flips to `--p-primary-ink`. Unselected = `--p-border-strong` on `--p-surface`. Transition `border-color / background / box-shadow .12s ease`.
+- Selection is **blue** — a choice living *inside content* (the ink/blue law), never ink. testids `promo-impact-group`, `promo-impact-{minor|moderate|significant}`.
+
+**Expected Impact** (`primitives.jsx`): `EXPECTED_IMPACTS` = Minor / Moderate / Significant; `IMPACT_RANK` = {Minor:1, Moderate:2, Significant:3}. **`ImpactBars`** is the shared magnitude glyph — the active `signal_cellular_alt` bar-count layered over a faint full-scale base so "N of 3" reads clearly; `active` paints it blue. Downstream: the list "Lift" column becomes **"Impact"** (`ImpactBars` + label) and **sorts by `IMPACT_RANK`**, not alphabetically; the "Avg Anticipated Lift" stat card is removed; CSV header is "Expected Impact"; audit diffs the categorical value (legacy `anticipatedLift` still renders "2x"). Reference: `preview/components-expected-impact.html`.
 
 #### Chip Toggle
 
@@ -1010,6 +1036,14 @@ The canonical pattern for filtering tables. **One** "Filters" button opens a two
 - **Host integration:** the host stores the range *inside* its filter value object (`filters.GoLive = { from, to }`); helpers that iterate Set-valued facets must skip the date-range key. The old standalone "Date" toolbar button is removed.
 
 > **Rule.** The Filter Menu supports a **`daterange`** attribute type alongside checkbox and `search` facets. A date range is a first-class facet: it shows in the rail, contributes to the "N filters" count, and appears as a removable applied token summarizing the range. **Don't ship one-off "Date" toolbar buttons** beside the Filter Menu — add a `daterange` attribute instead, so all filtering is unified in one control with one applied-token row.
+
+**Relative week selector — plan-scoped views (1.10 §N).** Plan-scoped assignment views (Visualize Impact → Route Assignments) don't want calendar ranges — they want *plan-relative* weeks. The date-range control is **replaced** by a single `Select` (`data-testid="ra-week"`, width 250, `menuMaxHeight: 440`):
+
+- Options: **"All Assignments"** (default) + **Week 1..n**, anchored strictly at the plan's **Start Date**. Monday start → Weeks 1–8; non-Monday start → a **partial Week 1** (start → that Sunday) + 8 full Mon–Sun weeks. Option label = `"Week N"` + a muted `"{Mon d} – {Mon d}"` range, with a `"· partial"` suffix where applicable.
+- The week list is **per-plan** (`GET /api/orchestration/plans/{id}/weeks`); a stale selection (Week 9 after switching to an 8-week plan) **snaps back to All**.
+- Persists to the URL as `?week=` — `urlFilters` `PARAM_LABELS` gains `week: "Week"` so Saved-View chips humanize it.
+- This tab **shows past stops**; the `≥ today` clamp applies ONLY to Sales → Planned Assignments.
+- ⚠️ A per-week workload summary strip (stops/rep-days/avg tiles) was prototyped and **removed at the user's explicit request** — do not reintroduce one. The week dropdown is the only week control.
 
 **Applied-filter tokens**
 
@@ -1334,6 +1368,26 @@ font-weight: 500;
 **Grid-row tables (read-only feeds).** Ultra-dense, fixed-schema, read-only ledgers (e.g. the Audit Log) may be built from CSS-grid `div` rows instead of a real `<table>`, to control 7–8 fixed/elastic columns precisely. Allowed **only** for read-only data feeds, and only if it keeps the standard chrome: the `#F9FAFB` / `11px` caps / `.08em` header, 1px row borders, the hover tint, and the standard footer. Anything interactive or selectable (e.g. the wizard `SelectionTable`) stays a real `<table>`.
 
 Columns auto-size to content with a `max-width: 300px` cap. Headers support column-resize via a drag handle (6px, highlights `--p-primary` on hover).
+
+#### DataTable primitives — the shared skeleton (1.10 §H)
+
+Every list screen builds on four shared primitives (`DataTable.jsx`); reference these as the canonical implementations.
+
+- **`SortHeader({ label, k, sort, onSort, idPrefix, align, disabled })`** — the sortable column header: `500 11px/1` uppercase, `.07em` tracking; idle `--p-muted` + `unfold_more`; hover `--p-ink`; active `--p-primary` + `arrow_upward|arrow_downward` (**sort state is blue = the state law**). The **`disabled`** variant renders a non-interactive `--p-placeholder` span with `title="Sorting is disabled while grouped"` — used when a grouped view only lets the group-defining columns re-order groups (§L). testid `{idPrefix}-sort-{k}`.
+- **`TableShell({ minWidth, footer, radius=8, … })`** — the list-table card: `--p-surface` + hairline + `--shadow-surface`, an inner `overflow:auto` scroll region wrapping a `minWidth` div, and a footer slot. This **"one scroll container + minWidth wrapper"** is the **required skeleton** — the prerequisite for sticky headers and the pinned actions column (§M). A header placed *outside* the scroll container clips a pinned cell.
+- **`TableHeader({ cols, columnGap, muted })`** — the sticky header row: 40px, `0 16px`, `--p-surface-alt`, bottom hairline, `position: sticky; top: 0; z-index: 3`. It **owns the z-index**, fixing the whole "rows scroll up through the header" class of bugs in one place.
+- **`DataTableFooter({ page, pageCount, pageSize, total, shown, onPage, onPageSize, noun, leading, pageSizeLabel, pageSizeOptions, … })`** — "Showing **X–Y** of **Z** {noun}" + optional rows-per-page `Select` + `Pagination`, `10px 16px` on `--p-surface-alt` with a top hairline (`data-testid="dt-summary"`).
+
+> **Group pagination.** `pageSizeLabel` / `pageSizeOptions` let a **grouped** table paginate **by group** so a group never splits across a page boundary — e.g. "Rep-days per page" (options 10/15/25), summary *"Showing 1–15 of 38 rep-days · 254 assignments"* (`noun="rep-days"`, `leading` for the row count, `shown` for this page's visible group count).
+
+#### Pinned right-hand actions column (1.10 §M)
+
+When a table scrolls horizontally, its rightmost **action** column (kebab, or the row-navigation chevron) stays pinned to the visible right edge via `.gr-sticky-actions` (`position: sticky; right: 0; background: inherit`) + `.gr-sticky-actions-head` (`z-index: 3`) on the header cell. Rules learned shipping it across six tables:
+- Requires the §H `TableShell` skeleton (one `overflow:auto` container + a `minWidth` div, sticky header **inside** it) — a header outside the scroll container clips the pinned cell.
+- Row backgrounds must be **opaque** (`--p-surface`, not transparent) — the pinned cell uses `background: inherit` to mask content scrolling beneath it.
+- The wrapper `minWidth` must be ≥ the grid's true minimum (sum of `minmax` floors), or data rows overflow the wrapper while full-width group headers obey it and the two visibly disagree.
+- **No divider/shadow** on the pinned column — a left hairline was tried and removed (it only showed on tables that actually overflow, reading as inconsistency). The column pins silently.
+- In grouped tables, the group-header identity cluster pins `left: 16` and any trailing button `right: 16`, so both stay at the viewport edges as the row scrolls under.
 
 #### Pending-delta count cell
 
@@ -1695,7 +1749,19 @@ The sidebar must sit **outside** the scroll region (a sibling of `main`), never 
   - **Products** (`category`) → In the Market · POD Planner.
   - **Accounts** (`store`) → Accounts List · Store Layouts · Store Promotions.
   - **Users** (`person`) — direct leaf, no children.
-- **Bottom utility nav** — pinned to the bottom. Top → bottom: **Help Center** (`help_center`) [external], **Audit Log** (`history`), **Settings** (`settings`), a **theme toggle** (cycles Light → Dark → System; icon `light_mode` / `dark_mode` / `contrast`, "Auto" hint on System), **Account** (`person_raised_hand`, the signed-in user's name), **Sign Out** (`logout`). "Audit Log" (`/audit-log`), "Settings" (`/settings`), and the Account row (own profile) are real routes and carry an **active/selected** state (solid `--p-action` fill + `--p-action-fg` icon, like the primary nav); Help Center opens externally, Sign Out is a utility. (The former "Ops Tools" toggle has been removed.)
+- **Bottom utility nav** — pinned to the bottom. Top → bottom: **Help Center** (`help_center`) [toggles the in-product Messenger — §Q below], **Audit Log** (`history`), **Settings** (`settings`), a **theme toggle** (cycles Light → Dark → System; icon `light_mode` / `dark_mode` / `contrast`, "Auto" hint on System), **Account** (`person_raised_hand`, the signed-in user's name), **Sign Out** (`logout`). "Audit Log" (`/audit-log`), "Settings" (`/settings`), and the Account row (own profile) are real routes and carry an **active/selected** state (solid `--p-action` fill + `--p-action-fg` icon, like the primary nav); Help Center toggles the Messenger when configured (§Q), else opens externally; Sign Out is a utility. (The former "Ops Tools" toggle has been removed.)
+
+#### Nav gating — capability-per-child (1.10 §O · supersedes the 1.9 role-id gating)
+
+Every nav **child carries its own `cap`** (e.g. `{ id: "live-view", label: "Live View", path: "/sales/live-view", cap: "sales.view" }`); leaf items carry a top-level `cap` (**Home** carries none — everyone lands somewhere). Filtering: **drop children the user lacks, then hide any group left empty.** Never render an empty parent group or a **disabled** nav row — nav is **hide-not-disable** (wayfinding, not a capability lesson; consistent with the 1.5 affordance model). The capability catalog is **feature-aligned** (22 caps across 7 sections — see Appendix A) and **versioned** (`CAPS_VERSION`) so defaults can be re-seeded once per catalog rev while preserving per-role customization. Backend enforcement is unchanged law: hiding is UX; every endpoint still `require_cap`s.
+
+#### Nav alert dot — Live View (1.10 §B)
+
+A tiny **static** (non-pulsing, no count) **7px `--p-danger` dot** (`data-testid="lv-nav-alert-dot"`, native `title="Incomplete stops need attention in Live View"`) that appears when Live View has ≥1 Incomplete stop today. It renders in **all four sidebar states**: (1) beside the **Live View child** row (Sales expanded), (2) beside the **Sales parent** row (group collapsed), (3) **top-right of the Sales rail icon** (sidebar collapsed), (4) in the **collapsed-rail flyout** row. Contract: `GET /api/assignments/live/alerts → {incomplete}` — the **same pipeline** as the live feed, so the dot and the page can never disagree. Polled every **60s**, visibility-gated, cap-gated `sales.view`, honoring the `?at=` override (captured in a ref at render — SCREENS-1.10 §A4). **Red**, matching the Incomplete escalation — never amber for a nav "needs attention" dot.
+
+#### Help Center → in-product Messenger (1.10 §Q)
+
+When an in-product messenger (Intercom) is configured, the bottom **Help Center** row **toggles the Messenger** instead of opening `help.greater.co` in a new tab. The row carries an **active state** while the messenger is open (subscribe to its show/hide events — the same active treatment as routed bottom rows) and an **unread badge** (`min-width:18; height:18; padding:0 5px; border-radius:999; background:var(--p-danger); color:#fff; font:600 11px/18px Inter`, capped at "99+", `data-testid="help-center-unread"`). There is **no floating launcher bubble** — the sidebar row is the single entry point, and closing the messenger leaves nothing on screen. SPA navigations ping the messenger's `update()` so in-app messages can target routes; identity is signed **server-side** (short-lived JWT from `GET /api/intercom/config`) — never boot with raw client-side user ids. **Fallback:** with no messenger configured, the row reverts to the external `<a target="_blank">` Help Center link (the 1.9 anchor law).
 
 #### Collapse / expand motion
 
@@ -1811,6 +1877,20 @@ The post-login landing route (`/home`, sidebar label **Home**). The container ma
 
 ---
 
+### Live Surfaces (Live View · 1.10)
+
+A new **operational page archetype**: an auto-refreshing "what is happening right now" surface. Its first instance is **Live View** (`Sales → Live View`, `/sales/live-view`, cap `sales.view`, **read-only**) — a joint **map + table** of every rep's route for **today**. A live surface answers *now*, so it deliberately has **no date filter**. Full screen spec: `SCREENS-1.10.md §A`; map law: § Maps → Live map (§C); nav dot: § App Shell → Nav alert dot (§B).
+
+**Anatomy (top → bottom):** page header + `SaveViewButton` (section "Sales", `radar`) · a conditional **red alert banner** (`--p-danger-soft`) when any of today's stops is *Incomplete* (`lv-incomplete-banner` + a "Show incomplete tasks" link) · a **filter row** with the **Status `Select` leftmost** + role-aware team quick-filters (supervisor "My Team" chip / manager Supervisor dropdown) + the standard `FilterMenu` (all URL-synced, 1.9 `urlFilters`) · a **collapsible map strip** (persist `localStorage["lv_map_collapsed"]`) with a summary + the liveness chip *"Live · Updated Xs ago"* + refresh · the **table, always grouped by Rep & Date** (grouping is the point — no group-by control).
+
+**Five live stop statuses (closed vocabulary — compose existing tokens, no new colors):** **Planned** (borderless muted dot; the un-started status is "Planned", never "Upcoming") · **In Progress** (`--p-primary-tint`/`--p-primary-ink` + a pulsing `gr-livedot`) · **Complete** (`--p-success-bg`/`--p-success-fg`) · **Incomplete** (`--p-danger-soft`/`--p-danger` — *started, never submitted, and a following stop already began*; tooltip *"Not submitted and following task was started."*) · **Skipped** (deliberately quiet, `--p-text-2`; tooltip *"Not worked in sequence — the rep may still return to this stop today."*). **Color-law ruling (user-decided, reversed once):** Incomplete is **RED** — an abandoned, unsubmitted task IS the real-world problem this surface exists to surface. Amber stays "your unsaved edit"; Skipped is not a warning at all.
+
+**Liveness mechanics (the pattern rules):** **auto-refresh every 60s, paused while the tab is hidden** (`document.hidden`), with a visible *"Live · Updated Xs ago"* chip + manual refresh; refreshes **preserve map center/zoom** (a `viewRef` of `{center, zoom}`). A dev/demo clock override `?at=10:15am` is stripped from the URL after mount — so any chrome that also needs it (the nav alert dot) must capture it into a ref **at render**, not lazily.
+
+**Status filter = table-only lens (general rule for joint map+table surfaces).** The Status `Select` filters **the table only**; the **map keeps every facet-filtered stop** regardless of status (a live map that hid "Complete" pins would misrepresent the day). Identity facets (rep/chain/warehouse/…) scope **both**. Rule: *state filters lens the table; identity facets scope both.*
+
+---
+
 ### Inventory Conditions (data-viz / domain palette)
 
 **Condition** is Greater's SKU-level health verdict for on-hand stock at a store (from a depletion simulation). It appears as a **column** in the In-the-Market coverage panel and as the **color dimension** of the Coverage Map (§Maps). To keep those surfaces identical, the scale — its ordinal **severity** (`level`) and its **palette** — is defined **once** in `lib/conditions` and imported everywhere; never hand-pick condition colors at a call site.
@@ -1831,11 +1911,11 @@ The post-login landing route (`/home`, sidebar label **Home**). The container ma
 | — | (pending change) | — | `--cond-pending` | `#171717` | `#F5F5F5` |
 
 - **Diverging, not sequential:** the two "bad" ends (OOS orange-red / Heavy-overstock purple) are maximally distinct; **Optimal (teal) is the calm middle.** A viewer must read "orange/gold = under, teal = good, blue/purple = over."
-- **`level` is the ordinal severity** (0 = worst stockout → 5 = worst overstock; 3 = healthy middle). Averaging a set of stores' `level`s and rounding to the nearest index yields the bin's representative condition — how the map hexbin reduces many SKUs/stores to one color.
+- **`level` is the ordinal position** on the diverging scale (0 = worst stockout → 5 = worst overstock; 3 = healthy middle). **Aggregation (1.10 §D) — two reducers, do not confuse them:** a multi-product **store dot** = the rounded *average* of its products' `level`s (`averageCondition`); a **map hexbin** = its **most severe** member by business pain (`SEVERITY_RANK_BY_LEVEL` / `mostSevereCondition`), **not** the average — averaging a *diverging* scale lands a mixed bin near level 3, reading falsely "Optimal". See § Maps → Coverage Map.
 - The same ordered scale drives **both** the In-the-Market Condition column and the map hexbin color; magnitude is encoded as **fill area** (not opacity) per the §Maps rule.
 - **Map-legibility values** (the hexes above) are *map-tuned* (light vs CARTO `light_all` ~#ededed; dark vs `dark_all` ~#262626); chip/table contexts may sit on `--p-surface` and are still legible.
 - **`--cond-empty`** = no-data; **`--cond-pending`** = pending-change (matches the map pending pin, §Maps / §pending-change tint).
-- **Helpers in `conditions.js`:** `COND_BY_KEY`, `COND_BY_LEVEL` (index === level), `conditionColor(key)` (fallback `--cond-empty`), `averageCondition(levels)` — all returning `var(--cond-…)`, **not** hex.
+- **Helpers in `conditions.js`:** `COND_BY_KEY`, `COND_BY_LEVEL` (index === level), `conditionColor(key)` (fallback `--cond-empty`), `averageCondition(levels)` (the **store-dot** reducer), `mostSevereCondition(levels)` + `SEVERITY_RANK_BY_LEVEL` (the **hexbin** reducer, 1.10 §D), `conditionTint(key, pct=14)` (a `color-mix` badge fill), and `CONDITIONS_TOOLTIP` (the canonical education copy) — colors all return `var(--cond-…)`, **not** hex.
 
 > **Canonical education copy** (reused verbatim in the In-the-Market "What are Conditions?" info tooltip and on the map):
 > *"Greater's algorithm understands SKU-level demand and its variance for every product in every store. We take the current inventory-on-hand for a SKU and run it through a simulation of projected depletion to determine whether the product is at risk of out-of-stock, overstocked in excess, or at the optimal level."*
@@ -1932,7 +2012,7 @@ Example: `"Thursday, Apr 23 · Kenny D'Amica · 5 stops"`
 A full-bleed geographic view of store coverage, in two scopes: **single product** (`/in-the-market/:productId/map`) and **all products / aggregate** (`/in-the-market/coverage-map`). Built on a **Leaflet basemap** + a **D3 `d3-hexbin` SVG overlay** (the analytic layer). Ships as `maps.css`; screen specifics in `ui_kits/portal/SCREENS-1.4.md`.
 
 **The analytic layer encodes two dimensions at once:**
-- **Color = average Condition** of the stores in the bin (the §Inventory Conditions palette, via averaged `level`).
+- **Color = the MOST SEVERE Condition in the bin (1.10 §D — supersedes the 1.4/1.5 averaging).** A hex takes the condition of its worst member ranked by *business pain* (`SEVERITY_RANK_BY_LEVEL`: OOS > High Risk > Heavy Overstock > At Risk > Slight Overstock > Optimal — understock outranks overstock at equal intensity). Averaging a *diverging* scale made mixed hexes read "Optimal"; after an A/B the user chose Most Severe and **removed Average entirely — do not re-add a toggle.** **Scope guard:** Most-Severe aggregates only **the values the map plots** (the rounded per-store dots), never underlying per-product data — a hex must never assert a condition its constituent pins can't reveal on zoom (the *zoom-reveals-granularity* contract; a worst-*product* drill-through was built and deliberately reverted). Kind = color; magnitude = fill area; velocity never influences color.
 - **Fill *area* = a magnitude** — currently average **Demand velocity** (cs/wk). The colored inner hex is scaled `prop = max(0.34, sqrt(avgMetric / maxMetric))` inside a fixed outline hex (`HEX_R = 20`). **Area, not opacity, encodes magnitude** (see the encoding rule below).
 - A **full hex lattice** (`.g-hex-grid`) is laid across the whole viewport, so empty cells read as "no coverage here," not "missing map." Each bin adds a faint **outline hex** (`.g-hex-outline`) + the scaled **fill hex** (`.g-hex-fill`).
 - **Hover** raises the outline (`--p-ink`, 1.5px) and shows a custom **`.g-hex-tooltip`** (store count, avg condition, magnitude).
@@ -1944,7 +2024,7 @@ A full-bleed geographic view of store coverage, in two scopes: **single product*
 **Floating overlay cards (the reusable map UI language).** All map UI sits in floating white cards over the basemap (`.g-map-card`: `--p-surface`, `--p-border`, `--radius-xl`, `--shadow-float`, absolutely positioned, `z-index: 500`):
 - **Title card** (`.g-map-title`, top-left, `max-width: 340`): screen title + a subtitle that states scope and **explicitly tells the user the page filters apply here** — e.g. *"Average inventory health across N products at M stores. Filters set on In the Market will apply here."*
 - **Controls card** (`.g-map-controls`, top-right): the Hexbin/Stores `ModeBtn`.
-- **Legend card** (`.g-map-legend`, bottom-left): the Condition palette as `.g-legend-swatch` rows + a `.g-legend-note` that **fill size = the magnitude metric** ("Fill size = avg demand (cs/wk)").
+- **Legend card** (`.g-map-legend`, bottom-left): the Condition palette as `.g-legend-swatch` rows, leading **"Color = stock condition"** (`palette` icon) + **"Fill size = demand velocity (cs/wk)"** (`hexagon` icon) via `.g-legend-note`; **in hexbin mode always show** the left-aligned note *"Hex reflects the most severe condition contained within"* (`data-testid="cov-legend-severe-note"`, no info icon) — 1.10 §D.
 
 **Legend spotlight (single-category focus).** Clicking a condition row in the legend **spotlights** just that condition (dims the rest via `.is-dimmed`); the row label toggles **"Only" → "Showing"** and a **"Show all"** link (`.cov-only-link`) clears it (`condFilter` state). This is the map analogue of a facet filter — a fast "where are my out-of-stocks?".
 
@@ -1966,6 +2046,14 @@ Route-map pins use **hover-to-reveal**, not click-to-edit: hovering a pin opens 
 
 - **Rule:** for **map markers** that also need a click target for selection, prefer **hover-to-reveal** over click-to-open, and always add a **grace timer** so the popup's actions are reachable.
 - In-popup actions that **navigate** are **links (blue)** — `.g-map-popup-edit` stays `--p-primary` per the ink/blue law; in-popup actions that **commit** would be buttons.
+
+#### Live map — monochrome routes + focus (1.10 §C)
+
+The all-reps **Live View** map (§ Live Surfaces) deliberately avoids per-rep rainbow coloring. Every route polyline is **muted gray** (light `#A9B2BE` / dark `#50565F`, `weight 2.5, opacity .7`); only **sequenced** stops (`sequence > 0`) join the polyline (Skipped stops get a pin, no segment). **Focus** (hover a route/pin/group header, or press **Locate**) recolors just that route DS-blue (light `#007CFF` / dark `#3B82F6`), scales its pins (`.g-live-pin.is-focus`, `scale(1.18)` + shadow), and **fades every other route** (`.is-dim`, pins `.18`, rep dots `.25`). Each rep gets one pulsing current-location dot (`.g-live-rep`: a 14px blue core + expanding `g-live-ping` ring, **disabled under `prefers-reduced-motion`**) — on-site at the current stop, or interpolated along the segment en route. Pins are 20px numbered `DivIcon`s (`.g-live-pin`) whose fill/border encode the five stop statuses (§ Live Surfaces); hover opens the popup with the same ~160ms grace timer as the 1.8 hover-pins. CSS: the `.g-live-*` family in `maps.css`.
+
+#### Route-map pop-out (RepDayMap — classes ported 1.10 §S)
+
+The rep-day **Route Map pop-out** (`SCREENS-1.8.md` RepDayMap) is a fixed floating map card: `.g-routemap` (`z-index: 10001`, hairline, `--radius-xl`, `--shadow-float`, `--p-surface`, `gr-pop-in` entrance) with `.is-pop { bottom: 24; right: 24; width: 480; height: 460 }`, a `.g-routemap-head` bar, and a 30px neutral `.g-routemap-btn` (reused by Live View's refresh/collapse controls). On phones (`≤767px`) the pop-out becomes a full-screen sheet (`inset: 0; border-radius: 0`). These classes shipped in the app since 1.8 but were missing from the repo's `maps.css` until 1.10 (a `[FIX]`).
 
 ---
 
@@ -2350,7 +2438,7 @@ The shared diff primitive used by the audit modal **and** the wizard Review step
 
 ---
 
-### Login (single page) (updated 1.9)
+### Login (single page) (updated 1.9 · 1.10)
 
 The authentication screen: the raven centered on `--p-shell` (the restraint *is* the brand — see §3 Color Rules).
 
@@ -2359,7 +2447,7 @@ The authentication screen: the raven centered on `--p-shell` (the restraint *is*
 - **One screen.** Logo, "Sign in to your account", an **email** field (`autoComplete="email"`) and a **password** field (`autoComplete="current-password"`) shown **together**, a full-width **Sign In** button, and the legal line. Submitting posts both to the existing login endpoint. (The backend `lookup` endpoint may remain but is no longer used by the UI.)
 - **Auth inputs** are **56px tall, `--radius-sm` (4px)** (§6) — taller than in-app 36px controls. Staggered entrance via `gr-rise`.
 - **Error handling:** a single **generic** message — *"Incorrect email or password."* — never revealing which field was wrong (don't leak account existence).
-- **Dev quick sign-in (development only).** Below the form, **one dashed secondary button per dev account**, labelled **"Sign in as {Role} ({email})"** with a leading **`bolt`** icon — it **prefills email + password and submits the real form** (never a one-shot auth bypass). Contract: a public `GET /auth/config` returns `{ devLoginEnabled, devAccounts: [{ label, email, password }] }` (only when enabled); adding a role is a **config/data** change, not a UI change. **Clearly dev-only** — never ship enabled to production.
+- **Dev quick sign-in (development only) — id-based, no client-side secrets (1.10 §P; supersedes the 1.9/1.5 prefill-and-submit spec).** Below the form, **one dashed secondary button per dev account**, labelled **"Sign in as {Role} ({email})"** with a leading **`bolt`** icon. Passwords **never reach the client**: `GET /auth/config` returns `{ devLoginEnabled, devAccounts: [{ id, label, email }] }` (**no password field**), and each button calls `POST /auth/dev-login { userId }`, which mints the session **server-side**. Hardening: `DEV_LOGIN_ENABLED` defaults **false** (fail-closed), the endpoint **allow-lists** specific demo user ids, and `/auth/config` must never emit credentials. Adding a role is still a config/data change, not a UI change.
 - **Theme toggle** sits **flat, bottom-left**, no card chrome (the same control as the App-Shell utility nav, §3 Theming).
 - Testids: `login-email`, `login-password`, `login-signin-btn`, `dev-login-{slug}`, `login-theme-toggle`.
 
@@ -2381,7 +2469,22 @@ A table row can **expand in place** to reveal related detail — Store Promotion
 - **Affordance:** an accessible chevron button at the row's lead toggles the panel (`expand_more`, rotated when open).
 - **Animation:** a **`grid-rows` disclosure** — animate `grid-template-rows: 0fr → 1fr` over a `min-height: 0` inner wrapper, so the panel height-animates without measuring.
 - **Lazy-load:** fetch the detail on first expand; show a skeleton until it resolves.
-- **The expanded panel — not a new column — is the correct home for in-context detail and actions.** This is where a **Split button** serves as the panel's primary action (see Row Actions), with `menuAlign="right"`.
+- **The expanded panel — not a new column — is the correct home for in-context detail.** *(1.10 narrows the old "panel primary action" guidance — see the conventions below.)*
+
+#### Expanded-row conventions (1.10 §G)
+
+Two rulings from the Promotions expanded-row cleanup:
+
+1. **The row kebab is the SINGLE actions surface.** The expanded panel must not duplicate actions — the inline "Edit Store Promo" SplitButton inside expanded rows was **removed**. *An expanded row is for reading; the kebab is for acting.* (Supersedes the earlier "Split button as the panel's primary action" allowance for row-detail panels; SplitButton remains valid in non-row disclosure panels.)
+2. **Provenance goes last.** The "Created {date} by {name} · View Audit Log" line renders **below** the expanded panels (accounts/products), not above them — metadata trails content.
+
+#### Nested-table sorting (1.10 §L)
+
+Expanded-row detail panels that render a mini-table (e.g. In-the-Market's coverage panel: Account · Chain/City · On Hand · Avg. Demand · Condition) get **sortable headers** via the shared `SortHeader` (§Tables → DataTable) with a distinct `idPrefix` (e.g. `coverage`) so testids stay unambiguous. Rules:
+
+- Client-side sort; **null/absent values always sink to the bottom** regardless of direction (e.g. pending-add rows with no On-Hand yet).
+- **Condition sorts by `SEVERITY_RANK_BY_LEVEL`** (§Inventory Conditions) — ascending = most severe first (OOS → High Risk → Heavy Overstock → At Risk → Slight Overstock → Optimal), *not* by scale level.
+- A column's explainer must not live on the sort button: the "What are Conditions?" affordance is a **standalone `info` icon (13px, `--p-placeholder`) beside the `SortHeader`**, wrapped in the portal `Tooltip` (`maxWidth: 300`, bold lead-in + body). Clicking sort never fights the tooltip.
 
 ---
 
@@ -2607,6 +2710,16 @@ These named keyframes ship in `colors_and_type.css` and back every entrance / lo
 - **Saved Views help / empty state:** *"On any report or list in the Portal, apply the filters you like and press 'Save View' to create a card here."* (tooltip) / *"…and tap 'Save View'. It'll show up here so you can quickly jump straight to the things you care about."* (empty state).
 - **Login error:** the single, non-disclosive **"Incorrect email or password."** — never name which field was wrong.
 - **Stat-card explanations:** one plain, unit-aware line (e.g. "Cases shipped from the warehouse so far this week"; "X of Y service stops this week have a layout set" — when a coverage metric is framed around service stops, compute X/Y from stops so the headline % and the sentence agree).
+
+### Live-surface & 1.10 copy (§T)
+
+- **"Planned"**, not "Upcoming", for a scheduled-but-unstarted stop on live surfaces (§Live Surfaces).
+- **Incomplete** — canonical definition, verbatim tooltip: *"Not submitted and following task was started."* Banner copy: *"N stops today were started but not submitted before the rep moved on."*
+- **Skipped** tooltip — reassuring, not alarming: *"Not worked in sequence — the rep may still return to this stop today."*
+- **Liveness chip:** *"Live · Updated Xs ago"*. **Progress text:** *"{n}/{m} complete"* (mono).
+- **Coverage-Map legend lines (exact):** *"Color = stock condition"* · *"Fill size = demand velocity (cs/wk)"* · hexbin note *"Hex reflects the most severe condition contained within"*.
+- **Expected-Impact blurbs (exact — they are spec, not filler):** Minor *"A modest bump in demand"* · Moderate *"A clear, noticeable increase"* · Significant *"A major surge in demand"*.
+- **Sort-disabled tooltip:** *"Sorting is disabled while grouped"* (§Tables → DataTable).
 
 ### Search & staged-action copy (1.7)
 
@@ -2870,7 +2983,7 @@ Or directly in HTML:
 - Prefer `14px Inter Medium` for interactive labels.
 - Use `Geist Mono` for any numeric / tabular / ID data.
 - **Concept-accent principle (1.7).** When a feature needs a distinct identity (like General Stock purple), introduce it as **semantic tokens** (light + dark), never inline hex — so it themes and can be reused. Keep the palette legible: **blue = action / link / selection**, **green = add**, **red = remove / destructive**, **amber = warning / suggestion**, **yellow = search-highlight only**, **purple = General Stock**. Add concept colors **sparingly**, and document what each means next to the token (§3).
-- **Role-gating keys off real role ids (1.9).** When gating a component by role (e.g. which Home stat cards a user sees), the `roles` whitelist must use the **actual role ids the auth layer emits — `exec` · `deptmgr` · `itadmin` · `supervisor` · `rep`** — **never** invented friendly names like `admin` / `manager`. (Bug we hit: cards keyed to `["admin","manager"]` silently never rendered for the executive account.) This is the canonical role-id list; reference it from any role-gated component (and see §Permissions & Affordances / Appendix A).
+- **Role-gating keys off real role ids (1.9).** When gating a component by role (e.g. which Home stat cards a user sees), the `roles` whitelist must use the **actual role ids the auth layer emits — `exec` · `deptmgr` · `itadmin` · `supervisor` · `rep`** — **never** invented friendly names like `admin` / `manager`. (Bug we hit: cards keyed to `["admin","manager"]` silently never rendered for the executive account.) This is the canonical role-id list; reference it from any role-gated component (and see §Permissions & Affordances / Appendix A). **1.10 update:** *navigation* gating no longer keys off role ids at all — nav children carry their own capability (`cap`) and filter by the user's caps (§App Shell → Nav gating, §O). Role-id gating remains for **content** (e.g. Home tiles); caps gate **wayfinding + endpoints**.
 - **Navigate with anchors (1.9).** Anything whose job is to go to a route renders as a real `<a href>` (via `AppLink` / router `Link` / external `<a>`), never a `<button onClick={navigate}>` — so "Open in new tab" / ⌘-click / middle-click work (see § Navigation & links). Buttons stay buttons for *actions*.
 
 ### For production code
@@ -2903,7 +3016,7 @@ Import `colors_and_type.css`, copy the logo assets, load Material Symbols from G
 
 So the affordance rules in §Permissions & Affordances have a shared vocabulary, this appendix lists the capability ids the UI keys off and the role baseline. **This is application/product logic, not a design token** — designers/implementers need it only to know *which* affordances are gated. The canonical definition is the app's roles config.
 
-**Capabilities referenced by the UI:** `users.view`, `users.edit`, `users.roles`, `acct.view`, `acct.edit` (plus the existing `insights.*`, `sales.*`, billing/settings caps).
+**Capability catalog — feature-aligned (1.10 §O; supersedes the ad-hoc list).** The catalog is now **22 capabilities in 7 sections**, aligned to product features: `insights.*` · `sales.*` · `orch.*` (incl. `orch.approve`) · `market.view` · `pod.*` · `acct.*` · `layouts.*` · `promos.*` · `users.*` (incl. `users.roles`) · `audit.view`. It is **versioned** (`CAPS_VERSION`) so defaults can be re-seeded once per catalog revision while preserving per-role customization. Nav consumes it **per child** (§App Shell → Nav gating): every nav child carries its own `cap`; drop children the user lacks, then hide any group left empty.
 
 **Role → capability baseline (seed):**
 
@@ -2930,4 +3043,4 @@ So the affordance rules in §Permissions & Affordances have a shared vocabulary,
 
 ---
 
-*Greater Design System · Portal 1.9 · Exported June 2026*
+*Greater Design System · Portal 1.10 · Exported July 2026*

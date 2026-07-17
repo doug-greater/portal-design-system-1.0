@@ -401,3 +401,89 @@ html[data-theme="dark"] .g-cov-pin { stroke: #0A0A0B; }               /* pin hal
   color: var(--p-primary); text-decoration: none;
 }
 .g-map-popup-edit:hover { color: var(--p-primary-hover); }
+
+/* =======================================================================
+   LIVE VIEW — live route map (1.10 §C)
+   =======================================================================
+   The all-reps live map (Sales → Live View). Deliberately MONOCHROME: every
+   route polyline is muted gray (set in JS: light #A9B2BE / dark #50565F, weight
+   2.5, opacity .7) so no rep "owns" a color. Only sequenced stops (sequence > 0)
+   join the polyline; Skipped stops get a pin but no segment. FOCUS (hover a
+   route/pin/group header, or press Locate) recolors just that route DS-blue,
+   scales its pins (.is-focus) and fades every other route + rep dot (.is-dim).
+
+   Pins are 20px numbered DivIcons whose fill/border encode the live stop status
+   (§A2). Planned / Skipped share the plain un-started treatment. Each rep gets one
+   pulsing current-location dot (.g-live-rep) — the ping is disabled under
+   prefers-reduced-motion. Cards/legend already use DS tokens (theme automatically);
+   only these raw overlay layers need the dark variants below. */
+
+/* Numbered stop pin — base = Planned / un-started: white, ink ring, dark number */
+.g-live-pin {
+  width: 20px; height: 20px; border-radius: 50%; box-sizing: border-box;
+  background: #fff; border: 2px solid #282838; color: #282838;
+  display: flex; align-items: center; justify-content: center;
+  font: 600 10px/1 var(--font-sans);
+  transition: transform 120ms ease-out, opacity 120ms ease-out;
+}
+.g-live-pin.is-in_progress { background: #007CFF; border-color: #007CFF; color: #fff; }
+.g-live-pin.is-complete    { background: #282838; border-color: #282838; color: #fff; }
+.g-live-pin.is-incomplete  { background: #FDECEC; border-color: #E5484D; color: #C62A30; }
+.g-live-pin.is-focus { transform: scale(1.18); box-shadow: 0 2px 8px rgba(0,124,255,.35); z-index: 2; }
+.g-live-pin.is-dim   { opacity: .18; }
+
+/* Rep current-location dot — blue core (white ring) + expanding ping ring */
+.g-live-rep { position: relative; width: 14px; height: 14px; }
+.g-live-rep .core {
+  position: absolute; inset: 0; border-radius: 50%; box-sizing: border-box;
+  background: #007CFF; border: 2.5px solid #fff; box-shadow: 0 1px 3px rgba(0,0,0,.3);
+}
+.g-live-rep .ping {
+  position: absolute; top: 50%; left: 50%; width: 14px; height: 14px; margin: -7px 0 0 -7px;
+  border-radius: 50%; background: rgba(0,124,255,.45);
+  animation: g-live-ping 1.9s cubic-bezier(0,0,.2,1) infinite;
+}
+.g-live-rep.is-dim { opacity: .25; }
+@keyframes g-live-ping { 0% { transform: scale(1); opacity: .5; } 80% { opacity: 0; } 100% { transform: scale(3.2); opacity: 0; } }
+
+/* Dark variants */
+html[data-theme="dark"] .g-live-pin { background: #121214; border-color: #E4E4E7; color: #E4E4E7; }
+html[data-theme="dark"] .g-live-pin.is-in_progress { background: #3B82F6; border-color: #3B82F6; color: #fff; }
+html[data-theme="dark"] .g-live-pin.is-complete { background: #E4E4E7; border-color: #E4E4E7; color: #121214; }
+html[data-theme="dark"] .g-live-pin.is-incomplete { background: rgba(239,68,68,.22); border-color: #EF4444; color: #FCA5A5; }
+html[data-theme="dark"] .g-live-rep .core { background: #3B82F6; border-color: #0A0A0B; }
+html[data-theme="dark"] .g-live-rep .ping { background: rgba(59,130,246,.45); }
+
+@media (prefers-reduced-motion: reduce) {
+  .g-live-rep .ping { animation: none !important; opacity: 0 !important; }
+}
+
+/* =======================================================================
+   ROUTE MAP POP-OUT — RepDayMap card (1.8; classes ported here 1.10 §S)
+   =======================================================================
+   A fixed floating map card (SCREENS-1.8.md RepDayMap). Its 30px neutral icon
+   button (.g-routemap-btn) is reused by Live View's map-strip refresh + collapse
+   controls (§A1). On phones the pop-out becomes a full-screen sheet. */
+.g-routemap {
+  position: fixed; z-index: 10001; background: var(--p-surface);
+  border: 1px solid var(--p-border); border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-float); overflow: hidden;
+  display: flex; flex-direction: column;
+  animation: gr-pop-in .15s ease-out;
+}
+.g-routemap.is-pop { bottom: 24px; right: 24px; width: 480px; height: 460px; }
+.g-routemap-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 10px 12px; border-bottom: 1px solid var(--p-border);
+  font: 600 13px/1 var(--font-sans); color: var(--p-ink);
+}
+.g-routemap-btn {
+  width: 30px; height: 30px; border-radius: var(--radius-md); flex-shrink: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid var(--p-border-strong); background: var(--p-surface);
+  color: var(--p-muted); cursor: pointer; transition: background .12s, color .12s;
+}
+.g-routemap-btn:hover { background: var(--p-surface-tint); color: var(--p-text); }
+@media (max-width: 767px) {
+  .g-routemap.is-pop { inset: 0; width: auto; height: auto; border-radius: 0; }
+}

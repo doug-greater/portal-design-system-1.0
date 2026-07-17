@@ -1,7 +1,7 @@
 // Portal UI Kit — shared primitives
 // Exposed globally so other <script type="text/babel"> files can use them.
 
-const { useState, useEffect, useRef, useMemo } = React;
+const { useState, useEffect, useLayoutEffect, useRef, useMemo } = React;
 
 /* ---------------- Icon (Material Symbols Sharp font) ---------------- */
 // `name` is a Material Symbols glyph name (e.g. "search", "expand_more"). Outline by default.
@@ -300,6 +300,31 @@ function ChipToggle({ on, onClick, icon, label }) {
   );
 }
 
+/* ---------------- Expected Impact (1.10 §E) ----------------
+   Categorical promo-impact scale — replaces the retired numeric "Anticipated Lift".
+   ImpactBars is the shared magnitude glyph: ascending signal bars (Material Symbols
+   signal_cellular_alt family) layered over a faint full-scale base so "N of 3" stays
+   legible. `rank` is 1..3 (IMPACT_RANK); `active` paints the filled bars blue — a value
+   living INSIDE content, per the ink/blue law. Used by the wizard radio-cards (§E1) and
+   the Promotions "Impact" column, which sorts by IMPACT_RANK (not alphabetically). */
+const EXPECTED_IMPACTS = [
+  { value: 'Minor',       blurb: 'A modest bump in demand' },
+  { value: 'Moderate',    blurb: 'A clear, noticeable increase' },
+  { value: 'Significant', blurb: 'A major surge in demand' },
+];
+const IMPACT_RANK = { Minor: 1, Moderate: 2, Significant: 3 };
+
+function ImpactBars({ rank, active, size = 1 }) {
+  const glyph = rank >= 3 ? 'signal_cellular_alt' : rank === 2 ? 'signal_cellular_alt_2_bar' : 'signal_cellular_alt_1_bar';
+  const px = Math.round(18 * size);
+  return (
+    <span style={{ position: 'relative', display: 'inline-flex', width: px, height: px }} aria-hidden="true">
+      <Icon name="signal_cellular_alt" size={px} color="var(--p-border)" style={{ position: 'absolute', inset: 0 }} />
+      <Icon name={glyph} size={px} color={active ? 'var(--p-primary)' : 'var(--p-text-2)'} style={{ position: 'absolute', inset: 0 }} />
+    </span>
+  );
+}
+
 /* ---------------- Account Type Icon + Pill (§D) ----------------
    The canonical mark + label for an Account's type (Retail Store, Restaurant,
    Grocery, C-Store, Bar, Discount Store). AccountTypeIcon: white disc, thin
@@ -453,34 +478,49 @@ function StatCard({ value, label, color = 'ink', action, active, onClick }) {
 
 /* ---------------- Tooltip (portal-rendered) ----------------
    Dark hover popover rendered into document.body via ReactDOM.createPortal
-   (position:fixed, z-index 4000). It tracks the anchor with getBoundingClientRect
-   on hover and clamps its center to the viewport [90, innerWidth−90], so it never
-   clips inside scrolling tables, transformed cards, or map overlays — and floats
-   above modals/popovers/the map overlay. `maxWidth` (px) switches to multi-line
-   wrap (required for copy longer than ~6 words); `side="bottom"` opens downward.
-   Re-measures on each open (hover) — for anchors that move while shown, re-open.
-   (1.4: replaces the 1.2 absolutely-positioned implementation; maxWidth preserved.) */
+   (position:fixed, z-index 4000), so it never clips inside scrolling tables,
+   transformed cards, or map overlays — and floats above modals/popovers/the map.
+   `maxWidth` (px) switches to multi-line wrap (required for copy longer than ~6
+   words); `side="bottom"` opens downward. Re-measures on each open (hover) — for
+   anchors that move while shown, re-open.
+
+   VIEWPORT CLAMP (1.10 §J — supersedes the 1.4 fixed [90, iw−90] center clamp):
+   after the bubble renders we MEASURE its real width and clamp the center by its own
+   half-width against a 12px margin, in a useLayoutEffect so it corrects before paint.
+   The old fixed-margin clamp failed for wide bubbles (a 300px bubble's 150px half
+   still hung ~60px off-screen). The hard CSS backstop (maxWidth: min(px,100vw−24px))
+   stays as a second line of defense. */
 function Tooltip({ text, children, side = 'top', maxWidth, z = 4000 }) {
   const [show, setShow] = useState(false);
   const ref = useRef(null);
+  const bubbleRef = useRef(null);
   const [coords, setCoords] = useState({ top: 0, left: 0 });
 
   const update = () => {
     const el = ref.current;
     if (!el) return;
     const r = el.getBoundingClientRect();
-    // Clamp the horizontal center so the translateX(-50%) bubble stays on-screen.
-    const cx = Math.min(Math.max(r.left + r.width / 2, 90), window.innerWidth - 90);
-    setCoords({ top: side === 'top' ? r.top - 6 : r.bottom + 6, left: cx });
+    // Raw anchor center; the measured clamp below keeps the translate(-50%) bubble on-screen.
+    setCoords({ top: side === 'top' ? r.top - 6 : r.bottom + 6, left: r.left + r.width / 2 });
   };
   const open = () => { update(); setShow(true); };
+
+  // Measure the rendered bubble and clamp its center by its OWN half-width (12px margin).
+  useLayoutEffect(() => {
+    if (!show || !bubbleRef.current) return;
+    const half = bubbleRef.current.getBoundingClientRect().width / 2;
+    setCoords((c) => {
+      const clamped = Math.min(Math.max(c.left, 12 + half), window.innerWidth - 12 - half);
+      return clamped === c.left ? c : { ...c, left: clamped };
+    });
+  }, [show, text]);
 
   return (
     <span ref={ref} style={{ position: 'relative', display: 'inline-flex' }}
       onMouseEnter={open} onMouseLeave={() => setShow(false)}>
       {children}
       {show && text && ReactDOM.createPortal(
-        <span role="tooltip" style={{
+        <span role="tooltip" ref={bubbleRef} style={{
           position: 'fixed', top: coords.top, left: coords.left,
           transform: side === 'top' ? 'translate(-50%, -100%)' : 'translate(-50%, 0)',
           whiteSpace: maxWidth ? 'normal' : 'nowrap',
@@ -632,4 +672,4 @@ function StatsToggle({ visible, onToggle }) {
   );
 }
 
-Object.assign(window, { Icon, Logo, Crow, Button, Input, Select, Toggle, Checkbox, Pill, Chip, ChipToggle, AccountTypeIcon, AccountTypePill, ACCOUNT_TYPE_ICONS, FilterChip, SegmentedTabs, StatCard, CountDeltaCell, InfoBanner, Tooltip, StatsToggle, useStatsVisible });
+Object.assign(window, { Icon, Logo, Crow, Button, Input, Select, Toggle, Checkbox, Pill, Chip, ChipToggle, ImpactBars, EXPECTED_IMPACTS, IMPACT_RANK, AccountTypeIcon, AccountTypePill, ACCOUNT_TYPE_ICONS, FilterChip, SegmentedTabs, StatCard, CountDeltaCell, InfoBanner, Tooltip, StatsToggle, useStatsVisible });

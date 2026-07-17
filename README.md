@@ -112,3 +112,16 @@ This repository is our **shared design system** — the single source of truth f
 - **Home dashboard.** The post-login landing: role-gated, drag-to-reorder **Health Stat Cards**, a **Saved Views** grid, and a hover-reveal **Crow Fact** easter egg.
 - **Login → single page.** One screen (email + password + Sign In), generic "Incorrect email or password" error; dev quick sign-in retained. *Supersedes the 1.5 two-step.*
 - **Animated, collapsible nav.** Parent groups **start collapsed** (only the active group auto-expands) and **animate** open / closed (grid-rows + staggered children); the landing item is **Home** (`home`). External Help Center is a real `<a target="_blank">`.
+
+## What's new in Portal 1.10
+
+> *the "Live Ops · Most-Severe · Expected Impact · Portal Overlays" pass.*
+
+- **Live View — a new "live surface" page archetype.** An auto-refreshing (60s, visibility-gated) map + grouped table of every rep's route **today**: a five-state stop vocabulary (Planned / In Progress / Complete / **Incomplete = red** / Skipped = quiet), a **monochrome-routes + blue-focus** map law with pulsing rep dots, group headers with progress + live-activity lines, and the rule *state filters lens the table; identity facets scope both*. Plus an App-Shell **nav alert dot** that mirrors the Incomplete count in all four sidebar states.
+- **Coverage-Map hexes → Most Severe.** A hex now takes its **most severe** member by business pain (`SEVERITY_RANK_BY_LEVEL`: OOS worst), never the average — averaging a diverging scale read mixed hexes as "Optimal". Includes the **zoom-reveals-granularity** contract. *Supersedes the 1.4/1.5 averaging.*
+- **Expected Impact replaces "Anticipated Lift".** A categorical Minor / Moderate / Significant field with a new **radio-card group** input pattern and the shared **`ImpactBars`** glyph; lists sort by rank, not alphabetically. Subtype fields are now **conditionally mounted** (never disabled placeholders).
+- **The overlay layer goes fully portal.** The broadened **portal law** (any floating UI born in a scroll container renders into `document.body`), the canonical **`RowKebab`** row-action menu (flip-up, re-measuring), a **measured Tooltip viewport clamp** (*supersedes the 1.4 fixed clamp*), and the **pinned right-hand actions column** (`.gr-sticky-actions`).
+- **Shared table skeleton.** `DataTable.jsx` — `SortHeader` (+ disabled-while-grouped variant), `TableShell` (one scroll container + minWidth), `TableHeader` (owns the sticky z-index), `DataTableFooter` (group-based pagination). Nested mini-tables get sortable headers (Condition sorts by severity).
+- **Governance & app shell.** Nav gating is **capability-per-child** (drop child → hide empty group; *supersedes 1.9 role-id nav gating*) over a versioned 22-cap catalog; dev quick sign-in is **id-based** (passwords never reach the client; *supersedes 1.9/1.5*); Help Center **toggles an in-product Messenger** (active state + unread badge, no floating launcher; external-link fallback).
+- **Search-highlight law:** match painting is always the yellow `mark.gr-hl` — never a local blue.
+- **Also:** Store Layouts **Templates** tab, the plan-relative **week selector** (`?week=`), `gr-livedot` + `.g-live-*` + ported `.g-routemap*` CSS, and `SCREENS-1.10.md`.

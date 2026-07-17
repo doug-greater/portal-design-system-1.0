@@ -370,6 +370,22 @@ coverage:
   page** *(supersedes the 1.5 two-step)*; and App Shell nav that **starts collapsed, auto-expands the
   active group, and animates** (grid-rows + stagger) with **Home** (`home`) as the landing item.
 
+- **New in Portal 1.10 (Live Ops · Most-Severe · Expected Impact · Portal Overlays)** — **Live View**,
+  the first **live-surface** page archetype: an auto-refreshing (60s, visibility-gated) map + Rep-&-Date
+  grouped table of today's routes with a five-state stop vocabulary (**Incomplete = red**; Skipped =
+  deliberately quiet), a **monochrome-routes + blue-focus** live-map law (`.g-live-*`), and an App-Shell
+  **nav alert dot** in all four sidebar states; Coverage-Map hexes aggregate by **Most Severe** business
+  severity (`SEVERITY_RANK_BY_LEVEL`, the zoom-reveals-granularity contract) *(supersedes 1.4/1.5
+  averaging)*; **Expected Impact** (categorical + the **radio-card** input + `ImpactBars`) *(supersedes
+  numeric "Anticipated Lift")*; the broadened **portal law** with the canonical **`RowKebab`** row menu,
+  a **measured Tooltip clamp** *(supersedes the 1.4 fixed clamp)*, and the pinned **`.gr-sticky-actions`**
+  column; the shared **`DataTable.jsx`** skeleton (SortHeader / TableShell / TableHeader /
+  DataTableFooter + group pagination); **capability-per-child** nav gating over a versioned 22-cap
+  catalog *(supersedes 1.9 role-id nav gating)*; **id-based dev sign-in** (no client-side secrets);
+  Help Center → **in-product Messenger**; the **yellow-only** search-highlight law; the Store Layouts
+  **Templates** tab; the plan-relative **week selector** (`?week=`); ported `.g-routemap*` CSS; and
+  `SCREENS-1.10.md`.
+
 **Terminology (1.1 canon).** "Store Promotions" (short "Store Promos", `/store-promotions`),
 "POD Planner" (`/pod-planner`), "Audit Log" (events Created / Updated / Restored / Deleted;
 value columns Removed / Added), "Batch Actions" (not "Bulk actions"), "Restore This Version"
