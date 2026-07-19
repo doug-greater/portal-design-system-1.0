@@ -137,3 +137,12 @@ This repository is our **shared design system** — the single source of truth f
 - **JetBrains Mono** replaces Geist Mono for data & numbers — self-hosted variable woff2 in `fonts/` (no CDN dependency); page titles settle at **28px** (`--fs-28`).
 - **Deliberately vivid:** the Conditions map palette (CARTO legibility + color-blind-safe separation) and the Intelligence gradient (the sanctioned brand moment) are exempt from dusting.
 - **Hardcode sweep:** `BRAND_BLUE`, Toggle/Checkbox fills, the `.g-link` underline dot (light + new dark variant), live-map pins/rep dots, and `gr-livedot` (now token-driven via `--p-pulse`) all re-based.
+
+### 1.11.2 — Dusk refinements (post-port, from real dark-mode usage)
+
+- **Toggle knob = `--p-surface`, never `#fff`** — a white knob vanished on the dusty-steel dark ON-track. Solid-fill ON track / border-strong OFF track; the knob never takes the fill. *(Supersedes the tinted-track + colored-knob spec.)*
+- **Check glyphs = `--p-action-fg`** on every check-on-primary-fill control (checkboxes, select-all/row selects, multi-select lists, drawn-tick pickers) — white checks "disappear" on steel in dark.
+- **Checkbox-style squares unified at 1px radius** (drift to 3px/5px removed); true radios, the toggle knob, and pills stay round by shape.
+- **Select placeholders lose the trailing `…`** ("Select a type"); search inputs keep it ("Search accounts…").
+- **`TableShell` default radius token-bound to `--radius-lg`** (matching Home stat tiles) + the rule: *never hard-code a numeric radius on a surface card* — tokens only, no per-caller overrides.
+- Stale vivid-blue hexes swept from the doc's §9 component spec blocks.

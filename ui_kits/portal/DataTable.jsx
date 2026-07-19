@@ -47,7 +47,7 @@ function SortHeader({ label, k, sort, onSort, idPrefix = 'dt', align = 'left', d
    "one scroll container + minWidth wrapper" shape is the REQUIRED skeleton — it is
    what makes sticky headers (TableHeader) and the pinned actions column (§M) work.
    A header placed OUTSIDE this scroll container will clip a pinned cell. */
-function TableShell({ minWidth = 720, radius = 2, footer, children, style }) {
+function TableShell({ minWidth = 720, radius = 'var(--radius-lg)', footer, children, style }) {   // 1.11.2: token-bound — never a numeric radius on a surface card
   return (
     <div style={{ background: 'var(--p-surface)', border: '0.5px solid var(--p-border)', borderRadius: radius, boxShadow: 'var(--shadow-surface)', overflow: 'hidden', ...style }}>
       <div style={{ overflow: 'auto' }}>

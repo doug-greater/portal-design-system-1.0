@@ -241,8 +241,8 @@ function Check({ on, onChange }) {
     <span onClick={(e) => { e.stopPropagation(); onChange?.(); }} role="checkbox" aria-checked={!!on}
       style={{ width: 18, height: 18, borderRadius: 1, cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
         border: on ? "1.5px solid var(--p-primary)" : "1.5px solid var(--p-border-strong)",
-        background: on ? "var(--p-primary)" : "#fff", color: "#fff", transition: "background .1s, border-color .1s" }}>
-      {on ? <Icon name="check" size={14} color="#fff" /> : null}
+        background: on ? "var(--p-primary)" : "var(--p-surface)", color: "var(--p-action-fg)", transition: "background .1s, border-color .1s" }}>
+      {on ? <Icon name="check" size={14} color="var(--p-action-fg)" /> : null}
     </span>
   );
 }
