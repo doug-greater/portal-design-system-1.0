@@ -45,6 +45,7 @@
    - **New in 1.8 (Governed RBAC · Global Nav Guard · Assignment-Edit):** the unsaved-changes guard goes **global** — sidebar + programmatic + in-page tabs + hard unload under the declarative router (new `NavGuard.jsx`) *[supersedes the 1.5 data-router caveat]* · **role-derived RBAC** — one role→capability matrix in **Settings → Roles & Permissions** that re-syncs all users on save; the user page is **read-only** *[supersedes the 1.5 per-user editor]* · **Masonry** card packing (§12) · the **Assignment-Edit** modal + the **Amber = edit / Red = conflict** color law + **legend-as-mini-cell** + amber **"(preview)"** (§9 / §3 / Maps) · Maps **hover-reveal pins** + in-popup **Edit** deep-link (`.g-map-popup-edit`) · native **`title=` → portal Tooltip** · **Cancel = ghost / neutral** (retire blue links) · tokens `--p-danger-soft` / `--g-gold-04` (§6) · icon adds (§8) · `SCREENS-1.8.md`
    - **New in 1.9 (Home + shareable URLs + anchor navigation):** **AppLink** — navigation renders a real `<a href>` (open-in-new-tab / ⌘-click) while routing plain clicks through the NavGuard; the **anchor-navigation law** (§9 / §12 / §15) · **stretched-link rows** for clickable table rows (§9 Tables) · `BackLink` gains `to`; external links are real `<a target=_blank>` · **URL filter-state** (`urlFilters.js`) is the single source of truth, relative presets persist as a key *[supersedes `sessionStorage`/`filterPersist`]* (§ Deep-linking / State & URLs) · **Saved Views** + `SaveViewButton` (§9) · **Home dashboard** — role-gated drag-orderable Health Stat Cards + a Saved-Views grid + the Crow Fact easter egg (§9 / §12) · **Login → single page** *[supersedes the 1.5 two-step]* (§9) · App Shell nav **collapsed-by-default + auto-expand-active + animated** (grid-rows + stagger), landing item **Home** (`home`) (§8 / §9 / §10) · role-gating keys off **real role ids** (§15)
    - **New in 1.11 "Dusk" (dark-first · dusty palette · sharp corners · JetBrains Mono):** **dark is the default theme** — first-run pref = `dark`, previews bootstrap dark, docs author dark-first (§3 Theming) · **Dusk palette** — primary `#007CFF/#3B82F6 → #1861AF/#ADBDD1` (light link contrast 3.9→6.3:1; dark selection goes quiet steel), feedback trio dusted in both modes, all derived tints/focus rings/`::selection`/live-pulse re-based (§3) · the **`--p-pal-1…10` badge ramp** ported from the app — one fg per slot + computed 15% `color-mix` tints; role/category pill pairs are now pal-derived compat aliases; **dusty dark variants** incl. reserved slots 7–10; dark genstock aligns to pal-1 (§3 / §9 Role Pills) · **deepened dark neutrals** (near-black shell `#0F0F0F` → nav `#131316` → surface `#161618` → surface-alt `#202022`; ink stays off-white `#F2F2F4`; new `--p-surface-nav` token — the sidebar recedes a step below content) (§3) · **radii squared** — controls 4→**1px**, cards/menus/floats 6–10→**2px**, pills stay round (§6) · **0.5px hairline strokes** on fields/cards/tables + **×0.25 light shadows** (§6/§7) · **JetBrains Mono** replaces Geist Mono (self-hosted variable woff2) (§4 / `fonts/`) · page title **28px** (`--fs-28`) (§4) · **exempt by design:** the Conditions map palette (legibility) and the Intelligence gradient (brand moment) stay vivid · hardcoded old blues swept portal-wide (`BRAND_BLUE`, Toggle/Checkbox, `.g-link` dot, live-map pins, `gr-livedot` → `--p-pulse`)
+   - **New in 1.11.2 (Dusk refinements — post-port, from real dark-mode usage):** **Toggle knob = `--p-surface`, never `#fff`** — solid-fill ON track, border-strong OFF track (a white knob vanished on the dusty-steel dark track; §9 Toggle, *supersedes the tinted-track/colored-knob spec*) · **check glyphs = `--p-action-fg`** on every check-on-primary-fill control (white checks "disappear" on steel in dark; §9 Checkbox) · **all checkbox-style squares → 1px radius** (drift to 3px/5px unified; radios/pills/knobs exempt by shape; §9/§6) · **Select placeholders lose the trailing `…`** (search inputs keep it; §9 Inputs / §11 Voice) · **`TableShell` radius token-bound to `--radius-lg`** + the *reference-the-token-never-the-number* rule for all surface cards (§9 Tables / §6) · stale vivid-blue hexes swept from the §9 component spec blocks
    - **New in 1.10 (Live Ops · Most-Severe · Expected Impact · Portal Overlays):** **Live View** — a new *live-surface* page archetype (auto-refreshing map + grouped table of every rep's day, a five-state stop vocabulary, a monochrome-routes map law) + an App-Shell **nav alert dot** ([Live Surfaces](#live-surfaces-live-view--110) / §9 App Shell / Maps) · Coverage-Map hexes now aggregate by **Most Severe** business severity *[supersedes the 1.4/1.5 averaging]* (§9 Maps / Inventory Conditions) · **Expected Impact** (categorical) + the **radio-card** input + `ImpactBars` *[supersedes numeric "Anticipated Lift"]* + **conditional Subtype** (§9 Inputs) · shared **DataTable** primitives (`SortHeader`/`TableShell`/`TableHeader`/`DataTableFooter`), **RowKebab** portal row-menu *[supersedes inline kebabs]*, **pinned actions column**, nested-table sorting (§9 Tables) · **Tooltip** measured viewport clamp *[supersedes the 1.4 fixed clamp]* (§9) · search-highlight **yellow-only** (§9) · relative **week selector** (§9 Filters) · nav gating **capability-per-child** *[supersedes 1.9 role-id gating]* + feature-aligned cap catalog (§9 App Shell / Appendix A) · dev sign-in **id-based, no client secrets** (§9 Login) · Help Center → **in-product Messenger** (§9 App Shell) · **Store Layout Templates** tab (§9) · tokens `gr-livedot` / `.g-live-*` / `.g-routemap*` / `.gr-sticky-actions` · `SCREENS-1.10.md`
 10. [Motion](#motion)
 11. [Voice & Copy](#voice--copy)
@@ -61,7 +62,7 @@ The Portal design system supports two coexisting visual languages:
 
 | Layer | Where Used | Primary Color | Character |
 |---|---|---|---|
-| **Portal** | The entire shipping product UI (~99% of surface) | `#007CFF` (blue) + `--p-action` ink | Cool-gray neutrals, 14–16px Inter, tight headlines, ink-forward actions |
+| **Portal** | The entire shipping product UI (~99% of surface) | `#1861AF` (blue) + `--p-action` ink | Cool-gray neutrals, 14–16px Inter, tight headlines, ink-forward actions |
 | **Brand moments** | Login + the post-auth Echo Pulse — rare, deliberate | `#007CFF` + intelligence gradient | The neo-brutalist login button + the intelligence gradient; everything else is Portal |
 
 **Use Portal tokens for all product work.** The neutral ramp is the ink-forward ramp (no separate gray scale) and there is a single brand blue; the only deliberately branded elements are the neo login button and the intelligence gradient — keep them rare.
@@ -117,10 +118,10 @@ There is **one** neutral ramp: the Portal ink-forward ramp. Use the `--p-*` name
 
 | Token | Value |
 |---|---|
-| `--g-blue-25` | `rgba(0,124,255,.25)` |
-| `--g-blue-10` | `rgba(0,124,255,.10)` |
-| `--g-blue-05` | `rgba(0,124,255,.05)` |
-| `--g-red-10` | `rgba(229,72,77,.12)` |
+| `--g-blue-25` | `rgba(24,97,175,.25)` |
+| `--g-blue-10` | `rgba(24,97,175,.10)` |
+| `--g-blue-05` | `rgba(24,97,175,.05)` |
+| `--g-red-10` | `rgba(201,74,78,.12)` |
 | `--g-green-10` | `rgba(0,188,87,.12)` |
 | `--g-gold-10` | `rgba(219,158,3,.12)` |
 | `--g-purple-10` | `rgba(123,104,238,.12)` |
@@ -350,13 +351,13 @@ Inter is the **only** UI family (Regular / Medium / Semibold / Bold / Light). No
 
 Two variants, distinguished by whether the link color alone signals interactivity.
 
-**Primary (blue)** — the default. Blue (`#007CFF`) *is* the affordance, so there is **no underline at rest**.
+**Primary (blue)** — the default. Blue (`#1861AF`) *is* the affordance, so there is **no underline at rest**.
 
 ```css
-color: #007CFF;
+color: #1861AF;
 font-weight: 500;
 text-decoration: none;
-/* hover */ color: #0066D6; text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px;
+/* hover */ color: #134E8C; text-decoration: underline; text-underline-offset: 2px; text-decoration-thickness: 1px;
 ```
 
 **Subdued (neutral color)** — a link rendered in a muted/gray color (e.g. the "Show" action on stat cards, or metadata rows). With no blue cue, it **must be underlined** to read as interactive.
@@ -420,8 +421,8 @@ Base unit is **4px**. All spacing tokens are multiples of this base.
 |---|---|
 | Cards / tables | `1px solid #E5E7EB` (`--p-border`) |
 | Inputs (default) | `1px solid #D1D5DC` (`--p-border-strong`) |
-| Inputs (focus) | `1px solid #007CFF` + `box-shadow: 0 0 0 3px rgba(0,124,255,.15)` |
-| Inputs (error) | `1px solid #E5484D` |
+| Inputs (focus) | `1px solid #1861AF` + `box-shadow: 0 0 0 3px rgba(24,97,175,.15)` |
+| Inputs (error) | `1px solid #C94A4E` |
 | Inputs (disabled) | `1px solid #E5E7EB`, bg `#fff` (white, dimmed via uniform `#99A1AF`) |
 
 ### Border Radius Tokens — squared off (1.11 "Dusk"; supersedes the 4/6/8/10 scale)
@@ -436,6 +437,8 @@ Base unit is **4px**. All spacing tokens are multiples of this base.
 | `--radius-pill` | 999px | Status Chips, role/category pills, count & "N selected" badges, toggle track — **pills stay fully round** |
 
 > **Hairline strokes (1.11).** Entry fields, attention fields, cards & tables carry **0.5px** border widths (rendering as true hairlines on retina, 1px elsewhere). With the ×0.25 shadow quieting (§7), the hairline is now what carries structure.
+
+> **Reference the token, never the number (1.11.2).** Surfaces and controls must bind `border-radius` to the token (`--radius-sm` controls · `--radius-lg` surface cards, tables, modals, popovers · `--radius-pill` pills), **never an inlined numeric value** — a hard-coded `8` on the table shell silently skipped the Dusk radius change. Checkbox-style squares are the one *named* value: **1px** (see §9 Checkbox). Circles (`50%`) and pills (`999`) are exempt by shape.
 
 > **Dense edit surfaces use the scale, no magic numbers (reaffirmed 1.8).** In the Assignment-Edit surface: number / sequence inputs, calendar day cells, and legend cells → `--radius-sm` (4px); icon buttons (calendar prev/next, undo) → `--radius-md` (6px); the map/preview container and the changes ledger → `--radius-lg` (8px); count pills → `--radius-pill`. The scale itself is unchanged.
 
@@ -610,19 +613,19 @@ border: 1px solid var(--p-ink);
 
 ```css
 background: #fff;
-color: #E5484D;
-border: 1px solid #E5484D;
-/* hover */ background: rgba(229,72,77,.05);
-/* disabled */ color: rgba(229,72,77,.25); border-color: rgba(229,72,77,.25);
+color: #C94A4E;
+border: 1px solid #C94A4E;
+/* hover */ background: rgba(201,74,78,.05);
+/* disabled */ color: rgba(201,74,78,.25); border-color: rgba(201,74,78,.25);
 ```
 
 **Danger (solid)** — red fill, white text; for an **already-confirmed, terminal** destructive action. **The rule:** an at-rest destructive button in a **table or header** uses outline **Secondary · Warning** — it *opens* a `confirm`; only the **terminal commit inside that confirm** uses **solid Danger**. Never use solid danger for a button that merely opens a dialog.
 
 ```css
-background: #E5484D;
+background: #C94A4E;
 color: #fff;
 /* hover */ background: #C93B40;
-/* disabled */ background: rgba(229,72,77,.45); color: #fff;
+/* disabled */ background: rgba(201,74,78,.45); color: #fff;
 ```
 
 **Neutral** — white fill, gray stroke, dark text; use alongside a primary for secondary page-level actions (e.g. "Batch Actions")
@@ -779,8 +782,8 @@ Full signature: `Input({ icon, value, onChange, placeholder, type, error, style,
 | State | Border | Background | Other |
 |---|---|---|---|
 | Default | `1px solid #D1D5DC` | `#fff` | — |
-| Focus | `1px solid #007CFF` | `#fff` | `box-shadow: 0 0 0 3px rgba(0,124,255,.15)` |
-| Error | `1px solid #E5484D` | `#fff` | Error message below: 12px 500 Inter, `#E5484D` |
+| Focus | `1px solid #1861AF` | `#fff` | `box-shadow: 0 0 0 3px rgba(24,97,175,.15)` |
+| Error | `1px solid #C94A4E` | `#fff` | Error message below: 12px 500 Inter, `#C94A4E` |
 | Soft-required (unset) | `1px solid var(--p-warning)` | `var(--g-gold-10)` | Encouraged-but-optional field left empty — **amber, not red**. It's a nudge ("adding one is encouraged"), not an error. E.g. an unset Capacity. |
 | Disabled | `1px solid #E5E7EB` | `#fff` | `color: #99A1AF; -webkit-text-fill-color: #99A1AF; opacity: 1; cursor: not-allowed` — label, value, border &amp; chevron all use one gray |
 
@@ -792,7 +795,7 @@ top: -7px; left: 10px;
 padding: 0 4px;
 background: #fff;       /* clips over the border — stays #fff even when disabled */
 font: 400 12px/1 Inter;
-color: #6A7282;         /* focus: #007CFF; error: #E5484D; disabled: #99A1AF */
+color: #6A7282;         /* focus: #1861AF; error: #C94A4E; disabled: #99A1AF */
 ```
 
 Label sits at `z-index: 2` so it clips cleanly over a styled `<select>` box.
@@ -842,6 +845,10 @@ font: 400 15px Inter;
 ```
 
 Floating "Search" label sits at `top: -7px; left: 12px`.
+
+#### Select placeholders — no trailing ellipsis (1.11.2)
+
+`Select` placeholders are **`<verb + article + noun>` with no trailing `…`** — *"Select a type"*, *"Choose a warehouse"*. The control's caret already implies "more to come"; the ellipsis is visual noise inside a closed control. **Search inputs keep the ellipsis** (*"Search accounts…"*) — search feels progressive, a select does not. Sweep rule: any `placeholder="Select …"` ending in `…` inside a `Select` gets trimmed.
 
 #### Conditional (dependent) fields & write-only secrets (§1.4)
 
@@ -919,35 +926,41 @@ Global launcher opened with **⌘K / Ctrl-K** (or the sidebar "Search" button) �
 
 ### Controls (Toggle, Checkbox, Radio)
 
-#### Toggle
+#### Toggle (re-specced 1.11.2)
 
 ```
-Track: 37×20px (29×14px visible), border-radius 999px
-Knob: 20×20px circle, white, box-shadow: 0 1px 2px rgba(0,0,0,.25)
+Track: 37×20px (29×14px visible), border-radius 999px (a pill — exempt from the squared radii)
+Knob:  20×20px circle, background var(--p-surface) — NEVER #fff (1.11.2)
+       box-shadow: 0 1px 2px rgba(0,0,0,.25)
 
-Off: track bg #DADADA, knob left 0
-On:  track bg rgba(0,124,255,.25), knob left 17px, border .5px solid #007CFF
-     knob bg #007CFF
+Off: track var(--p-border-strong), knob left 0, knob border .5px var(--p-border-strong)
+On:  track = the fill, SOLID (default var(--p-primary)), knob left 17px, knob border .5px fill
+Disabled: knob var(--p-surface-tint), 50% opacity, inert
 color (1.7): optional "on"-fill override (default --p-primary). The General Stock toggle
-             passes color="var(--p-genstock)" for a purple switch; track uses a 30% tint.
-Transition: left .15s, background .15s
+             passes color="var(--p-genstock)" for a purple switch.
+Transition: left .15s, border-color .15s
 ```
 
-#### Checkbox
+> **Knob = `--p-surface`, never `#fff` (1.11.2 — supersedes the tinted-track + colored-knob spec).** Dusk's dark ON-track is the *light* dusty steel (`#ADBDD1`); a white knob on it has almost no contrast — the toggle read as "unbroken". Binding the knob to `--p-surface` keeps it white in light (`#FFFFFF`) and near-ink in dark (`#161618`), so it always contrasts with the track in both states (an inverted-ink read on steel; still distinct on the `--p-border-strong` OFF track). The ON track is now the **solid** fill and the knob never takes the fill.
+
+#### Checkbox (re-specced 1.11.2)
 
 ```
-18×18px, border-radius 3px
-Off: border 1.5px solid #D1D5DC, bg #fff
-On:  border 1.5px solid #007CFF, bg #007CFF, white checkmark (12px, stroke-width 3)
+18×18px, border-radius 1px   // 1.11.2 — was 3px (and 5px on some pickers)
+Off: border 1.5px solid var(--p-border-strong), bg var(--p-surface)
+On:  border 1.5px solid var(--p-primary), bg var(--p-primary),
+     check glyph var(--p-action-fg) (14px)   // 1.11.2 — was hardcoded white
 Disabled (1.5): bg --p-surface-tint, placeholder-grey check, cursor not-allowed, inert
 ```
+
+> **Every checkbox-style square: 1px radius + `--p-action-fg` glyph (1.11.2).** These rules apply to **any** box that flips unchecked → checked with a drawn check — the Foundation checkbox, table select-all / row-select checks, multi-select list rows (Filter Menu options), radio-style "picked" indicators drawn as ticked pills, and custom picker overlays that draw their own tick. The glyph binds to `--p-action-fg` (white in light, near-ink in dark) so the check stays legible on the dusty-steel primary fill — a hardcoded white check *disappears* in dark. The 1px radius is universal (implementations had drifted to 3px and 5px). **Deliberately not squared:** true single-select radios (50% circles), the Toggle knob (a circle, not a checkbox), and pills/chips/badges (999).
 
 #### Radio
 
 ```
 18×18px circle
 Off: border 1.5px solid #D1D5DC, bg #fff
-On:  border 1.5px solid #007CFF, inner 8px circle bg #007CFF
+On:  border 1.5px solid #1861AF, inner 8px circle bg #1861AF
 ```
 
 #### Radio-card group (single choice among rich options · 1.10)
@@ -993,9 +1006,9 @@ gap: 6px;
 
 **Active state:**
 ```css
-border-color: #007CFF;
-color: #007CFF;
-/* count badge */ background: rgba(0,124,255,.12); color: #007CFF;
+border-color: #1861AF;
+color: #1861AF;
+/* count badge */ background: rgba(24,97,175,.12); color: #1861AF;
 ```
 
 **Inactive count badge:**
@@ -1019,7 +1032,7 @@ The canonical pattern for filtering tables. **One** "Filters" button opens a two
 
 **Anatomy**
 
-- **Trigger** — a single button styled like a Filter Chip: `sliders-horizontal` icon + "Filters" + total-active-count badge + chevron. Turns primary (`border`/`text` `#007CFF`, `background: var(--p-primary-tint)`) whenever any filter is active or the menu is open.
+- **Trigger** — a single button styled like a Filter Chip: `sliders-horizontal` icon + "Filters" + total-active-count badge + chevron. Turns primary (`border`/`text` `#1861AF`, `background: var(--p-primary-tint)`) whenever any filter is active or the menu is open.
 - **Popover** — `540px` wide, `border-radius: 10px`, `box-shadow: var(--shadow-float)`, anchored `8px` below the trigger. Two panes over a fixed `360px` height, plus a footer.
   - **Left rail** (`184px`, `background: var(--p-surface-alt)`) — one row per attribute (icon + label + per-attribute count badge). The active row gets a solid `var(--p-primary-tint)` fill with primary-colored, semibold label (no border accent).
   - **Right pane** — the value selector for the active attribute (see value types below). List area scrolls; rows are `34px`, checkbox + label, hover `var(--p-surface-alt)`.
@@ -1169,7 +1182,7 @@ white-space: nowrap;
 | Amber | `#FFFBEB` | `#BB4D00` | Beer |
 | Purple | `#F5F3FF` | `#6B21A8` | Wine · Executive |
 | Orange | `#FFF7ED` | `#C2410C` | Spirits · Supervisor |
-| Blue | `#EFF6FF` | `#1447E6` | RTD · Department Manager |
+| Blue | `#EDF2F8` | `#1447E6` | RTD · Department Manager |
 | Green | `#ECFDF5` | `#047857` | Non-Alcoholic · IT / Admin |
 | Red | `#FEECEC` | `#C8252B` | Cider |
 | Gold | `rgba(219,158,3,.12)` | `#92610A` | Mead |
@@ -1200,11 +1213,11 @@ font: 500 12px/1.5 Inter;
 | Tone | Background | Text | Dot | Typical states |
 |---|---|---|---|---|
 | Neutral | `#F3F4F6` | `#4A5565` | `#99A1AF` | Draft · Past · Archived · Inactive · Deactivated |
-| Info | `#EFF6FF` | `#1447E6` | `#007CFF` | Active · In progress · New *(live dot)* |
-| Pending (amber) | `#FFFBEB` | `#B45309` | `#DB9E03` | Pending · Invited · Scheduled |
-| Success | `#ECFDF5` | `#047857` | `#00BC57` | Complete · Approved · Paid · In market |
+| Info | `#EDF2F8` | `#1447E6` | `#1861AF` | Active · In progress · New *(live dot)* |
+| Pending (amber) | `#FFFBEB` | `#B45309` | `#B98A2E` | Pending · Invited · Scheduled |
+| Success | `#ECFDF5` | `#047857` | `#21C06B` | Complete · Approved · Paid · In market |
 | At-risk (orange) | `#FFF7ED` | `#C2410C` | `#C2410C` | At risk · Draining · Expiring |
-| Danger | `#FEECEC` | `#C8252B` | `#E5484D` | Failed · Overdue · Rejected · Discontinued |
+| Danger | `#FEECEC` | `#C8252B` | `#C94A4E` | Failed · Overdue · Rejected · Discontinued |
 
 **Borderless variant** — when a row already shows a Role/Category Pill, drop the pill fill and keep the dot + colored label, so the two don't read as twins.
 
@@ -1357,7 +1370,7 @@ height: 45px;
 border-bottom: 1px solid var(--p-border);
 
 /* Row hover */
-background: var(--p-primary-tint);   /* #EFF6FF */
+background: var(--p-primary-tint);   /* #EDF2F8 */
 
 /* ID cells */
 font-family: 'Geist Mono', monospace;
@@ -1388,7 +1401,7 @@ Columns auto-size to content with a `max-width: 300px` cap. Headers support colu
 Every list screen builds on four shared primitives (`DataTable.jsx`); reference these as the canonical implementations.
 
 - **`SortHeader({ label, k, sort, onSort, idPrefix, align, disabled })`** — the sortable column header: `500 11px/1` uppercase, `.07em` tracking; idle `--p-muted` + `unfold_more`; hover `--p-ink`; active `--p-primary` + `arrow_upward|arrow_downward` (**sort state is blue = the state law**). The **`disabled`** variant renders a non-interactive `--p-placeholder` span with `title="Sorting is disabled while grouped"` — used when a grouped view only lets the group-defining columns re-order groups (§L). testid `{idPrefix}-sort-{k}`.
-- **`TableShell({ minWidth, footer, radius=8, … })`** — the list-table card: `--p-surface` + hairline + `--shadow-surface`, an inner `overflow:auto` scroll region wrapping a `minWidth` div, and a footer slot. This **"one scroll container + minWidth wrapper"** is the **required skeleton** — the prerequisite for sticky headers and the pinned actions column (§M). A header placed *outside* the scroll container clips a pinned cell.
+- **`TableShell({ minWidth, footer, radius='var(--radius-lg)', … })`** — the list-table card: `--p-surface` + hairline + `--shadow-surface`, an inner `overflow:auto` scroll region wrapping a `minWidth` div, and a footer slot. This **"one scroll container + minWidth wrapper"** is the **required skeleton** — the prerequisite for sticky headers and the pinned actions column (§M). A header placed *outside* the scroll container clips a pinned cell. **The default radius is token-bound (1.11.2):** `var(--radius-lg)` — the *same* token as Home Health tiles and every other surface card, so tables and cards stay in lock-step through any radii change. **Never hard-code a numeric `border-radius` on a card or table** — a hard-coded `8` silently skipped the Dusk radius update; don't pass per-caller `radius=` overrides either.
 - **`TableHeader({ cols, columnGap, muted })`** — the sticky header row: 40px, `0 16px`, `--p-surface-alt`, bottom hairline, `position: sticky; top: 0; z-index: 3`. It **owns the z-index**, fixing the whole "rows scroll up through the header" class of bugs in one place.
 - **`DataTableFooter({ page, pageCount, pageSize, total, shown, onPage, onPageSize, noun, leading, pageSizeLabel, pageSizeOptions, … })`** — "Showing **X–Y** of **Z** {noun}" + optional rows-per-page `Select` + `Pagination`, `10px 16px` on `--p-surface-alt` with a top hairline (`data-testid="dt-summary"`).
 
@@ -1433,7 +1446,7 @@ Result: right-click / ⌘-click anywhere on the row → new tab; the checkbox & 
 
 ```css
 /* Info (blue tint) */
-background: var(--p-primary-tint);   /* #EFF6FF */
+background: var(--p-primary-tint);   /* #EDF2F8 */
 color: var(--p-ink);
 border-radius: 8px;
 padding: 10px 12px;
@@ -1955,7 +1968,7 @@ Maps use **Leaflet 1.9.x** with **CARTO @2x retina tiles** (muted neutral — ne
 
 ```css
 --map-bg:           #DDDDDD      /* fallback while tiles load */
---map-route-stroke: #007CFF      /* = --p-primary */
+--map-route-stroke: #1861AF      /* = --p-primary */
 --map-route-opacity: 0.7
 --map-route-width:  3px
 --map-radius:       var(--radius-xl)   /* 10px floating card */
@@ -1986,10 +1999,10 @@ font: 600 11px/1 Inter; color: #282838;
 **Active / focused pin** — blue fill + halo ring:
 ```css
 .g-map-pin.is-active {
-  background: #007CFF;
-  box-shadow: 0 0 0 4px rgba(0,124,255,.18),
-              0 0 0 8px rgba(0,124,255,.10),
-              0 4px 10px rgba(0,124,255,.35);
+  background: #1861AF;
+  box-shadow: 0 0 0 4px rgba(24,97,175,.18),
+              0 0 0 8px rgba(24,97,175,.10),
+              0 4px 10px rgba(24,97,175,.35);
   transform: scale(1.07);
 }
 ```
@@ -2063,7 +2076,7 @@ Route-map pins use **hover-to-reveal**, not click-to-edit: hovering a pin opens 
 
 #### Live map — monochrome routes + focus (1.10 §C)
 
-The all-reps **Live View** map (§ Live Surfaces) deliberately avoids per-rep rainbow coloring. Every route polyline is **muted gray** (light `#A9B2BE` / dark `#50565F`, `weight 2.5, opacity .7`); only **sequenced** stops (`sequence > 0`) join the polyline (Skipped stops get a pin, no segment). **Focus** (hover a route/pin/group header, or press **Locate**) recolors just that route DS-blue (light `#007CFF` / dark `#3B82F6`), scales its pins (`.g-live-pin.is-focus`, `scale(1.18)` + shadow), and **fades every other route** (`.is-dim`, pins `.18`, rep dots `.25`). Each rep gets one pulsing current-location dot (`.g-live-rep`: a 14px blue core + expanding `g-live-ping` ring, **disabled under `prefers-reduced-motion`**) — on-site at the current stop, or interpolated along the segment en route. Pins are 20px numbered `DivIcon`s (`.g-live-pin`) whose fill/border encode the five stop statuses (§ Live Surfaces); hover opens the popup with the same ~160ms grace timer as the 1.8 hover-pins. CSS: the `.g-live-*` family in `maps.css`.
+The all-reps **Live View** map (§ Live Surfaces) deliberately avoids per-rep rainbow coloring. Every route polyline is **muted gray** (light `#A9B2BE` / dark `#50565F`, `weight 2.5, opacity .7`); only **sequenced** stops (`sequence > 0`) join the polyline (Skipped stops get a pin, no segment). **Focus** (hover a route/pin/group header, or press **Locate**) recolors just that route DS-blue (light `#1861AF` / dark `#ADBDD1`), scales its pins (`.g-live-pin.is-focus`, `scale(1.18)` + shadow), and **fades every other route** (`.is-dim`, pins `.18`, rep dots `.25`). Each rep gets one pulsing current-location dot (`.g-live-rep`: a 14px blue core + expanding `g-live-ping` ring, **disabled under `prefers-reduced-motion`**) — on-site at the current stop, or interpolated along the segment en route. Pins are 20px numbered `DivIcon`s (`.g-live-pin`) whose fill/border encode the five stop statuses (§ Live Surfaces); hover opens the popup with the same ~160ms grace timer as the 1.8 hover-pins. CSS: the `.g-live-*` family in `maps.css`.
 
 #### Route-map pop-out (RepDayMap — classes ported 1.10 §S)
 
@@ -2089,8 +2102,8 @@ box-shadow: 0 6px 16px rgba(0,0,0,.14), 0 2px 4px rgba(0,0,0,.08);
 
 | Tone | Background | Icon (22px, leading) |
 |---|---|---|
-| Success | `var(--p-success)` (`#00BC57`) | `check` (outline) |
-| Error | `var(--p-danger)` (`#E5484D`) | `error` (FILL 1 — reads clearer on a solid fill) |
+| Success | `var(--p-success)` (`#21C06B`) | `check` (outline) |
+| Error | `var(--p-danger)` (`#C94A4E`) | `error` (FILL 1 — reads clearer on a solid fill) |
 
 **Rules**
 
@@ -2145,7 +2158,7 @@ Custom widths are allowed for dense content — e.g. **560px** for the Audit Log
 For destructive or consequential decisions. Same shell, fixed at `sm`/`md` width, with four differences from `default`:
 
 - **No close ✕** — the user must make an explicit choice; Cancel is the only escape (plus `Escape`).
-- **Icon chip** (34×34px, `border-radius: 8px`): background is the 12% tint of the action tone (e.g. `rgba(229,72,77,.12)` for danger), icon in the tone color.
+- **Icon chip** (34×34px, `border-radius: 8px`): background is the 12% tint of the action tone (e.g. `rgba(201,74,78,.12)` for danger), icon in the tone color.
 - **Footer** is Ghost (Cancel) + a tone-matched action button (Warning for destructive), right-aligned, `padding: 14px 24px`, `border-top: 1px solid #F0F1F3`.
 - **Warning callout** (optional): when the action has downstream consequences (e.g. deactivating a user who manages a team) — `background: #FFF7ED`, `border-radius: 8px`, orange text + warning icon. When present, the action button relabels to "Continue" (a confirmation step follows) rather than the terminal verb.
 
@@ -2578,7 +2591,7 @@ Condenses a section's secondary config into one ~28px row: a rep **Note** (left,
 - **Row:** `display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 28px`.
 - **Note (left) — three states:**
   - *empty* → ghost button: `sticky_note_2` 14px + muted "Add a note about this section" (`cursor: text`).
-  - *click* → inline input (28px, `1px --p-primary`, `box-shadow 0 0 0 3px rgba(0,124,255,.12)`, autofocus); commit on Enter / blur, cancel on Esc.
+  - *click* → inline input (28px, `1px --p-primary`, `box-shadow 0 0 0 3px rgba(24,97,175,.12)`, autofocus); commit on Enter / blur, cancel on Esc.
   - *filled* → the ghost button showing the truncated note (`--p-text-2`).
   - **Rule:** for optional, rarely-set free text on a dense row, prefer this **ghost → inline → text** disclosure over an always-present empty input.
 - **General Stock control (right · purple concept · 1.7):** optional amber **Chip "Suggested →"** (trailing `arrow_forward` pointing at the toggle; only when off *and* the section name implies variable stock) · a `shuffle` 14px glyph + "General Stock Area" label (turns **`--p-genstock-ink`** when on) · an `info` glyph carrying the educational **Tooltip** (`side="bottom" maxWidth={340}`) · a `Toggle` with **`color="var(--p-genstock)"`** (purple switch).
@@ -2738,13 +2751,14 @@ These named keyframes ship in `colors_and_type.css` and back every entrance / lo
 ### Search & staged-action copy (1.7)
 
 - **Search operators:** `OR` is the only operator word and must be **uppercase**; `"…"` denotes an exact phrase. Surface the grammar only via the subtle `?` hint (§9 Inputs / Search & Highlight), never as chrome.
+- **Placeholders (1.11.2):** `Select` placeholders carry **no trailing ellipsis** ("Select a type", "Choose a level"); **search** inputs keep it ("Search accounts…") — search streams, a select doesn't.
 - **Staged layout actions:** prefer compact gerunds — **"Adding" / "Discontinuing"** — with the "when the layout is published" detail in the **tooltip**, not the pill. Dated actions keep **"Adds {M/D}" / "Disc. {M/D}"**.
 - **Section Picker confirm:** "Add to {n} section{s}".
 - **General Stock empty-state / tray helper:** keep the existing plain-spoken voice — *"Products at this store that aren't placed in any section appear here…"*
 
 ### Error & Feedback Copy
 
-- Errors: `#E5484D` (danger red), 12px Inter Medium, placed below the field.
+- Errors: `#C94A4E` (danger red), 12px Inter Medium, placed below the field.
 - Info prompts: soft blue pill, 14px, sentence case.
 
 ### Examples (verbatim)
@@ -2834,10 +2848,10 @@ All tokens are defined in `colors_and_type.css`. Load it first, then optionally 
   --g-black-05: rgba(0,0,0,.05);
 
   /* Accent tints */
-  --g-blue-25: rgba(0,124,255,.25);
-  --g-blue-10: rgba(0,124,255,.10);
-  --g-blue-05: rgba(0,124,255,.05);
-  --g-red-10: rgba(229,72,77,.12);
+  --g-blue-25: rgba(24,97,175,.25);
+  --g-blue-10: rgba(24,97,175,.10);
+  --g-blue-05: rgba(24,97,175,.05);
+  --g-red-10: rgba(201,74,78,.12);
   --g-green-10: rgba(0,188,87,.12);
   --g-gold-10: rgba(219,158,3,.12);
   --g-purple-10: rgba(123,104,238,.12);
@@ -2856,10 +2870,10 @@ All tokens are defined in `colors_and_type.css`. Load it first, then optionally 
   --p-shell: #FDFCF9;          /* page / canvas background */
 
   /* Portal primary */
-  --p-primary: #007CFF;
-  --p-primary-hover: #0066D6;
-  --p-primary-soft: #DBEAFE;
-  --p-primary-tint: #EFF6FF;
+  --p-primary: #1861AF;
+  --p-primary-hover: #134E8C;
+  --p-primary-soft: #D9E3F0;
+  --p-primary-tint: #EDF2F8;
   --p-primary-ink: #007CFF;   /* consolidated to the single brand blue (was #155DFC) */
 
   /* Portal action (ink-forward) — primary actions & active nav; inverts to a white surface in dark */
@@ -2882,15 +2896,15 @@ All tokens are defined in `colors_and_type.css`. Load it first, then optionally 
   --p-pill-beer-bg: #FFFBEB;    --p-pill-beer-fg: #BB4D00;
   --p-pill-wine-bg: #F5F3FF;    --p-pill-wine-fg: #6B21A8;
   --p-pill-spirits-bg: #FFF7ED; --p-pill-spirits-fg: #C2410C;
-  --p-pill-rtd-bg: #EFF6FF;     --p-pill-rtd-fg: #1447E6;
+  --p-pill-rtd-bg: #EDF2F8;     --p-pill-rtd-fg: #1447E6;
   --p-pill-nonalc-bg: #ECFDF5;  --p-pill-nonalc-fg: #047857;
 
   /* Portal feedback */
-  --p-success: #00BC57;
-  --p-warning: #DB9E03;
-  --p-danger: #E5484D;
+  --p-success: #21C06B;
+  --p-warning: #B98A2E;
+  --p-danger: #C94A4E;
   --p-danger-strong: #DC2626;
-  --p-danger-soft: #FCEBEC;            /* 1.8 — red wash for conflict cells (dark: rgba(239,68,68,.16)) */
+  --p-danger-soft: #FCEBEC;            /* 1.8 — red wash for conflict cells (dark: rgba(216,75,75,.16)) */
   --g-gold-04: rgba(219,158,3,.05);    /* 1.8 — faintest amber row tint (dark: rgba(245,158,11,.08)) */
 
   /* Intelligence gradient — AI / confidence / predictive */

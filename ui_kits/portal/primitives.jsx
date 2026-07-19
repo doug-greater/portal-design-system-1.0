@@ -200,11 +200,11 @@ function Input({ icon, value, onChange, placeholder, type = 'text', error, style
    e.g. the General Stock toggle passes color="var(--p-genstock)". */
 function Toggle({ on, onChange, disabled, color }) {
   const fill = color || 'var(--p-primary)';
-  const track = on ? (color ? `color-mix(in srgb, ${color} 30%, transparent)` : 'var(--g-blue-25)') : '#DADADA';
+  const track = on ? fill : 'var(--p-border-strong)';   // 1.11.2: solid fill ON / border-strong OFF
   return (
     <span onClick={() => !disabled && onChange?.(!on)} style={{ width: 37, height: 20, position: 'relative', cursor: disabled ? 'not-allowed' : 'pointer', display: 'inline-block', opacity: disabled ? .5 : 1 }}>
-      <span style={{ position: 'absolute', left: 0, top: 3, width: 29, height: 14, borderRadius: 2, background: track, transition: 'background .15s' }} />
-      <span style={{ position: 'absolute', top: 0, left: on ? 17 : 0, width: 20, height: 20, borderRadius: '50%', background: on ? fill : '#fff', border: on ? `.5px solid ${fill}` : '.5px solid #DADADA', boxShadow: '0 1px 2px rgba(0,0,0,.25)', transition: 'left .15s, background .15s, border-color .15s' }} />
+      <span style={{ position: 'absolute', left: 0, top: 3, width: 29, height: 14, borderRadius: 999, background: track, transition: 'background .15s' }} />
+      <span style={{ position: 'absolute', top: 0, left: on ? 17 : 0, width: 20, height: 20, borderRadius: '50%', background: disabled ? 'var(--p-surface-tint)' : 'var(--p-surface)', border: on ? `.5px solid ${fill}` : '.5px solid var(--p-border-strong)', boxShadow: '0 1px 2px rgba(0,0,0,.25)', transition: 'left .15s, border-color .15s' }} />   /* 1.11.2: knob = --p-surface, never #fff — contrasts with the track in BOTH themes */
     </span>
   );
 }
@@ -214,11 +214,11 @@ function Toggle({ on, onChange, disabled, color }) {
 function Checkbox({ on, onChange, disabled }) {
   return (
     <span onClick={() => !disabled && onChange?.(!on)} style={{
-      width: 18, height: 18, borderRadius: 3, cursor: disabled ? 'not-allowed' : 'pointer',
+      width: 18, height: 18, borderRadius: 1, cursor: disabled ? 'not-allowed' : 'pointer',   // 1.11.2: 1px — every checkbox-style square
       border: `1.5px solid ${disabled ? 'var(--p-border-strong)' : on ? 'var(--p-primary)' : 'var(--p-border-strong)'}`,
-      background: disabled ? 'var(--p-surface-tint)' : on ? 'var(--p-primary)' : '#fff',
+      background: disabled ? 'var(--p-surface-tint)' : on ? 'var(--p-primary)' : 'var(--p-surface)',
       display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-      color: disabled ? 'var(--p-placeholder)' : '#fff', flexShrink: 0,
+      color: disabled ? 'var(--p-placeholder)' : 'var(--p-action-fg)', flexShrink: 0,   // 1.11.2: check glyph = --p-action-fg (dark-legible on dusty steel)
     }}>
       {on && <Icon name="check" size={14} color="currentColor" />}
     </span>

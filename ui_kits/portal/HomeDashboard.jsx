@@ -42,7 +42,7 @@ function SaveViewButton({ section, icon = 'bookmark_add', defaultName = '', onSa
 /* ---------------- ViewCard — a Saved View on Home (AppLink to path+search) ---------------- */
 function ViewCard({ fav, onRename, onDelete }) {
   return (
-    <div style={{ position: 'relative', border: '0.5px solid var(--p-border)', borderRadius: 2, background: 'var(--p-surface)', boxShadow: 'var(--shadow-card)' }}>
+    <div style={{ position: 'relative', border: '0.5px solid var(--p-border)', borderRadius: 'var(--radius-lg)', background: 'var(--p-surface)', boxShadow: 'var(--shadow-card)' }}>
       <AppLink to={fav.path + fav.search} data-testid={`fav-open-link-${fav.id}`}
         style={{ display: 'block', padding: '14px 16px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
@@ -119,7 +119,7 @@ function HomeDashboard({ firstName, greeting, healthCards, favorites, onCustomiz
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 12 }}>
         {healthCards.map((c) => (
-          <div key={c.id} data-testid={`tile-${c.id}`} style={{ border: '0.5px solid var(--p-border)', borderRadius: 2, background: 'var(--p-surface)', boxShadow: 'var(--shadow-card)', padding: '14px 16px' }}>
+          <div key={c.id} data-testid={`tile-${c.id}`} style={{ border: '0.5px solid var(--p-border)', borderRadius: 'var(--radius-lg)', background: 'var(--p-surface)', boxShadow: 'var(--shadow-card)', padding: '14px 16px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <span style={{ width: 8, height: 8, borderRadius: '50%', background: `var(--p-${c.status === 'green' ? 'success' : c.status === 'red' ? 'danger' : c.status === 'yellow' ? 'warning' : 'placeholder'})` }} />
               <span style={{ font: '500 12px Inter', color: 'var(--p-muted)' }}>{c.label}</span>

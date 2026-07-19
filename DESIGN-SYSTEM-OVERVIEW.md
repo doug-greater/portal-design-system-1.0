@@ -398,6 +398,13 @@ coverage:
   replaces Geist Mono; page title 28px; the Conditions palette and Intelligence gradient stay vivid
   **by design**; portal-wide old-blue hardcode sweep.
 
+- **New in Portal 1.11.2 (Dusk refinements)** — Toggle knob binds to `--p-surface` (never `#fff`;
+  solid-fill ON track — dark-mode contrast on the steel track); check glyphs bind to `--p-action-fg`
+  on every check-on-primary-fill control; all checkbox-style squares unify at **1px** radius;
+  `Select` placeholders drop the trailing `…` (search inputs keep it); `TableShell` default radius
+  is token-bound to `--radius-lg` with the *reference-the-token-never-the-number* rule for surface
+  cards; stale vivid-blue hexes swept from the component spec blocks.
+
 **Terminology (1.1 canon).** "Store Promotions" (short "Store Promos", `/store-promotions`),
 "POD Planner" (`/pod-planner`), "Audit Log" (events Created / Updated / Restored / Deleted;
 value columns Removed / Added), "Batch Actions" (not "Bulk actions"), "Restore This Version"
