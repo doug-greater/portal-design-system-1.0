@@ -135,7 +135,7 @@ This repository is our **shared design system** — the single source of truth f
 - **The `--p-pal-1…10` badge ramp** (ported from the app): one theme-aware foreground per slot + computed 15% `color-mix` tints; the legacy role/category pill pairs become pal-derived compat aliases that flip automatically; **dusty dark variants** across all ten slots; dark General-Stock purple aligns to pal-1.
 - **Sharper geometry.** Radii square off — controls 4 → **1px**, cards/menus/floating surfaces 6–10 → **2px** (pills stay round); fields, cards & tables move to **0.5px hairline strokes**; light-mode shadow alphas drop to **×0.25** (dark's inset-highlight elevation is untouched).
 - **JetBrains Mono** replaces Geist Mono for data & numbers — self-hosted variable woff2 in `fonts/` (no CDN dependency); page titles settle at **28px** (`--fs-28`).
-- **Deliberately vivid:** the Conditions map palette (CARTO legibility + color-blind-safe separation) and the Intelligence gradient (the sanctioned brand moment) are exempt from dusting.
+- **Deliberately vivid:** the Conditions map palette (CARTO legibility + color-blind-safe separation) and the Intelligence gradient are exempt from dusting. *(The gradient's exemption was later revoked — see 1.11.3 below; the Conditions palette remains the sole exemption.)*
 - **Hardcode sweep:** `BRAND_BLUE`, Toggle/Checkbox fills, the `.g-link` underline dot (light + new dark variant), live-map pins/rep dots, and `gr-livedot` (now token-driven via `--p-pulse`) all re-based.
 
 ### 1.11.2 — Dusk refinements (post-port, from real dark-mode usage)
@@ -146,3 +146,8 @@ This repository is our **shared design system** — the single source of truth f
 - **Select placeholders lose the trailing `…`** ("Select a type"); search inputs keep it ("Search accounts…").
 - **`TableShell` default radius token-bound to `--radius-lg`** (matching Home stat tiles) + the rule: *never hard-code a numeric radius on a surface card* — tokens only, no per-caller overrides.
 - Stale vivid-blue hexes swept from the doc's §9 component spec blocks.
+
+### 1.11.3 — Intelligence gradient dusted
+
+- **Light = "Dusk Rose"** `#1861AF → #4338CA → #BE185D` (primary navy → pal-9 indigo → pal-7 magenta; all existing token values). **Dark = the "half-step"** `#9FB6D4 → #929ADB → #D38AAD` — the same rose arc at 30% vivid (fully-dusty stops read too flat on the quiet dark chrome; these bespoke blends are the sanctioned middle). Supersedes the 1.11 "stays vivid" exemption.
+- Applies to `--p-intel-gradient`, `--p-intel-start/mid/end`, `--p-intel-tint` (both modes) and the **Echo Pulse** conic rings (a dark variant now exists). **`#007CFF` is fully retired from the system.**

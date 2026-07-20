@@ -8,7 +8,7 @@ body { margin: 0; padding: 20px; background: var(--p-surface); }
 /* ── Swatch cards ── */
 .sw-card { width: 220px; border-radius: 2px; overflow: hidden; border: 0.5px solid var(--p-border); box-shadow: var(--shadow-card); }
 .sw-chip { height: 140px; }
-.sw-body { padding: 12px 14px 14px; background: #fff; }
+.sw-body { padding: 12px 14px 14px; background: var(--p-surface); }
 .sw-name { font: 600 13px/1.2 var(--font-sans); color: var(--p-ink); margin-bottom: 4px; }
 .sw-hex  { font: 400 11px/1.5 var(--font-mono); color: var(--p-muted); }
 .sw-sub  { font: 400 12px/1.4 var(--font-sans); color: var(--p-muted); margin-top: 2px; }
@@ -30,7 +30,7 @@ body { margin: 0; padding: 20px; background: var(--p-surface); }
   padding: 7px 16px;
   border-radius: 999px;
   /* true 10% gradient tint fill */
-  background: linear-gradient(90deg, rgba(24,97,175,.10) 0%, rgba(83,89,241,.10) 50%, rgba(241,83,169,.10) 100%);
+  background: var(--p-intel-tint);
   font: 500 14px/1 var(--font-sans);
   color: var(--p-ink);
   white-space: nowrap;
@@ -42,7 +42,7 @@ body { margin: 0; padding: 20px; background: var(--p-surface); }
   inset: 0;
   border-radius: 999px;
   padding: 1px;
-  background: linear-gradient(90deg, #1861AF 0%, #5359F1 50%, #F153A9 100%);
+  background: var(--p-intel-gradient);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
           mask-composite: exclude;
@@ -57,7 +57,7 @@ body { margin: 0; padding: 20px; background: var(--p-surface); }
 
 /* Gradient text utility */
 .intel-text {
-  background: linear-gradient(90deg, #1861AF 0%, #5359F1 50%, #F153A9 100%);
+  background: var(--p-intel-gradient);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -74,16 +74,16 @@ body { margin: 0; padding: 20px; background: var(--p-surface); }
 <div class="row">
   <!-- Full gradient swatch -->
   <div class="sw-card">
-    <div class="sw-chip" style="background: linear-gradient(90deg, #1861AF 0%, #5359F1 50%, #F153A9 100%)"></div>
+    <div class="sw-chip" style="background: var(--p-intel-gradient)"></div>
     <div class="sw-body">
       <div class="sw-name">Intelligence Gradient</div>
-      <div class="sw-hex">#1861AF → #5359F1 → #F153A9</div>
-      <div class="sw-sub">linear · 0% / 50% / 100%</div>
+      <div class="sw-hex">light #1861AF → #4338CA → #BE185D<br>dark &nbsp;#9FB6D4 → #929ADB → #D38AAD</div>
+      <div class="sw-sub">linear · 0% / 50% / 100% · "Dusk Rose" light / "half-step" dark (1.11.3)</div>
     </div>
   </div>
   <!-- Tint 8% swatch -->
   <div class="sw-card">
-    <div class="sw-chip" style="background: linear-gradient(90deg, rgba(24,97,175,.10) 0%, rgba(83,89,241,.10) 50%, rgba(241,83,169,.10) 100%)"></div>
+    <div class="sw-chip" style="background: var(--p-intel-tint)"></div>
     <div class="sw-body">
       <div class="sw-name">Tint 10% — card bg</div>
       <div class="sw-hex">--p-intel-tint</div>
@@ -95,9 +95,14 @@ body { margin: 0; padding: 20px; background: var(--p-surface); }
 <!-- Color stops -->
 <div class="section-label">Color stops</div>
 <div class="stops">
-  <div class="stop" style="background:#1861AF"><span class="stop-lbl">0% · #1861AF</span></div>
-  <div class="stop" style="background:#5359F1"><span class="stop-lbl">50% · #5359F1</span></div>
-  <div class="stop" style="background:#F153A9"><span class="stop-lbl">100% · #F153A9</span></div>
+  <div class="stop" style="background:#1861AF"><span class="stop-lbl">light 0% · #1861AF</span></div>
+  <div class="stop" style="background:#4338CA"><span class="stop-lbl">50% · #4338CA (pal-9)</span></div>
+  <div class="stop" style="background:#BE185D"><span class="stop-lbl">100% · #BE185D (pal-7)</span></div>
+</div>
+<div class="stops" style="margin-top:-20px">
+  <div class="stop" style="background:#9FB6D4"><span class="stop-lbl" style="color:#161618;text-shadow:none">dark 0% · #9FB6D4</span></div>
+  <div class="stop" style="background:#929ADB"><span class="stop-lbl" style="color:#161618;text-shadow:none">50% · #929ADB</span></div>
+  <div class="stop" style="background:#D38AAD"><span class="stop-lbl" style="color:#161618;text-shadow:none">100% · #D38AAD</span></div>
 </div>
 
 <hr class="divider">
