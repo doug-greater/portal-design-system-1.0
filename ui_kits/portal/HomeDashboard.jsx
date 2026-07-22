@@ -67,7 +67,7 @@ function StatCardCustomizer({ cards, order, hidden, onReorder, onToggle }) {
   // (vertical) + useSortable per row + arrayMove on drop (see DS 1.2 Arrangement Board).
   return (
     <div data-testid="customize-cards-menu" style={{ width: 320, background: 'var(--p-surface)', border: '0.5px solid var(--p-border)', borderRadius: 2, boxShadow: 'var(--shadow-float)', padding: 6 }}>
-      <div style={{ font: '500 11px Inter', color: 'var(--p-muted)', padding: '8px 10px 6px' }}>Drag to reorder</div>
+      <div style={{ font: '500 10px var(--font-control)', letterSpacing: '.06em', textTransform: 'uppercase', color: 'var(--p-muted)', padding: '8px 10px 6px' }}>Drag to reorder</div>
       {order.map((id) => {
         const c = cards.find((x) => x.id === id); if (!c) return null;
         return (
@@ -75,7 +75,7 @@ function StatCardCustomizer({ cards, order, hidden, onReorder, onToggle }) {
             <Icon name="drag_indicator" size={18} color="var(--p-placeholder)" data-testid={`card-drag-${id}`} style={{ cursor: 'grab', touchAction: 'none' }} />
             <Checkbox on={!hidden.has(id)} onChange={() => onToggle?.(id)} data-testid={`card-toggle-${id}`} />
             <span style={{ flex: 1, font: '400 14px Inter', color: 'var(--p-ink)' }}>{c.label}</span>
-            <span style={{ font: '500 9px/1 Inter', letterSpacing: '.04em', textTransform: 'uppercase', color: 'var(--p-placeholder)' }}>sample</span>
+            <span style={{ font: '500 9px/1 var(--font-control)', letterSpacing: '.05em', textTransform: 'uppercase', color: 'var(--p-placeholder)' }}>sample</span>
           </div>
         );
       })}
@@ -111,6 +111,7 @@ function HomeDashboard({ firstName, greeting, healthCards, favorites, onCustomiz
     <div style={{ maxWidth: 1600, margin: '0 auto', display: 'flex', flexDirection: 'column', minHeight: '100%', gap: 24 }}>
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16 }}>
         <div>
+          {/* Cockpit exception (1.12): the greeting stays INTER by design — it addresses the human, not the system */}
           <h1 style={{ margin: 0, font: '600 24px/1.2 Inter', letterSpacing: '-.02em', color: 'var(--p-ink)' }}>{greeting}, {firstName}.</h1>
           <p style={{ margin: '4px 0 0', font: '400 14px Inter', color: 'var(--p-muted)' }}>Here's where things stand today.</p>
         </div>
@@ -122,7 +123,7 @@ function HomeDashboard({ firstName, greeting, healthCards, favorites, onCustomiz
           <div key={c.id} data-testid={`tile-${c.id}`} style={{ border: '0.5px solid var(--p-border)', borderRadius: 'var(--radius-lg)', background: 'var(--p-surface)', boxShadow: 'var(--shadow-card)', padding: '14px 16px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <span style={{ width: 8, height: 8, borderRadius: '50%', background: `var(--p-${c.status === 'green' ? 'success' : c.status === 'red' ? 'danger' : c.status === 'yellow' ? 'warning' : 'placeholder'})` }} />
-              <span style={{ font: '500 12px Inter', color: 'var(--p-muted)' }}>{c.label}</span>
+              <span style={{ font: '500 10px var(--font-control)', letterSpacing: '.07em', textTransform: 'uppercase', color: 'var(--p-muted)' }}>{c.label}</span>   {/* Cockpit: stat labels are machine labels */}
             </div>
             <div style={{ font: "600 26px/1.1 'JetBrains Mono', monospace", color: 'var(--p-ink)', margin: '6px 0 2px' }}>{c.value}</div>
             <div style={{ font: '400 12px/1.4 Inter', color: 'var(--p-muted)' }}>{c.hint}</div>
