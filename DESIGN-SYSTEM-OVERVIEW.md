@@ -412,6 +412,13 @@ coverage:
   Echo Pulse conic gains a dark variant. `#007CFF` fully retired; the Conditions palette is now the
   sole vivid exemption.
 
+- **New in Portal 1.12 "Cockpit" (typography)** — *humans read Inter, the machine speaks mono*:
+  JetBrains Mono expands into titles (`--font-display`) and every operated surface + machine label +
+  status vocabulary (`--font-control` — buttons, inputs, selects, chips, tabs, menus, pagination,
+  table headers, stat labels, overlines, badges, toasts); Inter survives for names, prose, helpers,
+  nav destinations, pills, and the Home greeting; badges go uppercase mono; buttons keep Title Case;
+  10.5px mono-caps floor for field use.
+
 **Terminology (1.1 canon).** "Store Promotions" (short "Store Promos", `/store-promotions`),
 "POD Planner" (`/pod-planner`), "Audit Log" (events Created / Updated / Restored / Deleted;
 value columns Removed / Added), "Batch Actions" (not "Bulk actions"), "Restore This Version"
