@@ -193,10 +193,23 @@
   --space-12:  48px;
   --space-16:  64px;
 
-  /* ---------- Type families ---------- */
+  /* ---------- Type families — the COCKPIT split (1.12) ----------
+     HUMANS READ INTER; THE MACHINE SPEAKS MONO.
+     --font-sans    = content humans read: account/product names, prose, helper copy,
+                      nav destinations, category & role pills, the Home greeting.
+     --font-display = titles & headlines (g-h1/h2/h3, modal & drawer titles).
+     --font-control = everything the user OPERATES (buttons, inputs, selects, filter
+                      chips, tabs, menus, pagination) + machine labels (table headers,
+                      stat labels, section titles, overlines) + status vocabulary
+                      (badges, toasts, liveness chips).
+     display/control both resolve to the mono stack — they stay SEMANTIC so a future
+     re-tune can re-point one role without touching components.
+     --font-mono    = data cells, ids, numerals, kbd (unchanged since 1.11). */
   --font-sans: "Inter", "Inter Fallback", -apple-system, BlinkMacSystemFont,
                "Segoe UI", Helvetica, Arial, sans-serif;
   --font-mono: "JetBrains Mono", "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;  /* JetBrains Mono since 1.11 (self-hosted, fonts/); Geist kept as fallback */
+  --font-display: var(--font-mono);   /* Cockpit titles (1.12) */
+  --font-control: var(--font-mono);   /* Cockpit controls + machine labels (1.12) */
 
   /* ---------- Type — raw sizes (px) ---------- */
   --fs-10: 10px;  /* legal / fine print                             */
@@ -373,39 +386,39 @@ html[data-theme="dark"] {
   color: var(--fg-1);
 }
 
-/* Page title used across the PORTAL (Inter Semibold 28, tight tracking — 28px since 1.11) */
+/* Page title used across the PORTAL (JetBrains Mono Semibold since 1.12 "Cockpit") */
 .g-h1 {
-  font: 600 var(--fs-28)/1.25 var(--font-sans);
-  letter-spacing: -0.025em;
+  font: 600 26px/1.25 var(--font-display);
+  letter-spacing: -0.03em;
   color: var(--fg-1);
 }
 
-/* Headline 2 — compact page title (Inter Semibold 20) */
+/* Headline 2 — compact page title (mono since 1.12) */
 .g-h2 {
-  font: 600 var(--fs-20)/1.2 var(--font-sans);
-  letter-spacing: 0;
+  font: 600 18px/1.25 var(--font-display);
+  letter-spacing: -0.02em;
   color: var(--fg-1);
 }
 
-/* Headline 3 — secondary info (Inter Regular 18, 105% tracking) */
+/* Headline 3 — secondary heading (mono since 1.12; auth title) */
 .g-h3 {
-  font: 400 var(--fs-18)/1.33 var(--font-sans);
-  letter-spacing: 0.05em;
+  font: 500 17px/1.35 var(--font-display);
+  letter-spacing: -0.01em;
   color: var(--fg-1);
 }
 
-/* Section title / column header — Inter Medium 13 UPPERCASE, muted (matches shipped portal) */
+/* Section title / column header — mono UPPERCASE machine label (1.12) */
 .g-section-title {
-  font: 500 13px/1 var(--font-sans);
-  letter-spacing: 0.06em;
+  font: 500 12px/1 var(--font-control);
+  letter-spacing: 0.07em;
   text-transform: uppercase;
   color: var(--p-muted);
 }
 
-/* Subtitle under H1 — Inter Medium 14 UPPERCASE medium-gray */
+/* Subtitle under H1 — mono UPPERCASE machine label (1.12) */
 .g-subtitle-1 {
-  font: 500 var(--fs-14)/1.15 var(--font-sans);
-  letter-spacing: 0.05em;
+  font: 500 12.5px/1.15 var(--font-control);
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--g-medium-gray);
 }
@@ -428,18 +441,18 @@ html[data-theme="dark"] {
 /* Body 4 — toggle descriptions (105% tracking) */
 .g-body-4 { font: 400 var(--fs-16)/1.4 var(--font-sans); letter-spacing: 0.025em; color: var(--fg-2); }
 
-/* Overline — 12px Inter Regular dark-gray, 105% tracking, caps */
+/* Overline — mono machine label (1.12), caps */
 .g-overline {
-  font: 400 var(--fs-12)/1.2 var(--font-sans);
-  letter-spacing: 0.05em;
+  font: 400 11.5px/1.2 var(--font-control);
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--g-dark-gray);
 }
 
 /* Overline-tag — overline on soft-gray pill */
 .g-overline-tag {
-  font: 400 var(--fs-12)/1.2 var(--font-sans);
-  letter-spacing: 0.05em;
+  font: 400 11.5px/1.2 var(--font-control);
+  letter-spacing: 0.06em;
   color: var(--g-dark-gray);
   background: var(--g-off-white);
   padding: 1px 4px;
@@ -500,8 +513,8 @@ mark.gr-hl { background: var(--p-highlight); color: var(--p-highlight-fg); borde
 .g-kebab { width: 28px; height: 28px; border-radius: var(--radius-md); display: inline-flex; align-items: center; justify-content: center; color: var(--p-muted); cursor: pointer; border: none; background: transparent; transition: background .12s, color .12s; }
 .g-kebab:hover { background: rgba(0,0,0,.05); color: var(--p-text); }
 
-/* Split button — main action + caret disclosure. Intents: .primary / .error. */
-.g-split { display: inline-flex; height: 28px; border-radius: var(--radius-md); overflow: hidden; font: 500 13px/1 var(--font-sans); vertical-align: middle; box-sizing: border-box; }
+/* Split button — main action + caret disclosure. Intents: .primary / .error. Mono since 1.12. */
+.g-split { display: inline-flex; height: 28px; border-radius: var(--radius-md); overflow: hidden; font: 500 12px/1 var(--font-control); vertical-align: middle; box-sizing: border-box; }
 .g-split .g-split-main  { display: inline-flex; align-items: center; gap: 6px; padding: 0 11px; cursor: pointer; border: none; background: transparent; font: inherit; color: inherit; }
 .g-split .g-split-caret { display: inline-flex; align-items: center; justify-content: center; width: 26px; cursor: pointer; border: none; background: transparent; color: inherit; }
 /* Ink fill + a NEUTRAL caret divider that survives BOTH fills (a white divider would

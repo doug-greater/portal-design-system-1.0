@@ -12,7 +12,7 @@
     @keyframes g-modal-in { from { transform: scale(.98); } to { transform: scale(1); } }
     @keyframes g-drawer-in { from { transform: translateX(16px); } to { transform: translateX(0); } }
     @media (prefers-reduced-motion: reduce) { [style*="g-modal-in"],[style*="g-drawer-in"]{ animation: none !important; } }
-    .g-split { display:inline-flex; height:28px; border-radius:2px; overflow:hidden; font:500 13px/1 Inter,sans-serif; vertical-align:middle; box-sizing:border-box; }
+    .g-split { display:inline-flex; height:28px; border-radius:2px; overflow:hidden; font:500 12px/1 var(--font-control); vertical-align:middle; box-sizing:border-box; }
     .g-split .g-split-main { display:inline-flex; align-items:center; gap:6px; padding:0 11px; cursor:pointer; border:none; background:transparent; font:inherit; color:inherit; }
     .g-split .g-split-caret { display:inline-flex; align-items:center; justify-content:center; width:26px; cursor:pointer; border:none; background:transparent; color:inherit; }
     .g-split.primary { background:var(--p-action); color:var(--p-action-fg); }
@@ -22,11 +22,11 @@
     .g-split.error .g-split-caret { border-left:1px solid rgba(255,255,255,.32); }
     .g-split.error .g-split-main:hover, .g-split.error .g-split-caret:hover { background:rgba(255,255,255,.14); }
     .g-menu { background:#fff; border:0.5px solid var(--p-border); border-radius:2px; box-shadow:var(--shadow-float); padding:4px; min-width:208px; }
-    .g-menu-item { display:flex; align-items:center; gap:10px; height:34px; padding:0 10px; border-radius:2px; font:400 14px/1 Inter,sans-serif; color:var(--p-ink); cursor:pointer; white-space:nowrap; }
+    .g-menu-item { display:flex; align-items:center; gap:10px; height:34px; padding:0 10px; border-radius:2px; font:500 12.5px/1 var(--font-control); color:var(--p-ink); cursor:pointer; white-space:nowrap; }
     .g-menu-item:hover { background:var(--p-surface-alt); }
     .g-menu-item.danger { color:var(--p-danger); }
     .g-menu-kbd { margin-left:auto; font:400 11px 'JetBrains Mono',monospace; color:var(--p-placeholder); }
-    .g-menu-label { font:500 10px/1 Inter,sans-serif; letter-spacing:.07em; text-transform:uppercase; color:var(--p-muted); padding:9px 10px 5px; }
+    .g-menu-label { font:500 10px/1 var(--font-control); letter-spacing:.07em; text-transform:uppercase; color:var(--p-muted); padding:9px 10px 5px; }
     .g-menu-div { height:1px; background:var(--p-border); margin:4px -4px; }
     .g-kebab { width:28px; height:28px; border-radius:2px; display:inline-flex; align-items:center; justify-content:center; color:var(--p-muted); cursor:pointer; border:none; background:transparent; }
     .g-kebab:hover { background:rgba(0,0,0,.05); color:var(--p-text); }
@@ -117,7 +117,7 @@ function Modal({ open, onClose, title, subtitle, children, footer, size = 'md', 
           <div style={{ padding: '22px 24px 16px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
               <span style={{ width: 34, height: 34, borderRadius: 2, flexShrink: 0, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: t.tint, color: t.color }}><MIcon name={icon} size={20} /></span>
-              <h2 style={{ margin: 0, font: '700 19px/1.2 Inter, sans-serif', color: 'var(--p-ink)' }}>{title}</h2>
+              <h2 style={{ margin: 0, font: '600 17px/1.3 var(--font-display)', letterSpacing: '-.02em', color: 'var(--p-ink)' }}>{title}</h2>
             </div>
             <div style={{ font: '400 14px/1.5 Inter, sans-serif', color: 'var(--p-text-2)' }}>{children}</div>
             {warning && (
@@ -131,7 +131,7 @@ function Modal({ open, onClose, title, subtitle, children, footer, size = 'md', 
           <>
             <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: '18px 20px 14px 24px' }}>
               <div style={{ minWidth: 0 }}>
-                <h2 style={{ margin: 0, font: '600 18px/1.3 Inter, sans-serif', letterSpacing: '-.01em', color: 'var(--p-ink)' }}>{title}</h2>
+                <h2 style={{ margin: 0, font: '600 17px/1.3 var(--font-display)', letterSpacing: '-.02em', color: 'var(--p-ink)' }}>{title}</h2>
                 {subtitle && <div style={{ font: '400 13px/1.3 Inter, sans-serif', color: 'var(--p-muted)', marginTop: 2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{subtitle}</div>}
               </div>
               <span onClick={onClose} style={{ width: 32, height: 32, borderRadius: 2, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'var(--p-muted)', cursor: 'pointer', flexShrink: 0 }}><MIcon name="close" size={20} /></span>
@@ -156,7 +156,7 @@ function Drawer({ open, onClose, title, overline, children, footer, size = 'md' 
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: '20px 20px 16px 24px', borderBottom: '0.5px solid var(--p-border)' }}>
           <div>
             {overline && <div style={{ font: '500 11px/1 Inter, sans-serif', textTransform: 'uppercase', letterSpacing: '.06em', color: 'var(--p-muted)', marginBottom: 6 }}>{overline}</div>}
-            <h3 style={{ margin: 0, font: '600 20px/1.25 Inter, sans-serif', letterSpacing: '-.01em', color: 'var(--p-ink)' }}>{title}</h3>
+            <h3 style={{ margin: 0, font: '600 18px/1.3 var(--font-display)', letterSpacing: '-.02em', color: 'var(--p-ink)' }}>{title}</h3>
           </div>
           <span onClick={onClose} style={{ width: 32, height: 32, borderRadius: 2, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'var(--p-muted)', cursor: 'pointer' }}><MIcon name="close" size={20} /></span>
         </div>
@@ -290,7 +290,7 @@ function CommandPalette({ open, onClose, query = '', onQuery, groups = [] }) {
         <div style={{ display: 'flex', alignItems: 'center', height: 52, padding: '0 14px', borderBottom: '0.5px solid var(--p-border)', gap: 10 }}>
           <Icon name="search" size={20} color="var(--p-placeholder)" />
           <input autoFocus value={query} onChange={(e) => onQuery?.(e.target.value)} placeholder="Search…" data-testid="command-palette-input"
-            style={{ flex: 1, border: 'none', outline: 'none', background: 'transparent', font: '400 16px Inter, sans-serif', color: 'var(--p-ink)' }} />
+            style={{ flex: 1, border: 'none', outline: 'none', background: 'transparent', font: '400 14px var(--font-control)', color: 'var(--p-ink)' }} />
           {query
             ? <button type="button" data-testid="command-palette-clear" onClick={() => onQuery?.('')} style={{ border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--p-muted)', display: 'flex' }}><Icon name="close" size={18} /></button>
             : <Tooltip text={SEARCH_HINT} side="bottom" maxWidth={260} z={CMDK_Z + 1}><span style={{ color: 'var(--p-placeholder)', cursor: 'help', display: 'flex' }}><Icon name="help" size={18} /></span></Tooltip>}

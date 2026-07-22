@@ -20,7 +20,7 @@ const DEV_LOGIN_ENABLED = true;   // production: from /auth/config; defaults FAL
 const authField = {
   width: '100%', height: 56, padding: '0 16px', boxSizing: 'border-box',
   border: '0.5px solid var(--p-border-strong)', borderRadius: 1,  // §H: 4px on auth
-  font: '400 16px Inter', color: 'var(--p-ink)', background: 'var(--p-surface)', outline: 'none',
+  font: '400 15px var(--font-control)', color: 'var(--p-ink)', background: 'var(--p-surface)', outline: 'none',
 };
 
 function LoginScreen({ onSignIn }) {
@@ -51,20 +51,20 @@ function LoginScreen({ onSignIn }) {
         </div>
 
         {error && (
-          <div className="gr-rise" style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'var(--g-red-10)', color: 'var(--p-danger-strong)', borderRadius: 2, padding: '9px 12px', font: '500 13px Inter' }}>
+          <div className="gr-rise" style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'var(--g-red-10)', color: 'var(--p-danger-strong)', borderRadius: 2, padding: '9px 12px', font: '500 12px var(--font-control)' }}>
             <Icon name="error" size={16} color="currentColor" /> Incorrect email or password.
           </div>
         )}
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }} className="gr-rise" data-i="2">
-          <label style={{ font: '500 12px/1.2 Inter', color: 'var(--p-text)', letterSpacing: '.04em', textTransform: 'uppercase' }}>Email</label>
+          <label style={{ font: '500 11px/1.2 var(--font-control)', color: 'var(--p-text)', letterSpacing: '.05em', textTransform: 'uppercase' }}>Email</label>
           <input type="email" value={email} autoComplete="email" placeholder="you@company.com" data-testid="login-email"
             style={{ ...authField, borderColor: error ? 'var(--p-danger)' : 'var(--p-border-strong)' }}
             onChange={(e) => { setEmail(e.target.value); setError(false); }}
             onKeyDown={(e) => e.key === 'Enter' && finish()} autoFocus />
         </div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }} className="gr-rise" data-i="3">
-          <label style={{ font: '500 12px/1.2 Inter', color: 'var(--p-text)', letterSpacing: '.04em', textTransform: 'uppercase' }}>Password</label>
+          <label style={{ font: '500 11px/1.2 var(--font-control)', color: 'var(--p-text)', letterSpacing: '.05em', textTransform: 'uppercase' }}>Password</label>
           <input type="password" value={password} autoComplete="current-password" placeholder="••••••••" data-testid="login-password"
             style={{ ...authField, borderColor: error ? 'var(--p-danger)' : 'var(--p-border-strong)' }}
             onChange={(e) => { setPassword(e.target.value); setError(false); }}
@@ -72,7 +72,7 @@ function LoginScreen({ onSignIn }) {
         </div>
 
         <button data-testid="login-signin-btn" onClick={finish} className="gr-rise" data-i="4"
-          style={{ width: '100%', height: 48, border: 'none', borderRadius: 1, background: 'var(--p-action)', color: 'var(--p-action-fg)', font: '600 15px/1 Inter', cursor: 'pointer' }}>
+          style={{ width: '100%', height: 48, border: 'none', borderRadius: 1, background: 'var(--p-action)', color: 'var(--p-action-fg)', font: '600 13.5px/1 var(--font-control)', letterSpacing: '.01em', cursor: 'pointer' }}>
           Sign In
         </button>
 
@@ -83,11 +83,11 @@ function LoginScreen({ onSignIn }) {
         {/* Dev quick sign-in (development only) — id-based, no client-side secrets (§P) */}
         {DEV_LOGIN_ENABLED && (
           <div style={{ marginTop: 4, paddingTop: 16, borderTop: '1px dashed var(--p-border-strong)', display: 'flex', flexDirection: 'column', gap: 8 }}>
-            <span style={{ font: '500 11px/1.2 Inter', color: 'var(--p-placeholder)', letterSpacing: '.04em', textTransform: 'uppercase', textAlign: 'center' }}>Dev quick sign-in</span>
+            <span style={{ font: '500 10.5px/1.2 var(--font-control)', color: 'var(--p-placeholder)', letterSpacing: '.05em', textTransform: 'uppercase', textAlign: 'center' }}>Dev quick sign-in</span>
             {DEV_ACCOUNTS.map((a) => (
               <button key={a.id} data-testid={`dev-login-${a.label.toLowerCase().replace(/\s+/g, '-')}`} onClick={() => devSignIn(a)}
                 style={{ display: 'flex', alignItems: 'center', gap: 8, justifyContent: 'center', width: '100%', height: 38, padding: '0 12px', borderRadius: 1, cursor: 'pointer',
-                  border: '1px dashed var(--p-border-strong)', background: 'transparent', color: 'var(--p-text-2)', font: '500 13px Inter' }}>
+                  border: '1px dashed var(--p-border-strong)', background: 'transparent', color: 'var(--p-text-2)', font: '500 12px var(--font-control)' }}>
                 <Icon name="bolt" size={15} color="var(--p-muted)" />
                 Sign in as {a.label} ({a.email})
               </button>
@@ -99,7 +99,7 @@ function LoginScreen({ onSignIn }) {
       {/* Theme toggle — flat, bottom-left, no card chrome */}
       <button data-testid="theme-toggle" onClick={cycle}
         style={{ position: 'absolute', left: 20, bottom: 20, display: 'inline-flex', alignItems: 'center', gap: 8,
-          border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--p-muted)', font: '500 13px Inter' }}>
+          border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--p-muted)', font: '500 12px var(--font-control)' }}>
         <Icon name={tMeta.icon} size={18} color="currentColor" /> {tMeta.label}
       </button>
     </div>

@@ -30,10 +30,10 @@ function Pagination({ page = 1, pageCount = 1, onPage }) {
     <div style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
       {navBtn('chevron_left', page - 1, page <= 1, 'prev')}
       {range.map((p, i) => p === '…'
-        ? <span key={'e' + i} style={{ minWidth: 22, textAlign: 'center', color: 'var(--p-placeholder)', font: '500 13px Inter, sans-serif' }}>…</span>
+        ? <span key={'e' + i} style={{ minWidth: 22, textAlign: 'center', color: 'var(--p-placeholder)', font: '500 12px var(--font-control)' }}>…</span>
         : <span key={p} onClick={() => go(p)} style={{
             minWidth: 30, height: 30, padding: '0 8px', borderRadius: 2, display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-            font: '500 13px/1 Inter, sans-serif', cursor: 'pointer',
+            font: '500 12px/1 var(--font-control)', cursor: 'pointer',
             background: p === page ? 'var(--p-action)' : 'transparent', color: p === page ? 'var(--p-action-fg)' : 'var(--p-text)',
           }}>{p}</span>
       )}

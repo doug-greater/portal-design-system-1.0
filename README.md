@@ -151,3 +151,12 @@ This repository is our **shared design system** — the single source of truth f
 
 - **Light = "Dusk Rose"** `#1861AF → #4338CA → #BE185D` (primary navy → pal-9 indigo → pal-7 magenta; all existing token values). **Dark = the "half-step"** `#9FB6D4 → #929ADB → #D38AAD` — the same rose arc at 30% vivid (fully-dusty stops read too flat on the quiet dark chrome; these bespoke blends are the sanctioned middle). Supersedes the 1.11 "stays vivid" exemption.
 - Applies to `--p-intel-gradient`, `--p-intel-start/mid/end`, `--p-intel-tint` (both modes) and the **Echo Pulse** conic rings (a dark variant now exists). **`#007CFF` is fully retired from the system.**
+
+## What's new in Portal 1.12 — "Cockpit"
+
+> *the typography pass: humans read Inter, the machine speaks mono.*
+
+- **JetBrains Mono expands from data into the machine layer.** Two new semantic tokens: **`--font-display`** (page/section/modal titles) and **`--font-control`** (buttons, inputs, selects, filter chips, tabs, menus, pagination + machine labels: table headers, stat labels, overlines + status vocabulary: badges, toasts, liveness chips). Both alias the mono stack — components reference the role, so a future re-tune re-points one token.
+- **Inter deliberately survives** where humans actually read: account/product names, prose, helper copy, nav destinations, category/role pills, and the Home greeting (it addresses the person, not the system).
+- **Details:** status badges go UPPERCASE mono (1–2 word machine states); buttons keep Title Case (mono alone carries the register); 10.5px floor for mono caps labels (reps on phones); no route line (evaluated and dropped).
+- Kit primitives + flagship previews (buttons, controls, live-view, login, table, stat cards, home) updated; remaining specimen pages pick up the pass as they're next touched.
