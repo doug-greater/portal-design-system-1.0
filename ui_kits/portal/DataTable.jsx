@@ -19,7 +19,7 @@ function SortHeader({ label, k, sort, onSort, idPrefix = 'dt', align = 'left', d
   const dir = active ? sort.dir : null;
   const base = {
     display: 'inline-flex', alignItems: 'center', gap: 4,
-    font: '500 11px/1 Inter, sans-serif', letterSpacing: '.07em', textTransform: 'uppercase',
+    font: '500 11px/1 var(--font-control)', letterSpacing: '.08em', textTransform: 'uppercase',   // Cockpit: 11px floor for field/phone use
     justifyContent: align === 'right' ? 'flex-end' : 'flex-start', width: align === 'right' ? '100%' : undefined,
   };
   if (disabled) {
@@ -87,13 +87,13 @@ function DataTableFooter({ page = 1, pageCount = 1, pageSize, total = 0, shown, 
   const end = shown != null ? start + shown - 1 : Math.min(page * per, total);
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 16, padding: '10px 16px', background: 'var(--p-surface-alt)', borderTop: '0.5px solid var(--p-border)', flexWrap: 'wrap' }}>
-      <span data-testid="dt-summary" style={{ font: '400 13px/1 Inter, sans-serif', color: 'var(--p-muted)' }}>
+      <span data-testid="dt-summary" style={{ font: '400 11px/1 var(--font-control)', color: 'var(--p-muted)' }}>
         Showing <b style={{ color: 'var(--p-text)', fontWeight: 600 }}>{start}–{end}</b> of{' '}
         <b style={{ color: 'var(--p-text)', fontWeight: 600 }}>{total.toLocaleString('en-US')}</b> {noun}
         {leading ? ` · ${leading}` : ''}
       </span>
       {onPageSize && pageSize != null && (
-        <label style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginLeft: 'auto', font: '400 13px/1 Inter, sans-serif', color: 'var(--p-muted)' }}>
+        <label style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginLeft: 'auto', font: '400 11px/1 var(--font-control)', color: 'var(--p-muted)' }}>
           {pageSizeLabel}
           <Select value={String(pageSize)} onChange={(v) => onPageSize(Number(v))}
             options={pageSizeOptions.map((n) => ({ value: String(n), label: String(n) }))}

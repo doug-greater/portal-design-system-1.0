@@ -25,7 +25,7 @@ function Toast({ tone = 'success', children, onClose }) {
     <div role="status" style={{
       display: 'inline-flex', alignItems: 'center', gap: 10,
       padding: '13px 22px 13px 18px', borderRadius: 2, background: bg, color: '#fff',
-      font: '500 16px/1.2 Inter, sans-serif', letterSpacing: '-.005em',
+      font: '500 13px/1.35 var(--font-control)', letterSpacing: '0',   // Cockpit: toasts are the machine speaking
       boxShadow: '0 6px 16px rgba(0,0,0,.14), 0 2px 4px rgba(0,0,0,.08)', whiteSpace: 'nowrap',
     }}>
       <MIcon name={tone === 'error' ? 'error' : 'check'} size={22} fill={tone === 'error' ? 1 : 0} color="#fff" />

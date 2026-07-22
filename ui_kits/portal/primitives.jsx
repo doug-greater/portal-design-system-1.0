@@ -79,7 +79,7 @@ function Button({ variant = 'primary', size = 'md', icon, iconRight, children, o
     padding: size === 'sm' ? '0 16px' : size === 'lg' ? '0 28px' : '0 20px',
     minWidth: size === 'sm' ? 64 : size === 'lg' ? 120 : 88,
     borderRadius: 1, cursor: disabled ? 'not-allowed' : 'pointer',
-    font: '500 14px/1 Inter, sans-serif', border: '1px solid transparent',
+    font: '600 12px/1 var(--font-control)', letterSpacing: '.01em', border: '1px solid transparent',   // Cockpit (1.12): controls speak mono
     transition: 'background .12s, border-color .12s', opacity: disabled ? 0.45 : 1,
     whiteSpace: 'nowrap',
   };
@@ -162,7 +162,7 @@ function Input({ icon, value, onChange, placeholder, type = 'text', error, style
         style={{
           width: '100%', height: 36, padding: icon ? `0 ${rightPad}px 0 32px` : `0 ${rightPad}px`,
           border: `1px solid ${error ? 'var(--p-danger)' : focus ? 'var(--p-primary)' : 'var(--p-border-strong)'}`,
-          borderRadius: 1, font: '400 14px Inter, sans-serif',
+          borderRadius: 1, font: '400 13px var(--font-control)',
           color: disabled ? 'var(--p-placeholder)' : 'var(--p-ink)',
           background: disabled ? 'var(--p-surface-tint)' : '#fff',
           cursor: disabled ? 'not-allowed' : 'text',
@@ -236,7 +236,7 @@ function Select({ value, onChange, options = [], placeholder, disabled, style })
       <select value={value} onChange={(e) => onChange?.(e.target.value)} disabled={disabled}
         style={{
           width: '100%', height: 36, padding: '0 34px 0 12px', appearance: 'none', WebkitAppearance: 'none',
-          border: '0.5px solid var(--p-border-strong)', borderRadius: 1, font: '400 14px Inter, sans-serif',
+          border: '0.5px solid var(--p-border-strong)', borderRadius: 1, font: '400 13px var(--font-control)',
           color: disabled ? 'var(--p-placeholder)' : 'var(--p-ink)',
           background: disabled ? 'var(--p-surface-tint)' : '#fff',
           cursor: disabled ? 'not-allowed' : 'pointer', outline: 'none', boxSizing: 'border-box',
@@ -282,7 +282,7 @@ const CHIP_TONES = {
 function Chip({ tone = 'neutral', icon, iconRight, children, title, testid, style }) {
   const t = CHIP_TONES[tone] || CHIP_TONES.neutral;
   return (
-    <span title={title} data-testid={testid} style={{ display: 'inline-flex', alignItems: 'center', gap: 3, height: 19, padding: '0 7px', borderRadius: 999, background: t.bg, color: t.fg, font: '600 10.5px/1 Inter, sans-serif', whiteSpace: 'nowrap', flexShrink: 0, ...style }}>
+    <span title={title} data-testid={testid} style={{ display: 'inline-flex', alignItems: 'center', gap: 3, height: 19, padding: '0 7px', borderRadius: 999, background: t.bg, color: t.fg, font: '600 10px/1 var(--font-control)', whiteSpace: 'nowrap', flexShrink: 0, ...style }}>
       {icon && <Icon name={icon} size={12} color="currentColor" />}{children}{iconRight && <Icon name={iconRight} size={12} color="currentColor" />}
     </span>
   );
@@ -294,7 +294,7 @@ function ChipToggle({ on, onClick, icon, label }) {
     <button onClick={onClick} title={label}
       style={{ display: 'inline-flex', alignItems: 'center', gap: 4, height: 26, padding: '0 9px', borderRadius: 999, cursor: 'pointer', whiteSpace: 'nowrap',
         border: `1px solid ${on ? 'var(--p-primary)' : 'var(--p-border-strong)'}`, background: on ? 'var(--p-primary-tint)' : '#fff',
-        color: on ? 'var(--p-primary-ink)' : 'var(--p-muted)', font: '500 12px/1 Inter, sans-serif' }}>
+        color: on ? 'var(--p-primary-ink)' : 'var(--p-muted)', font: '500 11px/1 var(--font-control)' }}>
       <Icon name={icon} size={13} color={on ? 'var(--p-primary)' : 'var(--p-placeholder)'} /> {label}
     </button>
   );
@@ -368,7 +368,7 @@ function FilterChip({ icon = 'filter_list', label, count, active, onClick }) {
       background: '#fff', borderRadius: 2, cursor: 'pointer',
       border: `1px solid ${active ? 'var(--p-primary)' : 'var(--p-border-strong)'}`,
       color: active ? 'var(--p-primary)' : 'var(--p-ink)',
-      font: '500 14px/1 Inter, sans-serif',
+      font: '500 12px/1 var(--font-control)',
     }}>
       <Icon name={icon} size={12} color={active ? 'var(--p-primary)' : 'var(--p-muted)'} />
       {label}
@@ -393,7 +393,7 @@ function SegmentedTabs({ value, onChange, items }) {
             border: 'none', borderBottom: `2px solid ${on ? 'var(--p-ink)' : 'transparent'}`,
             background: 'transparent', cursor: 'pointer',
             color: on ? 'var(--p-ink)' : 'var(--p-text-2)',
-            font: '600 15px/1 Inter, sans-serif',
+            font: '600 13px/1 var(--font-control)',
             letterSpacing: '-0.005em',
           }}>
             {it.icon && <Icon name={it.icon} size={16} color={on ? 'var(--p-ink)' : 'var(--p-text-2)'} />}
@@ -470,8 +470,8 @@ function StatCard({ value, label, color = 'ink', action, active, onClick }) {
   return (
     <div onClick={onClick} style={{ background: '#fff', border: `1px solid ${active ? c : 'var(--p-border)'}`, borderRadius: 2, padding: '14px 16px', display: 'flex', gap: 10, alignItems: 'baseline', boxShadow: active ? `inset 0 0 0 1px ${c}, var(--shadow-card)` : 'var(--shadow-card)', cursor: onClick ? 'pointer' : 'default', transition: 'border-color .12s, box-shadow .12s' }}>
       <span style={{ font: "700 20px/1 'JetBrains Mono', monospace", color: c, opacity: animOp }}>{animated}</span>
-      <span style={{ font: '400 14px/1.3 Inter, sans-serif', color: 'var(--p-text-2)' }}>{label}</span>
-      {action && <span style={{ marginLeft: 'auto', font: '500 12px/1 Inter, sans-serif', color: active ? c : 'var(--p-muted)', cursor: 'pointer', textDecoration: 'underline', textDecorationColor: active ? c : '#C4C9D2', textDecorationThickness: '1px', textUnderlineOffset: '2px' }}>{action}</span>}
+      <span style={{ font: '500 10px/1.3 var(--font-control)', letterSpacing: '.07em', textTransform: 'uppercase', color: 'var(--p-muted)' }}>{label}</span>   {/* Cockpit: stat labels are machine labels */}
+      {action && <span style={{ marginLeft: 'auto', font: '500 11px/1 var(--font-control)', color: active ? c : 'var(--p-muted)', cursor: 'pointer', textDecoration: 'underline', textDecorationColor: active ? c : '#C4C9D2', textDecorationThickness: '1px', textUnderlineOffset: '2px' }}>{action}</span>}
     </div>
   );
 }

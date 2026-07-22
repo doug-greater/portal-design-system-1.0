@@ -147,12 +147,17 @@
   --p-audit-restored: var(--p-restore);    /* restored → teal (settings_backup_restore)               */
   --p-audit-deleted:  var(--p-danger);     /* deleted  → red  (delete)                                */
 
-  /* ---------- Intelligence Gradient — AI / Confidence / Predictive features ---------- */
-  --p-intel-start:    #007CFF;
-  --p-intel-mid:      #5359F1;
-  --p-intel-end:      #F153A9;
-  --p-intel-gradient: linear-gradient(90deg, #007CFF 0%, #5359F1 50%, #F153A9 100%);
-  --p-intel-tint:     linear-gradient(90deg, rgba(0,124,255,.10) 0%, rgba(83,89,241,.10) 50%, rgba(241,83,169,.10) 100%);
+  /* ---------- Intelligence Gradient — AI / Confidence / Predictive features ----------
+     DUSTED in 1.11.3 (supersedes the vivid brand-moment exemption, Dusk Q2). Light =
+     "Dusk Rose": primary navy → pal-9 indigo → pal-7 magenta — every stop an existing
+     token value. Dark (see the dark block) = the "half-step": the same rose arc at 30%
+     vivid, deliberately BESPOKE stops so the gradient still registers on the quiet
+     chrome. This retires the last #007CFF in the system. */
+  --p-intel-start:    #1861AF;
+  --p-intel-mid:      #4338CA;
+  --p-intel-end:      #BE185D;
+  --p-intel-gradient: linear-gradient(90deg, #1861AF 0%, #4338CA 50%, #BE185D 100%);
+  --p-intel-tint:     linear-gradient(90deg, rgba(24,97,175,.10) 0%, rgba(67,56,202,.10) 50%, rgba(190,24,93,.10) 100%);
 
   /* ---------- Radii — squared off (1.11 "Dusk") ----------
      Controls (buttons, inputs, search, nav rows) sharpen 4px → 1px; containers
@@ -188,10 +193,23 @@
   --space-12:  48px;
   --space-16:  64px;
 
-  /* ---------- Type families ---------- */
+  /* ---------- Type families — the COCKPIT split (1.12) ----------
+     HUMANS READ INTER; THE MACHINE SPEAKS MONO.
+     --font-sans    = content humans read: account/product names, prose, helper copy,
+                      nav destinations, category & role pills, the Home greeting.
+     --font-display = titles & headlines (g-h1/h2/h3, modal & drawer titles).
+     --font-control = everything the user OPERATES (buttons, inputs, selects, filter
+                      chips, tabs, menus, pagination) + machine labels (table headers,
+                      stat labels, section titles, overlines) + status vocabulary
+                      (badges, toasts, liveness chips).
+     display/control both resolve to the mono stack — they stay SEMANTIC so a future
+     re-tune can re-point one role without touching components.
+     --font-mono    = data cells, ids, numerals, kbd (unchanged since 1.11). */
   --font-sans: "Inter", "Inter Fallback", -apple-system, BlinkMacSystemFont,
                "Segoe UI", Helvetica, Arial, sans-serif;
   --font-mono: "JetBrains Mono", "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;  /* JetBrains Mono since 1.11 (self-hosted, fonts/); Geist kept as fallback */
+  --font-display: var(--font-mono);   /* Cockpit titles (1.12) */
+  --font-control: var(--font-mono);   /* Cockpit controls + machine labels (1.12) */
 
   /* ---------- Type — raw sizes (px) ---------- */
   --fs-10: 10px;  /* legal / fine print                             */
@@ -320,10 +338,13 @@ html[data-theme="dark"] {
   --p-danger-soft: rgba(216,75,75,.18); --g-gold-04: rgba(226,163,54,.08);   /* §Amber/Red editing law — dark */
   --g-orange-10: rgba(229,202,174,.15); --g-blue-10: rgba(173,189,209,.16);
 
-  /* Intelligence gradient — stays VIVID by design (1.11 Q2): the one sanctioned loud
-     brand moment. Its start hue no longer matches --p-primary; that's fine — it's a
-     brand asset, not a UI state. */
-  --p-intel-gradient: linear-gradient(90deg, #3B82F6 0%, #6366F1 50%, #EC4899 100%);
+  /* Intelligence gradient — the "HALF-STEP" Dusk Rose (1.11.3; supersedes the 1.11
+     vivid exemption). The rose arc at 30% vivid: fully-dusty pal stops read too flat
+     on the quiet dark chrome, fully-vivid was off-palette — these bespoke blends are
+     the sanctioned middle. Starts near --p-primary steel, ends dusty rose. */
+  --p-intel-start: #9FB6D4; --p-intel-mid: #929ADB; --p-intel-end: #D38AAD;
+  --p-intel-gradient: linear-gradient(90deg, #9FB6D4 0%, #929ADB 50%, #D38AAD 100%);
+  --p-intel-tint: linear-gradient(90deg, rgba(159,182,212,.12) 0%, rgba(146,154,219,.12) 50%, rgba(211,138,173,.12) 100%);
 
   /* Elevation — inset highlight + deep shadow (NOT light drop shadows) */
   --shadow-tooltip: inset 0 1px 1px rgba(255,255,255,.08), 0 4px 8px rgba(0,0,0,.6), 0 0 0 1px var(--p-border);
@@ -365,39 +386,39 @@ html[data-theme="dark"] {
   color: var(--fg-1);
 }
 
-/* Page title used across the PORTAL (Inter Semibold 28, tight tracking — 28px since 1.11) */
+/* Page title used across the PORTAL (JetBrains Mono Semibold since 1.12 "Cockpit") */
 .g-h1 {
-  font: 600 var(--fs-28)/1.25 var(--font-sans);
-  letter-spacing: -0.025em;
+  font: 600 26px/1.25 var(--font-display);
+  letter-spacing: -0.03em;
   color: var(--fg-1);
 }
 
-/* Headline 2 — compact page title (Inter Semibold 20) */
+/* Headline 2 — compact page title (mono since 1.12) */
 .g-h2 {
-  font: 600 var(--fs-20)/1.2 var(--font-sans);
-  letter-spacing: 0;
+  font: 600 18px/1.25 var(--font-display);
+  letter-spacing: -0.02em;
   color: var(--fg-1);
 }
 
-/* Headline 3 — secondary info (Inter Regular 18, 105% tracking) */
+/* Headline 3 — secondary heading (mono since 1.12; auth title) */
 .g-h3 {
-  font: 400 var(--fs-18)/1.33 var(--font-sans);
-  letter-spacing: 0.05em;
+  font: 500 17px/1.35 var(--font-display);
+  letter-spacing: -0.01em;
   color: var(--fg-1);
 }
 
-/* Section title / column header — Inter Medium 13 UPPERCASE, muted (matches shipped portal) */
+/* Section title / column header — mono UPPERCASE machine label (1.12) */
 .g-section-title {
-  font: 500 13px/1 var(--font-sans);
-  letter-spacing: 0.06em;
+  font: 500 12px/1 var(--font-control);
+  letter-spacing: 0.07em;
   text-transform: uppercase;
   color: var(--p-muted);
 }
 
-/* Subtitle under H1 — Inter Medium 14 UPPERCASE medium-gray */
+/* Subtitle under H1 — mono UPPERCASE machine label (1.12) */
 .g-subtitle-1 {
-  font: 500 var(--fs-14)/1.15 var(--font-sans);
-  letter-spacing: 0.05em;
+  font: 500 12px/1.15 var(--font-control);
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--g-medium-gray);
 }
@@ -420,18 +441,18 @@ html[data-theme="dark"] {
 /* Body 4 — toggle descriptions (105% tracking) */
 .g-body-4 { font: 400 var(--fs-16)/1.4 var(--font-sans); letter-spacing: 0.025em; color: var(--fg-2); }
 
-/* Overline — 12px Inter Regular dark-gray, 105% tracking, caps */
+/* Overline — mono machine label (1.12), caps */
 .g-overline {
-  font: 400 var(--fs-12)/1.2 var(--font-sans);
-  letter-spacing: 0.05em;
+  font: 400 11px/1.2 var(--font-control);
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--g-dark-gray);
 }
 
 /* Overline-tag — overline on soft-gray pill */
 .g-overline-tag {
-  font: 400 var(--fs-12)/1.2 var(--font-sans);
-  letter-spacing: 0.05em;
+  font: 400 11px/1.2 var(--font-control);
+  letter-spacing: 0.06em;
   color: var(--g-dark-gray);
   background: var(--g-off-white);
   padding: 1px 4px;
@@ -492,8 +513,8 @@ mark.gr-hl { background: var(--p-highlight); color: var(--p-highlight-fg); borde
 .g-kebab { width: 28px; height: 28px; border-radius: var(--radius-md); display: inline-flex; align-items: center; justify-content: center; color: var(--p-muted); cursor: pointer; border: none; background: transparent; transition: background .12s, color .12s; }
 .g-kebab:hover { background: rgba(0,0,0,.05); color: var(--p-text); }
 
-/* Split button — main action + caret disclosure. Intents: .primary / .error. */
-.g-split { display: inline-flex; height: 28px; border-radius: var(--radius-md); overflow: hidden; font: 500 13px/1 var(--font-sans); vertical-align: middle; box-sizing: border-box; }
+/* Split button — main action + caret disclosure. Intents: .primary / .error. Mono since 1.12. */
+.g-split { display: inline-flex; height: 28px; border-radius: var(--radius-md); overflow: hidden; font: 500 12px/1 var(--font-control); vertical-align: middle; box-sizing: border-box; }
 .g-split .g-split-main  { display: inline-flex; align-items: center; gap: 6px; padding: 0 11px; cursor: pointer; border: none; background: transparent; font: inherit; color: inherit; }
 .g-split .g-split-caret { display: inline-flex; align-items: center; justify-content: center; width: 26px; cursor: pointer; border: none; background: transparent; color: inherit; }
 /* Ink fill + a NEUTRAL caret divider that survives BOTH fills (a white divider would
@@ -591,10 +612,15 @@ body, aside { transition: background-color .2s ease, color .2s ease; }
   width: var(--ep-ring); height: var(--ep-ring);
   margin: calc(var(--ep-ring) / -2) 0 0 calc(var(--ep-ring) / -2);
   border-radius: 50%; opacity: 0;
-  background: conic-gradient(from -90deg, #007CFF 0deg, #5359F1 130deg, #F153A9 250deg, #5359F1 310deg, #007CFF 360deg);
+  background: conic-gradient(from -90deg, #1861AF 0deg, #4338CA 130deg, #BE185D 250deg, #4338CA 310deg, #1861AF 360deg);
   -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 2px), #000 calc(100% - 2px));
           mask: radial-gradient(farthest-side, #0000 calc(100% - 2px), #000 calc(100% - 2px));
   animation: ep-echo var(--ep-speed) ease-out infinite;
+}
+/* dark: the half-step rose arc (1.11.3) */
+html[data-theme="dark"] .echo-pulse::before,
+html[data-theme="dark"] .echo-pulse::after {
+  background: conic-gradient(from -90deg, #9FB6D4 0deg, #929ADB 130deg, #D38AAD 250deg, #929ADB 310deg, #9FB6D4 360deg);
 }
 .echo-pulse::after { animation-delay: calc(var(--ep-speed) / -2); }
 @keyframes ep-echo { 0% { transform: scale(.55); opacity: .55; } 80% { opacity: 0; } 100% { transform: scale(1.9); opacity: 0; } }
