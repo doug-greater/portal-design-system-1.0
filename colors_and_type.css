@@ -417,7 +417,7 @@ html[data-theme="dark"] {
 
 /* Subtitle under H1 — mono UPPERCASE machine label (1.12) */
 .g-subtitle-1 {
-  font: 500 12.5px/1.15 var(--font-control);
+  font: 500 12px/1.15 var(--font-control);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--g-medium-gray);
@@ -443,7 +443,7 @@ html[data-theme="dark"] {
 
 /* Overline — mono machine label (1.12), caps */
 .g-overline {
-  font: 400 11.5px/1.2 var(--font-control);
+  font: 400 11px/1.2 var(--font-control);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--g-dark-gray);
@@ -451,7 +451,7 @@ html[data-theme="dark"] {
 
 /* Overline-tag — overline on soft-gray pill */
 .g-overline-tag {
-  font: 400 11.5px/1.2 var(--font-control);
+  font: 400 11px/1.2 var(--font-control);
   letter-spacing: 0.06em;
   color: var(--g-dark-gray);
   background: var(--g-off-white);

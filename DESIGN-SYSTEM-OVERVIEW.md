@@ -417,7 +417,7 @@ coverage:
   status vocabulary (`--font-control` — buttons, inputs, selects, chips, tabs, menus, pagination,
   table headers, stat labels, overlines, badges, toasts); Inter survives for names, prose, helpers,
   nav destinations, pills, and the Home greeting; badges go uppercase mono; buttons keep Title Case;
-  10.5px mono-caps floor for field use.
+  mono sizes on an integer 10/11/12/13 scale (fractional sizes removed, 1.12.1; scanning caps at 11+ for field use).
 
 **Terminology (1.1 canon).** "Store Promotions" (short "Store Promos", `/store-promotions`),
 "POD Planner" (`/pod-planner`), "Audit Log" (events Created / Updated / Restored / Deleted;

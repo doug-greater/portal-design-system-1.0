@@ -22,7 +22,7 @@
     .g-split.error .g-split-caret { border-left:1px solid rgba(255,255,255,.32); }
     .g-split.error .g-split-main:hover, .g-split.error .g-split-caret:hover { background:rgba(255,255,255,.14); }
     .g-menu { background:#fff; border:0.5px solid var(--p-border); border-radius:2px; box-shadow:var(--shadow-float); padding:4px; min-width:208px; }
-    .g-menu-item { display:flex; align-items:center; gap:10px; height:34px; padding:0 10px; border-radius:2px; font:500 12.5px/1 var(--font-control); color:var(--p-ink); cursor:pointer; white-space:nowrap; }
+    .g-menu-item { display:flex; align-items:center; gap:10px; height:34px; padding:0 10px; border-radius:2px; font:500 12px/1 var(--font-control); color:var(--p-ink); cursor:pointer; white-space:nowrap; }
     .g-menu-item:hover { background:var(--p-surface-alt); }
     .g-menu-item.danger { color:var(--p-danger); }
     .g-menu-kbd { margin-left:auto; font:400 11px 'JetBrains Mono',monospace; color:var(--p-placeholder); }

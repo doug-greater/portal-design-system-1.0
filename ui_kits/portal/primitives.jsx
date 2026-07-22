@@ -79,7 +79,7 @@ function Button({ variant = 'primary', size = 'md', icon, iconRight, children, o
     padding: size === 'sm' ? '0 16px' : size === 'lg' ? '0 28px' : '0 20px',
     minWidth: size === 'sm' ? 64 : size === 'lg' ? 120 : 88,
     borderRadius: 1, cursor: disabled ? 'not-allowed' : 'pointer',
-    font: '600 12.5px/1 var(--font-control)', letterSpacing: '.01em', border: '1px solid transparent',   // Cockpit (1.12): controls speak mono
+    font: '600 12px/1 var(--font-control)', letterSpacing: '.01em', border: '1px solid transparent',   // Cockpit (1.12): controls speak mono
     transition: 'background .12s, border-color .12s', opacity: disabled ? 0.45 : 1,
     whiteSpace: 'nowrap',
   };
@@ -368,7 +368,7 @@ function FilterChip({ icon = 'filter_list', label, count, active, onClick }) {
       background: '#fff', borderRadius: 2, cursor: 'pointer',
       border: `1px solid ${active ? 'var(--p-primary)' : 'var(--p-border-strong)'}`,
       color: active ? 'var(--p-primary)' : 'var(--p-ink)',
-      font: '500 12.5px/1 var(--font-control)',
+      font: '500 12px/1 var(--font-control)',
     }}>
       <Icon name={icon} size={12} color={active ? 'var(--p-primary)' : 'var(--p-muted)'} />
       {label}
@@ -393,7 +393,7 @@ function SegmentedTabs({ value, onChange, items }) {
             border: 'none', borderBottom: `2px solid ${on ? 'var(--p-ink)' : 'transparent'}`,
             background: 'transparent', cursor: 'pointer',
             color: on ? 'var(--p-ink)' : 'var(--p-text-2)',
-            font: '600 13.5px/1 var(--font-control)',
+            font: '600 13px/1 var(--font-control)',
             letterSpacing: '-0.005em',
           }}>
             {it.icon && <Icon name={it.icon} size={16} color={on ? 'var(--p-ink)' : 'var(--p-text-2)'} />}

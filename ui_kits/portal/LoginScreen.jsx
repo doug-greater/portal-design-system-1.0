@@ -72,7 +72,7 @@ function LoginScreen({ onSignIn }) {
         </div>
 
         <button data-testid="login-signin-btn" onClick={finish} className="gr-rise" data-i="4"
-          style={{ width: '100%', height: 48, border: 'none', borderRadius: 1, background: 'var(--p-action)', color: 'var(--p-action-fg)', font: '600 13.5px/1 var(--font-control)', letterSpacing: '.01em', cursor: 'pointer' }}>
+          style={{ width: '100%', height: 48, border: 'none', borderRadius: 1, background: 'var(--p-action)', color: 'var(--p-action-fg)', font: '600 13px/1 var(--font-control)', letterSpacing: '.01em', cursor: 'pointer' }}>
           Sign In
         </button>
 
@@ -83,7 +83,7 @@ function LoginScreen({ onSignIn }) {
         {/* Dev quick sign-in (development only) — id-based, no client-side secrets (§P) */}
         {DEV_LOGIN_ENABLED && (
           <div style={{ marginTop: 4, paddingTop: 16, borderTop: '1px dashed var(--p-border-strong)', display: 'flex', flexDirection: 'column', gap: 8 }}>
-            <span style={{ font: '500 10.5px/1.2 var(--font-control)', color: 'var(--p-placeholder)', letterSpacing: '.05em', textTransform: 'uppercase', textAlign: 'center' }}>Dev quick sign-in</span>
+            <span style={{ font: '500 11px/1.2 var(--font-control)', color: 'var(--p-placeholder)', letterSpacing: '.05em', textTransform: 'uppercase', textAlign: 'center' }}>Dev quick sign-in</span>
             {DEV_ACCOUNTS.map((a) => (
               <button key={a.id} data-testid={`dev-login-${a.label.toLowerCase().replace(/\s+/g, '-')}`} onClick={() => devSignIn(a)}
                 style={{ display: 'flex', alignItems: 'center', gap: 8, justifyContent: 'center', width: '100%', height: 38, padding: '0 12px', borderRadius: 1, cursor: 'pointer',
