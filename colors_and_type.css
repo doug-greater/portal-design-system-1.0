@@ -386,11 +386,27 @@ html[data-theme="dark"] {
   color: var(--fg-1);
 }
 
-/* Page title used across the PORTAL (JetBrains Mono Semibold since 1.12 "Cockpit") */
+/* SYSTEM title — the H1 when it names a surface or tool (JetBrains Mono since 1.12 "Cockpit") */
 .g-h1 {
   font: 600 26px/1.25 var(--font-display);
   letter-spacing: -0.03em;
   color: var(--fg-1);
+}
+
+/* ENTITY title — the H1 slot when it holds a RECORD'S name (1.12.2 §8). The machine
+   doesn't speak someone's name; it presents it — so an account / user / product name
+   in the H1 stays Inter, matching that name's voice everywhere else (table cells, ⌘K).
+   Mono H1 = "you're on a system surface"; Inter H1 = "you're looking at a record."
+   Long names truncate — never wrap. Mixed surfaces switch per state (aggregate
+   Coverage Map → .g-h1; scoped to one product → .g-h1-entity). */
+.g-h1-entity {
+  font: 700 28px/1.1 var(--font-sans);
+  letter-spacing: -0.02em;
+  color: var(--fg-1);
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Headline 2 — compact page title (mono since 1.12) */
@@ -429,8 +445,10 @@ html[data-theme="dark"] {
   color: var(--g-medium-gray);
 }
 
-/* Body 1 — standard page & table content */
-.g-body-1 { font: 400 var(--fs-16)/1.4 var(--font-sans); color: var(--fg-2); }
+/* Body 1 — standard page & table content / page subtitle. 16 → 15px (1.12.2 §5):
+   16 read too heavy under the 26px mono H1 (mono runs optically wider/denser than the
+   sans it replaced). Odd size is fine — the integer-scale rule applies to mono only. */
+.g-body-1 { font: 400 15px/1.4 var(--font-sans); color: var(--fg-2); }
 
 /* Body 2 — emphasized */
 .g-body-2 { font: 700 var(--fs-16)/1.4 var(--font-sans); color: var(--fg-1); }
@@ -459,9 +477,12 @@ html[data-theme="dark"] {
   border-radius: var(--radius-sm);
 }
 
-/* Text hyperlink — Inter Medium, primary blue */
+/* Text hyperlink — mono Medium, primary blue. Mono since 1.12.2 §3: a link that does
+   something or takes you somewhere on click is a MACHINE DIRECTION, not prose.
+   (Links inside running sentences follow their sentence's voice — see .g-textlink.) */
 .g-link {
   display: inline;
+  font-family: var(--font-control);
   font-weight: 500;
   color: var(--p-primary);
   text-decoration: none;
@@ -514,7 +535,9 @@ mark.gr-hl { background: var(--p-highlight); color: var(--p-highlight-fg); borde
 .g-kebab:hover { background: rgba(0,0,0,.05); color: var(--p-text); }
 
 /* Split button — main action + caret disclosure. Intents: .primary / .error. Mono since 1.12. */
-.g-split { display: inline-flex; height: 28px; border-radius: var(--radius-md); overflow: hidden; font: 500 12px/1 var(--font-control); vertical-align: middle; box-sizing: border-box; }
+/* A split button grows to fit its label; the label NEVER wraps (1.12.2 §7) — if space
+   genuinely can't fit it, shorten the label. */
+.g-split { display: inline-flex; height: 28px; border-radius: var(--radius-md); overflow: hidden; font: 500 12px/1 var(--font-control); white-space: nowrap; vertical-align: middle; box-sizing: border-box; }
 .g-split .g-split-main  { display: inline-flex; align-items: center; gap: 6px; padding: 0 11px; cursor: pointer; border: none; background: transparent; font: inherit; color: inherit; }
 .g-split .g-split-caret { display: inline-flex; align-items: center; justify-content: center; width: 26px; cursor: pointer; border: none; background: transparent; color: inherit; }
 /* Ink fill + a NEUTRAL caret divider that survives BOTH fills (a white divider would
