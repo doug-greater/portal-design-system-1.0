@@ -160,3 +160,32 @@ This repository is our **shared design system** — the single source of truth f
 - **Inter deliberately survives** where humans actually read: account/product names, prose, helper copy, nav destinations, category/role pills, and the Home greeting (it addresses the person, not the system).
 - **Details:** status badges go UPPERCASE mono (1–2 word machine states); buttons keep Title Case (mono alone carries the register); mono sizes on an **integer scale** (10 / 11 / 12 / 13 — fractional sizes evaluated and removed in 1.12.1; scanning caps sit at 11+ for reps on phones); no route line (evaluated and dropped).
 - Kit primitives + flagship previews (buttons, controls, live-view, login, table, stat cards, home) updated; remaining specimen pages pick up the pass as they're next touched.
+
+### 1.12.2 — Cockpit typography clarifications (post-port, from real usage)
+
+- **The litmus test** that resolves every Inter ↔ mono edge case: *a **destination or descriptor** a
+  human reads to find their way or understand content → Inter; a **control, datum, or the machine
+  addressing the operator** → mono.* Corollaries: navigation is a **role, not a location**; page
+  title is a **role, not a literal**; **an entity's name is content wherever it appears**; machine
+  **speech** is mono at any length, but machine **documents** are content.
+- **Filter Menu boundary drawn:** rail categories, pane header, and value rows (entity names) are
+  wayfinding/content → **Inter**; the trigger, group overlines, count pills, Select-all, and footer
+  count are machine vocabulary → **mono** (spec table in §9 Filter Menu).
+- **The Home greeting reverses to mono** (`.g-h1`) — it *is* the page's H1 AND the machine speaking;
+  supersedes the 1.12 Inter exception.
+- **Two-tier titles:** new **`.g-h1-entity`** (Inter 700 28/1.1, nowrap + ellipsis) for an H1 holding
+  a *record's* name — mono H1 = system surface, Inter H1 = you're looking at a record. Mixed surfaces
+  switch per state (aggregate Coverage Map → mono; scoped to one product → the product's name, Inter).
+- **Text links go mono** (`.g-link`, `BackLink`, standalone action links — machine directions);
+  links inside running sentences (`.g-textlink`) keep their sentence's voice. 11/12/13px link sizes
+  are all legal — the size rule is *integer*, never even-only.
+- **Content pills stay Inter Title Case** (Beer, Sales Rep, account types) vs UPPERCASE-mono status
+  badges (ACTIVE, PENDING) — the discriminator is *vocabulary*, not shape.
+- **Sizing:** `.g-body-1` 16 → **15px** (pairing under the 26px mono H1; the integer rule is
+  mono-only) · `SegmentedTabs` 13 → **600 14px mono** (the scale gains a 14 step) · split-button
+  labels **never wrap** (`white-space: nowrap` — shorten the label instead).
+- **Conversational surfaces:** assistant reply prose = **mono 14/1.7** (machine speech, verbatim);
+  user bubbles = Inter; entity names in response tables stay Inter; and in conversational inputs
+  **the typed value renders in the voice of its author** — mono placeholder, Inter as you type.
+  General form/search inputs are unaffected (values entering records are data → mono).
+

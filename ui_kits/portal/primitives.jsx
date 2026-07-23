@@ -54,7 +54,7 @@ function BackLink({ label, onClick, to, testid, style }) {
   };
   const css = { display: 'inline-flex', alignItems: 'center', gap: 3, border: 'none',
     background: 'transparent', padding: '2px 6px 2px 2px', marginLeft: -2, cursor: 'pointer',
-    font: '500 13px/1 Inter', color: 'var(--p-primary)', textDecoration: 'none', ...style };
+    font: '500 13px/1 var(--font-control)', color: 'var(--p-primary)', textDecoration: 'none', ...style };   // links are machine directions (1.12.2 §3)
   const inner = <><Icon name="chevron_left" size={18} color="currentColor" /> <span className="gr-back-label">{label}</span></>;
   return to
     ? <a href={to} onClick={handle} className="gr-back" data-testid={testid} style={css}>{inner}</a>
@@ -393,7 +393,7 @@ function SegmentedTabs({ value, onChange, items }) {
             border: 'none', borderBottom: `2px solid ${on ? 'var(--p-ink)' : 'transparent'}`,
             background: 'transparent', cursor: 'pointer',
             color: on ? 'var(--p-ink)' : 'var(--p-text-2)',
-            font: '600 13px/1 var(--font-control)',
+            font: '600 14px/1 var(--font-control)',   // 13 → 14 (1.12.2 §6): page-level tabs sit a step above 13px controls
             letterSpacing: '-0.005em',
           }}>
             {it.icon && <Icon name={it.icon} size={16} color={on ? 'var(--p-ink)' : 'var(--p-text-2)'} />}

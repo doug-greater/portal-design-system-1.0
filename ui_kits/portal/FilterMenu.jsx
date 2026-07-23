@@ -9,6 +9,11 @@
 //        - large sets (Account: thousands) → type-to-search + pinned selections
 // Applied filters render as removable TOKENS in the bar so they stay visible
 // and the bar never grows with the number of filterable columns.
+//
+// Fonts (1.12.2 §1) — "navigation is a role, not a location": the rail items, pane
+// header, and value rows are WAYFINDING/CONTENT (entity names) and stay Inter, same
+// as side-nav labels; the trigger, group overlines, count pills, Select-all row, and
+// footer count are MACHINE vocabulary and speak mono.
 
 const { useState: _useState, useEffect: _useEffect, useRef: _useRef, useMemo: _useMemo } = React;
 
@@ -50,7 +55,7 @@ const fmStyles = {
     display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 26, height: '100%',
     borderLeft: '0.5px solid var(--p-border)', cursor: 'pointer', color: 'var(--p-placeholder)', background: 'transparent', borderTop: 'none', borderRight: 'none', borderBottom: 'none',
   },
-  clearAll: { background: 'transparent', border: 'none', cursor: 'pointer', font: '500 13px/1 Inter, sans-serif', color: 'var(--p-primary)', padding: '0 4px' },
+  clearAll: { background: 'transparent', border: 'none', cursor: 'pointer', font: '500 13px/1 var(--font-control)', color: 'var(--p-primary)', padding: '0 4px' },   // action link → mono (1.12.2 §3)
   pop: {
     position: 'absolute', top: 'calc(100% + 8px)', left: 0, zIndex: 60,
     width: 540, background: '#fff', border: '0.5px solid var(--p-border)', borderRadius: 2,
@@ -66,25 +71,25 @@ const fmStyles = {
     font: on ? '600 14px/1 Inter, sans-serif' : '400 14px/1 Inter, sans-serif',
     color: on ? 'var(--p-primary)' : 'var(--p-text)',
   }),
-  railCount: { marginLeft: 'auto', font: '500 11px Geist Mono, monospace', color: 'var(--p-primary)', background: 'var(--p-primary-soft)', padding: '1px 6px', borderRadius: 999 },
+  railCount: { marginLeft: 'auto', font: '500 11px var(--font-control)', color: 'var(--p-primary)', background: 'var(--p-primary-soft)', padding: '1px 6px', borderRadius: 999 },
   pane: { flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 },
   paneHead: { padding: '14px 16px 10px', borderBottom: '0.5px solid var(--p-border)' },
   list: { flex: 1, overflowY: 'auto', padding: '6px 8px' },
-  groupLabel: { font: '500 10px/1 Inter, sans-serif', letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--p-muted)', padding: '10px 10px 6px' },
+  groupLabel: { font: '500 10px/1 var(--font-control)', letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--p-muted)', padding: '10px 10px 6px' },   // machine overline (1.12.2 §1)
   valRow: {
     display: 'flex', alignItems: 'center', gap: 10, minHeight: 34, padding: '4px 10px',
     borderRadius: 2, cursor: 'pointer', font: '400 14px/1.3 Inter, sans-serif', color: 'var(--p-ink)',
   },
   selectAll: {
     display: 'flex', alignItems: 'center', gap: 10, minHeight: 36, padding: '4px 10px', margin: '2px 0 4px',
-    borderRadius: 2, cursor: 'pointer', font: '500 14px/1.3 Inter, sans-serif',
+    borderRadius: 2, cursor: 'pointer', font: '500 12px/1.3 var(--font-control)',   // bulk-select control → mono (1.12.2 §1)
     borderBottom: '0.5px solid var(--p-border)',
   },
   valSub: { font: '400 12px Inter, sans-serif', color: 'var(--p-muted)', marginLeft: 'auto', whiteSpace: 'nowrap' },
   capNote: { font: '400 12px/1.4 Inter, sans-serif', color: 'var(--p-muted)', padding: '10px 12px', textAlign: 'center' },
   empty: { font: '400 13px/1.4 Inter, sans-serif', color: 'var(--p-muted)', padding: '24px 12px', textAlign: 'center' },
   footer: { display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', borderTop: '0.5px solid var(--p-border)', background: 'var(--p-surface-alt)' },
-  footCount: { font: '400 13px Inter, sans-serif', color: 'var(--p-muted)' },
+  footCount: { font: '400 11px var(--font-control)', color: 'var(--p-muted)' },   // machine count readout (1.12.2 §1)
 };
 
 const _MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -203,7 +208,7 @@ function FilterMenu({ attributes, value, onChange, resultLabel }) {
         display: 'inline-flex', alignItems: 'center', gap: 6, height: 32, padding: '0 12px',
         background: totalCount > 0 ? 'var(--p-primary-tint)' : '#fff', borderRadius: 2, cursor: 'pointer',
         border: `1px solid ${(open || totalCount > 0) ? 'var(--p-primary)' : 'var(--p-border-strong)'}`,
-        color: (open || totalCount > 0) ? 'var(--p-primary)' : 'var(--p-ink)', font: '500 14px/1 Inter, sans-serif',
+        color: (open || totalCount > 0) ? 'var(--p-primary)' : 'var(--p-ink)', font: '500 12px/1 var(--font-control)',   // control trigger → mono, FilterChip parity (1.12.2 §1)
       }}>
         <Icon name="filter_list" size={13} color={(open || totalCount > 0) ? 'var(--p-primary)' : 'var(--p-muted)'} />
         Filters

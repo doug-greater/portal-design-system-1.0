@@ -1,5 +1,5 @@
 # Greater Design System
-### Portal 1.12 "Cockpit" · July 2026
+### Portal 1.12.2 "Cockpit" · July 2026
 
 > Greater Industries builds AI that helps wholesalers and distributors make the smartest, most efficient, most profitable decisions across their entire business. From warehouse workers and truck drivers to sales reps and owners — Greater's portal is the cockpit that connects the people who power local economies.
 
@@ -46,6 +46,7 @@
    - **New in 1.9 (Home + shareable URLs + anchor navigation):** **AppLink** — navigation renders a real `<a href>` (open-in-new-tab / ⌘-click) while routing plain clicks through the NavGuard; the **anchor-navigation law** (§9 / §12 / §15) · **stretched-link rows** for clickable table rows (§9 Tables) · `BackLink` gains `to`; external links are real `<a target=_blank>` · **URL filter-state** (`urlFilters.js`) is the single source of truth, relative presets persist as a key *[supersedes `sessionStorage`/`filterPersist`]* (§ Deep-linking / State & URLs) · **Saved Views** + `SaveViewButton` (§9) · **Home dashboard** — role-gated drag-orderable Health Stat Cards + a Saved-Views grid + the Crow Fact easter egg (§9 / §12) · **Login → single page** *[supersedes the 1.5 two-step]* (§9) · App Shell nav **collapsed-by-default + auto-expand-active + animated** (grid-rows + stagger), landing item **Home** (`home`) (§8 / §9 / §10) · role-gating keys off **real role ids** (§15)
    - **New in 1.11 "Dusk" (dark-first · dusty palette · sharp corners · JetBrains Mono):** **dark is the default theme** — first-run pref = `dark`, previews bootstrap dark, docs author dark-first (§3 Theming) · **Dusk palette** — primary `#007CFF/#3B82F6 → #1861AF/#ADBDD1` (light link contrast 3.9→6.3:1; dark selection goes quiet steel), feedback trio dusted in both modes, all derived tints/focus rings/`::selection`/live-pulse re-based (§3) · the **`--p-pal-1…10` badge ramp** ported from the app — one fg per slot + computed 15% `color-mix` tints; role/category pill pairs are now pal-derived compat aliases; **dusty dark variants** incl. reserved slots 7–10; dark genstock aligns to pal-1 (§3 / §9 Role Pills) · **deepened dark neutrals** (near-black shell `#0F0F0F` → nav `#131316` → surface `#161618` → surface-alt `#202022`; ink stays off-white `#F2F2F4`; new `--p-surface-nav` token — the sidebar recedes a step below content) (§3) · **radii squared** — controls 4→**1px**, cards/menus/floats 6–10→**2px**, pills stay round (§6) · **0.5px hairline strokes** on fields/cards/tables + **×0.25 light shadows** (§6/§7) · **JetBrains Mono** replaces Geist Mono (self-hosted variable woff2) (§4 / `fonts/`) · page title **28px** (`--fs-28`) (§4) · **exempt by design:** the Conditions map palette (legibility) and the Intelligence gradient (brand moment) stay vivid · hardcoded old blues swept portal-wide (`BRAND_BLUE`, Toggle/Checkbox, `.g-link` dot, live-map pins, `gr-livedot` → `--p-pulse`)
    - **New in 1.12 "Cockpit" (typography — humans read Inter, the machine speaks mono):** JetBrains Mono expands from data into **titles** (`.g-h1/h2/h3`, modal/drawer titles — new `--font-display`) and **everything the user operates + machine labels + status vocabulary** (buttons, inputs, selects, filter chips, tabs, menus, pagination, table headers, stat labels, section titles/overlines, badges, toasts, liveness chips — new `--font-control`); both tokens are semantic aliases of the mono stack (§4). **Inter deliberately survives** for content humans read: account/product names, prose, helper copy, nav destinations, category/role pills, the Home greeting. **Status badges go UPPERCASE mono**; buttons keep **Title Case**; mono sizes land on an **integer scale** — 10 · 11 · 12 · 13 (no fractional sizes; caps labels used for scanning sit at 11+ for field/phone use). Config locked from the approved Cockpit mock: no route line, Title Case controls. Kit + flagship previews updated; remaining preview pages sweep as touched.
+   - **New in 1.12.2 (Cockpit typography clarifications — post-port, from real usage; adds the litmus test):** *is it a **destination/descriptor** a human reads → Inter; a **control, datum, or the machine addressing the operator** → mono* — with four corollaries: navigation is a **role, not a location**; page title is a **role, not a literal**; **an entity's name is content wherever it appears**; machine **speech** is mono at any length but machine **documents** are content (§4). Concretely: **Filter Menu** rail/pane-header/value rows = Inter, its trigger/overlines/counts/Select-all/footer = mono (§9 Filter Menu) · the **Home greeting reverses to mono** (`.g-h1` — it's the page title AND the machine speaking; supersedes the 1.12 Inter exception) · **two-tier titles** — new **`.g-h1-entity`** (Inter 700 28/1.1, nowrap+ellipsis) for H1s holding a *record's* name; `.g-h1` mono = system surface (§4) · **text links go mono** (`.g-link`, `BackLink`, action links — machine directions; in-sentence `.g-textlink` keeps its sentence's voice) · **content pills stay Inter Title Case** vs UPPERCASE-mono status badges — the discriminator is *vocabulary*, not shape · **`.g-body-1` 16 → 15px** (pairing under the 26px mono H1; integer rule is mono-only, odd Inter sizes fine) · **`SegmentedTabs` 13 → 600 14px mono** (scale gains a 14 step) · **split-button labels never wrap** (`white-space: nowrap`) · **conversational surfaces**: assistant reply prose = mono `14/1.7`, user bubbles = Inter, and in conversational inputs *the typed value renders in the voice of its author* (mono placeholder → Inter as you type; general form inputs unaffected).
    - **New in 1.11.3 (Intelligence gradient dusted — supersedes the 1.11 "vivid" exemption):** the gradient joins Dusk. **Light = "Dusk Rose"** `#1861AF → #4338CA → #BE185D` (primary navy → pal-9 indigo → pal-7 magenta — all existing token values); **dark = the "half-step"** `#9FB6D4 → #929ADB → #D38AAD` (the rose arc at 30% vivid — fully-dusty stops read too flat on the quiet chrome; these bespoke blends are the sanctioned middle). Applies to `--p-intel-gradient` / `--p-intel-start/mid/end` / `--p-intel-tint` (both modes) and the **Echo Pulse** conic rings (dark variant added). **`#007CFF` is now fully retired.** The Conditions map palette remains the sole vivid exemption.
    - **New in 1.11.2 (Dusk refinements — post-port, from real dark-mode usage):** **Toggle knob = `--p-surface`, never `#fff`** — solid-fill ON track, border-strong OFF track (a white knob vanished on the dusty-steel dark track; §9 Toggle, *supersedes the tinted-track/colored-knob spec*) · **check glyphs = `--p-action-fg`** on every check-on-primary-fill control (white checks "disappear" on steel in dark; §9 Checkbox) · **all checkbox-style squares → 1px radius** (drift to 3px/5px unified; radios/pills/knobs exempt by shape; §9/§6) · **Select placeholders lose the trailing `…`** (search inputs keep it; §9 Inputs / §11 Voice) · **`TableShell` radius token-bound to `--radius-lg`** + the *reference-the-token-never-the-number* rule for all surface cards (§9 Tables / §6) · stale vivid-blue hexes swept from the §9 component spec blocks
    - **New in 1.10 (Live Ops · Most-Severe · Expected Impact · Portal Overlays):** **Live View** — a new *live-surface* page archetype (auto-refreshing map + grouped table of every rep's day, a five-state stop vocabulary, a monochrome-routes map law) + an App-Shell **nav alert dot** ([Live Surfaces](#live-surfaces-live-view--110) / §9 App Shell / Maps) · Coverage-Map hexes now aggregate by **Most Severe** business severity *[supersedes the 1.4/1.5 averaging]* (§9 Maps / Inventory Conditions) · **Expected Impact** (categorical) + the **radio-card** input + `ImpactBars` *[supersedes numeric "Anticipated Lift"]* + **conditional Subtype** (§9 Inputs) · shared **DataTable** primitives (`SortHeader`/`TableShell`/`TableHeader`/`DataTableFooter`), **RowKebab** portal row-menu *[supersedes inline kebabs]*, **pinned actions column**, nested-table sorting (§9 Tables) · **Tooltip** measured viewport clamp *[supersedes the 1.4 fixed clamp]* (§9) · search-highlight **yellow-only** (§9) · relative **week selector** (§9 Filters) · nav gating **capability-per-child** *[supersedes 1.9 role-id gating]* + feature-aligned cap catalog (§9 App Shell / Appendix A) · dev sign-in **id-based, no client secrets** (§9 Login) · Help Center → **in-product Messenger** (§9 App Shell) · **Store Layout Templates** tab (§9) · tokens `gr-livedot` / `.g-live-*` / `.g-routemap*` / `.gr-sticky-actions` · `SCREENS-1.10.md`
@@ -292,12 +293,28 @@ The portal ships a full **light + dark theme**, toggled live with no reload. **S
 
 | Token | Stack | Role |
 |---|---|---|
-| `--font-sans` | Inter stack | **Content humans read:** account/product names, prose, helper copy, nav destinations, category & role pills, the Home greeting |
-| `--font-display` | → the mono stack | **Titles & headlines** (`.g-h1/h2/h3`, modal & drawer titles) — Cockpit, 1.12 |
+| `--font-sans` | Inter stack | **Content humans read:** account/product names, prose, helper copy, nav destinations, category & role pills, **entity titles** (`.g-h1-entity`, 1.12.2) |
+| `--font-display` | → the mono stack | **System titles & headlines** (`.g-h1/h2/h3`, modal & drawer titles, dynamic/personalized page titles incl. the Home greeting — 1.12.2) — Cockpit, 1.12 |
 | `--font-control` | → the mono stack | **Everything the user operates** (buttons, inputs, selects, filter chips, tabs, menus, pagination) **+ machine labels** (table headers, stat labels, section titles, overlines) **+ status vocabulary** (badges, toasts, liveness chips) — Cockpit, 1.12 |
 | `--font-mono` | `"JetBrains Mono", "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace` | Data cells, IDs, numerals, kbd — JetBrains Mono since 1.11 (self-hosted in `fonts/`) |
 
-> **The Cockpit law (1.12): HUMANS READ INTER; THE MACHINE SPEAKS MONO.** It sits beside the color laws (*ink = commitment, blue = selection*): anything that is a title, a control, a machine label, or a system state renders in JetBrains Mono; anything a person *reads* — names, prose, helpers — stays Inter, so reading speed is untouched where it matters. `--font-display` / `--font-control` are **semantic aliases** of the mono stack: components reference the role, never the family, so a future re-tune re-points one token. **Deliberate Inter exceptions (do not "fix"):** nav destination labels (they're place *names*), the Home greeting (it addresses the human), account/product names in tables, category & role pills (content attributes), all prose. **Status badges render UPPERCASE mono** (1–2 word machine states). **Mono sizes land on an INTEGER scale (1.12.1 — no fractional font sizes):** **10** micro badges/tags/stat labels · **11** caps labels (table headers, field labels, footers, overlines) · **12** controls (buttons, selects, filter chips, menu items) · **13** large controls (primary auth button, tabs, toasts). Caps labels used for *scanning* (table headers) sit at 11+ — field/phone legibility; nothing below 10. Buttons keep **Title Case** (the casing law survives; mono alone carries the register). Older §9 spec blocks citing Inter shorthand for controls are superseded by this mapping; the kit files are canonical.
+> **The Cockpit law (1.12): HUMANS READ INTER; THE MACHINE SPEAKS MONO.** It sits beside the color laws (*ink = commitment, blue = selection*): anything that is a title, a control, a machine label, or a system state renders in JetBrains Mono; anything a person *reads* — names, prose, helpers — stays Inter, so reading speed is untouched where it matters. `--font-display` / `--font-control` are **semantic aliases** of the mono stack: components reference the role, never the family, so a future re-tune re-points one token. **Status badges render UPPERCASE mono** (1–2 word machine states). Buttons keep **Title Case** (the casing law survives; mono alone carries the register). Older §9 spec blocks citing Inter shorthand for controls are superseded by this mapping; the kit files are canonical.
+>
+> **The litmus test (1.12.2 — resolves every edge case):** *is this text a **destination or descriptor** a human reads to find their way or understand content? → Inter. Is it a **control, datum, or the machine addressing the operator**? → Mono.* Four corollaries from applied review:
+> 1. **"Navigation" is a role, not a location.** Category rails inside a filter popover are navigation even though they live inside a machine control — they stay Inter (see Filter Menu).
+> 2. **"Page title" is a role, not a literal.** A dynamic, personalized greeting is still a page title AND the machine speaking — it goes mono. *(Reverses the 1.12 "Home greeting stays Inter" exception.)*
+> 3. **An entity's name is content wherever it appears — including the H1 slot.** The machine doesn't speak someone's name; it presents it → `.g-h1-entity` (Inter). See the two-tier title system below.
+> 4. **Machine speech is mono even at paragraph length — but machine *documents* are content.** A chat reply is the machine talking (mono); a generated report/export is an artifact the machine *hands you* (Inter).
+>
+> **Deliberate Inter survivals (do not "fix"):** nav destination labels (place *names*), account/product names in tables, entity titles, category & role pills, all prose. **Content pill vs status badge — the discriminator is the *vocabulary*, not the shape:** if the word is machine state (ACTIVE, PENDING, DRAFT) it's a status badge → UPPERCASE mono; if it's a human-domain noun (Beer, Sales Rep, an account type) it's a content pill → Inter, Title Case.
+>
+> **Two-tier titles (1.12.2 §8):** `.g-h1` (system title — mono 600 26/1.25, ls −0.03em) names a *surface or tool*; `.g-h1-entity` (entity title — Inter 700 28/1.1, ls −0.02em, nowrap + ellipsis) names a *record*. The title font tells you which kind of place you're in: mono H1 = system surface, Inter H1 = you're looking at a record. Mixed surfaces switch per state (aggregate Coverage Map = "Coverage Map" → mono; scoped to one product = the product's name → Inter). Practical bonus: mono at display size is very wide and makes human names read as variables.
+>
+> **Text links are machine directions (1.12.2 §3):** a link that does something or navigates on click renders `500 var(--font-control)`, primary color, hover underline (`.g-link`, `BackLink`, inline action links). Links *inside running sentences* follow their sentence's voice (`.g-textlink` stays Inter). Retained link sizes of 11/12/13px are all **legal** — the size rule is *integer*, not even-only.
+>
+> **Conversational surfaces (1.12.2 §9):** an assistant's reply IS the machine addressing the operator — chat response prose renders **mono `400 14/1.7`** (line-height raised from 1.65: mono needs more air at length); user bubbles stay Inter (`14/1.5`); entity names inside response tables stay Inter (corollary 3); numeric cells/titles/headers mono. **In conversational inputs the typed value renders in the voice of its author:** placeholder = mono (the machine inviting you to speak), typed value = Inter (your speech — no costume change on submit). This does NOT extend to general form/search inputs — values entering records are data and stay mono per 1.12. Speech vs document: chat replies, confirmations, inline explanations = speech (mono); long-form generated artifacts (analyst reports, export previews) = documents (Inter).
+>
+> **Mono sizes land on an INTEGER scale (1.12.1, extended 1.12.2 — no fractional font sizes):** **10** micro badges/tags/stat labels · **11** caps labels (table headers, field labels, footers, overlines) · **12** controls (buttons, selects, filter chips, menu items) · **13** large controls (primary auth button, toasts, standalone text links) · **14** page-level tabs (`SegmentedTabs`) & chat prose. Caps labels used for *scanning* (table headers) sit at 11+ — field/phone legibility; nothing below 10. The integer rule applies to **mono only** — Inter body sizes may be odd (`.g-body-1` is 15px, 1.12.2 §5, re-paired under the 26px mono H1).
 
 ### Type Scale
 
@@ -330,22 +347,23 @@ The portal ships a full **light + dark theme**, toggled live with no reload. **S
 | Class | Spec | Usage |
 |---|---|---|
 | `.g-h1-display` | Inter Bold 32 / 1.05, ls 0 | Reporting / detail page title (brand-tier; not cockpit chrome) |
-| `.g-h1` | **Mono Semibold 26 / 1.25, ls −0.03em** (1.12) | Portal page title |
+| `.g-h1` | **Mono Semibold 26 / 1.25, ls −0.03em** (1.12) | **System title** — H1 naming a surface or tool (incl. dynamic greetings, 1.12.2) |
+| `.g-h1-entity` | **Inter Bold 28 / 1.1, ls −0.02em, nowrap + ellipsis** (1.12.2) | **Entity title** — H1 holding a record's name (account, user, product) |
 | `.g-h2` | **Mono Semibold 18 / 1.25, ls −0.02em** (1.12) | Compact page title |
 | `.g-h3` | **Mono Medium 17 / 1.35, ls −0.01em** (1.12) | Secondary heading, sign-in heading |
 | `.g-section-title` | **Mono Medium 12 UPPERCASE, ls +0.07em, muted** (1.12) | Section title, column header |
 | `.g-subtitle-1` | **Mono Medium 12 UPPERCASE, ls +0.06em, medium-gray** (1.12) | Subtitle under H1 |
 | `.g-subtitle-2` | Inter Regular 11 / 1.3, medium-gray | Fine print / legal (prose — stays Inter) |
-| `.g-body-1` | Inter Regular 16 / 1.4 | Standard page & table content |
+| `.g-body-1` | Inter Regular **15** / 1.4 (16 → 15, 1.12.2) | Standard page & table content / page subtitle |
 | `.g-body-2` | Inter Bold 16 / 1.4 | Emphasized body |
 | `.g-body-3` | Inter Regular 16 / 1.4, medium-gray | Subdued body |
 | `.g-body-4` | Inter Regular 16 / 1.4, ls +0.025em | Toggle descriptions |
 | `.g-overline` | **Mono Regular 11 UPPERCASE, ls +0.06em, dark-gray** (1.12) | Overline labels |
 | `.g-overline-tag` | As overline, on soft-gray pill | Overline on soft-gray pill |
-| `.g-link` | Inter Medium, primary blue, no underline (underline on hover) | Text hyperlinks |
-| `.g-textlink` | Inter Medium 14, primary blue, button-as-link (no border/bg), underline on hover | Inline links inside banners / sentences |
+| `.g-link` | **Mono Medium, primary blue** (1.12.2 — links are machine directions), no underline (dotted baseline; hover color) | Standalone text hyperlinks / action links |
+| `.g-textlink` | Inter Medium 14, primary blue, button-as-link (no border/bg), underline on hover | Inline links **inside sentences** — they follow the sentence's voice (stays Inter, 1.12.2) |
 | `.g-error` | Inter Medium 12, danger red | Error messages below fields |
-| `.g-mono` | Geist Mono 12 | Code / IDs |
+| `.g-mono` | JetBrains Mono 12 (`--font-mono`) | Code / IDs |
 | `.g-info` | Inter Regular 14, blue-tint bg, 8px radius | Inline info callout |
 | `.g-info.danger` | As above, red-tint bg | Inline danger callout |
 | `.g-tooltip-headline` | Inter Medium 14, `--p-ink` | Tooltip heading |
@@ -714,7 +732,7 @@ Actions attached to a table row. There is **one primitive and two triggers** —
 
 #### Specs
 
-- **Split button:** `height: 28px`, `border-radius: 6px`, `font: 500 13px Inter`. Main area `padding: 0 11px`; caret area `26px` wide with a `1px` **neutral** divider (`rgba(127,127,127,.32)` — survives both the ink fill and the white dark-mode action surface; a white divider would vanish on the latter). Intents: **primary** (`--p-action` fill / `--p-action-fg` text — ink, inverts in dark) and **error** (`#E5484D` fill, white — unchanged). Optional leading icon (`report` for error, `check_circle` for confirm-style).
+- **Split button:** `height: 28px`, `border-radius: var(--radius-md)`, `font: 500 12px var(--font-control)`, **`white-space: nowrap`** — a split button grows to fit its label and the label **never wraps** (1.12.2 §7); if space genuinely can't fit the button, shorten the label. Main area `padding: 0 11px`; caret area `26px` wide with a `1px` **neutral** divider (`rgba(127,127,127,.32)` — survives both the ink fill and the white dark-mode action surface; a white divider would vanish on the latter). Intents: **primary** (`--p-action` fill / `--p-action-fg` text — ink, inverts in dark) and **error** (`#E5484D` fill, white — unchanged). Optional leading icon (`report` for error, `check_circle` for confirm-style).
 - **Kebab:** `28×28px`, `border-radius: 6px`, `more_horiz` at 20px, `--p-muted`; hover `rgba(0,0,0,.05)`.
 - **Menu popover:** `border-radius: 8px`, `--shadow-float`, 1px `--p-border`, `padding: 4px`, `min-width: ~208px`. Items `34px`, `padding: 0 10px`, `400 14px Inter`, optional 18px `--p-muted` leading icon. Group with an uppercase label + `1px --p-border` divider when there are more than ~5 items; destructive items go **last**, in `--p-danger`. Opens on click; closes on outside-click, `Escape`, or selection.
 
@@ -1034,6 +1052,21 @@ Chips always include a filter icon (left) and chevron-down icon (right). Count b
 
 The canonical pattern for filtering tables. **One** "Filters" button opens a two-pane popover that holds every filterable attribute, so the bar stays compact no matter how many columns are filterable. Reference implementation: `ui_kits/portal/FilterMenu.jsx`.
 
+**Fonts (1.12.2 §1) — the Inter ↔ mono boundary drawn inside one control.** "Navigation is a role, not a location": the rail categories and pane header are *wayfinding* (same role as side-nav labels) and the value rows hold *entity names* (content) — all Inter — while the trigger, overlines, counts, and bulk actions are machine vocabulary — mono:
+
+| Element | Spec | Voice |
+|---|---|---|
+| Trigger button ("Filters") | `500 12px var(--font-control)` | control |
+| Rail category item | `400 14px Inter` (active `600`) | navigation destination |
+| Pane header (active category name) | `600 14px Inter` | navigation destination |
+| Value row (entity names) | `400 14px Inter` | content |
+| Value sub-label / helper notes | `400 12–13px Inter` | content |
+| Group overline (`SELECTED · N`, `N matches`) | `500 10px var(--font-control)`, uppercase, ls .08em | machine label |
+| Count pill (trigger + rail) | `500 11px var(--font-control)` | datum |
+| "Select all N matches" row | `500 12px var(--font-control)` | control |
+| Footer result count | `400 11px var(--font-control)` | datum |
+| "Clear all" | `500 13px var(--font-control)` | action link (§3) |
+
 **Anatomy**
 
 - **Trigger** — a single button styled like a Filter Chip: `sliders-horizontal` icon + "Filters" + total-active-count badge + chevron. Turns primary (`border`/`text` `#1861AF`, `background: var(--p-primary-tint)`) whenever any filter is active or the menu is open.
@@ -1162,6 +1195,8 @@ border-radius: 999px;
 ```
 
 > **Tabs are wayfinding → ink.** Both the page-level underline and the segmented active text use ink, the same family as the active nav row. The active count badge is **neutral** — don't confuse it with **filter** chips/badges, which are applied-filter _state_ and **stay blue**.
+
+**Font (1.12.2 §6).** `SegmentedTabs` labels render `600 14px/1 var(--font-control)` — 13 → 14: page-level tabs sit one step above the 13px large-control tier on the integer mono scale. The count badge stays `500 11px` mono.
 
 ---
 
@@ -3076,4 +3111,4 @@ So the affordance rules in §Permissions & Affordances have a shared vocabulary,
 
 ---
 
-*Greater Design System · Portal 1.12 "Cockpit" · Exported July 2026*
+*Greater Design System · Portal 1.12.2 "Cockpit" · Exported July 2026*

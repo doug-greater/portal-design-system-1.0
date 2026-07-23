@@ -111,8 +111,10 @@ function HomeDashboard({ firstName, greeting, healthCards, favorites, onCustomiz
     <div style={{ maxWidth: 1600, margin: '0 auto', display: 'flex', flexDirection: 'column', minHeight: '100%', gap: 24 }}>
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16 }}>
         <div>
-          {/* Cockpit exception (1.12): the greeting stays INTER by design — it addresses the human, not the system */}
-          <h1 style={{ margin: 0, font: '600 24px/1.2 Inter', letterSpacing: '-.02em', color: 'var(--p-ink)' }}>{greeting}, {firstName}.</h1>
+          {/* REVERSED in 1.12.2 §2 (was a 1.12 Inter exception): the greeting IS the page's H1
+              AND the machine addressing the operator — both roles point to mono. "Page title" is
+              a role, not a literal. (H1s holding a RECORD'S name still go Inter — .g-h1-entity §8.) */}
+          <h1 className="g-h1" style={{ margin: 0 }}>{greeting}, {firstName}.</h1>
           <p style={{ margin: '4px 0 0', font: '400 14px Inter', color: 'var(--p-muted)' }}>Here's where things stand today.</p>
         </div>
         <Button variant="neutral" icon="tune" data-testid="customize-cards-btn" onClick={onCustomize}>Customize</Button>
