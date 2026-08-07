@@ -429,6 +429,16 @@ coverage:
   rule is mono-only); `SegmentedTabs` 600 14px mono; split-button labels never wrap; chat: assistant
   prose mono 14/1.7, typed composer value renders in its author's voice (Inter).
 
+- **New in Portal 1.13 "Black Ops" (theme skins · governed tables · GSA 2.0)** — `data-skin`
+  token-override layer on top of the resolved theme; **Black Ops** (near-black console, teal
+  selection, stroke-only pastel badges, 0px radii, all-mono + IBM-Plex table cells, ALL-CAPS nav)
+  is the **default theme**; ThemeMenu popover replaces the cycle toggle; dark primary → `#A8BFDC`;
+  the Badge Vocabulary Law (outline = category only; status = fill/text + dot); Tables 2.0
+  (subgrid + 8px gap + zebra, dividers removed); General Stock Areas may pin a sequenced product
+  list ("Capacity" → "Par Level", glyph `inventory_2`, violet ramp per theme); theme-aware maps;
+  The Oracle; FilterMenu `numrange`; grouped Select headers; `dangerOutline`.
+
+
 
 **Terminology (1.1 canon).** "Store Promotions" (short "Store Promos", `/store-promotions`),
 "POD Planner" (`/pod-planner`), "Audit Log" (events Created / Updated / Restored / Deleted;

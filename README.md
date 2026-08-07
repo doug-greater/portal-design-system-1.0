@@ -189,3 +189,34 @@ This repository is our **shared design system** — the single source of truth f
   **the typed value renders in the voice of its author** — mono placeholder, Inter as you type.
   General form/search inputs are unaffected (values entering records are data → mono).
 
+## What's new in Portal 1.13 — "Black Ops"
+
+> *(the theme-skin + governed-tables + General-Stock-2.0 pass.)*
+
+- **Theme SKINS.** A second theming axis: `data-skin` layers a token-override block on a resolved
+  `data-theme` — no component forks. First skin: **Black Ops**, a near-black ops console (teal
+  selection `#86EAE8`, pastel stroke-only badges, 0px radii, 1px hairlines, all-mono type with
+  IBM-Plex table cells, ALL-CAPS nav) — and it's the **default theme**. New skin-token contract:
+  `--hair`, `--r-ctl/card/nav/tgl(-knob)`, `--st-badge`, `--badge-fill/stroke`, `--tab-on`,
+  `--font-cell`, `--tz-*/--tw-*`, `--font-h1`. Theme picker is now a **popover menu** (supersedes
+  the cycle toggle).
+- **Dark primary re-tuned** to `#A8BFDC` (supersedes 1.11's `#ADBDD1`).
+- **The Badge Vocabulary Law**: outlines are for category/type badges only; status badges are
+  always fill+dot or text-only+dot. Count/delta chips go bare; new `ServicePill` (name-hash → pal
+  slot).
+- **Tables 2.0**: content-hugging **CSS subgrid** templates (`minmax(max-content,1fr)`), the
+  **8px gap standard**, **zebra rows** (`--p-row-alt` + `.g-zebra`), row dividers removed,
+  `contain:inline-size` law for spanning panels (supersedes the 1.10 fixed templates).
+- **General Stock Areas 2.0**: GSAs may hold an optional **pinned, sequenced product list**
+  (supersedes "no product list"); pars/Display never apply; non-destructive conversion with an
+  "Erase par levels?" confirm; glyph = `inventory_2`; violet `--p-genstock` ramp per theme
+  (pastel `#C0A6EC` in Black Ops). "Capacity" renames to **"Par Level"**.
+- **Maps**: dark-tile contrast filter; selection colors follow `--p-primary` (JS geometry
+  resolves the computed value; rebuilds keyed on skin).
+- **The Oracle**: the assistant renamed; bare crow marks, full-width responses, "Ask and your
+  data shall answer."
+- Plus: `--font-h1` (H1 back to Inter outside Black Ops), FilterMenu `numrange`,
+  `DataTableFooter trailing`, grouped `Select` headers, `dangerOutline` rename,
+  danger-interaction tokens, and the greeting drops its vocative comma.
+
+
