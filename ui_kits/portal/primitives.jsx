@@ -78,38 +78,41 @@ function Button({ variant = 'primary', size = 'md', icon, iconRight, children, o
     height: size === 'sm' ? 30 : size === 'lg' ? 40 : 36,
     padding: size === 'sm' ? '0 16px' : size === 'lg' ? '0 28px' : '0 20px',
     minWidth: size === 'sm' ? 64 : size === 'lg' ? 120 : 88,
-    borderRadius: 1, cursor: disabled ? 'not-allowed' : 'pointer',
-    font: '600 12px/1 var(--font-control)', letterSpacing: '.01em', border: '1px solid transparent',   // Cockpit (1.12): controls speak mono
+    borderRadius: 'var(--r-ctl)', cursor: disabled ? 'not-allowed' : 'pointer',
+    font: 'var(--tw-btn) var(--tz-btn)/1 var(--font-control)', letterSpacing: '.01em', border: '1px solid transparent',   // Cockpit (1.12) mono; sizing skin-tunable (1.13)
     transition: 'background .12s, border-color .12s', opacity: disabled ? 0.45 : 1,
     whiteSpace: 'nowrap',
   };
+  // 1.13 §M4: the red-outline destructive variant is `dangerOutline` — named for what
+  // it IS. The old `warning` name was a footgun (a "warning" that rendered danger-red,
+  // with hover/disabled styles orphaned under the other key); it no longer exists.
   const variants = {
-    primary:   { background: 'var(--p-action)', color: 'var(--p-action-fg)' },
-    secondary: { background: 'var(--p-surface)', color: 'var(--p-ink)', borderColor: 'var(--p-ink)' },
-    warning:   { background: '#fff', color: '#C94A4E', borderColor: '#C94A4E' },
-    danger:    { background: '#C94A4E', color: '#fff' },
-    neutral:   { background: '#fff', color: '#364153', borderColor: '#D1D5DC' },
-    ghost:     { background: 'transparent', color: 'var(--p-text)', padding: '0 12px', minWidth: 0 },
-    neo:       { background: '#fff', color: '#000', border: '1px solid #000', boxShadow: '2px 2px 0 0 #000', letterSpacing: '.05em', height: 39, padding: '0 30px', minWidth: 120, fontSize: 16 },
+    primary:       { background: 'var(--p-action)', color: 'var(--p-action-fg)' },
+    secondary:     { background: 'var(--p-surface)', color: 'var(--p-ink)', borderColor: 'var(--p-ink)' },
+    dangerOutline: { background: 'var(--p-surface)', color: 'var(--p-danger)', borderColor: 'var(--p-danger)' },
+    danger:        { background: 'var(--p-danger)', color: '#fff' },
+    neutral:       { background: '#fff', color: '#364153', borderColor: '#D1D5DC' },
+    ghost:         { background: 'transparent', color: 'var(--p-text)', padding: '0 12px', minWidth: 0 },
+    neo:           { background: '#fff', color: '#000', border: '1px solid #000', boxShadow: '2px 2px 0 0 #000', letterSpacing: '.05em', height: 39, padding: '0 30px', minWidth: 120, fontSize: 16 },
   };
   const [hover, setHover] = useState(false);
   const hoverBg = {
-    primary:   'var(--p-action-hover)',
-    secondary: 'var(--p-surface-tint)',
-    warning:   'rgba(201,74,78,.05)',
-    danger:    '#C93B40',
-    neutral:   '#F3F4F6',
-    ghost:     'var(--p-surface-tint)',
-    neo:       '#F0F7FF',
+    primary:       'var(--p-action-hover)',
+    secondary:     'var(--p-surface-tint)',
+    dangerOutline: 'color-mix(in srgb, var(--p-danger) 5%, transparent)',
+    danger:        'var(--p-danger-hover)',   // 1.13 §M5 — per-theme token, never hardcoded
+    neutral:       '#F3F4F6',
+    ghost:         'var(--p-surface-tint)',
+    neo:           '#F0F7FF',
   }[variant];
   const disabledStyle = disabled ? ({
-    primary:   { background: 'var(--p-action-disabled-bg)', color: 'var(--p-action-disabled-fg)', opacity: 1 },
-    secondary: { color: 'var(--p-placeholder)', borderColor: 'var(--p-border)', opacity: 1 },
-    warning:   { color: 'rgba(201,74,78,.25)', borderColor: 'rgba(201,74,78,.25)', opacity: 1 },
-    danger:    { background: 'rgba(201,74,78,.45)', color: '#fff', opacity: 1 },
-    neutral:   { background: '#fff', color: '#99A1AF', borderColor: '#E5E7EB', opacity: 1 },
-    ghost:     { color: 'var(--p-placeholder)', opacity: 1 },
-    neo:       { opacity: 0.4 },
+    primary:       { background: 'var(--p-action-disabled-bg)', color: 'var(--p-action-disabled-fg)', opacity: 1 },
+    secondary:     { color: 'var(--p-placeholder)', borderColor: 'var(--p-border)', opacity: 1 },
+    dangerOutline: { color: 'var(--p-danger-dim)', borderColor: 'var(--p-danger-dim)', opacity: 1 },
+    danger:        { background: 'var(--p-danger-dim-bg)', color: '#fff', opacity: 1 },
+    neutral:       { background: '#fff', color: '#99A1AF', borderColor: '#E5E7EB', opacity: 1 },
+    ghost:         { color: 'var(--p-placeholder)', opacity: 1 },
+    neo:           { opacity: 0.4 },
   }[variant] || {}) : {};
   return (
     <button type={type || 'button'} onClick={disabled || loading ? undefined : onClick} disabled={disabled || loading}
@@ -162,7 +165,7 @@ function Input({ icon, value, onChange, placeholder, type = 'text', error, style
         style={{
           width: '100%', height: 36, padding: icon ? `0 ${rightPad}px 0 32px` : `0 ${rightPad}px`,
           border: `1px solid ${error ? 'var(--p-danger)' : focus ? 'var(--p-primary)' : 'var(--p-border-strong)'}`,
-          borderRadius: 1, font: '400 13px var(--font-control)',
+          borderRadius: 'var(--r-ctl)', font: '400 13px var(--font-control)',
           color: disabled ? 'var(--p-placeholder)' : 'var(--p-ink)',
           background: disabled ? 'var(--p-surface-tint)' : '#fff',
           cursor: disabled ? 'not-allowed' : 'text',
@@ -186,10 +189,10 @@ function Input({ icon, value, onChange, placeholder, type = 'text', error, style
       )}
       {error
         ? (typeof error === 'string'
-            ? <div className="g-error" style={{ font: '500 12px/1.4 Inter, sans-serif', color: 'var(--p-danger)', marginTop: 4 }}>{error}</div>
+            ? <div className="g-error" style={{ font: '500 12px/1.4 var(--font-sans)', color: 'var(--p-danger)', marginTop: 4 }}>{error}</div>
             : null)
         : (helper
-            ? <div style={{ font: '400 13px/1.4 Inter, sans-serif', color: 'var(--p-muted)', marginTop: 4 }}>{helper}</div>
+            ? <div style={{ font: '400 13px/1.4 var(--font-sans)', color: 'var(--p-muted)', marginTop: 4 }}>{helper}</div>
             : null)}
     </div>
   );
@@ -203,8 +206,8 @@ function Toggle({ on, onChange, disabled, color }) {
   const track = on ? fill : 'var(--p-border-strong)';   // 1.11.2: solid fill ON / border-strong OFF
   return (
     <span onClick={() => !disabled && onChange?.(!on)} style={{ width: 37, height: 20, position: 'relative', cursor: disabled ? 'not-allowed' : 'pointer', display: 'inline-block', opacity: disabled ? .5 : 1 }}>
-      <span style={{ position: 'absolute', left: 0, top: 3, width: 29, height: 14, borderRadius: 999, background: track, transition: 'background .15s' }} />
-      <span style={{ position: 'absolute', top: 0, left: on ? 17 : 0, width: 20, height: 20, borderRadius: '50%', background: disabled ? 'var(--p-surface-tint)' : 'var(--p-surface)', border: on ? `.5px solid ${fill}` : '.5px solid var(--p-border-strong)', boxShadow: '0 1px 2px rgba(0,0,0,.25)', transition: 'left .15s, border-color .15s' }} />   /* 1.11.2: knob = --p-surface, never #fff — contrasts with the track in BOTH themes */
+      <span style={{ position: 'absolute', left: 0, top: 3, width: 29, height: 14, borderRadius: 'var(--r-tgl)', background: track, transition: 'background .15s' }} />   {/* 1.13: skin-tunable — Black Ops squares the switch (3px) */}
+      <span style={{ position: 'absolute', top: 0, left: on ? 17 : 0, width: 20, height: 20, borderRadius: 'var(--r-tgl-knob)', background: disabled ? 'var(--p-surface-tint)' : 'var(--p-surface)', border: on ? `var(--hair) solid ${fill}` : 'var(--hair) solid var(--p-border-strong)', boxShadow: '0 1px 2px rgba(0,0,0,.25)', transition: 'left .15s, border-color .15s' }} />   {/* 1.11.2: knob = --p-surface, never #fff — contrasts with the track in BOTH themes */}
     </span>
   );
 }
@@ -214,7 +217,7 @@ function Toggle({ on, onChange, disabled, color }) {
 function Checkbox({ on, onChange, disabled }) {
   return (
     <span onClick={() => !disabled && onChange?.(!on)} style={{
-      width: 18, height: 18, borderRadius: 1, cursor: disabled ? 'not-allowed' : 'pointer',   // 1.11.2: 1px — every checkbox-style square
+      width: 18, height: 18, borderRadius: 'var(--r-ctl)', cursor: disabled ? 'not-allowed' : 'pointer',   // 1.11.2: 1px — every checkbox-style square
       border: `1.5px solid ${disabled ? 'var(--p-border-strong)' : on ? 'var(--p-primary)' : 'var(--p-border-strong)'}`,
       background: disabled ? 'var(--p-surface-tint)' : on ? 'var(--p-primary)' : 'var(--p-surface)',
       display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
@@ -236,7 +239,7 @@ function Select({ value, onChange, options = [], placeholder, disabled, style })
       <select value={value} onChange={(e) => onChange?.(e.target.value)} disabled={disabled}
         style={{
           width: '100%', height: 36, padding: '0 34px 0 12px', appearance: 'none', WebkitAppearance: 'none',
-          border: '0.5px solid var(--p-border-strong)', borderRadius: 1, font: '400 13px var(--font-control)',
+          border: 'var(--hair) solid var(--p-border-strong)', borderRadius: 'var(--r-ctl)', font: '400 13px var(--font-control)',
           color: disabled ? 'var(--p-placeholder)' : 'var(--p-ink)',
           background: disabled ? 'var(--p-surface-tint)' : '#fff',
           cursor: disabled ? 'not-allowed' : 'pointer', outline: 'none', boxSizing: 'border-box',
@@ -256,6 +259,12 @@ function Select({ value, onChange, options = [], placeholder, disabled, style })
 }
 
 /* ---------------- Pill (category) ---------------- */
+// CATEGORY badges (Pill / AccountTypePill / role pills / ServicePill) render the 1.13
+// §B recipe: `background: var(--badge-fill, <tint>)` + `border: var(--st-badge) solid
+// var(--badge-stroke, currentColor)`. Light/Dark: --badge-fill/--st-badge are unset/0
+// → classic tinted fill. Black Ops: transparent fill + 0.5px stroke at 45% of the
+// pill's own color — quiet outlines, loud text. STATUS badges are EXEMPT (Badge
+// Vocabulary Law §G): outline styling is reserved for "what kind of thing is this".
 function Pill({ kind = 'Beer', children }) {
   const map = {
     Beer:    { bg: 'var(--p-pill-beer-bg)',    fg: 'var(--p-pill-beer-fg)' },
@@ -265,7 +274,31 @@ function Pill({ kind = 'Beer', children }) {
     'Non-Alcoholic': { bg: 'var(--p-pill-nonalc-bg)', fg: 'var(--p-pill-nonalc-fg)' },
   };
   const c = map[kind] || map.Beer;
-  return <span style={{ display: 'inline-flex', alignItems: 'center', padding: '2px 10px', borderRadius: 999, background: c.bg, color: c.fg, font: '500 12px/1.5 Inter, sans-serif', letterSpacing: '.02em', whiteSpace: 'nowrap' }}>{children || kind}</span>;
+  return <span style={{ display: 'inline-flex', alignItems: 'center', padding: '2px 10px', borderRadius: 999, background: `var(--badge-fill, ${c.bg})`, border: 'var(--st-badge) solid var(--badge-stroke, currentColor)', color: c.fg, font: '500 12px/1.5 var(--font-sans)', letterSpacing: '.02em', whiteSpace: 'nowrap', boxSizing: 'border-box' }}>{children || kind}</span>;
+}
+
+/* ---------------- ServicePill (1.13 §G) ----------------
+   Category-class service tag (Planned Assignments / Live View / Visualize Impact /
+   edit rows). Color = DETERMINISTIC hash of the service name → pal slot 1–10, so a
+   service keeps its hue everywhere without a registry; "Default" hashes to slot 6. */
+function servicePalSlot(name) {
+  if (!name || name === 'Default') return 6;
+  let h = 0;
+  for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) >>> 0;
+  return (h % 10) + 1;
+}
+function ServicePill({ name = 'Default', style }) {
+  const n = servicePalSlot(name);
+  return (
+    <span data-testid="service-pill" style={{
+      display: 'inline-flex', alignItems: 'center', padding: '2px 8px', borderRadius: 999,
+      background: `var(--badge-fill, color-mix(in oklab, var(--p-pal-${n}) 15%, transparent))`,
+      border: 'var(--st-badge) solid var(--badge-stroke, currentColor)',
+      color: `var(--p-pal-${n})`, font: '500 11px/1.5 var(--font-control)',
+      letterSpacing: '.02em', whiteSpace: 'nowrap', boxSizing: 'border-box', ...style }}>
+      {name}
+    </span>
+  );
 }
 
 /* ---------------- Chip (micro status) ----------------
@@ -282,7 +315,7 @@ const CHIP_TONES = {
 function Chip({ tone = 'neutral', icon, iconRight, children, title, testid, style }) {
   const t = CHIP_TONES[tone] || CHIP_TONES.neutral;
   return (
-    <span title={title} data-testid={testid} style={{ display: 'inline-flex', alignItems: 'center', gap: 3, height: 19, padding: '0 7px', borderRadius: 999, background: t.bg, color: t.fg, font: '600 10px/1 var(--font-control)', whiteSpace: 'nowrap', flexShrink: 0, ...style }}>
+    <span title={title} data-testid={testid} style={{ display: 'inline-flex', alignItems: 'center', gap: 3, height: 19, padding: '0 7px', borderRadius: 999, background: `var(--badge-fill, ${t.bg})`, border: 'var(--st-badge) solid var(--badge-stroke, currentColor)', color: t.fg, font: '600 10px/1 var(--font-control)', whiteSpace: 'nowrap', flexShrink: 0, boxSizing: 'border-box', ...style }}>
       {icon && <Icon name={icon} size={12} color="currentColor" />}{children}{iconRight && <Icon name={iconRight} size={12} color="currentColor" />}
     </span>
   );
@@ -353,8 +386,9 @@ function AccountTypeIcon({ type, icon, size = 32, ring = true }) {
 function AccountTypePill({ type }) {
   return (
     <span style={{ display: 'inline-flex', alignItems: 'center', padding: '2px 10px',
-      borderRadius: 999, background: '#F3F4F6', color: '#4A5565',
-      font: '500 12px/1.5 Inter', letterSpacing: '.02em', whiteSpace: 'nowrap' }}>
+      borderRadius: 999, background: 'var(--badge-fill, var(--p-surface-tint))', color: 'var(--p-text-2)',
+      border: 'var(--st-badge) solid var(--badge-stroke, currentColor)', boxSizing: 'border-box',
+      font: '500 12px/1.5 var(--font-sans)', letterSpacing: '.02em', whiteSpace: 'nowrap' }}>
       {type}
     </span>
   );
@@ -365,7 +399,7 @@ function FilterChip({ icon = 'filter_list', label, count, active, onClick }) {
   return (
     <button onClick={onClick} style={{
       display: 'inline-flex', alignItems: 'center', gap: 6, height: 32, padding: '0 12px',
-      background: '#fff', borderRadius: 2, cursor: 'pointer',
+      background: '#fff', borderRadius: 'var(--r-card)', cursor: 'pointer',
       border: `1px solid ${active ? 'var(--p-primary)' : 'var(--p-border-strong)'}`,
       color: active ? 'var(--p-primary)' : 'var(--p-ink)',
       font: '500 12px/1 var(--font-control)',
@@ -373,7 +407,7 @@ function FilterChip({ icon = 'filter_list', label, count, active, onClick }) {
       <Icon name={icon} size={12} color={active ? 'var(--p-primary)' : 'var(--p-muted)'} />
       {label}
       {count != null && (
-        <span style={{ background: active ? 'var(--p-primary-soft)' : 'var(--g-off-white)', color: active ? 'var(--p-primary)' : 'var(--p-muted)', padding: '1px 6px', borderRadius: 999, font: '500 11px Geist Mono, monospace', marginLeft: 2 }}>{count}</span>
+        <span style={{ background: active ? 'var(--p-primary-soft)' : 'var(--g-off-white)', color: active ? 'var(--p-primary)' : 'var(--p-muted)', padding: '1px 6px', borderRadius: 999, font: '500 11px var(--font-control)', marginLeft: 2 }}>{count}</span>
       )}
       <Icon name="expand_more" size={14} color={active ? 'var(--p-primary)' : 'var(--p-muted)'} />
     </button>
@@ -383,24 +417,24 @@ function FilterChip({ icon = 'filter_list', label, count, active, onClick }) {
 /* ---------------- SegmentedTabs — page-level underlined ---------------- */
 function SegmentedTabs({ value, onChange, items }) {
   return (
-    <div style={{ display: 'flex', gap: 12, borderBottom: '0.5px solid var(--p-border)', padding: '0 4px' }}>
+    <div style={{ display: 'flex', gap: 12, borderBottom: 'var(--hair) solid var(--p-border)', padding: '0 4px' }}>
       {items.map((it) => {
         const on = value === it.id;
         return (
           <button key={it.id} onClick={() => onChange?.(it.id)} style={{
             display: 'inline-flex', alignItems: 'center', gap: 8,
             padding: '14px 16px', marginBottom: -1,
-            border: 'none', borderBottom: `2px solid ${on ? 'var(--p-ink)' : 'transparent'}`,
+            border: 'none', borderBottom: `2px solid ${on ? 'var(--tab-on)' : 'transparent'}`,   // selected tab speaks --tab-on (1.13; ink by default per the 1.6 law)
             background: 'transparent', cursor: 'pointer',
-            color: on ? 'var(--p-ink)' : 'var(--p-text-2)',
-            font: '600 14px/1 var(--font-control)',   // 13 → 14 (1.12.2 §6): page-level tabs sit a step above 13px controls
+            color: on ? 'var(--tab-on)' : 'var(--p-text-2)',
+            font: 'var(--tw-tab) var(--tz-tab)/1 var(--font-control)',   // 600 14 (1.12.2 §6); skin-tunable — Black Ops 500 12 (1.13)
             letterSpacing: '-0.005em',
           }}>
-            {it.icon && <Icon name={it.icon} size={16} color={on ? 'var(--p-ink)' : 'var(--p-text-2)'} />}
+            {it.icon && <Icon name={it.icon} size={16} color={on ? 'var(--tab-on)' : 'var(--p-text-2)'} />}
             {it.label}
             {it.count != null && (
               <span style={{
-                font: '500 11px Geist Mono, monospace',
+                font: '500 11px var(--font-control)',
                 color: on ? 'var(--p-text)' : 'var(--p-muted)',
                 background: on ? 'var(--p-surface-tint)' : 'var(--g-off-white)',
                 padding: '1px 6px', borderRadius: 999,
@@ -468,10 +502,10 @@ function StatCard({ value, label, color = 'ink', action, active, onClick }) {
   const c = colors[color] || colors.ink;
   const { text: animated, op: animOp } = useCountUp(value);
   return (
-    <div onClick={onClick} style={{ background: '#fff', border: `1px solid ${active ? c : 'var(--p-border)'}`, borderRadius: 2, padding: '14px 16px', display: 'flex', gap: 10, alignItems: 'baseline', boxShadow: active ? `inset 0 0 0 1px ${c}, var(--shadow-card)` : 'var(--shadow-card)', cursor: onClick ? 'pointer' : 'default', transition: 'border-color .12s, box-shadow .12s' }}>
-      <span style={{ font: "700 20px/1 'JetBrains Mono', monospace", color: c, opacity: animOp }}>{animated}</span>
+    <div onClick={onClick} style={{ background: '#fff', border: `1px solid ${active ? c : 'var(--p-border)'}`, borderRadius: 'var(--r-card)', padding: '14px 16px', display: 'flex', gap: 10, alignItems: 'baseline', boxShadow: active ? `inset 0 0 0 1px ${c}, var(--shadow-card)` : 'var(--shadow-card)', cursor: onClick ? 'pointer' : 'default', transition: 'border-color .12s, box-shadow .12s' }}>
+      <span style={{ font: "700 20px/1 var(--font-mono)", color: c, opacity: animOp }}>{animated}</span>
       <span style={{ font: '500 10px/1.3 var(--font-control)', letterSpacing: '.07em', textTransform: 'uppercase', color: 'var(--p-muted)' }}>{label}</span>   {/* Cockpit: stat labels are machine labels */}
-      {action && <span style={{ marginLeft: 'auto', font: '500 11px/1 var(--font-control)', color: active ? c : 'var(--p-muted)', cursor: 'pointer', textDecoration: 'underline', textDecorationColor: active ? c : '#C4C9D2', textDecorationThickness: '1px', textUnderlineOffset: '2px' }}>{action}</span>}
+      {action && <span style={{ marginLeft: 'auto', font: '500 11px/1 var(--font-control)', color: active ? c : 'var(--p-muted)', cursor: 'pointer', textDecoration: 'underline', textDecorationColor: active ? c : 'var(--p-underline-muted)', textDecorationThickness: '1px', textUnderlineOffset: '2px' }}>{action}</span>}
     </div>
   );
 }
@@ -529,7 +563,7 @@ function Tooltip({ text, children, side = 'top', maxWidth, z = 4000 }) {
           background: 'var(--p-ink)', color: '#fff',
           font: `500 11px/${maxWidth ? '1.5' : '1.3'} Inter, sans-serif`,
           padding: maxWidth ? '7px 10px' : '4px 8px',
-          borderRadius: 2, boxShadow: 'var(--shadow-float)',
+          borderRadius: 'var(--r-card)', boxShadow: 'var(--shadow-float)',
           zIndex: z, pointerEvents: 'none', textAlign: 'left',
         }}>{text}</span>,
         document.body
@@ -622,22 +656,23 @@ function Highlight({ text, query }) {
    not a hyphen. Distinct from Chip (status flags) — these are signed numeric deltas. */
 function CountDeltaCell({ count = 0, adds = 0, discontinues = 0, onAdds, onDiscontinues, unit = 'product', testid }) {
   if (!count && !adds && !discontinues)
-    return <span style={{ font: '400 13px Inter', color: 'var(--p-placeholder)' }} data-testid={testid}>—</span>;
-  const chip = { font: "500 11px 'JetBrains Mono', monospace", padding: '2px 7px', borderRadius: 999, border: 'none' };
+    return <span style={{ font: '400 13px var(--font-sans)', color: 'var(--p-placeholder)' }} data-testid={testid}>—</span>;
+  // 1.13 §G: count/delta chips are BARE colored mono text — fill/padding/radius removed (tooltips + deep-links unchanged)
+  const chip = { font: '500 11px var(--font-mono)', padding: 0, border: 'none', background: 'transparent' };
   const stop = (fn) => (e) => { e.stopPropagation(); fn && fn(); };
   return (
     <span style={{ display: 'inline-flex', alignItems: 'center', gap: 7 }} data-testid={testid}>
       <Tooltip text={`${count} ${unit}${count === 1 ? '' : 's'} carried at this store`}>
-        <span style={{ font: "500 13px 'JetBrains Mono', monospace", color: count ? 'var(--p-text)' : 'var(--p-placeholder)', cursor: 'default' }}>{count}</span>
+        <span style={{ font: "500 13px var(--font-mono)", color: count ? 'var(--p-text)' : 'var(--p-placeholder)', cursor: 'default' }}>{count}</span>
       </Tooltip>
       {adds > 0 && (
         <Tooltip text={`${adds} pending addition${adds === 1 ? '' : 's'} — view in POD Planner`}>
-          <button onClick={stop(onAdds)} style={{ ...chip, color: 'var(--p-success)', background: 'var(--g-green-10)', cursor: onAdds ? 'pointer' : 'default' }}>+{adds}</button>
+          <button onClick={stop(onAdds)} style={{ ...chip, color: 'var(--p-success)', cursor: onAdds ? 'pointer' : 'default' }}>+{adds}</button>
         </Tooltip>
       )}
       {discontinues > 0 && (
         <Tooltip text={`${discontinues} pending discontinue${discontinues === 1 ? '' : 's'} — view in POD Planner`}>
-          <button onClick={stop(onDiscontinues)} style={{ ...chip, color: 'var(--p-danger)', background: 'var(--g-red-10)', cursor: onDiscontinues ? 'pointer' : 'default' }}>−{discontinues}</button>
+          <button onClick={stop(onDiscontinues)} style={{ ...chip, color: 'var(--p-danger)', cursor: onDiscontinues ? 'pointer' : 'default' }}>−{discontinues}</button>
         </Tooltip>
       )}
     </span>
@@ -651,7 +686,7 @@ function InfoBanner({ tone = 'info', children }) {
     amber: { bg: 'var(--g-gold-10)', fg: 'var(--p-ink)' },
     danger: { bg: 'rgba(255,107,107,.12)', fg: 'var(--p-danger-strong)' },
   };
-  return <div style={{ background: tones[tone].bg, color: tones[tone].fg, borderRadius: 2, padding: '10px 12px', font: '400 14px/1.4 Inter, sans-serif' }}>{children}</div>;
+  return <div style={{ background: tones[tone].bg, color: tones[tone].fg, borderRadius: 'var(--r-card)', padding: '10px 12px', font: '400 14px/1.4 var(--font-sans)' }}>{children}</div>;
 }
 
 /* ---------------- Show / Hide Stats — per-page persisted toggle ---------------- */
@@ -672,4 +707,4 @@ function StatsToggle({ visible, onToggle }) {
   );
 }
 
-Object.assign(window, { Icon, Logo, Crow, Button, Input, Select, Toggle, Checkbox, Pill, Chip, ChipToggle, ImpactBars, EXPECTED_IMPACTS, IMPACT_RANK, AccountTypeIcon, AccountTypePill, ACCOUNT_TYPE_ICONS, FilterChip, SegmentedTabs, StatCard, CountDeltaCell, InfoBanner, Tooltip, StatsToggle, useStatsVisible });
+Object.assign(window, { Icon, Logo, Crow, Button, Input, Select, Toggle, Checkbox, Pill, ServicePill, Chip, ChipToggle, ImpactBars, EXPECTED_IMPACTS, IMPACT_RANK, AccountTypeIcon, AccountTypePill, ACCOUNT_TYPE_ICONS, FilterChip, SegmentedTabs, StatCard, CountDeltaCell, InfoBanner, Tooltip, StatsToggle, useStatsVisible });

@@ -12,13 +12,13 @@ function pageList(cur, total) {
   return out;
 }
 function Pager({ page, pageCount, onPage }) {
-  const navStyle = (disabled) => ({ minWidth: 30, height: 30, borderRadius: 2, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: '#fff', border: '0.5px solid var(--p-border-strong)', color: disabled ? 'var(--p-placeholder)' : 'var(--p-muted)', cursor: disabled ? 'default' : 'pointer' });
+  const navStyle = (disabled) => ({ minWidth: 30, height: 30, borderRadius: 'var(--r-card)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: '#fff', border: 'var(--hair) solid var(--p-border-strong)', color: disabled ? 'var(--p-placeholder)' : 'var(--p-muted)', cursor: disabled ? 'default' : 'pointer' });
   return (
     <div style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
       <span style={navStyle(page <= 1)} onClick={page > 1 ? () => onPage(page - 1) : undefined}><Icon name="chevron_left" size={15} /></span>
       {pageList(page, pageCount).map((p, i) => p === '…'
-        ? <span key={'e' + i} style={{ minWidth: 22, textAlign: 'center', color: 'var(--p-placeholder)', font: '500 13px Inter' }}>…</span>
-        : <span key={p} onClick={() => onPage(p)} style={{ minWidth: 30, height: 30, padding: '0 8px', borderRadius: 2, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', font: '500 13px/1 Inter', cursor: 'pointer', background: p === page ? 'var(--p-primary)' : 'transparent', color: p === page ? '#fff' : 'var(--p-text)' }}>{p}</span>
+        ? <span key={'e' + i} style={{ minWidth: 22, textAlign: 'center', color: 'var(--p-placeholder)', font: '500 13px var(--font-sans)' }}>…</span>
+        : <span key={p} onClick={() => onPage(p)} style={{ minWidth: 30, height: 30, padding: '0 8px', borderRadius: 'var(--r-card)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', font: '500 13px/1 var(--font-sans)', cursor: 'pointer', background: p === page ? 'var(--p-primary)' : 'transparent', color: p === page ? '#fff' : 'var(--p-text)' }}>{p}</span>
       )}
       <span style={navStyle(page >= pageCount)} onClick={page < pageCount ? () => onPage(page + 1) : undefined}><Icon name="chevron_right" size={15} /></span>
     </div>
@@ -115,9 +115,9 @@ function ProductsScreen() {
       ]} />
 
       {/* table */}
-      <div style={{ background: '#fff', border: '0.5px solid var(--p-border)', borderRadius: 2, overflow: 'hidden', flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
+      <div style={{ background: '#fff', border: 'var(--hair) solid var(--p-border)', borderRadius: 'var(--r-card)', overflow: 'hidden', flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column' }}>
         {/* header */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1.6fr 90px 110px 1fr 130px 140px 40px', alignItems: 'center', height: 40, flexShrink: 0, padding: '0 20px', background: 'var(--p-surface-alt)', borderBottom: '0.5px solid var(--p-border)', font: '500 11px/1 Inter', letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--p-muted)' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1.6fr 90px 110px 1fr 130px 140px 40px', alignItems: 'center', height: 40, flexShrink: 0, padding: '0 20px', background: 'var(--p-surface-alt)', borderBottom: 'var(--hair) solid var(--p-border)', font: '500 11px/1 var(--font-sans)', letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--p-muted)' }}>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, color: 'var(--p-primary)' }}>PRODUCT <Icon name="arrow_upward" size={11} /></span>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>ACCOUNTS <Icon name="unfold_more" size={11} /></span>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>IN MARKET <Icon name="unfold_more" size={11} /></span>
@@ -133,33 +133,33 @@ function ProductsScreen() {
             <div key={r.id} style={{
               display: 'grid', gridTemplateColumns: '1.6fr 90px 110px 1fr 130px 140px 40px',
               alignItems: 'center', height: 56, padding: '0 20px',
-              borderBottom: '0.5px solid var(--p-border)',
+              borderBottom: 'var(--hair) solid var(--p-border)',
               background: '#fff',
             }}>
               <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
-                <span style={{ font: "400 11px 'JetBrains Mono', monospace", color: 'var(--p-muted)' }}>{r.id}</span>
-                <span style={{ font: '500 14px Inter', color: 'var(--p-ink)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{r.name}</span>
+                <span style={{ font: "400 11px var(--font-mono)", color: 'var(--p-muted)' }}>{r.id}</span>
+                <span style={{ font: '500 14px var(--font-sans)', color: 'var(--p-ink)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{r.name}</span>
               </div>
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
                 <Icon name="storefront" size={13} color="var(--p-placeholder)" />
-                <span style={{ font: '500 13px Inter', color: 'var(--p-ink)' }}>{r.accts}</span>
-                {r.flag && <span style={{ font: "500 10px 'JetBrains Mono', monospace", color: 'var(--p-warning)', background: 'var(--g-gold-10)', padding: '1px 5px', borderRadius: 999 }}>{r.flag}</span>}
+                <span style={{ font: '500 13px var(--font-sans)', color: 'var(--p-ink)' }}>{r.accts}</span>
+                {r.flag && <span style={{ font: "500 10px var(--font-mono)", color: 'var(--p-warning)', background: 'var(--g-gold-10)', padding: '1px 5px', borderRadius: 999 }}>{r.flag}</span>}
               </div>
-              <span style={{ font: "500 13px 'JetBrains Mono', monospace", color: 'var(--p-text)' }}>{r.cs} cs</span>
-              <span style={{ font: '400 14px Inter', color: 'var(--p-text)' }}>{r.brand}</span>
+              <span style={{ font: "500 13px var(--font-mono)", color: 'var(--p-text)' }}>{r.cs} cs</span>
+              <span style={{ font: '400 14px var(--font-sans)', color: 'var(--p-text)' }}>{r.brand}</span>
               <span><Pill kind={r.cat} /></span>
-              <span style={{ font: '400 13px Inter', color: 'var(--p-muted)' }}>{r.size}</span>
+              <span style={{ font: '400 13px var(--font-sans)', color: 'var(--p-muted)' }}>{r.size}</span>
               <span style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 28, height: 28, borderRadius: '50%', background: 'var(--p-primary-soft)', color: 'var(--p-primary)' }}><Icon name="map" size={13} /></span>
             </div>
           );
         })}
         </div>
         {/* footer — result count (left) + rows-per-page + pager (right). Replaces the old top-bar "N of M" count. */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexShrink: 0, padding: '10px 16px', background: 'var(--p-surface-alt)', borderTop: '0.5px solid var(--p-border)' }}>
-          <span style={{ font: '400 13px Inter', color: 'var(--p-muted)' }}>Showing <b style={{ color: 'var(--p-text)', fontWeight: 600 }}>{rangeStart}–{rangeEnd}</b> of <b style={{ color: 'var(--p-text)', fontWeight: 600 }}>{footerTotal.toLocaleString()}</b> products</span>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexShrink: 0, padding: '10px 16px', background: 'var(--p-surface-alt)', borderTop: 'var(--hair) solid var(--p-border)' }}>
+          <span style={{ font: '400 13px var(--font-sans)', color: 'var(--p-muted)' }}>Showing <b style={{ color: 'var(--p-text)', fontWeight: 600 }}>{rangeStart}–{rangeEnd}</b> of <b style={{ color: 'var(--p-text)', fontWeight: 600 }}>{footerTotal.toLocaleString()}</b> products</span>
           <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
-            <span style={{ display: 'flex', alignItems: 'center', gap: 8, font: '400 13px Inter', color: 'var(--p-muted)' }}>Rows
-              <span style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', height: 30, border: '0.5px solid var(--p-border-strong)', borderRadius: 2, background: '#fff', padding: '0 28px 0 10px', font: '500 13px Inter', color: 'var(--p-ink)' }}>{PAGE_SIZE}<Icon name="expand_more" size={14} color="var(--p-muted)" style={{ position: 'absolute', right: 7 }} /></span>
+            <span style={{ display: 'flex', alignItems: 'center', gap: 8, font: '400 13px var(--font-sans)', color: 'var(--p-muted)' }}>Rows
+              <span style={{ position: 'relative', display: 'inline-flex', alignItems: 'center', height: 30, border: 'var(--hair) solid var(--p-border-strong)', borderRadius: 'var(--r-card)', background: '#fff', padding: '0 28px 0 10px', font: '500 13px var(--font-sans)', color: 'var(--p-ink)' }}>{PAGE_SIZE}<Icon name="expand_more" size={14} color="var(--p-muted)" style={{ position: 'absolute', right: 7 }} /></span>
             </span>
             <Pager page={page} pageCount={pageCount} onPage={setPage} />
           </div>

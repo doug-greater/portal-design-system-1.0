@@ -21,12 +21,19 @@
     .g-split.error { background:#C94A4E; color:#fff; }
     .g-split.error .g-split-caret { border-left:1px solid rgba(255,255,255,.32); }
     .g-split.error .g-split-main:hover, .g-split.error .g-split-caret:hover { background:rgba(255,255,255,.14); }
-    .g-menu { background:#fff; border:0.5px solid var(--p-border); border-radius:2px; box-shadow:var(--shadow-float); padding:4px; min-width:208px; }
+    .g-menu { background:#fff; border:var(--hair) solid var(--p-border); border-radius:2px; box-shadow:var(--shadow-float); padding:4px; min-width:208px; }
     .g-menu-item { display:flex; align-items:center; gap:10px; height:34px; padding:0 10px; border-radius:2px; font:500 12px/1 var(--font-control); color:var(--p-ink); cursor:pointer; white-space:nowrap; }
     .g-menu-item:hover { background:var(--p-surface-alt); }
     .g-menu-item.danger { color:var(--p-danger); }
     .g-menu-kbd { margin-left:auto; font:400 11px 'JetBrains Mono',monospace; color:var(--p-placeholder); }
-    .g-menu-label { font:500 10px/1 var(--font-control); letter-spacing:.07em; text-transform:uppercase; color:var(--p-muted); padding:9px 10px 5px; }
+    /* Grouped headers (1.13 §M3) — PROMINENT category bands: tinted full-width band
+       (-6px margins bleed to the menu edge), uppercase mono 600, wider tracking; a
+       top divider separates consecutive groups. Items in a band pass grouped:true
+       and indent 22px to nest; ungrouped items (e.g. "Custom…") stay flush-left.
+       Canonical use: the section-name preset picker (Customer Facing / Stock Areas). */
+    .g-menu-label { font:600 10px/1 var(--font-control); letter-spacing:.09em; text-transform:uppercase; color:var(--p-muted); padding:7px 12px 6px; background:var(--p-surface-alt); margin:4px -6px 4px; }
+    .g-menu-label + .g-menu-label, .g-menu-item + .g-menu-label, .g-menu-div + .g-menu-label { border-top:var(--hair) solid var(--p-border); }
+    .g-menu-item.grouped { padding-left:22px; }
     .g-menu-div { height:1px; background:var(--p-border); margin:4px -4px; }
     .g-kebab { width:28px; height:28px; border-radius:2px; display:inline-flex; align-items:center; justify-content:center; color:var(--p-muted); cursor:pointer; border:none; background:transparent; }
     .g-kebab:hover { background:rgba(0,0,0,.05); color:var(--p-text); }
@@ -112,18 +119,18 @@ function Modal({ open, onClose, title, subtitle, children, footer, size = 'md', 
   const t = TONES[tone] || TONES.danger;
   return (
     <Scrim onClose={confirm ? undefined : onClose}>
-      <div style={{ width: w, background: '#fff', borderRadius: 2, border: '0.5px solid var(--p-border)', boxShadow: confirm ? '0 8px 28px rgba(0,0,0,.12), 0 2px 6px rgba(0,0,0,.06)' : '0 8px 28px rgba(0,0,0,.18), 0 2px 6px rgba(0,0,0,.08)', overflow: 'hidden', animation: 'g-modal-in .18s ease-out' }}>
+      <div style={{ width: w, background: '#fff', borderRadius: 'var(--r-card)', border: 'var(--hair) solid var(--p-border)', boxShadow: confirm ? '0 8px 28px rgba(0,0,0,.12), 0 2px 6px rgba(0,0,0,.06)' : '0 8px 28px rgba(0,0,0,.18), 0 2px 6px rgba(0,0,0,.08)', overflow: 'hidden', animation: 'g-modal-in .18s ease-out' }}>
         {confirm ? (
           <div style={{ padding: '22px 24px 16px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-              <span style={{ width: 34, height: 34, borderRadius: 2, flexShrink: 0, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: t.tint, color: t.color }}><MIcon name={icon} size={20} /></span>
+              <span style={{ width: 34, height: 34, borderRadius: 'var(--r-card)', flexShrink: 0, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: t.tint, color: t.color }}><MIcon name={icon} size={20} /></span>
               <h2 style={{ margin: 0, font: '600 17px/1.3 var(--font-display)', letterSpacing: '-.02em', color: 'var(--p-ink)' }}>{title}</h2>
             </div>
-            <div style={{ font: '400 14px/1.5 Inter, sans-serif', color: 'var(--p-text-2)' }}>{children}</div>
+            <div style={{ font: '400 14px/1.5 var(--font-sans)', color: 'var(--p-text-2)' }}>{children}</div>
             {warning && (
-              <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', marginTop: 14, padding: '10px 12px', background: '#FFF7ED', borderRadius: 2 }}>
+              <div style={{ display: 'flex', gap: 10, alignItems: 'flex-start', marginTop: 14, padding: '10px 12px', background: '#FFF7ED', borderRadius: 'var(--r-card)' }}>
                 <MIcon name="warning" size={18} color="#C2410C" style={{ flexShrink: 0, marginTop: 1 }} />
-                <span style={{ font: '400 13px/1.45 Inter, sans-serif', color: '#C2410C' }}>{warning}</span>
+                <span style={{ font: '400 13px/1.45 var(--font-sans)', color: '#C2410C' }}>{warning}</span>
               </div>
             )}
           </div>
@@ -132,9 +139,9 @@ function Modal({ open, onClose, title, subtitle, children, footer, size = 'md', 
             <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: '18px 20px 14px 24px' }}>
               <div style={{ minWidth: 0 }}>
                 <h2 style={{ margin: 0, font: '600 17px/1.3 var(--font-display)', letterSpacing: '-.02em', color: 'var(--p-ink)' }}>{title}</h2>
-                {subtitle && <div style={{ font: '400 13px/1.3 Inter, sans-serif', color: 'var(--p-muted)', marginTop: 2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{subtitle}</div>}
+                {subtitle && <div style={{ font: '400 13px/1.3 var(--font-sans)', color: 'var(--p-muted)', marginTop: 2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{subtitle}</div>}
               </div>
-              <span onClick={onClose} style={{ width: 32, height: 32, borderRadius: 2, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'var(--p-muted)', cursor: 'pointer', flexShrink: 0 }}><MIcon name="close" size={20} /></span>
+              <span onClick={onClose} style={{ width: 32, height: 32, borderRadius: 'var(--r-card)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'var(--p-muted)', cursor: 'pointer', flexShrink: 0 }}><MIcon name="close" size={20} /></span>
             </div>
             <div style={{ padding: '4px 24px 8px', display: 'flex', flexDirection: 'column', gap: 20 }}>{children}</div>
           </>
@@ -152,16 +159,16 @@ function Drawer({ open, onClose, title, overline, children, footer, size = 'md' 
   const width = { sm: 400, md: 460, lg: 560 }[size] || 460;
   return (
     <Scrim onClose={onClose} justify="right">
-      <div style={{ width, height: '100vh', background: '#fff', borderLeft: '0.5px solid var(--p-border)', boxShadow: 'var(--shadow-float)', display: 'flex', flexDirection: 'column', animation: 'g-drawer-in .18s ease-out' }}>
-        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: '20px 20px 16px 24px', borderBottom: '0.5px solid var(--p-border)' }}>
+      <div style={{ width, height: '100vh', background: '#fff', borderLeft: 'var(--hair) solid var(--p-border)', boxShadow: 'var(--shadow-float)', display: 'flex', flexDirection: 'column', animation: 'g-drawer-in .18s ease-out' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', padding: '20px 20px 16px 24px', borderBottom: 'var(--hair) solid var(--p-border)' }}>
           <div>
-            {overline && <div style={{ font: '500 11px/1 Inter, sans-serif', textTransform: 'uppercase', letterSpacing: '.06em', color: 'var(--p-muted)', marginBottom: 6 }}>{overline}</div>}
+            {overline && <div style={{ font: '500 11px/1 var(--font-sans)', textTransform: 'uppercase', letterSpacing: '.06em', color: 'var(--p-muted)', marginBottom: 6 }}>{overline}</div>}
             <h3 style={{ margin: 0, font: '600 18px/1.3 var(--font-display)', letterSpacing: '-.02em', color: 'var(--p-ink)' }}>{title}</h3>
           </div>
-          <span onClick={onClose} style={{ width: 32, height: 32, borderRadius: 2, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'var(--p-muted)', cursor: 'pointer' }}><MIcon name="close" size={20} /></span>
+          <span onClick={onClose} style={{ width: 32, height: 32, borderRadius: 'var(--r-card)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'var(--p-muted)', cursor: 'pointer' }}><MIcon name="close" size={20} /></span>
         </div>
         <div style={{ padding: '20px 24px', overflowY: 'auto', flex: 1, display: 'flex', flexDirection: 'column', gap: 18 }}>{children}</div>
-        {footer && <div style={{ padding: '14px 24px', borderTop: '0.5px solid var(--p-border)', display: 'flex', gap: 10 }}>{footer}</div>}
+        {footer && <div style={{ padding: '14px 24px', borderTop: 'var(--hair) solid var(--p-border)', display: 'flex', gap: 10 }}>{footer}</div>}
       </div>
     </Scrim>
   );
@@ -180,7 +187,7 @@ function Menu({ items = [], onSelect, style }) {
         if (it.divider) return <div key={i} className="g-menu-div" />;
         if (it.header) return <div key={i} className="g-menu-label">{it.header}</div>;
         return (
-          <div key={i} role="menuitem" className={'g-menu-item' + (it.danger ? ' danger' : '')}
+          <div key={i} role="menuitem" className={'g-menu-item' + (it.danger ? ' danger' : '') + (it.grouped ? ' grouped' : '')}
             onClick={() => { it.onClick && it.onClick(); onSelect && onSelect(it); }}>
             {it.icon && <MIcon name={it.icon} size={18} color={it.danger ? 'var(--p-danger)' : 'var(--p-muted)'} />}
             <span>{it.label}</span>
@@ -286,8 +293,8 @@ function CommandPalette({ open, onClose, query = '', onQuery, groups = [] }) {
     <div data-testid="command-palette" onMouseDown={onClose}
       style={{ position: 'fixed', inset: 0, zIndex: CMDK_Z, background: 'var(--p-backdrop, rgba(16,24,40,.45))', display: 'flex', justifyContent: 'center', alignItems: 'flex-start', padding: '56px 24px' }}>
       <div onMouseDown={(e) => e.stopPropagation()}
-        style={{ width: 560, maxWidth: '100%', background: 'var(--p-surface)', border: '0.5px solid var(--p-border)', borderRadius: 2, boxShadow: 'var(--shadow-float)', overflow: 'hidden' }}>
-        <div style={{ display: 'flex', alignItems: 'center', height: 52, padding: '0 14px', borderBottom: '0.5px solid var(--p-border)', gap: 10 }}>
+        style={{ width: 560, maxWidth: '100%', background: 'var(--p-surface)', border: 'var(--hair) solid var(--p-border)', borderRadius: 'var(--r-card)', boxShadow: 'var(--shadow-float)', overflow: 'hidden' }}>
+        <div style={{ display: 'flex', alignItems: 'center', height: 52, padding: '0 14px', borderBottom: 'var(--hair) solid var(--p-border)', gap: 10 }}>
           <Icon name="search" size={20} color="var(--p-placeholder)" />
           <input autoFocus value={query} onChange={(e) => onQuery?.(e.target.value)} placeholder="Search…" data-testid="command-palette-input"
             style={{ flex: 1, border: 'none', outline: 'none', background: 'transparent', font: '400 14px var(--font-control)', color: 'var(--p-ink)' }} />
@@ -298,15 +305,15 @@ function CommandPalette({ open, onClose, query = '', onQuery, groups = [] }) {
         <div style={{ maxHeight: 380, overflow: 'auto', padding: '6px 0' }}>
           {groups.map((g) => (
             <div key={g.label}>
-              <div style={{ font: '500 10px/1 Inter, sans-serif', letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--p-muted)', padding: '12px 16px 6px' }}>{g.label}</div>
+              <div style={{ font: '500 10px/1 var(--font-sans)', letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--p-muted)', padding: '12px 16px 6px' }}>{g.label}</div>
               {g.items.map((it) => {
                 idx += 1; const on = idx === active;
                 return (
                   <div key={it.id} onMouseEnter={() => setActive(flat.indexOf(it))} onClick={it.onSelect}
                     style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '8px 14px', cursor: 'pointer', background: on ? 'var(--p-action)' : 'transparent', color: on ? 'var(--p-action-fg)' : 'var(--p-ink)' }}>
                     <Icon name={it.icon} size={20} color={on ? 'var(--p-action-fg)' : 'var(--p-text-2)'} />
-                    <span style={{ font: '500 14px Inter, sans-serif' }}><Highlight text={it.title} query={query} /></span>
-                    {it.subtitle && <span style={{ font: '400 12px Inter, sans-serif', color: on ? 'var(--p-action-fg)' : 'var(--p-muted)', marginLeft: 6 }}><Highlight text={it.subtitle} query={query} /></span>}
+                    <span style={{ font: '500 14px var(--font-sans)' }}><Highlight text={it.title} query={query} /></span>
+                    {it.subtitle && <span style={{ font: '400 12px var(--font-sans)', color: on ? 'var(--p-action-fg)' : 'var(--p-muted)', marginLeft: 6 }}><Highlight text={it.subtitle} query={query} /></span>}
                     {it.related?.length > 0 && (
                       <span style={{ marginLeft: 'auto', display: 'inline-flex', gap: 6 }}>
                         {it.related.map((r) => <Chip key={r.label} tone="info" icon={r.icon} style={on ? { background: 'rgba(255,255,255,.18)', color: 'var(--p-action-fg)' } : undefined}>{r.label}</Chip>)}

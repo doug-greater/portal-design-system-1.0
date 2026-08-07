@@ -65,19 +65,19 @@ function RoutesScreen() {
 
       <div style={{ display: 'grid', gridTemplateColumns: '360px 1fr', gap: 16, alignItems: 'flex-start' }}>
         {/* sidebar list */}
-        <div style={{ background: '#fff', border: '0.5px solid var(--p-border)', borderRadius: 2, overflow: 'hidden' }}>
-          <div style={{ padding: '14px 16px', borderBottom: '0.5px solid var(--p-border)' }}>
-            <div style={{ font: '600 16px Inter', color: 'var(--p-ink)' }}>Thursday, Apr 23 · Kenny D’Amica</div>
-            <div style={{ font: '400 13px Inter', color: 'var(--p-muted)', marginTop: 2 }}>5 stops · 227 cs planned</div>
+        <div style={{ background: '#fff', border: 'var(--hair) solid var(--p-border)', borderRadius: 'var(--r-card)', overflow: 'hidden' }}>
+          <div style={{ padding: '14px 16px', borderBottom: 'var(--hair) solid var(--p-border)' }}>
+            <div style={{ font: '600 16px var(--font-sans)', color: 'var(--p-ink)' }}>Thursday, Apr 23 · Kenny D’Amica</div>
+            <div style={{ font: '400 13px var(--font-sans)', color: 'var(--p-muted)', marginTop: 2 }}>5 stops · 227 cs planned</div>
           </div>
           {stops.map((s) => (
-            <div key={s.n} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', borderBottom: '0.5px solid var(--p-border)' }}>
+            <div key={s.n} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px', borderBottom: 'var(--hair) solid var(--p-border)' }}>
               <span className="g-map-pin" style={{ flex: '0 0 auto' }}>
                 <div>{s.n}</div>
               </span>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ font: '500 14px Inter', color: 'var(--p-ink)' }}>{s.name}</div>
-                <div style={{ font: '400 12px Inter', color: 'var(--p-muted)' }}>{s.eta} · {s.cs} cs</div>
+                <div style={{ font: '500 14px var(--font-sans)', color: 'var(--p-ink)' }}>{s.name}</div>
+                <div style={{ font: '400 12px var(--font-sans)', color: 'var(--p-muted)' }}>{s.eta} · {s.cs} cs</div>
               </div>
               <Icon name="chevron-right" size={14} color="var(--p-placeholder)" />
             </div>

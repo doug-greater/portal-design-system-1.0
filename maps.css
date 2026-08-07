@@ -173,24 +173,36 @@
   color: #282838;
 }
 
-/* Active / focused pin — inverted to the primary navy, numbered, with halo.
-   Apply to the currently-selected stop. Never more than one per map. */
+/* Dark basemap contrast (1.13 §K1). CARTO dark_all tiles are too one-note: labels
+   (~#6B) sit BELOW mid-gray, so contrast() alone darkens them — brightness-lift
+   first, then a light contrast clamp pushes land/water back toward black. Tile
+   pane ONLY — pins, polylines, popups and hexbins live in separate Leaflet panes.
+   Covers Dark AND Black Ops automatically (both resolve data-theme="dark"). */
+html[data-theme="dark"] .g-map .leaflet-tile-pane {
+  filter: brightness(2.1) contrast(1.08) saturate(1.15);
+}
+
+/* Active / focused pin — inverted to the SELECTION color, numbered, with halo.
+   Apply to the currently-selected stop. Never more than one per map.
+   1.13 §K2: follows var(--p-primary) so it re-skins automatically — dusty navy in
+   light · steel in dark · teal in Black Ops. (JS-drawn geometry can't consume CSS
+   vars — polylines resolve the concrete value at map build via getComputedStyle,
+   and the build effect must be keyed on `skin`, not just `resolved`.) */
 .g-map-pin.is-active {
-  background: #1861AF !important;
+  background: var(--p-primary) !important;
   box-shadow: var(--map-pin-focus-halo) !important;
   transform: scale(1.07);
   transform-origin: center;
 }
 
 .g-map-pin.is-active > div {
-  background: #1861AF !important;
+  background: var(--p-primary) !important;
   color: #ffffff !important;
 }
 
-/* Dark: dusty steel is LIGHT, so the active pin flips to a dark number (1.11) */
+/* Dark + Black Ops: the selection hue is LIGHT, so the active pin flips to a dark number (1.11) */
 html[data-theme="dark"] .g-map-pin.is-active,
 html[data-theme="dark"] .g-map-pin.is-active > div {
-  background: #ADBDD1 !important;
   color: #0F0F0F !important;
 }
 
@@ -396,13 +408,16 @@ html[data-theme="dark"] .g-cov-pin { stroke: #0A0A0B; }               /* pin hal
 /* =======================================================================
    In-popup "Edit Assignment" deep-link (1.8) — a blue in-content text link
    (it navigates, so it stays blue per the ink/blue law). Sits at the bottom
-   of a hover-reveal route-pin popup; clicking deep-links to the list editor. */
+   of a hover-reveal route-pin popup; clicking deep-links to the list editor.
+   ⚠ DELIBERATE EXCEPTION (1.13 §K2): Leaflet popups are ALWAYS WHITE surfaces
+   regardless of theme, so popup accents keep the hardcoded light-navy — the
+   steel/teal primaries would sit on white and fail contrast. Do not tokenize. */
 .g-map-popup-edit {
   display: inline-flex; align-items: center; gap: 5px;
   margin-top: 9px; padding-top: 8px;
   border-top: 1px solid var(--p-border);
   font: 600 12px/1 Inter, sans-serif;
-  color: var(--p-primary); text-decoration: none;
+  color: #1861AF; text-decoration: none;
 }
 .g-map-popup-edit:hover { color: var(--p-primary-hover); }
 
@@ -430,7 +445,7 @@ html[data-theme="dark"] .g-cov-pin { stroke: #0A0A0B; }               /* pin hal
   font: 600 10px/1 var(--font-sans);
   transition: transform 120ms ease-out, opacity 120ms ease-out;
 }
-.g-live-pin.is-in_progress { background: #1861AF; border-color: #1861AF; color: #fff; }
+.g-live-pin.is-in_progress { background: var(--p-primary); border-color: var(--p-primary); color: #fff; }   /* 1.13 §K2 */
 .g-live-pin.is-complete    { background: #282838; border-color: #282838; color: #fff; }
 .g-live-pin.is-incomplete  { background: #F8EAEA; border-color: #C94A4E; color: #B03A3E; }
 .g-live-pin.is-focus { transform: scale(1.18); box-shadow: 0 2px 8px rgba(24,97,175,.35); z-index: 2; }
@@ -440,11 +455,11 @@ html[data-theme="dark"] .g-cov-pin { stroke: #0A0A0B; }               /* pin hal
 .g-live-rep { position: relative; width: 14px; height: 14px; }
 .g-live-rep .core {
   position: absolute; inset: 0; border-radius: 50%; box-sizing: border-box;
-  background: #1861AF; border: 2.5px solid #fff; box-shadow: 0 1px 3px rgba(0,0,0,.3);
+  background: var(--p-primary); border: 2.5px solid #fff; box-shadow: 0 1px 3px rgba(0,0,0,.3);   /* 1.13 §K2 */
 }
 .g-live-rep .ping {
   position: absolute; top: 50%; left: 50%; width: 14px; height: 14px; margin: -7px 0 0 -7px;
-  border-radius: 50%; background: rgba(24,97,175,.45);
+  border-radius: 50%; background: var(--p-pulse);   /* 1.13 §K2 — follows the theme pulse */
   animation: g-live-ping 1.9s cubic-bezier(0,0,.2,1) infinite;
 }
 .g-live-rep.is-dim { opacity: .25; }
@@ -452,11 +467,11 @@ html[data-theme="dark"] .g-cov-pin { stroke: #0A0A0B; }               /* pin hal
 
 /* Dark variants — Dusk (1.11): steel is LIGHT, so the in-progress pin takes a dark number */
 html[data-theme="dark"] .g-live-pin { background: #161618; border-color: #DCDCE0; color: #DCDCE0; }
-html[data-theme="dark"] .g-live-pin.is-in_progress { background: #ADBDD1; border-color: #ADBDD1; color: #0F0F0F; }
+html[data-theme="dark"] .g-live-pin.is-in_progress { background: var(--p-primary); border-color: var(--p-primary); color: #0F0F0F; }
 html[data-theme="dark"] .g-live-pin.is-complete { background: #DCDCE0; border-color: #DCDCE0; color: #161618; }
 html[data-theme="dark"] .g-live-pin.is-incomplete { background: rgba(216,75,75,.22); border-color: #D84B4B; color: #E38080; }
-html[data-theme="dark"] .g-live-rep .core { background: #ADBDD1; border-color: #0F0F0F; }
-html[data-theme="dark"] .g-live-rep .ping { background: rgba(173,189,209,.45); }
+html[data-theme="dark"] .g-live-rep .core { background: var(--p-primary); border-color: #0F0F0F; }
+html[data-theme="dark"] .g-live-rep .ping { background: var(--p-pulse); }
 
 @media (prefers-reduced-motion: reduce) {
   .g-live-rep .ping { animation: none !important; opacity: 0 !important; }

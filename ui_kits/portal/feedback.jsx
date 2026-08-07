@@ -24,14 +24,14 @@ function Toast({ tone = 'success', children, onClose }) {
   return (
     <div role="status" style={{
       display: 'inline-flex', alignItems: 'center', gap: 10,
-      padding: '13px 22px 13px 18px', borderRadius: 2, background: bg, color: '#fff',
+      padding: '13px 22px 13px 18px', borderRadius: 'var(--r-card)', background: bg, color: '#fff',
       font: '500 13px/1.35 var(--font-control)', letterSpacing: '0',   // Cockpit: toasts are the machine speaking
       boxShadow: '0 6px 16px rgba(0,0,0,.14), 0 2px 4px rgba(0,0,0,.08)', whiteSpace: 'nowrap',
     }}>
       <MIcon name={tone === 'error' ? 'error' : 'check'} size={22} fill={tone === 'error' ? 1 : 0} color="#fff" />
       <span>{children}</span>
       {onClose && (
-        <span onClick={onClose} style={{ marginLeft: 6, width: 22, height: 22, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', borderRadius: 2, opacity: .8, cursor: 'pointer' }}>
+        <span onClick={onClose} style={{ marginLeft: 6, width: 22, height: 22, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', borderRadius: 'var(--r-card)', opacity: .8, cursor: 'pointer' }}>
           <MIcon name="close" size={18} color="#fff" />
         </span>
       )}
@@ -88,7 +88,7 @@ function EchoPulse({ size = 92, ring = 150, speed = '2.4s', label }) {
       <div className="echo-pulse" style={{ '--ep-size': `${size}px`, '--ep-ring': `${ring}px`, '--ep-speed': speed }}>
         <img src="../../assets/greater-crow.png" alt="Greater" draggable="false" />
       </div>
-      {label && <div style={{ font: "500 13px/1 'JetBrains Mono', monospace", color: 'var(--p-muted)', letterSpacing: '.02em' }}>{label}</div>}
+      {label && <div style={{ font: "500 13px/1 var(--font-mono)", color: 'var(--p-muted)', letterSpacing: '.02em' }}>{label}</div>}
     </div>
   );
 }
@@ -97,14 +97,14 @@ function EchoPulse({ size = 92, ring = 150, speed = '2.4s', label }) {
 function EmptyState({ icon = 'inbox', title, body, action, dashed = false, inTable = false }) {
   return (
     <div style={{
-      border: inTable ? 'none' : dashed ? '1px dashed var(--p-border-strong)' : '0.5px solid var(--p-border)',
+      border: inTable ? 'none' : dashed ? '1px dashed var(--p-border-strong)' : 'var(--hair) solid var(--p-border)',
       borderRadius: inTable ? 0 : 10, background: dashed ? '#FBFCFD' : '#fff',
       padding: inTable ? '44px 24px' : '48px 28px',
       display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center',
     }}>
       <span style={{ width: 56, height: 56, borderRadius: '50%', background: dashed ? '#fff' : 'var(--p-surface-tint)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'var(--p-muted)', marginBottom: 16 }}><MIcon name={icon} size={28} /></span>
-      <h3 style={{ margin: '0 0 6px', font: '600 16px/1.3 Inter, sans-serif', color: 'var(--p-ink)' }}>{title}</h3>
-      {body && <p style={{ margin: '0 0 18px', font: '400 14px/1.5 Inter, sans-serif', color: 'var(--p-muted)', maxWidth: 320 }}>{body}</p>}
+      <h3 style={{ margin: '0 0 6px', font: '600 16px/1.3 var(--font-sans)', color: 'var(--p-ink)' }}>{title}</h3>
+      {body && <p style={{ margin: '0 0 18px', font: '400 14px/1.5 var(--font-sans)', color: 'var(--p-muted)', maxWidth: 320 }}>{body}</p>}
       {action && <div style={{ display: 'flex', gap: 8 }}>{action}</div>}
     </div>
   );

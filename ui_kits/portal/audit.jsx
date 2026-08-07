@@ -112,7 +112,7 @@ function AuditEntry({ entry, last, isCurrent, restorable, busy, anyBusy, formatV
           <span style={{ font: "600 13px Inter", color: "var(--p-ink)" }}>{meta.label}</span>
           {isCurrent && <span style={{ font: "600 10px/1 Inter", letterSpacing: ".05em", textTransform: "uppercase", color: "var(--p-success-ink, #027a48)", background: "var(--g-green-10, #ecfdf3)", borderRadius: 999, padding: "3px 7px" }}>Current</span>}
           <span style={{ font: "400 12px Inter", color: "var(--p-muted)" }}>by <b style={{ fontWeight: 600, color: "var(--p-text-2)" }}>{entry.actorName || "System"}</b></span>
-          <span style={{ font: "400 12px Geist Mono, monospace", color: "var(--p-placeholder)", marginLeft: "auto" }}>{fmtStamp(entry.at)}</span>
+          <span style={{ font: "400 12px var(--font-control)", color: "var(--p-placeholder)", marginLeft: "auto" }}>{fmtStamp(entry.at)}</span>
         </div>
 
         {hasChanges ? (
@@ -131,19 +131,19 @@ function AuditEntry({ entry, last, isCurrent, restorable, busy, anyBusy, formatV
         {restorable && (
           <div style={{ marginTop: 10 }}>
             {confirming ? (
-              <div style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "6px 6px 6px 12px", background: "var(--p-surface-alt)", border: "0.5px solid var(--p-border)", borderRadius: 2 }}>
+              <div style={{ display: "inline-flex", alignItems: "center", gap: 10, padding: "6px 6px 6px 12px", background: "var(--p-surface-alt)", border: "var(--hair) solid var(--p-border)", borderRadius: 'var(--r-card)' }}>
                 <span style={{ font: "400 12px Inter", color: "var(--p-text-2)" }}>Restore to this version?</span>
                 <button type="button" onClick={() => setConfirming(false)} disabled={busy}
-                  style={{ border: "none", background: "transparent", cursor: busy ? "default" : "pointer", font: "500 12px Inter", color: "var(--p-muted)", padding: "5px 8px", borderRadius: 2 }}>Cancel</button>
+                  style={{ border: "none", background: "transparent", cursor: busy ? "default" : "pointer", font: "500 12px Inter", color: "var(--p-muted)", padding: "5px 8px", borderRadius: 'var(--r-card)' }}>Cancel</button>
                 <button type="button" onClick={onRestore} disabled={busy}
-                  style={{ display: "inline-flex", alignItems: "center", gap: 6, border: "none", background: "var(--p-restore, #0D9488)", color: "#fff", cursor: busy ? "default" : "pointer", font: "600 12px Inter", padding: "6px 12px", borderRadius: 2, opacity: busy ? 0.7 : 1 }}>
+                  style={{ display: "inline-flex", alignItems: "center", gap: 6, border: "none", background: "var(--p-restore, #0D9488)", color: "#fff", cursor: busy ? "default" : "pointer", font: "600 12px Inter", padding: "6px 12px", borderRadius: 'var(--r-card)', opacity: busy ? 0.7 : 1 }}>
                   {busy ? <span style={{ width: 12, height: 12, border: "2px solid rgba(255,255,255,.5)", borderTopColor: "#fff", borderRadius: "50%", display: "inline-block", animation: "gr-spin .7s linear infinite" }} /> : <Icon name="settings_backup_restore" size={14} color="#fff" />}
                   Restore
                 </button>
               </div>
             ) : (
               <button type="button" onClick={() => setConfirming(true)} disabled={anyBusy}
-                style={{ display: "inline-flex", alignItems: "center", gap: 5, height: 28, padding: "0 11px", background: "#fff", border: "0.5px solid var(--p-border-strong)", borderRadius: 2, cursor: anyBusy ? "default" : "pointer", font: "500 12px Inter", color: "var(--p-text)", opacity: anyBusy ? 0.5 : 1 }}>
+                style={{ display: "inline-flex", alignItems: "center", gap: 5, height: 28, padding: "0 11px", background: "#fff", border: "var(--hair) solid var(--p-border-strong)", borderRadius: 'var(--r-card)', cursor: anyBusy ? "default" : "pointer", font: "500 12px Inter", color: "var(--p-text)", opacity: anyBusy ? 0.5 : 1 }}>
                 <Icon name="settings_backup_restore" size={14} color="var(--p-restore, #0D9488)" /> Restore This Version
               </button>
             )}

@@ -19,7 +19,7 @@ const DEV_LOGIN_ENABLED = true;   // production: from /auth/config; defaults FAL
 
 const authField = {
   width: '100%', height: 56, padding: '0 16px', boxSizing: 'border-box',
-  border: '0.5px solid var(--p-border-strong)', borderRadius: 1,  // §H: 4px on auth
+  border: 'var(--hair) solid var(--p-border-strong)', borderRadius: 'var(--r-ctl)',  // §H: 4px on auth
   font: '400 15px var(--font-control)', color: 'var(--p-ink)', background: 'var(--p-surface)', outline: 'none',
 };
 
@@ -55,7 +55,7 @@ function LoginScreen({ onSignIn }) {
         </div>
 
         {error && (
-          <div className="gr-rise" style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'var(--g-red-10)', color: 'var(--p-danger-strong)', borderRadius: 2, padding: '9px 12px', font: '500 12px var(--font-control)' }}>
+          <div className="gr-rise" style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'var(--g-red-10)', color: 'var(--p-danger-strong)', borderRadius: 'var(--r-card)', padding: '9px 12px', font: '500 12px var(--font-control)' }}>
             <Icon name="error" size={16} color="currentColor" /> Incorrect email or password.
           </div>
         )}
@@ -76,7 +76,7 @@ function LoginScreen({ onSignIn }) {
         </div>
 
         <button data-testid="login-signin-btn" onClick={finish} className="gr-rise" data-i="4"
-          style={{ width: '100%', height: 48, border: 'none', borderRadius: 1, background: 'var(--p-action)', color: 'var(--p-action-fg)', font: '600 13px/1 var(--font-control)', letterSpacing: '.01em', cursor: 'pointer' }}>
+          style={{ width: '100%', height: 48, border: 'none', borderRadius: 'var(--r-ctl)', background: 'var(--p-action)', color: 'var(--p-action-fg)', font: '600 13px/1 var(--font-control)', letterSpacing: '.01em', cursor: 'pointer' }}>
           Sign In
         </button>
 
@@ -90,7 +90,7 @@ function LoginScreen({ onSignIn }) {
             <span style={{ font: '500 11px/1.2 var(--font-control)', color: 'var(--p-placeholder)', letterSpacing: '.05em', textTransform: 'uppercase', textAlign: 'center' }}>Dev quick sign-in</span>
             {DEV_ACCOUNTS.map((a) => (
               <button key={a.id} data-testid={`dev-login-${a.label.toLowerCase().replace(/\s+/g, '-')}`} onClick={() => devSignIn(a)}
-                style={{ display: 'flex', alignItems: 'center', gap: 8, justifyContent: 'center', width: '100%', height: 38, padding: '0 12px', borderRadius: 1, cursor: 'pointer',
+                style={{ display: 'flex', alignItems: 'center', gap: 8, justifyContent: 'center', width: '100%', height: 38, padding: '0 12px', borderRadius: 'var(--r-ctl)', cursor: 'pointer',
                   border: '1px dashed var(--p-border-strong)', background: 'transparent', color: 'var(--p-text-2)', font: '500 12px var(--font-control)' }}>
                 <Icon name="bolt" size={15} color="var(--p-muted)" />
                 Sign in as {a.label} ({a.email})

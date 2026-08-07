@@ -30,9 +30,9 @@ function SaveViewButton({ section, icon = 'bookmark_add', defaultName = '', onSa
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
             {chips.length
               ? chips.map((c, i) => <Chip key={i} tone="info" testid="save-view-chip">{c.label}: {c.value}</Chip>)
-              : <span style={{ font: '400 13px Inter', color: 'var(--p-muted)' }}>No filters applied — saves the unfiltered view.</span>}
+              : <span style={{ font: '400 13px var(--font-sans)', color: 'var(--p-muted)' }}>No filters applied — saves the unfiltered view.</span>}
           </div>
-          <p style={{ margin: 0, font: '400 13px/1.5 Inter', color: 'var(--p-muted)' }}>Find this anytime under <b style={{ color: 'var(--p-text-2)' }}>Home</b> in the sidebar.</p>
+          <p style={{ margin: 0, font: '400 13px/1.5 var(--font-sans)', color: 'var(--p-muted)' }}>Find this anytime under <b style={{ color: 'var(--p-text-2)' }}>Home</b> in the sidebar.</p>
         </div>
       </Modal>
     </>
@@ -42,15 +42,15 @@ function SaveViewButton({ section, icon = 'bookmark_add', defaultName = '', onSa
 /* ---------------- ViewCard — a Saved View on Home (AppLink to path+search) ---------------- */
 function ViewCard({ fav, onRename, onDelete }) {
   return (
-    <div style={{ position: 'relative', border: '0.5px solid var(--p-border)', borderRadius: 'var(--radius-lg)', background: 'var(--p-surface)', boxShadow: 'var(--shadow-card)' }}>
+    <div style={{ position: 'relative', border: 'var(--hair) solid var(--p-border)', borderRadius: 'var(--radius-lg)', background: 'var(--p-surface)', boxShadow: 'var(--shadow-card)' }}>
       <AppLink to={fav.path + fav.search} data-testid={`fav-open-link-${fav.id}`}
         style={{ display: 'block', padding: '14px 16px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
           <Icon name={fav.icon || 'bookmark'} size={18} color="var(--p-text-2)" />
-          <span style={{ font: '600 14px Inter', color: 'var(--p-ink)' }}>{fav.name}</span>
+          <span style={{ font: '600 14px var(--font-sans)', color: 'var(--p-ink)' }}>{fav.name}</span>
         </div>
-        {fav.note && <div style={{ font: '400 12px/1.4 Inter', color: 'var(--p-muted)' }}>{fav.note}</div>}
-        <div style={{ font: '400 11px Inter', color: 'var(--p-placeholder)', marginTop: 6 }}>{fav.section}</div>
+        {fav.note && <div style={{ font: '400 12px/1.4 var(--font-sans)', color: 'var(--p-muted)' }}>{fav.note}</div>}
+        <div style={{ font: '400 11px var(--font-sans)', color: 'var(--p-placeholder)', marginTop: 6 }}>{fav.section}</div>
       </AppLink>
       <Kebab items={[{ label: 'Rename', onClick: () => onRename?.(fav) }, { label: 'Delete', tone: 'danger', onClick: () => onDelete?.(fav) }]}
         style={{ position: 'absolute', top: 8, right: 8, zIndex: 2 }} testid={`fav-menu-${fav.id}`} />
@@ -66,15 +66,15 @@ function StatCardCustomizer({ cards, order, hidden, onReorder, onToggle }) {
   // cards: [{id,label}]; order: [id]; hidden: Set(id). Built on DndContext + SortableContext
   // (vertical) + useSortable per row + arrayMove on drop (see DS 1.2 Arrangement Board).
   return (
-    <div data-testid="customize-cards-menu" style={{ width: 320, background: 'var(--p-surface)', border: '0.5px solid var(--p-border)', borderRadius: 2, boxShadow: 'var(--shadow-float)', padding: 6 }}>
+    <div data-testid="customize-cards-menu" style={{ width: 320, background: 'var(--p-surface)', border: 'var(--hair) solid var(--p-border)', borderRadius: 'var(--r-card)', boxShadow: 'var(--shadow-float)', padding: 6 }}>
       <div style={{ font: '500 10px var(--font-control)', letterSpacing: '.06em', textTransform: 'uppercase', color: 'var(--p-muted)', padding: '8px 10px 6px' }}>Drag to reorder</div>
       {order.map((id) => {
         const c = cards.find((x) => x.id === id); if (!c) return null;
         return (
-          <div key={id} data-testid={`card-row-${id}`} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 10px', borderRadius: 2 }}>
+          <div key={id} data-testid={`card-row-${id}`} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 10px', borderRadius: 'var(--r-card)' }}>
             <Icon name="drag_indicator" size={18} color="var(--p-placeholder)" data-testid={`card-drag-${id}`} style={{ cursor: 'grab', touchAction: 'none' }} />
             <Checkbox on={!hidden.has(id)} onChange={() => onToggle?.(id)} data-testid={`card-toggle-${id}`} />
-            <span style={{ flex: 1, font: '400 14px Inter', color: 'var(--p-ink)' }}>{c.label}</span>
+            <span style={{ flex: 1, font: '400 14px var(--font-sans)', color: 'var(--p-ink)' }}>{c.label}</span>
             <span style={{ font: '500 9px/1 var(--font-control)', letterSpacing: '.05em', textTransform: 'uppercase', color: 'var(--p-placeholder)' }}>sample</span>
           </div>
         );
@@ -97,7 +97,7 @@ function CrowFact({ facts }) {
       <span style={{ position: 'absolute', opacity: hover ? 0 : 1, transition: 'opacity .25s', color: 'var(--p-placeholder)' }}>
         <Icon name="raven" size={20} fill={0} color="var(--p-placeholder)" />
       </span>
-      <span style={{ position: 'absolute', opacity: hover ? 1 : 0, transition: 'opacity .25s', font: '400 13px/1.4 Inter', color: 'var(--p-muted)', textAlign: 'center', maxWidth: 520 }}>{fact}</span>
+      <span style={{ position: 'absolute', opacity: hover ? 1 : 0, transition: 'opacity .25s', font: '400 13px/1.4 var(--font-sans)', color: 'var(--p-muted)', textAlign: 'center', maxWidth: 520 }}>{fact}</span>
     </div>
   );
 }
@@ -114,35 +114,35 @@ function HomeDashboard({ firstName, greeting, healthCards, favorites, onCustomiz
           {/* REVERSED in 1.12.2 §2 (was a 1.12 Inter exception): the greeting IS the page's H1
               AND the machine addressing the operator — both roles point to mono. "Page title" is
               a role, not a literal. (H1s holding a RECORD'S name still go Inter — .g-h1-entity §8.) */}
-          <h1 className="g-h1" style={{ margin: 0 }}>{greeting}, {firstName}.</h1>
-          <p style={{ margin: '4px 0 0', font: '400 14px Inter', color: 'var(--p-muted)' }}>Here's where things stand today.</p>
+          <h1 className="g-h1" style={{ margin: 0 }}>{greeting} {firstName}.</h1>   {/* NO vocative comma — brand-officer ruling (1.13 §F4): "Good evening Adam." */}
+          <p style={{ margin: '4px 0 0', font: '400 14px var(--font-sans)', color: 'var(--p-muted)' }}>Here's where things stand today.</p>
         </div>
         <Button variant="neutral" icon="tune" data-testid="customize-cards-btn" onClick={onCustomize}>Customize</Button>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 12 }}>
         {healthCards.map((c) => (
-          <div key={c.id} data-testid={`tile-${c.id}`} style={{ border: '0.5px solid var(--p-border)', borderRadius: 'var(--radius-lg)', background: 'var(--p-surface)', boxShadow: 'var(--shadow-card)', padding: '14px 16px' }}>
+          <div key={c.id} data-testid={`tile-${c.id}`} style={{ border: 'var(--hair) solid var(--p-border)', borderRadius: 'var(--radius-lg)', background: 'var(--p-surface)', boxShadow: 'var(--shadow-card)', padding: '14px 16px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <span style={{ width: 8, height: 8, borderRadius: '50%', background: `var(--p-${c.status === 'green' ? 'success' : c.status === 'red' ? 'danger' : c.status === 'yellow' ? 'warning' : 'placeholder'})` }} />
               <span style={{ font: '500 10px var(--font-control)', letterSpacing: '.07em', textTransform: 'uppercase', color: 'var(--p-muted)' }}>{c.label}</span>   {/* Cockpit: stat labels are machine labels */}
             </div>
-            <div style={{ font: "600 26px/1.1 'JetBrains Mono', monospace", color: 'var(--p-ink)', margin: '6px 0 2px' }}>{c.value}</div>
-            <div style={{ font: '400 12px/1.4 Inter', color: 'var(--p-muted)' }}>{c.hint}</div>
+            <div style={{ font: "600 26px/1.1 var(--font-mono)", color: 'var(--p-ink)', margin: '6px 0 2px' }}>{c.value}</div>
+            <div style={{ font: '400 12px/1.4 var(--font-sans)', color: 'var(--p-muted)' }}>{c.hint}</div>
           </div>
         ))}
       </div>
 
       <div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 10 }}>
-          <h2 style={{ margin: 0, font: '600 15px Inter', color: 'var(--p-ink)' }}>Saved Views</h2>
+          <h2 style={{ margin: 0, font: '600 15px var(--font-sans)', color: 'var(--p-ink)' }}>Saved Views</h2>
           <Tooltip side="bottom" maxWidth={300} text="On any report or list in the Portal, apply the filters you like and press 'Save View' to create a card here.">
             <Icon name="info" size={15} color="var(--p-placeholder)" style={{ cursor: 'help' }} />
           </Tooltip>
         </div>
         {favorites.length
           ? <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 12 }}>{favorites.map((f) => <ViewCard key={f.id} fav={f} />)}</div>
-          : <p style={{ font: '400 13px/1.5 Inter', color: 'var(--p-muted)', maxWidth: 520 }}>On any report or list, apply the filters you like and tap 'Save View'. It'll show up here so you can quickly jump straight to the things you care about.</p>}
+          : <p style={{ font: '400 13px/1.5 var(--font-sans)', color: 'var(--p-muted)', maxWidth: 520 }}>On any report or list, apply the filters you like and tap 'Save View'. It'll show up here so you can quickly jump straight to the things you care about.</p>}
       </div>
 
       <CrowFact facts={crowFacts} />

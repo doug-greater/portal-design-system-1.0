@@ -43,52 +43,52 @@ const ALL_ACCOUNTS = _genAccounts();
 const fmStyles = {
   bar: { display: 'inline-flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' },
   token: {
-    display: 'inline-flex', alignItems: 'center', gap: 0, height: 32, borderRadius: 2,
-    border: '0.5px solid var(--p-border-strong)', background: '#fff', overflow: 'hidden',
+    display: 'inline-flex', alignItems: 'center', gap: 0, height: 32, borderRadius: 'var(--r-card)',
+    border: 'var(--hair) solid var(--p-border-strong)', background: '#fff', overflow: 'hidden',
   },
   tokenBody: {
     display: 'inline-flex', alignItems: 'center', gap: 6, height: '100%', padding: '0 4px 0 10px',
-    cursor: 'pointer', font: '400 13px/1 Inter, sans-serif', color: 'var(--p-text)', background: 'transparent', border: 'none', whiteSpace: 'nowrap',
+    cursor: 'pointer', font: '400 13px/1 var(--font-sans)', color: 'var(--p-text)', background: 'transparent', border: 'none', whiteSpace: 'nowrap',
   },
   tokenLabel: { color: 'var(--p-muted)' },
   tokenX: {
     display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: 26, height: '100%',
-    borderLeft: '0.5px solid var(--p-border)', cursor: 'pointer', color: 'var(--p-placeholder)', background: 'transparent', borderTop: 'none', borderRight: 'none', borderBottom: 'none',
+    borderLeft: 'var(--hair) solid var(--p-border)', cursor: 'pointer', color: 'var(--p-placeholder)', background: 'transparent', borderTop: 'none', borderRight: 'none', borderBottom: 'none',
   },
   clearAll: { background: 'transparent', border: 'none', cursor: 'pointer', font: '500 13px/1 var(--font-control)', color: 'var(--p-primary)', padding: '0 4px' },   // action link → mono (1.12.2 §3)
   pop: {
     position: 'absolute', top: 'calc(100% + 8px)', left: 0, zIndex: 60,
-    width: 540, background: '#fff', border: '0.5px solid var(--p-border)', borderRadius: 2,
+    width: 540, background: '#fff', border: 'var(--hair) solid var(--p-border)', borderRadius: 'var(--r-card)',
     boxShadow: 'var(--shadow-float, 0 10px 30px rgba(0,0,0,.14))', overflow: 'hidden',
     display: 'flex', flexDirection: 'column',
   },
   panes: { display: 'flex', height: 360 },
-  rail: { width: 184, borderRight: '0.5px solid var(--p-border)', padding: 8, overflowY: 'auto', flexShrink: 0, background: 'var(--p-surface-alt)' },
+  rail: { width: 184, borderRight: 'var(--hair) solid var(--p-border)', padding: 8, overflowY: 'auto', flexShrink: 0, background: 'var(--p-surface-alt)' },
   railItem: (on) => ({
     display: 'flex', alignItems: 'center', gap: 8, width: '100%', height: 38, padding: '0 10px',
-    borderRadius: 2, cursor: 'pointer', border: 'none', textAlign: 'left',
+    borderRadius: 'var(--r-card)', cursor: 'pointer', border: 'none', textAlign: 'left',
     background: on ? 'var(--p-primary-tint)' : 'transparent',
-    font: on ? '600 14px/1 Inter, sans-serif' : '400 14px/1 Inter, sans-serif',
+    font: on ? '600 14px/1 var(--font-sans)' : '400 14px/1 var(--font-sans)',
     color: on ? 'var(--p-primary)' : 'var(--p-text)',
   }),
   railCount: { marginLeft: 'auto', font: '500 11px var(--font-control)', color: 'var(--p-primary)', background: 'var(--p-primary-soft)', padding: '1px 6px', borderRadius: 999 },
   pane: { flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 },
-  paneHead: { padding: '14px 16px 10px', borderBottom: '0.5px solid var(--p-border)' },
+  paneHead: { padding: '14px 16px 10px', borderBottom: 'var(--hair) solid var(--p-border)' },
   list: { flex: 1, overflowY: 'auto', padding: '6px 8px' },
   groupLabel: { font: '500 10px/1 var(--font-control)', letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--p-muted)', padding: '10px 10px 6px' },   // machine overline (1.12.2 §1)
   valRow: {
     display: 'flex', alignItems: 'center', gap: 10, minHeight: 34, padding: '4px 10px',
-    borderRadius: 2, cursor: 'pointer', font: '400 14px/1.3 Inter, sans-serif', color: 'var(--p-ink)',
+    borderRadius: 'var(--r-card)', cursor: 'pointer', font: '400 14px/1.3 var(--font-sans)', color: 'var(--p-ink)',
   },
   selectAll: {
     display: 'flex', alignItems: 'center', gap: 10, minHeight: 36, padding: '4px 10px', margin: '2px 0 4px',
-    borderRadius: 2, cursor: 'pointer', font: '500 12px/1.3 var(--font-control)',   // bulk-select control → mono (1.12.2 §1)
-    borderBottom: '0.5px solid var(--p-border)',
+    borderRadius: 'var(--r-card)', cursor: 'pointer', font: '500 12px/1.3 var(--font-control)',   // bulk-select control → mono (1.12.2 §1)
+    borderBottom: 'var(--hair) solid var(--p-border)',
   },
-  valSub: { font: '400 12px Inter, sans-serif', color: 'var(--p-muted)', marginLeft: 'auto', whiteSpace: 'nowrap' },
-  capNote: { font: '400 12px/1.4 Inter, sans-serif', color: 'var(--p-muted)', padding: '10px 12px', textAlign: 'center' },
-  empty: { font: '400 13px/1.4 Inter, sans-serif', color: 'var(--p-muted)', padding: '24px 12px', textAlign: 'center' },
-  footer: { display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', borderTop: '0.5px solid var(--p-border)', background: 'var(--p-surface-alt)' },
+  valSub: { font: '400 12px var(--font-sans)', color: 'var(--p-muted)', marginLeft: 'auto', whiteSpace: 'nowrap' },
+  capNote: { font: '400 12px/1.4 var(--font-sans)', color: 'var(--p-muted)', padding: '10px 12px', textAlign: 'center' },
+  empty: { font: '400 13px/1.4 var(--font-sans)', color: 'var(--p-muted)', padding: '24px 12px', textAlign: 'center' },
+  footer: { display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', borderTop: 'var(--hair) solid var(--p-border)', background: 'var(--p-surface-alt)' },
   footCount: { font: '400 11px var(--font-control)', color: 'var(--p-muted)' },   // machine count readout (1.12.2 §1)
 };
 
@@ -108,6 +108,14 @@ function _summarize(attr, sel) {
     if (f) return `${f} – …`;
     if (t) return `… – ${t}`;
     return 'Any date';
+  }
+  // numrange value is an object { min, max } (numbers or '') — 1.13 §M1.
+  if (attr.type === 'numrange') {
+    const { min, max } = sel;
+    if (min !== '' && min != null && max !== '' && max != null) return `${min} – ${max}`;
+    if (min !== '' && min != null) return `≥ ${min}`;
+    if (max !== '' && max != null) return `≤ ${max}`;
+    return 'Any';
   }
   const arr = [...sel];
   if (attr.type === 'search') return `${arr.length} selected`;
@@ -140,6 +148,7 @@ function FilterMenu({ attributes, value, onChange, resultLabel }) {
     const v = value[a.id];
     if (!v) return 0;
     if (a.type === 'daterange') return (v.from || v.to) ? 1 : 0;
+    if (a.type === 'numrange') return ((v.min !== '' && v.min != null) || (v.max !== '' && v.max != null)) ? 1 : 0;   // 1.13 §M1
     return v.size || 0;          // Set-valued facets unchanged
   };
 
@@ -147,7 +156,7 @@ function FilterMenu({ attributes, value, onChange, resultLabel }) {
   const activeAttr = attributes.find((a) => a.id === activeId) || attributes[0];
 
   const setSel = (attrId, next) => onChange({ ...value, [attrId]: next });
-  const clearAttr = (a) => setSel(a.id, a.type === 'daterange' ? { from: '', to: '' } : new Set());
+  const clearAttr = (a) => setSel(a.id, a.type === 'daterange' ? { from: '', to: '' } : a.type === 'numrange' ? { min: '', max: '' } : new Set());
   const toggleVal = (attrId, v) => {
     const cur = new Set(value[attrId] || []);
     cur.has(v) ? cur.delete(v) : cur.add(v);
@@ -158,12 +167,14 @@ function FilterMenu({ attributes, value, onChange, resultLabel }) {
 
   /* Right-pane value list */
   const isDateRange = activeAttr.type === 'daterange';
-  const selSet = (isDateRange ? null : value[activeId]) || new Set();
+  const isNumRange = activeAttr.type === 'numrange';
+  const selSet = ((isDateRange || isNumRange) ? null : value[activeId]) || new Set();
   const isSearch = activeAttr.type === 'search';
   const q = query.trim().toLowerCase();
 
   /* daterange bridge: facet value is { from, to } ISO; the kit Calendar speaks
      { start, end } Dates. Grid clicks accumulate from → to; presets set both. */
+  const nrVal = isNumRange ? (value[activeId] || { min: '', max: '' }) : null;
   const drVal = isDateRange ? (value[activeId] || { from: '', to: '' }) : null;
   const drRange = isDateRange
     ? { start: drVal.from ? new Date(drVal.from + 'T00:00:00') : null, end: drVal.to ? new Date(drVal.to + 'T00:00:00') : null }
@@ -206,7 +217,7 @@ function FilterMenu({ attributes, value, onChange, resultLabel }) {
       {/* Filters button */}
       <button onClick={() => setOpen((o) => !o)} style={{
         display: 'inline-flex', alignItems: 'center', gap: 6, height: 32, padding: '0 12px',
-        background: totalCount > 0 ? 'var(--p-primary-tint)' : '#fff', borderRadius: 2, cursor: 'pointer',
+        background: totalCount > 0 ? 'var(--p-primary-tint)' : '#fff', borderRadius: 'var(--r-card)', cursor: 'pointer',
         border: `1px solid ${(open || totalCount > 0) ? 'var(--p-primary)' : 'var(--p-border-strong)'}`,
         color: (open || totalCount > 0) ? 'var(--p-primary)' : 'var(--p-ink)', font: '500 12px/1 var(--font-control)',   // control trigger → mono, FilterChip parity (1.12.2 §1)
       }}>
@@ -255,9 +266,31 @@ function FilterMenu({ attributes, value, onChange, resultLabel }) {
 
             {/* Right pane */}
             <div style={fmStyles.pane}>
-              {isDateRange ? (
+              {isNumRange ? (
+                /* numrange (1.13 §M1) — third first-class facet type after list + daterange.
+                   Two numeric inputs (≥ min / ≤ max); participates in attrCount, the
+                   applied-token summary and clear-token handling. First use: "Units per
+                   Case" on the inventory-flow report. */
                 <React.Fragment>
-                  <div style={{ ...fmStyles.paneHead, font: '600 14px/1 Inter, sans-serif', color: 'var(--p-ink)' }}>{activeAttr.label}</div>
+                  <div style={{ ...fmStyles.paneHead, font: '600 14px/1 var(--font-sans)', color: 'var(--p-ink)' }}>{activeAttr.label}</div>
+                  <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
+                    {[['min', '≥', 'Min'], ['max', '≤', 'Max']].map(([key, sym, lbl]) => (
+                      <label key={key} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                        <span style={{ font: '500 12px/1 var(--font-control)', color: 'var(--p-muted)', width: 34 }}>{sym} {lbl}</span>
+                        <input type="number" inputMode="numeric" value={nrVal[key]}
+                          data-testid={`filter-numrange-${key}-${activeAttr.id.toLowerCase()}`}
+                          placeholder={key === 'min' ? 'No minimum' : 'No maximum'}
+                          onChange={(e) => setSel(activeId, { ...nrVal, [key]: e.target.value === '' ? '' : Number(e.target.value) })}
+                          style={{ flex: 1, height: 34, padding: '0 10px', boxSizing: 'border-box', borderRadius: 'var(--r-ctl)',
+                            border: 'var(--hair) solid var(--p-border-strong)', background: 'var(--p-surface)',
+                            font: '400 13px var(--font-control)', color: 'var(--p-ink)', outline: 'none' }} />
+                      </label>
+                    ))}
+                  </div>
+                </React.Fragment>
+              ) : isDateRange ? (
+                <React.Fragment>
+                  <div style={{ ...fmStyles.paneHead, font: '600 14px/1 var(--font-sans)', color: 'var(--p-ink)' }}>{activeAttr.label}</div>
                   <div style={{ padding: 14 }}>
                     {/* The embedded range calendar (preset rail + grid). The host stores the
                         range inside its filter value as { from, to } ISO strings. */}
@@ -317,7 +350,7 @@ function FilterMenu({ attributes, value, onChange, resultLabel }) {
                 </React.Fragment>
               ) : (
                 <React.Fragment>
-                  <div style={{ ...fmStyles.paneHead, font: '600 14px/1 Inter, sans-serif', color: 'var(--p-ink)' }}>{activeAttr.label}</div>
+                  <div style={{ ...fmStyles.paneHead, font: '600 14px/1 var(--font-sans)', color: 'var(--p-ink)' }}>{activeAttr.label}</div>
                   <div style={fmStyles.list}>
                     {(activeAttr.options || []).map((opt) => {
                       const on = selSet.has(opt);
