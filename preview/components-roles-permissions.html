@@ -6,43 +6,43 @@
 <style>
 body { margin: 0; padding: 24px; background: var(--p-shell); font: 400 14px var(--font-sans); color: var(--p-ink); }
 .mi { font-family: 'Material Symbols Sharp'; line-height: 1; display: inline-flex; align-items: center; vertical-align: middle; }
-.sec { font: 500 11px/1.2 'JetBrains Mono', monospace; color: var(--p-muted); text-transform: uppercase; letter-spacing: .08em; margin: 0 0 12px; }
-.info { display: flex; align-items: center; gap: 10px; background: var(--p-primary-tint); color: var(--p-primary-ink); border-radius: 2px; padding: 10px 12px; font: 400 14px/1.4 Inter; max-width: 1040px; margin-bottom: 16px; }
+.sec { font: 500 11px/1.2 var(--font-mono); color: var(--p-muted); text-transform: uppercase; letter-spacing: .08em; margin: 0 0 12px; }
+.info { display: flex; align-items: center; gap: 10px; background: var(--p-primary-tint); color: var(--p-primary-ink); border-radius: var(--r-card); padding: 10px 12px; font: 400 14px/1.4 var(--font-sans); max-width: 1040px; margin-bottom: 16px; }
 .wrap { display: grid; grid-template-columns: 272px 1fr; gap: 20px; max-width: 1040px; align-items: start; }
 /* role rail */
 .rail { display: flex; flex-direction: column; gap: 8px; }
-.role { position: relative; display: flex; align-items: center; gap: 10px; padding: 12px 14px; border: 0.5px solid var(--p-border); border-radius: 2px; background: var(--p-surface); cursor: pointer; }
+.role { position: relative; display: flex; align-items: center; gap: 10px; padding: 12px 14px; border: var(--hair) solid var(--p-border); border-radius: var(--r-card); background: var(--p-surface); cursor: pointer; }
 .role.on { border-color: var(--p-primary); background: var(--p-primary-tint); }
 .role .meta { flex: 1; min-width: 0 }
-.role .users { font: 400 12px Inter; color: var(--p-muted); margin-top: 3px }
+.role .users { font: 400 12px var(--font-sans); color: var(--p-muted); margin-top: 3px }
 .role .chev { color: var(--p-primary) }
 .dot { position: absolute; top: 10px; right: 12px; width: 7px; height: 7px; border-radius: 50%; background: var(--p-warning) }
-.rpill { display: inline-flex; align-items: center; padding: 2px 10px; border-radius: 999px; font: 500 12px/1.5 Inter; }
+.rpill { display: inline-flex; align-items: center; padding: 2px 10px; border-radius: 999px; font: 500 12px/1.5 var(--font-sans); }
 /* editor */
 .ed-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px }
-.ed-title { font: 600 16px Inter; color: var(--p-ink) }
-.unsaved { display: inline-flex; align-items: center; gap: 5px; background: var(--g-gold-10); color: var(--p-warning); font: 600 11px Inter; padding: 3px 9px; border-radius: 999px }
+.ed-title { font: 600 16px var(--font-sans); color: var(--p-ink) }
+.unsaved { display: inline-flex; align-items: center; gap: 5px; background: var(--g-gold-10); color: var(--p-warning); font: 600 11px var(--font-sans); padding: 3px 9px; border-radius: 999px }
 .btns { display: flex; gap: 8px; align-items: center }
-.btn { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 12px; border-radius: 1px; font: 500 13px/1 Inter; cursor: pointer; border: 1px solid transparent }
+.btn { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 12px; border-radius: var(--r-ctl); font: 500 13px/1 var(--font-sans); cursor: pointer; border: 1px solid transparent }
 .btn-ghost { background: transparent; color: var(--p-text) }
 .btn-primary { background: var(--p-action); color: var(--p-action-fg) }
 /* masonry */
 .masonry { column-count: 2; column-gap: 14px }
-.card { break-inside: avoid; margin-bottom: 14px; border: 0.5px solid var(--p-border); border-radius: 2px; overflow: hidden; background: var(--p-surface) }
+.card { break-inside: avoid; margin-bottom: 14px; border: var(--hair) solid var(--p-border); border-radius: var(--r-card); overflow: hidden; background: var(--p-surface) }
 .card-h { display: flex; align-items: center; gap: 10px; padding: 11px 14px; background: #FBFCFD; border-bottom: 1px solid #F0F1F3 }
 .chip28 { width: 28px; height: 28px; border-radius: 7px; background: var(--p-surface-tint); display: inline-flex; align-items: center; justify-content: center }
-.card-h .nm { flex: 1; font: 600 13px Inter }
-.cnt { font: 500 11px 'JetBrains Mono', monospace; color: var(--p-muted) }
+.card-h .nm { flex: 1; font: 600 13px var(--font-sans) }
+.cnt { font: 500 11px var(--font-mono); color: var(--p-muted) }
 .row { display: flex; align-items: center; gap: 8px; padding: 9px 14px; border-top: 1px solid #F4F5F7 }
 .row.pending { background: var(--g-gold-10) }   /* amber = toggled-but-unsaved (§Amber/Red law) */
-.row .lbl { flex: 1; font: 400 13px Inter; color: var(--p-text-2) }
+.row .lbl { flex: 1; font: 400 13px var(--font-sans); color: var(--p-text-2) }
 .row .lbl.on { font-weight: 500; color: var(--p-ink) }
 /* toggle */
-.tg { width: 37px; height: 20px; border-radius: 2px; background: #DADADA; position: relative; flex-shrink: 0 }
+.tg { width: 37px; height: 20px; border-radius: var(--r-card); background: #DADADA; position: relative; flex-shrink: 0 }
 .tg::after { content: ''; position: absolute; top: 0; left: 0; width: 20px; height: 20px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.25) }
 .tg.on { background: var(--p-primary) } .tg.on::after { left: 17px }
-.notes { font: 400 13px/1.6 Inter; color: var(--p-text-2); max-width: 1040px; margin-top: 22px; padding-top: 18px; border-top: 0.5px solid var(--p-border) }
-.notes b { color: var(--p-ink); font-weight: 600 } code { font: 400 12px 'JetBrains Mono', monospace; background: var(--p-surface-tint); padding: 1px 5px; border-radius: 1px }
+.notes { font: 400 13px/1.6 var(--font-sans); color: var(--p-text-2); max-width: 1040px; margin-top: 22px; padding-top: 18px; border-top: var(--hair) solid var(--p-border) }
+.notes b { color: var(--p-ink); font-weight: 600 } code { font: 400 12px var(--font-mono); background: var(--p-surface-tint); padding: 1px 5px; border-radius: var(--r-ctl) }
 </style></head>
 <body>
 <div class="sec">Settings · Roles &amp; Permissions (1.8) — the single source of truth for permissions</div>

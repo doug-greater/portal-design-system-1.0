@@ -694,8 +694,11 @@ mark.gr-hl { background: var(--p-highlight); color: var(--p-highlight-fg); borde
 /* ── Shared component shells (single source of truth; cards reference these) ── */
 
 /* Role Pill — flat tinted label, NO dot. Pass background/color inline per palette color. */
-.g-role-pill { display: inline-flex; align-items: center; padding: 2px 10px; border-radius: var(--radius-pill); font: 500 var(--fs-12)/1.5 var(--font-sans); letter-spacing: .02em; white-space: nowrap; }
+.g-role-pill { display: inline-flex; align-items: center; padding: 2px 10px; border-radius: var(--radius-pill); font: 500 var(--fs-12)/1.5 var(--font-sans); letter-spacing: .02em; white-space: nowrap;
+  border: var(--st-badge) solid var(--badge-stroke, currentColor); box-sizing: border-box; }   /* 1.13 badge recipe — role pills are category-class */
 .g-role-pill.sm { padding: 1px 8px; font-size: var(--fs-11); }
+/* consumers set the tint via inline background (role token pairs) — the skin zeroes it */
+html[data-skin="blackops"] .g-role-pill { background: var(--badge-fill) !important; }
 
 /* Avatar — initials circle. Pass size (width/height/font-size) + background/color inline; ring via box-shadow. */
 .g-avatar { display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-family: var(--font-sans); font-weight: 600; letter-spacing: .01em; flex-shrink: 0; }

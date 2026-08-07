@@ -1,25 +1,25 @@
 <!doctype html><html><head><meta charset="utf-8">
 <script>/* blackops-first (1.13): stored pref wins; no pref = blackops = dark + data-skin */(function(){var t=null;try{t=localStorage.getItem('gr-theme')}catch(e){}if(t==='blackops-variant')t='blackops';var p=(t==='light'||t==='dark'||t==='system'||t==='blackops')?t:'blackops';var d=p==='light'?'light':p==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):'dark';document.documentElement.setAttribute('data-theme',d);if(p==='blackops')document.documentElement.setAttribute('data-skin','blackops');})()</script><link rel="stylesheet" href="../colors_and_type.css"><link rel="stylesheet" href="../fonts/fonts.css"><style>
-body{margin:0;padding:24px;background:var(--p-shell);font-family:Inter;color:var(--p-ink)}
+body{margin:0;padding:24px;background:var(--p-shell);font-family: var(--font-sans);color:var(--p-ink)}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:720px}
 .grid.wide{grid-template-columns:1fr 1fr;max-width:720px}
-.cell{border:0.5px solid var(--p-border);border-radius:2px;padding:22px 20px;display:flex;flex-direction:column;gap:14px;min-height:140px}
+.cell{border:var(--hair) solid var(--p-border);border-radius: var(--r-card);padding:22px 20px;display:flex;flex-direction:column;gap:14px;min-height:140px}
 .cell.dark{background:#0B0B0C;border-color:#0B0B0C}
 .cell.dark .cap,.cell.dark .tag{color:rgba(255,255,255,.7)}
 .stage{flex:1;display:flex;align-items:center;justify-content:flex-start}
 .cell.center .stage{justify-content:center}
-.cap{font:500 11px/1.2 'JetBrains Mono',monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--p-muted)}
-.tag{font:400 12px/1.4 Inter;color:var(--p-text-2)}
+.cap{font:500 11px/1.2 var(--font-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--p-muted)}
+.tag{font:400 12px/1.4 var(--font-sans);color:var(--p-text-2)}
 .wm{height:32px;width:auto}
 .wm.lg{height:44px}
 .cr{height:56px;width:auto}
 .cr.sm{height:32px}
 .lockup{height:72px;width:auto;max-width:100%}
-.section-label{font:500 11px/1.2 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--p-muted);max-width:720px;margin:24px 0 10px}
+.section-label{font:500 11px/1.2 var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--p-muted);max-width:720px;margin:24px 0 10px}
 .section-label:first-child{margin-top:0}
-.note{max-width:720px;font:400 13px/1.5 Inter;color:var(--p-text-2);margin-top:16px}
+.note{max-width:720px;font:400 13px/1.5 var(--font-sans);color:var(--p-text-2);margin-top:16px}
 .note b{color:var(--p-ink);font-weight:600}
-.divider{max-width:720px;border:none;border-top:0.5px solid var(--p-border);margin:24px 0}
+.divider{max-width:720px;border:none;border-top:var(--hair) solid var(--p-border);margin:24px 0}
 </style></head><body>
 
 <div class="section-label">Full Lockup</div>
@@ -85,9 +85,9 @@ body{margin:0;padding:24px;background:var(--p-shell);font-family:Inter;color:var
     <div class="cap">Why squared</div>
     <div class="stage" style="align-items:center;justify-content:center">
       <div style="display:flex;gap:14px;align-items:center">
-        <div style="text-align:center"><img src="../assets/greater-crow.png" alt="" style="height:56px;width:56px;border:1px dashed var(--p-border-strong);border-radius:2px"><div class="tag" style="margin-top:2px">portrait in a square → stretched</div></div>
+        <div style="text-align:center"><img src="../assets/greater-crow.png" alt="" style="height:56px;width:56px;border:1px dashed var(--p-border-strong);border-radius: var(--r-card)"><div class="tag" style="margin-top:2px">portrait in a square → stretched</div></div>
         <span style="color:var(--p-muted);font-size:20px">→</span>
-        <div style="text-align:center"><img src="../assets/greater-crow-icon.png" alt="" style="height:56px;width:56px;border:1px dashed var(--p-border-strong);border-radius:2px"><div class="tag" style="margin-top:2px">squared → correct</div></div>
+        <div style="text-align:center"><img src="../assets/greater-crow-icon.png" alt="" style="height:56px;width:56px;border:1px dashed var(--p-border-strong);border-radius: var(--r-card)"><div class="tag" style="margin-top:2px">squared → correct</div></div>
       </div>
     </div>
     <div class="tag">A browser forces a favicon into a square slot; a portrait source gets stretched. The squared asset pads it instead.</div>

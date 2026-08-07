@@ -1,18 +1,18 @@
 <!doctype html><html><head><meta charset="utf-8">
 <script>/* blackops-first (1.13): stored pref wins; no pref = blackops = dark + data-skin */(function(){var t=null;try{t=localStorage.getItem('gr-theme')}catch(e){}if(t==='blackops-variant')t='blackops';var p=(t==='light'||t==='dark'||t==='system'||t==='blackops')?t:'blackops';var d=p==='light'?'light':p==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):'dark';document.documentElement.setAttribute('data-theme',d);if(p==='blackops')document.documentElement.setAttribute('data-skin','blackops');})()</script><link rel="stylesheet" href="../colors_and_type.css"><link rel="stylesheet" href="../fonts/fonts.css"><style>
 body{margin:0;padding:20px;background:var(--p-shell)}
-.section-label{font:500 11px/1.2 'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--p-muted);margin:0 0 12px}
+.section-label{font:500 11px/1.2 var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--p-muted);margin:0 0 12px}
 .row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px}
 .sw{width:120px}
 .sw.wide{flex:1;min-width:80px;max-width:none}
-.chip{height:68px;border-radius:2px;border:0.5px solid var(--p-border)}
+.chip{height:68px;border-radius: var(--r-card);border:var(--hair) solid var(--p-border)}
 .ramp-row{display:grid;grid-template-columns:repeat(10,1fr);gap:8px;margin-bottom:28px}
 .ramp-sw{}
-.ramp-chip{height:80px;border-radius:2px;border:1px solid rgba(0,0,0,.06)}
-.lbl{font:500 12px/1.2 Inter;color:var(--p-ink);margin-top:8px}
-.hex{font:400 11px/1.2 'JetBrains Mono',monospace;color:var(--p-muted);margin-top:2px}
-.rgb{font:400 10px/1.3 'JetBrains Mono',monospace;color:var(--p-muted);margin-top:1px}
-.divider{border:none;border-top:0.5px solid var(--p-border);margin:4px 0 24px}
+.ramp-chip{height:80px;border-radius: var(--r-card);border:1px solid rgba(0,0,0,.06)}
+.lbl{font:500 12px/1.2 var(--font-sans);color:var(--p-ink);margin-top:8px}
+.hex{font:400 11px/1.2 var(--font-mono);color:var(--p-muted);margin-top:2px}
+.rgb{font:400 10px/1.3 var(--font-mono);color:var(--p-muted);margin-top:1px}
+.divider{border:none;border-top:var(--hair) solid var(--p-border);margin:4px 0 24px}
 </style></head><body>
 
 <div class="section-label">Updated Neutral Ramp</div>
@@ -38,8 +38,8 @@ body{margin:0;padding:20px;background:var(--p-shell)}
   <div class="sw"><div class="chip" style="background:#8A8A8A"></div><div class="lbl">Medium gray</div><div class="hex">#8A8A8A</div></div>
   <div class="sw"><div class="chip" style="background:#DADADA"></div><div class="lbl">Light gray</div><div class="hex">#DADADA</div></div>
   <div class="sw"><div class="chip" style="background:#F5F5F5"></div><div class="lbl">Off-white</div><div class="hex">#F5F5F5</div></div>
-  <div class="sw"><div class="chip" style="background:#fff;border:0.5px solid var(--p-border)"></div><div class="lbl">White (surfaces)</div><div class="hex">#FFFFFF</div></div>
-  <div class="sw"><div class="chip" style="background:#FDFCF9;border:0.5px solid var(--p-border)"></div><div class="lbl">Shell (page canvas)</div><div class="hex">#FDFCF9</div></div>
+  <div class="sw"><div class="chip" style="background:#fff;border:var(--hair) solid var(--p-border)"></div><div class="lbl">White (surfaces)</div><div class="hex">#FFFFFF</div></div>
+  <div class="sw"><div class="chip" style="background:#FDFCF9;border:var(--hair) solid var(--p-border)"></div><div class="lbl">Shell (page canvas)</div><div class="hex">#FDFCF9</div></div>
 </div>
 
 </body></html>
