@@ -8,23 +8,32 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
   const [collapsed, setCollapsed] = React.useState(() => localStorage.getItem('gr-nav-collapsed') === '1');
   React.useEffect(() => { localStorage.setItem('gr-nav-collapsed', collapsed ? '1' : '0'); }, [collapsed]);
 
-  // Theme toggle (§A). Production reads ui_kits/portal/theme.js (useSyncExternalStore
-  // store); this kit inlines an equivalent so the demo flips live. Cycles
-  // light → dark → system; sets data-theme on <html>, persisted in gr-theme.
+  // Theme (§A · 1.13 SKINS). Production reads ui_kits/portal/theme.js (useSyncExternalStore
+  // store); this kit inlines an equivalent so the demo flips live. Four preferences —
+  // light | dark | blackops | system; "blackops" resolves to data-theme="dark" AND sets
+  // data-skin="blackops". BLACK OPS IS THE DEFAULT (1.13). Selection is the ThemeControl
+  // popover (ThemeMenu.jsx) — the 1.5 cycle toggle is retired.
   const [themePref, setThemePref] = React.useState(() => {
-    try { const v = localStorage.getItem('gr-theme'); return v === 'light' || v === 'dark' || v === 'system' ? v : 'dark'; } catch { return 'dark'; }   // dark-first (1.11)
+    try {
+      const v = localStorage.getItem('gr-theme');
+      if (v === 'blackops-variant') return 'blackops';   // graduated sandbox skin — migrate (1.13 §N1)
+      return v === 'light' || v === 'dark' || v === 'blackops' || v === 'system' ? v : 'blackops';
+    } catch { return 'blackops'; }
   });
-  const resolveTheme = (p) => p === 'dark' ? 'dark' : p === 'light' ? 'light' : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  const resolveTheme = (p) => (p === 'dark' || p.startsWith('blackops')) ? 'dark' : p === 'light' ? 'light' : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  const skin = themePref.startsWith('blackops') ? 'blackops' : null;
   React.useEffect(() => {
     document.documentElement.setAttribute('data-theme', resolveTheme(themePref));
+    if (skin) document.documentElement.setAttribute('data-skin', skin);
+    else document.documentElement.removeAttribute('data-skin');
     try { localStorage.setItem('gr-theme', themePref); } catch {}
-  }, [themePref]);
-  const THEME_META = { light: { icon: 'light_mode', label: 'Light' }, dark: { icon: 'dark_mode', label: 'Dark' }, system: { icon: 'contrast', label: 'System' } };
-  const themeMeta = THEME_META[themePref];
-  const cycleTheme = () => setThemePref((p) => (p === 'light' ? 'dark' : p === 'dark' ? 'system' : 'light'));
+  }, [themePref, skin]);
   const isDark = resolveTheme(themePref) === 'dark';   // brand marks swap to KO in dark (§A)
   const logotypeSrc = isDark ? '../../assets/greater-logotype-ko.png' : '../../assets/greater-logotype.png';
   const crowSrc = isDark ? '../../assets/greater-crow-ko.png' : '../../assets/greater-crow.png';
+  // Black Ops brand rule (§C4): the sidebar shows the CROW MARK, not the wordmark,
+  // in both expanded and mobile headers.
+  const crowOnly = skin === 'blackops';
 
   const toggle = (id) => setExpanded((s) => ({ ...s, [id]: !s[id] }));
 
@@ -143,7 +152,7 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
             style={{
               width: '100%', border: 'none', background: 'transparent', padding: 0, cursor: 'pointer',
             }}>
-            <div className="gr-row" style={{
+            <div className={tint ? 'gr-rowactive' : 'gr-row'} style={{
               position: 'relative',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               width: 40, height: 40, margin: '0 auto', borderRadius: 2,
@@ -165,7 +174,7 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
         <button onClick={onClick} style={{
           width: '100%', border: 'none', background: 'transparent', padding: 0, cursor: 'pointer',
         }}>
-          <div className={isActiveLeaf ? undefined : 'gr-row'} style={{
+          <div className={isActiveLeaf ? 'gr-rowactive' : 'gr-row'} style={{
             display: 'flex', alignItems: 'center', padding: 8, borderRadius: 2,
             background: isActiveLeaf ? 'var(--p-action)' : (groupActive ? 'var(--p-surface-tint)' : 'transparent'),
             color: isActiveLeaf ? 'var(--p-action-fg)' : (groupActive ? BRAND_BLUE : INK), gap: 12, transition: 'background-color 50ms',
@@ -195,7 +204,7 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
                   <button onClick={() => onNavigate?.(c.id)} style={{
                     width: '100%', border: 'none', padding: 0, cursor: 'pointer', background: 'transparent',
                   }}>
-                    <div className="gr-sub" data-on={on ? '1' : '0'} style={{
+                    <div className={on ? 'gr-sub gr-subactive' : 'gr-sub'} data-on={on ? '1' : '0'} style={{
                       display: 'flex', alignItems: 'center', padding: '6px 8px 6px 36px',
                       borderRadius: 2,
                       background: on ? 'var(--p-action)' : 'transparent',
@@ -283,7 +292,7 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
               return (
                 <li key={c.id}>
                   <button
-                    className={on ? '' : 'flyout-child'}
+                    className={on ? 'gr-subactive' : 'flyout-child'}
                     onClick={() => { onNavigate?.(c.id); clearTimeout(closeRef.current); setFlyout(null); }}
                     style={{
                       width: '100%', border: 'none', padding: '7px 14px',
@@ -291,7 +300,7 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
                       font: `${on ? 600 : 400} 13px/20px Inter`, cursor: 'pointer', textAlign: 'left',
                       transition: 'background 100ms', display: 'flex', alignItems: 'center', gap: 8,
                     }}>
-                    {on && <span style={{ width: 4, height: 4, borderRadius: '50%', background: 'rgba(255,255,255,.7)', flexShrink: 0 }} />}
+                    {on && <span style={{ width: 4, height: 4, borderRadius: '50%', background: 'currentColor', opacity: .7, flexShrink: 0 }} />}   {/* currentColor: white on ink, teal under Black Ops (§C4) */}
                     {c.label}
                     {/* §B state 4 — collapsed-rail flyout row */}
                     {c.alert && liveAlert && <AlertDot style={{ marginLeft: 'auto' }} />}
@@ -356,9 +365,9 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
             <a href="#" onClick={(e)=>e.preventDefault()} style={{ display: 'inline-flex' }}>
               <div style={{ position: 'relative', height: 30, width: collapsed ? 34 : 132, transition: 'width 180ms ease', flexShrink: 0 }}>
                 <img src={logotypeSrc} alt="Greater"
-                  style={{ position: 'absolute', top: 0, left: 0, height: 30, width: 'auto', maxWidth: 132, objectFit: 'contain', opacity: collapsed ? 0 : 1, transition: 'opacity 160ms ease', pointerEvents: 'none' }} />
+                  style={{ position: 'absolute', top: 0, left: 0, height: 30, width: 'auto', maxWidth: 132, objectFit: 'contain', opacity: (collapsed || crowOnly) ? 0 : 1, transition: 'opacity 160ms ease', pointerEvents: 'none' }} />
                 <img src={crowSrc} alt="" aria-hidden="true"
-                  style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', height: 30, width: 'auto', objectFit: 'contain', opacity: collapsed ? 1 : 0, transition: 'opacity 160ms ease', pointerEvents: 'none' }} />
+                  style={{ position: 'absolute', top: 0, left: collapsed ? '50%' : 0, transform: collapsed ? 'translateX(-50%)' : 'none', height: 30, width: 'auto', objectFit: 'contain', opacity: (collapsed || crowOnly) ? 1 : 0, transition: 'opacity 160ms ease', pointerEvents: 'none' }} />
               </div>
             </a>
             {/* Company name — wrap-safe grid-rows reveal: wraps freely, hidden during the transition (never nowrap/ellipsis) */}
@@ -418,7 +427,8 @@ function AppShell({ currentRoute = 'route-assignments', onNavigate, userName = '
             )}
             <BottomRow icon="history" label="Audit Log" onClick={() => onNavigate?.('audit-log')} />
             <BottomRow icon="settings" label="Settings" onClick={() => onNavigate?.('settings')} />
-            <BottomRow icon={themeMeta.icon} label={themeMeta.label} onClick={cycleTheme} testid="theme-toggle" />
+            {/* Theme picker — popover menu (1.13 §D; supersedes the cycle toggle) */}
+            <ThemeControl variant={collapsed ? 'rail' : 'row'} pref={themePref} onSelect={setThemePref} />
             <BottomRow icon="person_raised_hand" label={userName} />
             <BottomRow icon="logout" label="Sign Out" />
           </ul>

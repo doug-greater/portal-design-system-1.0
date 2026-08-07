@@ -28,12 +28,16 @@ function LoginScreen({ onSignIn }) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
 
-  // Inline theme toggle (mirrors theme.js; flat, bottom-left on Login).
-  const [pref, setPref] = useState(() => { try { const v = localStorage.getItem('gr-theme'); return v === 'light' || v === 'dark' || v === 'system' ? v : 'dark'; } catch { return 'dark'; } });   // dark-first (1.11)
-  const resolve = (p) => p === 'dark' ? 'dark' : p === 'light' ? 'light' : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-  useEffect(() => { document.documentElement.setAttribute('data-theme', resolve(pref)); try { localStorage.setItem('gr-theme', pref); } catch {} }, [pref]);
-  const tMeta = { light: { icon: 'light_mode', label: 'Light' }, dark: { icon: 'dark_mode', label: 'Dark' }, system: { icon: 'contrast', label: 'System' } }[pref];
-  const cycle = () => setPref((p) => (p === 'light' ? 'dark' : p === 'dark' ? 'system' : 'light'));
+  // Inline theme state (mirrors theme.js — 1.13: four prefs, blackops = dark + skin, blackops default).
+  // The login corner control is the ThemeControl `login` variant (§D) — bare text+icon link.
+  const [pref, setPref] = useState(() => { try { const v = localStorage.getItem('gr-theme'); if (v === 'blackops-variant') return 'blackops'; return v === 'light' || v === 'dark' || v === 'blackops' || v === 'system' ? v : 'blackops'; } catch { return 'blackops'; } });
+  const resolve = (p) => (p === 'dark' || p.startsWith('blackops')) ? 'dark' : p === 'light' ? 'light' : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', resolve(pref));
+    if (pref.startsWith('blackops')) document.documentElement.setAttribute('data-skin', 'blackops');
+    else document.documentElement.removeAttribute('data-skin');
+    try { localStorage.setItem('gr-theme', pref); } catch {}
+  }, [pref]);
 
   // One generic error — never reveal which field was wrong (auth voice / §P hardening).
   const finish = () => { if (!email.includes('@') || !password) { setError(true); return; } onSignIn?.(email); };
@@ -96,12 +100,10 @@ function LoginScreen({ onSignIn }) {
         )}
       </div>
 
-      {/* Theme toggle — flat, bottom-left, no card chrome */}
-      <button data-testid="theme-toggle" onClick={cycle}
-        style={{ position: 'absolute', left: 20, bottom: 20, display: 'inline-flex', alignItems: 'center', gap: 8,
-          border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--p-muted)', font: '500 12px var(--font-control)' }}>
-        <Icon name={tMeta.icon} size={18} color="currentColor" /> {tMeta.label}
-      </button>
+      {/* Theme picker — flat, bottom-left, no card chrome (ThemeControl `login` variant, 1.13 §D) */}
+      <div style={{ position: 'absolute', left: 20, bottom: 20 }}>
+        <ThemeControl variant="login" pref={pref} onSelect={setPref} />
+      </div>
     </div>
   );
 }

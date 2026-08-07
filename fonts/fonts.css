@@ -5,6 +5,8 @@
    too if/when full self-hosting is wanted.                                     */
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+/* IBM Plex Sans — Black Ops table-cell prose (1.13, --font-cell). Only the skin uses it. */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap');
 
 /* JetBrains Mono — variable font, latin */
 @font-face {
