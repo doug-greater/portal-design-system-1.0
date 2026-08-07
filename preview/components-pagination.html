@@ -17,33 +17,33 @@ body { margin: 0; padding: 28px; background: var(--p-surface); font: 400 14px va
   padding: 10px 16px;
   max-width: 820px;
 }
-.count { font: 400 13px/1 var(--font-sans); color: var(--p-muted); }
+.count { font: 400 11px/1 var(--font-control); color: var(--p-muted); }  /* result-count readout = machine speak (1.12.2) — matches the kit footer + FilterMenu count */
 .count b { color: var(--p-text); font-weight: 600; }
 
 /* page-size select */
-.psize { display: flex; align-items: center; gap: 8px; font: 400 13px var(--font-sans); color: var(--p-muted); }
-.select { position: relative; display: inline-flex; align-items: center; height: 30px; border: var(--hair) solid var(--p-border-strong); border-radius: var(--r-card); background: #fff; padding: 0 30px 0 10px; font: 500 13px var(--font-sans); color: var(--p-ink); }
+.psize { display: flex; align-items: center; gap: 8px; font: 400 11px var(--font-control); color: var(--p-muted); }  /* rows-per-page label = machine control (1.12.2) */
+.select { position: relative; display: inline-flex; align-items: center; height: 30px; border: var(--hair) solid var(--p-border-strong); border-radius: var(--r-card); background: #fff; padding: 0 30px 0 10px; font: 500 13px var(--font-control); color: var(--p-ink); }  /* Select control = mono, 13px large-control tier */
 .select .mi { position: absolute; right: 7px; font-size: 18px; color: var(--p-muted); }
 
 /* ── Page number control ── */
 .pager { display: inline-flex; align-items: center; gap: 4px; }
-.pg { min-width: 30px; height: 30px; padding: 0 8px; border-radius: var(--r-card); border: 1px solid transparent; background: transparent; display: inline-flex; align-items: center; justify-content: center; font: 500 13px/1 var(--font-sans); color: var(--p-text); cursor: pointer; }
+.pg { min-width: 30px; height: 30px; padding: 0 8px; border-radius: var(--r-card); border: 1px solid transparent; background: transparent; display: inline-flex; align-items: center; justify-content: center; font: 500 12px/1 var(--font-control); color: var(--p-text); cursor: pointer; }  /* page numbers = machine control + datum (1.12.2) — matches kit Pagination */
 .pg:hover { background: var(--p-surface-tint); }
 .pg.active { background: var(--p-action); color: var(--p-action-fg); }  /* active page = ink (wayfinding); inverts in dark */
 .pg.nav { color: var(--p-muted); border: var(--hair) solid var(--p-border-strong); background: #fff; }
 .pg.nav .mi { font-size: 18px; }
 .pg.disabled { color: var(--p-placeholder); cursor: default; }
-.ell { min-width: 22px; text-align: center; color: var(--p-placeholder); font: 500 13px var(--font-sans); }
+.ell { min-width: 22px; text-align: center; color: var(--p-placeholder); font: 500 12px var(--font-control); }
 
 /* table stub for context */
 .tablewrap { border: var(--hair) solid var(--p-border); border-radius: var(--r-card) var(--r-card) 0 0; overflow: hidden; max-width: 820px; border-bottom: none; }
-.thead { background: #F9FAFB; height: 40px; display: flex; align-items: center; gap: 16px; padding: 0 16px; font: 500 11px/1 var(--font-sans); letter-spacing: .08em; text-transform: uppercase; color: var(--p-muted); }
+.thead { background: #F9FAFB; height: 40px; display: flex; align-items: center; gap: 16px; padding: 0 16px; font: 500 11px/1 var(--font-control); letter-spacing: .08em; text-transform: uppercase; color: var(--p-muted); }  /* column header = machine label (1.12) */
 .trow { height: 45px; display: flex; align-items: center; gap: 16px; padding: 0 16px; border-top: var(--hair) solid var(--p-border); font: 400 14px var(--font-sans); color: var(--p-ink); }
 .trow .mono { font: 400 12px var(--font-mono); color: var(--p-muted); }
 
 /* load more */
 .loadmore { display: flex; flex-direction: column; align-items: center; gap: 10px; max-width: 820px; }
-.btn-neutral { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 20px; border-radius: var(--r-ctl); font: 500 14px/1 var(--font-sans); background: #fff; color: #364153; border: 1px solid #D1D5DC; cursor: pointer; }
+.btn-neutral { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 20px; border-radius: var(--r-ctl); font: var(--tw-btn) 13px/1 var(--font-control); background: #fff; color: #364153; border: 1px solid #D1D5DC; cursor: pointer; }  /* button = control → mono, Title Case (1.12) */
 .btn-neutral .mi { font-size: 18px; color: var(--p-muted); }
 
 .notes { font: 400 13px/1.8 var(--font-sans); color: var(--p-text-2); max-width: 600px; }
@@ -107,7 +107,7 @@ code { font: 400 11px var(--font-mono); background: #F3F4F6; padding: 1px 5px; b
     <p style="margin:0 0 6px"><b>Pager:</b> 30px cells, <code>radius 6px</code>. Active page is a solid <code>--p-action</code> (ink) chip — you navigate <i>to</i> a page, so it's wayfinding like the active tab, not selection; others are ghost (hover <code>--p-surface-tint</code>). The rows-per-page select keeps its blue focus ring (control focus stays blue). Prev/next are bordered icon buttons that disable at the ends. Collapse long ranges with an ellipsis, always keeping first, last, and the current ±1.</p>
     <p style="margin:0 0 6px"><b>Page size:</b> 25 / 50 / 100. Default 50 — matches the Filter Menu's 50-row search cap so the two never disagree.</p>
     <p style="margin:0 0 6px"><b>Paging vs. Load more:</b> use numbered paging for tables operators scan and jump around (Products, Accounts, Users). Use <i>Load More</i> for feed-like or append-only lists where position doesn't matter. Don't use both on one surface.</p>
-    <p style="margin:0"><b>Numerals</b> use Geist Mono nowhere here — counts read as prose; only in-cell data stays mono.</p>
+    <p style="margin:0"><b>Numerals &amp; controls speak mono (Cockpit 1.12 · clarified 1.12.2).</b> The count readout (<code>Showing 1–50 of 3,600</code>), the page numbers, ellipsis, rows-per-page select, and the Load-more button all render <code>var(--font-control)</code> — a paginator is the machine reporting result-set state to the operator (a readout of data), not prose. The <b>entity names</b> in the body rows (product / account) stay Inter — a name is content wherever it appears. The count noun ("accounts", "changes") is a unit label, so it rides with the mono readout, not the Inter names.</p>
   </div>
 </div>
 
