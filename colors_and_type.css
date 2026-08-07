@@ -170,6 +170,31 @@
   --radius-xl: 2px;      /* elevated floating cards (TableView)     */
   --radius-pill: 999px;  /* badges, "tag"                           */
 
+  /* ---------- The SKIN-TOKEN CONTRACT (1.13 "Black Ops") ----------
+     A *skin* (html[data-skin="…"]) is a token-override layer applied ON TOP of a
+     resolved data-theme — no component forks. These tokens are the override points.
+     Defaults EQUAL the previous literals, so Light/Dark render pixel-identical;
+     only a skin block changes them. THE MAINTENANCE LAW: new components must
+     consume these tokens, never shape/type literals — a component that hardcodes
+     `borderRadius: 2` or `"Inter"` silently refuses to reshape under a skin. */
+  --hair: 0.5px;                                /* hairline border width (cards, fields, dividers) */
+  --r-ctl: 1px; --r-card: 2px; --r-nav: 2px;    /* controls / containers / nav rows */
+  --r-tgl: 999px; --r-tgl-knob: 50%;            /* switch track / knob */
+  --st-badge: 0px;                              /* badge outline width (0 = fill only) */
+  /* --badge-fill / --badge-stroke are deliberately UNSET here — every category/type
+     badge renders `background: var(--badge-fill, <its tint>)` and
+     `border: var(--st-badge) solid var(--badge-stroke, currentColor)`, so Light/Dark
+     fall back to the classic tinted fill and only a skin flips them (see §Black Ops). */
+
+  /* Skin-tunable text sizing (defaults = Cockpit 1.12 values) */
+  --tz-h1: 26px; --tw-h1: 600; --tz-h1-m: 22px; --tz-h1-ent: 28px; --tz-sub: 15px;
+  --tz-tab: 14px; --tw-tab: 600; --tz-btn: 12px; --tw-btn: 600;
+  --tab-on: var(--p-ink);                       /* selected-tab ink (1.6 law; skins may re-point) */
+  --font-cell: var(--font-sans);                /* table-cell prose family (skin override point) */
+
+  /* Zebra rows (1.13 Tables 2.0) — see .g-zebra below */
+  --p-row-alt: #F7F8FA;
+
   /* ---------- Elevation — whisper-quiet (1.11: light alphas × 0.25) ----------
      Dusk pulls light-mode shadows down to a quarter of their former weight; the
      hairline borders now carry the structure. Dark-mode elevation (inset highlight
@@ -205,6 +230,11 @@
      display/control both resolve to the mono stack — they stay SEMANTIC so a future
      re-tune can re-point one role without touching components.
      --font-mono    = data cells, ids, numerals, kbd (unchanged since 1.11). */
+  --font-h1: var(--font-sans);   /* 1.13: page H1s re-humanized — Inter in Light/Dark. Black Ops
+                                    overrides --font-sans itself to the mono stack, so its H1
+                                    resolves mono with NO skin-specific rule (§F1 narrowing of
+                                    the Cockpit law: the H1 names the person's current place;
+                                    g-h2/h3 + modal/drawer titles stay --font-display mono). */
   --font-sans: "Inter", "Inter Fallback", -apple-system, BlinkMacSystemFont,
                "Segoe UI", Helvetica, Arial, sans-serif;
   --font-mono: "JetBrains Mono", "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;  /* JetBrains Mono since 1.11 (self-hosted, fonts/); Geist kept as fallback */
@@ -277,6 +307,10 @@
   --g-gold-30:       rgba(219,158,3,.30);
   --p-scroll-thumb:  #D1D5DC;           --p-scroll-thumb-hover: #B9BBBF;
   --p-pulse:         rgba(24,97,175,.45);  /* live-pulse halo (gr-livedot) — follows --p-primary (1.11) */
+  --p-underline-muted: #C4C9D2;    /* DS voice: neutral links underline one step lighter than text (StatCard links) */
+  --p-danger-hover:  #C93B40;      /* 1.13 §M5 — no destructive control hardcodes its hover */
+  --p-danger-dim:    color-mix(in srgb, var(--p-danger) 35%, transparent);
+  --p-danger-dim-bg: color-mix(in srgb, var(--p-danger) 45%, transparent);
   --ms-grad:         0;   /* Material Symbols grade — 0 in light, negative in dark */
 }
 
@@ -301,10 +335,14 @@ html[data-theme="dark"] {
   --p-surface: #161618; --p-surface-alt: #202022; --p-surface-tint: #2C2C32; --p-shell: #0F0F0F;
   --p-surface-nav: #131316;   /* nav sidebar — between shell and surface: the nav recedes, content lifts */
 
-  /* Primary — "Dusk" dusty steel (1.11; was vivid #3B82F6). Links/selection read as
-     quiet near-neutral chrome at 8.8:1 on surface — a deliberate, signed-off tradeoff. */
-  --p-primary: #ADBDD1; --p-primary-hover: #C3CFDE; --p-primary-soft: rgba(173,189,209,.18);
-  --p-primary-tint: rgba(173,189,209,.10); --p-primary-ink: #BFCBDB;
+  /* Primary — dusty steel, re-tuned 1.13 to #A8BFDC (a half-step bluer/cooler than
+     1.11's #ADBDD1; user-picked). Contrast at sign-off: on surface 9.60:1 (was 9.45),
+     on surface-alt 8.64, on surface-tint 7.37; ::selection ink 11.18 — all AA+.
+     Luminance rose only +1.7%, so the soft/tint alphas produce no extra glow.
+     (--p-intel-start #9FB6D4 stays — "near primary steel" still holds.) */
+  --p-primary: #A8BFDC; --p-primary-hover: #BED1E9; --p-primary-soft: rgba(168,191,220,.18);
+  --p-primary-tint: rgba(168,191,220,.10); --p-primary-ink: #BACDE6;
+  --g-blue-10: rgba(168,191,220,.16);
 
   /* Action (ink‑forward) — INVERTS to a white surface on dark (Linear/macOS treatment) */
   --p-action: #FFFFFF; --p-action-hover: #E4E4E7; --p-action-fg: #0A0A0B;
@@ -360,12 +398,15 @@ html[data-theme="dark"] {
 
   /* Interaction helpers */
   --p-overlay-hover: rgba(255,255,255,.06);
-  --p-focus-ring: rgba(173,189,209,.35);
+  --p-focus-ring: rgba(168,191,220,.35);   /* follows the 1.13 #A8BFDC primary */
   --p-backdrop: rgba(0,0,0,.62);
   --p-skeleton-1: #212126; --p-skeleton-2: #2C2C32;
   --g-gold-30: rgba(226,163,54,.35);
   --p-scroll-thumb: #45454D; --p-scroll-thumb-hover: #52525B;
-  --p-pulse: rgba(173,189,209,.45);   /* live-pulse halo — dusty steel in dark (1.11) */
+  --p-pulse: rgba(168,191,220,.45);   /* live-pulse halo — follows the 1.13 steel */
+  --p-row-alt: #1B1B1E;               /* zebra stripe — dark (1.13 Tables 2.0) */
+  --p-underline-muted: #45454D;       /* neutral-link underline, one step lighter than text */
+  --p-danger-hover: #E06363;
   --ms-grad: -25;
 
   /* Condition scale — Palette A dark variants, brightened to clear ≥3:1 against
@@ -374,6 +415,135 @@ html[data-theme="dark"] {
   --cond-optimal: #2EE6C3; --cond-slight_overstock: #66A3FF; --cond-heavy_overstock: #C299EB;
   --cond-empty: #2A2A30; --cond-pending: #F5F5F5;
 }
+
+/* =======================================================================
+   BLACK OPS — the first SKIN (1.13) · and the DEFAULT THEME
+   A near-black "ops console" layered ON dark: the pref "blackops" resolves to
+   data-theme="dark" (every dark rule + JS check keeps working) AND sets
+   data-skin="blackops". Colors, shape, stroke and type re-tune purely through
+   tokens — no component forks. Born from the user's Theme Lab export; the
+   "Variant" sandbox (teal selection, dimmed pill strokes, apricot pal-6,
+   high-contrast zebra) graduated into this base block (§N1).
+   ======================================================================= */
+html[data-skin="blackops"] {
+  /* Neutrals — near-black console */
+  --p-ink: #FAFAFB; --p-text: #F2F2F3; --p-text-2: #C6C6CB; --p-muted: #A3A3A8;
+  --p-surface: #131316; --p-surface-alt: #202022; --p-surface-tint: #26262B;
+  --p-shell: #0F0F0F; --p-surface-nav: #131316;
+  --p-row-alt: #212127;       /* zebra stripe — high-contrast (~14/channel vs surface), user-approved */
+
+  /* Selection — bright teal pulled out of the badge ramp. #86EAE8 was the export's
+     pal-6; promoted to the selection role, and pal-6 re-slotted to apricot so teal
+     reads ONLY as the selection signal. The 1.6 blue-law applies unchanged — in
+     Black Ops "blue" simply IS teal. */
+  --p-primary: #86EAE8; --p-primary-hover: #A3F0EE; --p-primary-soft: rgba(134,234,232,.18);
+  --p-primary-tint: rgba(134,234,232,.10); --p-primary-ink: #9CEEEC;
+
+  /* Feedback */
+  --p-success: #10B981; --p-warning: #E2A336; --p-danger: #EF4444;
+  --p-danger-strong: #F87171; --p-danger-soft: rgba(239,68,68,.18);
+  --p-danger-hover: #F65E5E;
+  --g-red-10: rgba(239,68,68,.16); --g-green-10: rgba(16,185,129,.16);
+  --g-gold-10: rgba(226,163,54,.16); --g-purple-10: rgba(233,139,139,.18);
+  --g-blue-10: rgba(134,234,232,.14);
+
+  /* Badge ramp — pastel ops palette (pal-6 vacated by the selection teal → apricot) */
+  --p-pal-1: #E98B8B; --p-pal-2: #A2B8EC; --p-pal-3: #EDFDCE; --p-pal-4: #E8D38C;
+  --p-pal-5: #A1A1AA; --p-pal-6: #EFB08A; --p-pal-7: #ECB4CD; --p-pal-8: #9AD4DE;
+  --p-pal-9: #B4BCEC; --p-pal-10: #D6D3D1;
+  --p-genstock: #C0A6EC; --p-genstock-ink: #D2BEF2; --p-genstock-tint: rgba(192,166,236,.16);
+
+  /* Status pairs — [DEBT §O2] -fg literals break the pal-derived chain Light/Dark use */
+  --p-success-bg: rgba(16,185,129,.16); --p-success-fg: #34D399;
+  --p-atrisk-bg: rgba(226,163,54,.15); --p-atrisk-fg: #E7B45C;
+  --p-neutral-bg: #26262B; --p-neutral-fg: #A3A3A8;
+
+  /* Badges: tinted fills removed + 0.5px outline at a dimmed tone of each pill's
+     own color (text stays full-brightness). STATUS badges are exempt — see the
+     Badge Vocabulary Law (§9 Status Badge). */
+  --badge-fill: transparent; --st-badge: 0.5px;
+  --badge-stroke: color-mix(in oklab, currentColor 45%, transparent);
+
+  /* Tabs — selected tab speaks the teal selection color (default = ink) */
+  --tab-on: var(--p-primary);
+
+  /* Interaction */
+  --p-focus-ring: rgba(134,234,232,.35); --p-pulse: rgba(134,234,232,.45);
+  --p-backdrop: rgba(0,0,0,.66);
+
+  /* Elevation — 25% shadow intensity */
+  --shadow-tooltip: inset 0 1px 1px rgba(255,255,255,.02), 0 4px 8px rgba(0,0,0,.15), 0 0 0 1px var(--p-border);
+  --shadow-card: inset 0 1px 1px rgba(255,255,255,.01), 0 1px 2px rgba(0,0,0,.13);
+  --shadow-surface: inset 0 1px 1px rgba(255,255,255,.01), 0 4px 10px rgba(0,0,0,.13);
+  --shadow-float: inset 0 1px 1px rgba(255,255,255,.02), 0 12px 24px rgba(0,0,0,.15), 0 0 0 1px var(--p-border-strong);
+
+  /* Type — the machine speaks EVERYWHERE; table cells are the one exception */
+  --font-sans: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --font-cell: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* Text sizing */
+  --tz-h1: 22px; --tw-h1: 700; --tz-h1-m: 22px; --tz-h1-ent: 22px;
+  --tz-sub: 12px; --tz-tab: 12px; --tw-tab: 500; --tw-btn: 500;
+
+  /* Shape — flat panels & controls (0px), squared toggles; hairlines thicken to 1px */
+  --hair: 1px;
+  --r-ctl: 0px; --r-card: 0px; --r-nav: 0px; --r-tgl: 3px; --r-tgl-knob: 2px;
+  --radius-xs: 0px; --radius-sm: 0px; --radius-md: 0px; --radius-lg: 0px; --radius-xl: 0px;
+}
+
+/* Black Ops scoped rules — the ONLY selector-level skin CSS (everything else is tokens) */
+
+/* Table cells re-humanize: IBM Plex Sans via --font-cell. The attribute selector
+   retargets every inline `var(--font-sans)` cell without editing call sites
+   (TableShell carries className="g-tbl"). Brittle by design — documented here. */
+html[data-skin="blackops"] .g-tbl [style*="var(--font-sans)"] { font-family: var(--font-cell) !important; }
+
+/* ALL-CAPS navigation — top-level parent rows & bottom utility rows only; child
+   (sub) items keep natural case for readability. ⚠ Do NOT add a font-size rule
+   here — an earlier revision matched span.material-symbols-sharp and shrank the
+   22px nav icons; if a size change is ever needed, exclude icons with
+   :not(.material-symbols-sharp) and reset their letter-spacing. */
+html[data-skin="blackops"] .gr-row,
+html[data-skin="blackops"] .gr-rowactive,
+html[data-skin="blackops"] .gr-util { text-transform: uppercase; }
+
+/* Selection rows (active nav) — NOT the ink/--p-action fill in this skin
+   [supersedes the 1.6 ink active-nav treatment FOR THIS SKIN ONLY]: teal text,
+   weight 600, on a 10% teal fill box; hover lifts to the 18% soft. A text-only
+   pass was tried first and rejected as too subtle (§N4). */
+/* .gr-rowactive = active PARENT/leaf rows (also uppercased above);
+   .gr-subactive = active CHILD rows — expanded sub-items + flyout children —
+   same teal recipe but natural case. */
+html[data-skin="blackops"] .gr-rowactive,
+html[data-skin="blackops"] .gr-subactive {
+  background: var(--p-primary-tint) !important;
+  color: var(--p-primary) !important;
+  font-weight: 600 !important;
+}
+html[data-skin="blackops"] .gr-rowactive:hover,
+html[data-skin="blackops"] .gr-subactive:hover { background: var(--p-primary-soft) !important; }
+/* Row descendants (label span + icon span) carry inline `color: var(--p-action-fg)`
+   from the ink treatment — retarget them to teal (same attribute-selector trick as
+   the table-cell re-font; inline styles lose to !important). */
+html[data-skin="blackops"] .gr-rowactive [style*="--p-action-fg"],
+html[data-skin="blackops"] .gr-subactive [style*="--p-action-fg"] { color: var(--p-primary) !important; }
+html[data-skin="blackops"] .gr-rowactive:focus-visible,
+html[data-skin="blackops"] .gr-subactive:focus-visible { box-shadow: inset 0 0 0 2px var(--p-primary); }
+
+/* Live View incomplete-stops banner — sits hierarchically between the 12px subtitle
+   and the 22px H1 in this skin; other themes stay 14px. */
+html[data-skin="blackops"] .lv-banner-text { font-size: 13px !important; }
+
+/* =======================================================================
+   Zebra rows (1.13 Tables 2.0) — opt-in class; peer data rows ONLY, never
+   nested/child rows inside an expanded parent (§N2). Skeleton rows carry it
+   too so loading stripes match loaded. Rows must NOT hardcode an inline
+   `background: var(--p-surface)` (inline wins over zebra); conditional inline
+   backgrounds (selected / dirty) are allowed — they SHOULD win. The
+   `of .g-zebra` syntax skips non-row siblings (headers, group heads).
+   ======================================================================= */
+.g-zebra { background: var(--p-surface); }
+:nth-child(even of .g-zebra) { background: var(--p-row-alt); }
 
 /* =======================================================================
    Semantic typography — drop these class names on elements
@@ -386,11 +556,27 @@ html[data-theme="dark"] {
   color: var(--fg-1);
 }
 
-/* Page title used across the PORTAL (JetBrains Mono Semibold since 1.12 "Cockpit") */
+/* SYSTEM title — the H1 when it names a surface or tool (JetBrains Mono since 1.12 "Cockpit") */
 .g-h1 {
-  font: 600 26px/1.25 var(--font-display);
+  font: var(--tw-h1) var(--tz-h1)/1.25 var(--font-h1);   /* 1.13: Inter 600 26 in Light/Dark; Black Ops → mono 700 22 via its token overrides */
   letter-spacing: -0.03em;
   color: var(--fg-1);
+}
+
+/* ENTITY title — the H1 slot when it holds a RECORD'S name (1.12.2 §8). The machine
+   doesn't speak someone's name; it presents it — so an account / user / product name
+   in the H1 stays Inter, matching that name's voice everywhere else (table cells, ⌘K).
+   Mono H1 = "you're on a system surface"; Inter H1 = "you're looking at a record."
+   Long names truncate — never wrap. Mixed surfaces switch per state (aggregate
+   Coverage Map → .g-h1; scoped to one product → .g-h1-entity). */
+.g-h1-entity {
+  font: 700 var(--tz-h1-ent)/1.1 var(--font-sans);
+  letter-spacing: -0.02em;
+  color: var(--fg-1);
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Headline 2 — compact page title (mono since 1.12) */
@@ -429,8 +615,10 @@ html[data-theme="dark"] {
   color: var(--g-medium-gray);
 }
 
-/* Body 1 — standard page & table content */
-.g-body-1 { font: 400 var(--fs-16)/1.4 var(--font-sans); color: var(--fg-2); }
+/* Body 1 — standard page & table content / page subtitle. 16 → 15px (1.12.2 §5):
+   16 read too heavy under the 26px mono H1 (mono runs optically wider/denser than the
+   sans it replaced). Odd size is fine — the integer-scale rule applies to mono only. */
+.g-body-1 { font: 400 var(--tz-sub)/1.4 var(--font-sans); color: var(--fg-2); }   /* 15px default; skins may compress */
 
 /* Body 2 — emphasized */
 .g-body-2 { font: 700 var(--fs-16)/1.4 var(--font-sans); color: var(--fg-1); }
@@ -459,9 +647,12 @@ html[data-theme="dark"] {
   border-radius: var(--radius-sm);
 }
 
-/* Text hyperlink — Inter Medium, primary blue */
+/* Text hyperlink — mono Medium, primary blue. Mono since 1.12.2 §3: a link that does
+   something or takes you somewhere on click is a MACHINE DIRECTION, not prose.
+   (Links inside running sentences follow their sentence's voice — see .g-textlink.) */
 .g-link {
   display: inline;
+  font-family: var(--font-control);
   font-weight: 500;
   color: var(--p-primary);
   text-decoration: none;
@@ -473,7 +664,7 @@ html[data-theme="dark"] {
 }
 /* the dotted underline is a baked data-URI, so it needs its own dark variant (dusty steel) */
 html[data-theme="dark"] .g-link {
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='3' viewBox='0 0 6 3'><circle cx='1.5' cy='1.5' r='1.5' fill='%23ADBDD1'/></svg>");
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='3' viewBox='0 0 6 3'><circle cx='1.5' cy='1.5' r='1.5' fill='%23A8BFDC'/></svg>");   /* 1.13 steel */
 }
 .g-link:hover { color: var(--p-primary-hover); }
 
@@ -503,8 +694,11 @@ mark.gr-hl { background: var(--p-highlight); color: var(--p-highlight-fg); borde
 /* ── Shared component shells (single source of truth; cards reference these) ── */
 
 /* Role Pill — flat tinted label, NO dot. Pass background/color inline per palette color. */
-.g-role-pill { display: inline-flex; align-items: center; padding: 2px 10px; border-radius: var(--radius-pill); font: 500 var(--fs-12)/1.5 var(--font-sans); letter-spacing: .02em; white-space: nowrap; }
+.g-role-pill { display: inline-flex; align-items: center; padding: 2px 10px; border-radius: var(--radius-pill); font: 500 var(--fs-12)/1.5 var(--font-sans); letter-spacing: .02em; white-space: nowrap;
+  border: var(--st-badge) solid var(--badge-stroke, currentColor); box-sizing: border-box; }   /* 1.13 badge recipe — role pills are category-class */
 .g-role-pill.sm { padding: 1px 8px; font-size: var(--fs-11); }
+/* consumers set the tint via inline background (role token pairs) — the skin zeroes it */
+html[data-skin="blackops"] .g-role-pill { background: var(--badge-fill) !important; }
 
 /* Avatar — initials circle. Pass size (width/height/font-size) + background/color inline; ring via box-shadow. */
 .g-avatar { display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-family: var(--font-sans); font-weight: 600; letter-spacing: .01em; flex-shrink: 0; }
@@ -514,7 +708,9 @@ mark.gr-hl { background: var(--p-highlight); color: var(--p-highlight-fg); borde
 .g-kebab:hover { background: rgba(0,0,0,.05); color: var(--p-text); }
 
 /* Split button — main action + caret disclosure. Intents: .primary / .error. Mono since 1.12. */
-.g-split { display: inline-flex; height: 28px; border-radius: var(--radius-md); overflow: hidden; font: 500 12px/1 var(--font-control); vertical-align: middle; box-sizing: border-box; }
+/* A split button grows to fit its label; the label NEVER wraps (1.12.2 §7) — if space
+   genuinely can't fit it, shorten the label. */
+.g-split { display: inline-flex; height: 28px; border-radius: var(--radius-md); overflow: hidden; font: 500 12px/1 var(--font-control); white-space: nowrap; vertical-align: middle; box-sizing: border-box; }
 .g-split .g-split-main  { display: inline-flex; align-items: center; gap: 6px; padding: 0 11px; cursor: pointer; border: none; background: transparent; font: inherit; color: inherit; }
 .g-split .g-split-caret { display: inline-flex; align-items: center; justify-content: center; width: 26px; cursor: pointer; border: none; background: transparent; color: inherit; }
 /* Ink fill + a NEUTRAL caret divider that survives BOTH fills (a white divider would

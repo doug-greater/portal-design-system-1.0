@@ -2,33 +2,33 @@
 <html>
 <head>
 <meta charset="utf-8">
-<script>/* dark-first (1.11 Dusk): stored pref wins; no pref = dark */(function(){var t=null;try{t=localStorage.getItem('gr-theme')}catch(e){}var d=t==='light'?'light':t==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):'dark';document.documentElement.setAttribute('data-theme',d);})()</script>
+<script>/* blackops-first (1.13): stored pref wins; no pref = blackops = dark + data-skin */(function(){var t=null;try{t=localStorage.getItem('gr-theme')}catch(e){}if(t==='blackops-variant')t='blackops';var p=(t==='light'||t==='dark'||t==='system'||t==='blackops')?t:'blackops';var d=p==='light'?'light':p==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):'dark';document.documentElement.setAttribute('data-theme',d);if(p==='blackops')document.documentElement.setAttribute('data-skin','blackops');})()</script>
 <link rel="stylesheet" href="../colors_and_type.css">
 <link rel="stylesheet" href="../fonts/fonts.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,400,0..1,0">
 <style>
-body { margin: 0; padding: 20px 24px; background: var(--p-surface); font: 400 14px Inter; color: var(--p-ink); display: flex; flex-direction: column; gap: 32px; }
-.sec { font: 500 11px/1.2 'JetBrains Mono', monospace; color: var(--p-muted); text-transform: uppercase; letter-spacing: .06em; margin: 0 0 12px; }
+body { margin: 0; padding: 20px 24px; background: var(--p-surface); font: 400 14px var(--font-sans); color: var(--p-ink); display: flex; flex-direction: column; gap: 32px; }
+.sec { font: 500 11px/1.2 var(--font-mono); color: var(--p-muted); text-transform: uppercase; letter-spacing: .06em; margin: 0 0 12px; }
 .mi { font-family: 'Material Symbols Sharp'; line-height: 1; font-feature-settings: 'liga'; display: inline-flex; align-items: center; }
 
 /* Page header card */
-.ph { border: 0.5px solid var(--p-border); border-radius: 2px; overflow: hidden; background: #fff; max-width: 960px; }
+.ph { border: var(--hair) solid var(--p-border); border-radius: var(--r-card); overflow: hidden; background: #fff; max-width: 960px; }
 .ph-inner { padding: 20px 24px 0; }
 
 /* Back nav */
-.ph-back { display: inline-flex; align-items: center; gap: 3px; font: 500 13px/1 Inter; color: var(--p-muted); margin-bottom: 14px; cursor: default; }
+.ph-back { display: inline-flex; align-items: center; gap: 3px; font: 500 13px/1 var(--font-sans); color: var(--p-muted); margin-bottom: 14px; cursor: default; }
 
 /* Identity row */
 .ph-identity { display: flex; align-items: center; gap: 16px; }
 .av-empty { width: 52px; height: 52px; border-radius: 50%; background: #F3F4F6; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .ph-meta { flex: 1; min-width: 0; }
 .ph-name { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 5px; }
-.ph-h1 { margin: 0; font: 700 28px/1.1 Inter; letter-spacing: -.02em; color: var(--p-ink); white-space: nowrap; }
-.ph-sub { font: 400 14px/1 Inter; color: var(--p-muted); }
+.ph-h1 { margin: 0; font: 700 28px/1.1 var(--font-sans); letter-spacing: -.02em; color: var(--p-ink); white-space: nowrap; }
+.ph-sub { font: 400 14px/1 var(--font-sans); color: var(--p-muted); }
 .ph-actions { display: flex; gap: 10px; align-items: center; flex-shrink: 0; }
 
 /* Buttons */
-.btn { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 18px; border-radius: 1px; font: 500 14px/1 Inter; border: 1px solid transparent; cursor: default; white-space: nowrap; }
+.btn { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 18px; border-radius: var(--r-ctl); font: 500 14px/1 var(--font-sans); border: 1px solid transparent; cursor: default; white-space: nowrap; }
 .btn-primary    { background: var(--p-action); color: var(--p-action-fg); }
 .btn-primary-dis { background: var(--p-action-disabled-bg); color: var(--p-action-disabled-fg); }
 .btn-warn       { background: #fff; color: #C94A4E; border-color: #C94A4E; }
@@ -36,7 +36,7 @@ body { margin: 0; padding: 20px 24px; background: var(--p-surface); font: 400 14
 
 /* Tab strip */
 .ph-tabs { display: flex; gap: 4px; margin-top: 16px; }
-.ph-tab { padding: 12px 14px; margin-bottom: -1px; border: none; border-bottom: 2px solid transparent; background: transparent; cursor: default; font: 600 15px/1 Inter; color: #4A5565; }
+.ph-tab { padding: 12px 14px; margin-bottom: -1px; border: none; border-bottom: 2px solid transparent; background: transparent; cursor: default; font: 600 15px/1 var(--font-sans); color: #4A5565; }
 .ph-tab.on { color: var(--p-ink); border-bottom-color: var(--p-ink); }  /* active tab = ink (wayfinding) */
 .ph-divider { height: 1px; background: var(--p-border); }
 </style>
@@ -108,10 +108,10 @@ body { margin: 0; padding: 20px 24px; background: var(--p-surface); font: 400 14
 
 <div>
   <div class="sec">Anatomy</div>
-  <div style="font:400 13px/1.8 Inter;color:var(--p-text-2);max-width:620px">
-    <p style="margin:0 0 5px"><b style="color:var(--p-ink)">Back nav:</b> <code style="font:400 11px 'JetBrains Mono',monospace;background:#F3F4F6;padding:1px 5px;border-radius:2px">chevron_left</code> + section name, 13px 500 Inter, <code style="font:400 11px 'JetBrains Mono',monospace;background:#F3F4F6;padding:1px 5px;border-radius:2px">--p-muted</code>. Omitted on new-user form (no origin to return to).</p>
-    <p style="margin:0 0 5px"><b style="color:var(--p-ink)">Avatar &amp; Role Pill:</b> both reference the shared <code style="font:400 11px 'JetBrains Mono',monospace;background:#F3F4F6;padding:1px 5px;border-radius:2px">.g-avatar</code> / <code style="font:400 11px 'JetBrains Mono',monospace;background:#F3F4F6;padding:1px 5px;border-radius:2px">.g-role-pill</code> classes in <code style="font:400 11px 'JetBrains Mono',monospace;background:#F3F4F6;padding:1px 5px;border-radius:2px">colors_and_type.css</code> — edit the component once and it propagates everywhere. Avatar 52px, role-colored; new-user state uses a 52px gray circle with <code style="font:400 11px 'JetBrains Mono',monospace;background:#F3F4F6;padding:1px 5px;border-radius:2px">person_add</code>. Role Pill is flat (no dot — the dot belongs to Status Badges).</p>
-    <p style="margin:0 0 5px"><b style="color:var(--p-ink)">Headline:</b> 700 28px Inter, <code style="font:400 11px 'JetBrains Mono',monospace;background:#F3F4F6;padding:1px 5px;border-radius:2px">letter-spacing: -.02em</code>. Role Pill sits inline at 2px.</p>
+  <div style="font:400 13px/1.8 var(--font-sans);color:var(--p-text-2);max-width:620px">
+    <p style="margin:0 0 5px"><b style="color:var(--p-ink)">Back nav:</b> <code style="font:400 11px var(--font-mono);background:#F3F4F6;padding:1px 5px;border-radius: var(--r-card)">chevron_left</code> + section name, 13px 500 Inter, <code style="font:400 11px var(--font-mono);background:#F3F4F6;padding:1px 5px;border-radius: var(--r-card)">--p-muted</code>. Omitted on new-user form (no origin to return to).</p>
+    <p style="margin:0 0 5px"><b style="color:var(--p-ink)">Avatar &amp; Role Pill:</b> both reference the shared <code style="font:400 11px var(--font-mono);background:#F3F4F6;padding:1px 5px;border-radius: var(--r-card)">.g-avatar</code> / <code style="font:400 11px var(--font-mono);background:#F3F4F6;padding:1px 5px;border-radius: var(--r-card)">.g-role-pill</code> classes in <code style="font:400 11px var(--font-mono);background:#F3F4F6;padding:1px 5px;border-radius: var(--r-card)">colors_and_type.css</code> — edit the component once and it propagates everywhere. Avatar 52px, role-colored; new-user state uses a 52px gray circle with <code style="font:400 11px var(--font-mono);background:#F3F4F6;padding:1px 5px;border-radius: var(--r-card)">person_add</code>. Role Pill is flat (no dot — the dot belongs to Status Badges).</p>
+    <p style="margin:0 0 5px"><b style="color:var(--p-ink)">Headline:</b> 700 28px var(--font-sans), <code style="font:400 11px var(--font-mono);background:#F3F4F6;padding:1px 5px;border-radius: var(--r-card)">letter-spacing: -.02em</code>. Role Pill sits inline at 2px.</p>
     <p style="margin:0 0 5px"><b style="color:var(--p-ink)">Actions:</b> Existing user — Deactivate (warning secondary) + Save (primary). New user — both disabled until required fields are complete.</p>
     <p style="margin:0"><b style="color:var(--p-ink)">Tabs:</b> Page-level underlined tabs (Profile · Role &amp; Permissions · Team) — standard tab component, sits flush with header bottom border.</p>
   </div>

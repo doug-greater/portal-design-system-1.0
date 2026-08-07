@@ -1,25 +1,25 @@
 <!doctype html><html><head><meta charset="utf-8">
-<script>/* dark-first (1.11 Dusk): stored pref wins; no pref = dark */(function(){var t=null;try{t=localStorage.getItem('gr-theme')}catch(e){}var d=t==='light'?'light':t==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):'dark';document.documentElement.setAttribute('data-theme',d);})()</script><link rel="stylesheet" href="../colors_and_type.css"><link rel="stylesheet" href="../fonts/fonts.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,400,0..1,0"><style>
+<script>/* blackops-first (1.13): stored pref wins; no pref = blackops = dark + data-skin */(function(){var t=null;try{t=localStorage.getItem('gr-theme')}catch(e){}if(t==='blackops-variant')t='blackops';var p=(t==='light'||t==='dark'||t==='system'||t==='blackops')?t:'blackops';var d=p==='light'?'light':p==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):'dark';document.documentElement.setAttribute('data-theme',d);if(p==='blackops')document.documentElement.setAttribute('data-skin','blackops');})()</script><link rel="stylesheet" href="../colors_and_type.css"><link rel="stylesheet" href="../fonts/fonts.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,400,0..1,0"><style>
 body{margin:0;padding:24px;background:var(--p-shell);color:var(--p-ink)}
 .mi{font-family:'Material Symbols Sharp';line-height:1;display:inline-flex;align-items:center;vertical-align:middle}
-.lbl{font:500 11px/1.2 'JetBrains Mono',monospace;color:var(--p-muted);text-transform:uppercase;letter-spacing:.06em;margin:0 0 10px}
+.lbl{font:500 11px/1.2 var(--font-mono);color:var(--p-muted);text-transform:uppercase;letter-spacing:.06em;margin:0 0 10px}
 .bar{display:flex;gap:10px;align-items:center}
-.btn{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 20px;min-width:88px;border-radius:1px;font:500 14px/1 Inter;cursor:pointer;border:1px solid transparent}
+.btn{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 20px;min-width:88px;border-radius: var(--r-ctl);font:500 14px/1 var(--font-sans);cursor:pointer;border:1px solid transparent}
 .neutral{background:#fff;color:var(--p-text);border-color:var(--p-border-strong)}
 .warning{background:#fff;color:var(--p-danger);border-color:var(--p-danger)}
 .primary{background:var(--p-action);color:var(--p-action-fg)}
 .mbwrap{position:relative;display:inline-flex}
-.menu{position:absolute;top:42px;right:0;width:212px;background:#fff;border:0.5px solid var(--p-border);border-radius:2px;box-shadow:var(--shadow-float);padding:4px;z-index:60}
-.mitem{display:flex;align-items:center;gap:10px;height:34px;padding:0 10px;border-radius:2px;font:400 14px/1 Inter;color:var(--p-ink)}
+.menu{position:absolute;top:42px;right:0;width:212px;background:#fff;border:var(--hair) solid var(--p-border);border-radius: var(--r-card);box-shadow:var(--shadow-float);padding:4px;z-index:60}
+.mitem{display:flex;align-items:center;gap:10px;height:34px;padding:0 10px;border-radius: var(--r-card);font:400 14px/1 var(--font-sans);color:var(--p-ink)}
 .mitem .mi{color:var(--p-muted);font-size:18px}
-.section{margin-top:120px;padding-top:20px;border-top:0.5px solid var(--p-border)}
-.notes{font:400 13px/1.5 Inter;color:var(--p-text-2);max-width:760px}
-.notes p{margin:0 0 8px}.notes code{font:500 12px 'JetBrains Mono',monospace;color:var(--p-text);background:var(--p-surface-tint);padding:1px 5px;border-radius:1px}
+.section{margin-top:120px;padding-top:20px;border-top:var(--hair) solid var(--p-border)}
+.notes{font:400 13px/1.5 var(--font-sans);color:var(--p-text-2);max-width:760px}
+.notes p{margin:0 0 8px}.notes code{font:500 12px var(--font-mono);color:var(--p-text);background:var(--p-surface-tint);padding:1px 5px;border-radius: var(--r-ctl)}
 </style></head><body>
 
 <p class="lbl">Editor action bar — MenuButton aligns with full-height sibling buttons</p>
 <div class="bar">
-  <span style="font:500 13px Inter;color:var(--p-warning);margin-right:8px"><span class="mi" style="font-size:10px">circle</span> Unsaved changes</span>
+  <span style="font:500 13px var(--font-sans);color:var(--p-warning);margin-right:8px"><span class="mi" style="font-size:10px">circle</span> Unsaved changes</span>
   <button class="btn neutral"><span class="mi" style="font-size:16px">history</span> History</button>
   <button class="btn neutral"><span class="mi" style="font-size:16px">download</span> Export</button>
   <button class="btn warning">Discard Draft</button>

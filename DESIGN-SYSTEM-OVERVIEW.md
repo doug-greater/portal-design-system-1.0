@@ -419,6 +419,27 @@ coverage:
   nav destinations, pills, and the Home greeting; badges go uppercase mono; buttons keep Title Case;
   mono sizes on an integer 10/11/12/13 scale (fractional sizes removed, 1.12.1; scanning caps at 11+ for field use).
 
+- **New in Portal 1.12.2 (Cockpit typography clarifications)** — the litmus test: *destination/
+  descriptor a human reads → Inter; control, datum, or the machine addressing the operator → mono*
+  (navigation is a role, not a location; page title is a role, not a literal; an entity's name is
+  content wherever it appears; machine speech ≠ machine documents). Filter Menu rail/header/values =
+  Inter vs mono chrome; the Home greeting reverses to mono `.g-h1`; new **`.g-h1-entity`** (Inter
+  700 28) for record-name H1s; text links go mono (in-sentence links keep their sentence's voice);
+  content pills stay Inter Title Case vs UPPERCASE-mono status badges; `.g-body-1` 15px (integer
+  rule is mono-only); `SegmentedTabs` 600 14px mono; split-button labels never wrap; chat: assistant
+  prose mono 14/1.7, typed composer value renders in its author's voice (Inter).
+
+- **New in Portal 1.13 "Black Ops" (theme skins · governed tables · GSA 2.0)** — `data-skin`
+  token-override layer on top of the resolved theme; **Black Ops** (near-black console, teal
+  selection, stroke-only pastel badges, 0px radii, all-mono + IBM-Plex table cells, ALL-CAPS nav)
+  is the **default theme**; ThemeMenu popover replaces the cycle toggle; dark primary → `#A8BFDC`;
+  the Badge Vocabulary Law (outline = category only; status = fill/text + dot); Tables 2.0
+  (subgrid + 8px gap + zebra, dividers removed); General Stock Areas may pin a sequenced product
+  list ("Capacity" → "Par Level", glyph `inventory_2`, violet ramp per theme); theme-aware maps;
+  The Oracle; FilterMenu `numrange`; grouped Select headers; `dangerOutline`.
+
+
+
 **Terminology (1.1 canon).** "Store Promotions" (short "Store Promos", `/store-promotions`),
 "POD Planner" (`/pod-planner`), "Audit Log" (events Created / Updated / Restored / Deleted;
 value columns Removed / Added), "Batch Actions" (not "Bulk actions"), "Restore This Version"

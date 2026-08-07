@@ -1,25 +1,25 @@
 <!doctype html><html><head><meta charset="utf-8">
-<script>/* dark-first (1.11 Dusk): stored pref wins; no pref = dark */(function(){var t=null;try{t=localStorage.getItem('gr-theme')}catch(e){}var d=t==='light'?'light':t==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):'dark';document.documentElement.setAttribute('data-theme',d);})()</script>
+<script>/* blackops-first (1.13): stored pref wins; no pref = blackops = dark + data-skin */(function(){var t=null;try{t=localStorage.getItem('gr-theme')}catch(e){}if(t==='blackops-variant')t='blackops';var p=(t==='light'||t==='dark'||t==='system'||t==='blackops')?t:'blackops';var d=p==='light'?'light':p==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):'dark';document.documentElement.setAttribute('data-theme',d);if(p==='blackops')document.documentElement.setAttribute('data-skin','blackops');})()</script>
 <link rel="stylesheet" href="../colors_and_type.css">
 <link rel="stylesheet" href="../fonts/fonts.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,400,0..1,0">
 <style>
-body { margin: 0; min-height: 100vh; background: var(--p-shell); font: 400 14px Inter; color: var(--p-ink); display: flex; align-items: center; justify-content: center; }
+body { margin: 0; min-height: 100vh; background: var(--p-shell); font: 400 14px var(--font-sans); color: var(--p-ink); display: flex; align-items: center; justify-content: center; }
 .mi { font-family: 'Material Symbols Sharp'; line-height: 1; display: inline-flex; align-items: center; vertical-align: middle; }
 .card { width: 380px; max-width: 92vw; display: flex; flex-direction: column; gap: 16px; }
 .crow { height: 40px; margin: 0 auto 4px; display: block }
-.title { margin: 0; font: 500 18px/1.35 'JetBrains Mono', monospace; letter-spacing: -.01em; text-align: center; color: var(--p-ink) }
-.flabel { font: 500 11px 'JetBrains Mono', monospace; letter-spacing: .04em; text-transform: uppercase; color: var(--p-muted); margin-bottom: 6px; display: block }
-.fld input { width: 100%; height: 56px; box-sizing: border-box; padding: 0 16px; border: 0.5px solid var(--p-border-strong); border-radius: 1px; font: 400 15px 'JetBrains Mono', monospace; color: var(--p-ink); background: var(--p-surface); outline: none }
+.title { margin: 0; font: 500 18px/1.35 var(--font-mono); letter-spacing: -.01em; text-align: center; color: var(--p-ink) }
+.flabel { font: 500 11px var(--font-mono); letter-spacing: .04em; text-transform: uppercase; color: var(--p-muted); margin-bottom: 6px; display: block }
+.fld input { width: 100%; height: 56px; box-sizing: border-box; padding: 0 16px; border: var(--hair) solid var(--p-border-strong); border-radius: var(--r-ctl); font: 400 15px var(--font-mono); color: var(--p-ink); background: var(--p-surface); outline: none }
 .fld input:focus { border-color: var(--p-primary); box-shadow: 0 0 0 3px var(--p-focus-ring) }
-.err { display: flex; align-items: center; gap: 8px; background: var(--g-red-10); color: var(--p-danger-strong); border-radius: 2px; padding: 9px 12px; font: 500 13px Inter }
-.signin { width: 100%; height: 48px; border: none; border-radius: 1px; background: var(--p-action); color: var(--p-action-fg); font: 600 13px/1 'JetBrains Mono', monospace; letter-spacing: .01em; cursor: pointer }
-.legal { font: 400 12px/1.5 Inter; color: var(--p-placeholder); text-align: center }
+.err { display: flex; align-items: center; gap: 8px; background: var(--g-red-10); color: var(--p-danger-strong); border-radius: var(--r-card); padding: 9px 12px; font: 500 13px var(--font-sans) }
+.signin { width: 100%; height: 48px; border: none; border-radius: var(--r-ctl); background: var(--p-action); color: var(--p-action-fg); font: 600 13px/1 var(--font-mono); letter-spacing: .01em; cursor: pointer }
+.legal { font: 400 12px/1.5 var(--font-sans); color: var(--p-placeholder); text-align: center }
 .legal a { color: var(--p-primary); text-decoration: none }
 .devbox { margin-top: 6px; border-top: 1px dashed var(--p-border-strong); padding-top: 14px; display: flex; flex-direction: column; gap: 8px }
-.devlabel { font: 500 11px 'JetBrains Mono', monospace; letter-spacing: .04em; text-transform: uppercase; color: var(--p-placeholder); text-align: center }
-.devbtn { display: inline-flex; align-items: center; gap: 8px; justify-content: center; height: 38px; border: 1px dashed var(--p-border-strong); border-radius: 1px; background: var(--p-surface); color: var(--p-text-2); font: 500 12px/1 'JetBrains Mono', monospace; cursor: pointer }
-.themetoggle { position: fixed; bottom: 16px; left: 16px; display: inline-flex; align-items: center; gap: 6px; font: 500 11px 'JetBrains Mono', monospace; color: var(--p-muted); cursor: pointer }
+.devlabel { font: 500 11px var(--font-mono); letter-spacing: .04em; text-transform: uppercase; color: var(--p-placeholder); text-align: center }
+.devbtn { display: inline-flex; align-items: center; gap: 8px; justify-content: center; height: 38px; border: 1px dashed var(--p-border-strong); border-radius: var(--r-ctl); background: var(--p-surface); color: var(--p-text-2); font: 500 12px/1 var(--font-mono); cursor: pointer }
+.themetoggle { position: fixed; bottom: 16px; left: 16px; display: inline-flex; align-items: center; gap: 6px; font: 500 11px var(--font-mono); color: var(--p-muted); cursor: pointer }
 </style></head>
 <body>
 <div class="card">

@@ -19,7 +19,7 @@ const DEV_LOGIN_ENABLED = true;   // production: from /auth/config; defaults FAL
 
 const authField = {
   width: '100%', height: 56, padding: '0 16px', boxSizing: 'border-box',
-  border: '0.5px solid var(--p-border-strong)', borderRadius: 1,  // §H: 4px on auth
+  border: 'var(--hair) solid var(--p-border-strong)', borderRadius: 'var(--r-ctl)',  // §H: 4px on auth
   font: '400 15px var(--font-control)', color: 'var(--p-ink)', background: 'var(--p-surface)', outline: 'none',
 };
 
@@ -28,12 +28,16 @@ function LoginScreen({ onSignIn }) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
 
-  // Inline theme toggle (mirrors theme.js; flat, bottom-left on Login).
-  const [pref, setPref] = useState(() => { try { const v = localStorage.getItem('gr-theme'); return v === 'light' || v === 'dark' || v === 'system' ? v : 'dark'; } catch { return 'dark'; } });   // dark-first (1.11)
-  const resolve = (p) => p === 'dark' ? 'dark' : p === 'light' ? 'light' : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-  useEffect(() => { document.documentElement.setAttribute('data-theme', resolve(pref)); try { localStorage.setItem('gr-theme', pref); } catch {} }, [pref]);
-  const tMeta = { light: { icon: 'light_mode', label: 'Light' }, dark: { icon: 'dark_mode', label: 'Dark' }, system: { icon: 'contrast', label: 'System' } }[pref];
-  const cycle = () => setPref((p) => (p === 'light' ? 'dark' : p === 'dark' ? 'system' : 'light'));
+  // Inline theme state (mirrors theme.js — 1.13: four prefs, blackops = dark + skin, blackops default).
+  // The login corner control is the ThemeControl `login` variant (§D) — bare text+icon link.
+  const [pref, setPref] = useState(() => { try { const v = localStorage.getItem('gr-theme'); if (v === 'blackops-variant') return 'blackops'; return v === 'light' || v === 'dark' || v === 'blackops' || v === 'system' ? v : 'blackops'; } catch { return 'blackops'; } });
+  const resolve = (p) => (p === 'dark' || p.startsWith('blackops')) ? 'dark' : p === 'light' ? 'light' : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', resolve(pref));
+    if (pref.startsWith('blackops')) document.documentElement.setAttribute('data-skin', 'blackops');
+    else document.documentElement.removeAttribute('data-skin');
+    try { localStorage.setItem('gr-theme', pref); } catch {}
+  }, [pref]);
 
   // One generic error — never reveal which field was wrong (auth voice / §P hardening).
   const finish = () => { if (!email.includes('@') || !password) { setError(true); return; } onSignIn?.(email); };
@@ -51,7 +55,7 @@ function LoginScreen({ onSignIn }) {
         </div>
 
         {error && (
-          <div className="gr-rise" style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'var(--g-red-10)', color: 'var(--p-danger-strong)', borderRadius: 2, padding: '9px 12px', font: '500 12px var(--font-control)' }}>
+          <div className="gr-rise" style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'var(--g-red-10)', color: 'var(--p-danger-strong)', borderRadius: 'var(--r-card)', padding: '9px 12px', font: '500 12px var(--font-control)' }}>
             <Icon name="error" size={16} color="currentColor" /> Incorrect email or password.
           </div>
         )}
@@ -72,7 +76,7 @@ function LoginScreen({ onSignIn }) {
         </div>
 
         <button data-testid="login-signin-btn" onClick={finish} className="gr-rise" data-i="4"
-          style={{ width: '100%', height: 48, border: 'none', borderRadius: 1, background: 'var(--p-action)', color: 'var(--p-action-fg)', font: '600 13px/1 var(--font-control)', letterSpacing: '.01em', cursor: 'pointer' }}>
+          style={{ width: '100%', height: 48, border: 'none', borderRadius: 'var(--r-ctl)', background: 'var(--p-action)', color: 'var(--p-action-fg)', font: '600 13px/1 var(--font-control)', letterSpacing: '.01em', cursor: 'pointer' }}>
           Sign In
         </button>
 
@@ -86,7 +90,7 @@ function LoginScreen({ onSignIn }) {
             <span style={{ font: '500 11px/1.2 var(--font-control)', color: 'var(--p-placeholder)', letterSpacing: '.05em', textTransform: 'uppercase', textAlign: 'center' }}>Dev quick sign-in</span>
             {DEV_ACCOUNTS.map((a) => (
               <button key={a.id} data-testid={`dev-login-${a.label.toLowerCase().replace(/\s+/g, '-')}`} onClick={() => devSignIn(a)}
-                style={{ display: 'flex', alignItems: 'center', gap: 8, justifyContent: 'center', width: '100%', height: 38, padding: '0 12px', borderRadius: 1, cursor: 'pointer',
+                style={{ display: 'flex', alignItems: 'center', gap: 8, justifyContent: 'center', width: '100%', height: 38, padding: '0 12px', borderRadius: 'var(--r-ctl)', cursor: 'pointer',
                   border: '1px dashed var(--p-border-strong)', background: 'transparent', color: 'var(--p-text-2)', font: '500 12px var(--font-control)' }}>
                 <Icon name="bolt" size={15} color="var(--p-muted)" />
                 Sign in as {a.label} ({a.email})
@@ -96,12 +100,10 @@ function LoginScreen({ onSignIn }) {
         )}
       </div>
 
-      {/* Theme toggle — flat, bottom-left, no card chrome */}
-      <button data-testid="theme-toggle" onClick={cycle}
-        style={{ position: 'absolute', left: 20, bottom: 20, display: 'inline-flex', alignItems: 'center', gap: 8,
-          border: 'none', background: 'transparent', cursor: 'pointer', color: 'var(--p-muted)', font: '500 12px var(--font-control)' }}>
-        <Icon name={tMeta.icon} size={18} color="currentColor" /> {tMeta.label}
-      </button>
+      {/* Theme picker — flat, bottom-left, no card chrome (ThemeControl `login` variant, 1.13 §D) */}
+      <div style={{ position: 'absolute', left: 20, bottom: 20 }}>
+        <ThemeControl variant="login" pref={pref} onSelect={setPref} />
+      </div>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 # Greater Design System
-### Portal 1.12 "Cockpit" · July 2026
+### Portal 1.13 "Black Ops" · July 2026
 
 > Greater Industries builds AI that helps wholesalers and distributors make the smartest, most efficient, most profitable decisions across their entire business. From warehouse workers and truck drivers to sales reps and owners — Greater's portal is the cockpit that connects the people who power local economies.
 
@@ -46,6 +46,8 @@
    - **New in 1.9 (Home + shareable URLs + anchor navigation):** **AppLink** — navigation renders a real `<a href>` (open-in-new-tab / ⌘-click) while routing plain clicks through the NavGuard; the **anchor-navigation law** (§9 / §12 / §15) · **stretched-link rows** for clickable table rows (§9 Tables) · `BackLink` gains `to`; external links are real `<a target=_blank>` · **URL filter-state** (`urlFilters.js`) is the single source of truth, relative presets persist as a key *[supersedes `sessionStorage`/`filterPersist`]* (§ Deep-linking / State & URLs) · **Saved Views** + `SaveViewButton` (§9) · **Home dashboard** — role-gated drag-orderable Health Stat Cards + a Saved-Views grid + the Crow Fact easter egg (§9 / §12) · **Login → single page** *[supersedes the 1.5 two-step]* (§9) · App Shell nav **collapsed-by-default + auto-expand-active + animated** (grid-rows + stagger), landing item **Home** (`home`) (§8 / §9 / §10) · role-gating keys off **real role ids** (§15)
    - **New in 1.11 "Dusk" (dark-first · dusty palette · sharp corners · JetBrains Mono):** **dark is the default theme** — first-run pref = `dark`, previews bootstrap dark, docs author dark-first (§3 Theming) · **Dusk palette** — primary `#007CFF/#3B82F6 → #1861AF/#ADBDD1` (light link contrast 3.9→6.3:1; dark selection goes quiet steel), feedback trio dusted in both modes, all derived tints/focus rings/`::selection`/live-pulse re-based (§3) · the **`--p-pal-1…10` badge ramp** ported from the app — one fg per slot + computed 15% `color-mix` tints; role/category pill pairs are now pal-derived compat aliases; **dusty dark variants** incl. reserved slots 7–10; dark genstock aligns to pal-1 (§3 / §9 Role Pills) · **deepened dark neutrals** (near-black shell `#0F0F0F` → nav `#131316` → surface `#161618` → surface-alt `#202022`; ink stays off-white `#F2F2F4`; new `--p-surface-nav` token — the sidebar recedes a step below content) (§3) · **radii squared** — controls 4→**1px**, cards/menus/floats 6–10→**2px**, pills stay round (§6) · **0.5px hairline strokes** on fields/cards/tables + **×0.25 light shadows** (§6/§7) · **JetBrains Mono** replaces Geist Mono (self-hosted variable woff2) (§4 / `fonts/`) · page title **28px** (`--fs-28`) (§4) · **exempt by design:** the Conditions map palette (legibility) and the Intelligence gradient (brand moment) stay vivid · hardcoded old blues swept portal-wide (`BRAND_BLUE`, Toggle/Checkbox, `.g-link` dot, live-map pins, `gr-livedot` → `--p-pulse`)
    - **New in 1.12 "Cockpit" (typography — humans read Inter, the machine speaks mono):** JetBrains Mono expands from data into **titles** (`.g-h1/h2/h3`, modal/drawer titles — new `--font-display`) and **everything the user operates + machine labels + status vocabulary** (buttons, inputs, selects, filter chips, tabs, menus, pagination, table headers, stat labels, section titles/overlines, badges, toasts, liveness chips — new `--font-control`); both tokens are semantic aliases of the mono stack (§4). **Inter deliberately survives** for content humans read: account/product names, prose, helper copy, nav destinations, category/role pills, the Home greeting. **Status badges go UPPERCASE mono**; buttons keep **Title Case**; mono sizes land on an **integer scale** — 10 · 11 · 12 · 13 (no fractional sizes; caps labels used for scanning sit at 11+ for field/phone use). Config locked from the approved Cockpit mock: no route line, Title Case controls. Kit + flagship previews updated; remaining preview pages sweep as touched.
+   - **New in 1.13 "Black Ops" (theme skins · governed subgrid tables · General Stock 2.0):** a second theming axis — **`data-skin`** layers a token-override block on a resolved `data-theme`, no component forks; the **skin-token contract** (`--hair`, `--r-ctl/card/nav/tgl(-knob)`, `--st-badge`, `--badge-fill/stroke`, `--tab-on`, `--font-cell`, `--font-h1`, `--tz-*/--tw-*`) with defaults equal to the old literals + THE MAINTENANCE LAW: new components consume the tokens, never shape/type literals (§3 Theming / §6) · first skin **Black Ops** — near-black ops console (teal selection `#86EAE8` promoted from pal-6, which re-slots to apricot; pastel stroke-only category badges; 0px radii + 1px hairlines; all-mono type with **IBM Plex Sans table cells**; ALL-CAPS parent/util nav with teal selection rows; 22/700 H1) — **and it is the DEFAULT THEME** (supersedes 1.11 "dark default") · **ThemeMenu popover** (`row/rail/iconbtn/login` variants) supersedes the 1.5 cycle toggle · **dark primary re-tuned `#ADBDD1` → `#A8BFDC`** (§3) · **the Badge Vocabulary Law** — outlines are for **category/type** badges only; **status** badges are always fill+dot or text-only+dot; count/delta chips go bare; new `ServicePill` (name-hash → pal slot) (§9 Pills / Status Badge) · **Tables 2.0** — content-hugging **CSS subgrid** templates (`minmax(max-content,1fr)`), the **8px gap standard**, **zebra rows** (`--p-row-alt` + `.g-zebra`, peer rows only), row dividers removed, `contain:inline-size` law for spanning items, `DataTableFooter trailing`, all footers via the shared component (§9 Tables) · **General Stock Areas 2.0** — a GSA may hold an **optional pinned, sequenced product list**; pars/Display never apply; non-destructive conversion + "Erase par levels?" confirm; glyph `inventory_2`; **"Capacity" renames to "Par Level"**; per-theme violet `--p-genstock` ramp (§9 Arrangement Board) · **maps** — dark-tile contrast filter; selection colors follow `--p-primary` (JS geometry resolves computed values, rebuilds keyed on `skin`); popups stay hardcoded light-navy by design (§9 Maps) · **The Oracle** — the Insights assistant renamed; bare crow marks, full-width responses, hairline composer (§9) · plus `--font-h1` (H1 re-humanized to Inter outside Black Ops), FilterMenu **`numrange`**, grouped `Select` headers, `dangerOutline` renames `warning`, danger-interaction tokens, greeting drops the vocative comma
+   - **New in 1.12.2 (Cockpit typography clarifications — post-port, from real usage; adds the litmus test):** *is it a **destination/descriptor** a human reads → Inter; a **control, datum, or the machine addressing the operator** → mono* — with four corollaries: navigation is a **role, not a location**; page title is a **role, not a literal**; **an entity's name is content wherever it appears**; machine **speech** is mono at any length but machine **documents** are content (§4). Concretely: **Filter Menu** rail/pane-header/value rows = Inter, its trigger/overlines/counts/Select-all/footer = mono (§9 Filter Menu) · the **Home greeting reverses to mono** (`.g-h1` — it's the page title AND the machine speaking; supersedes the 1.12 Inter exception) · **two-tier titles** — new **`.g-h1-entity`** (Inter 700 28/1.1, nowrap+ellipsis) for H1s holding a *record's* name; `.g-h1` mono = system surface (§4) · **text links go mono** (`.g-link`, `BackLink`, action links — machine directions; in-sentence `.g-textlink` keeps its sentence's voice) · **content pills stay Inter Title Case** vs UPPERCASE-mono status badges — the discriminator is *vocabulary*, not shape · **`.g-body-1` 16 → 15px** (pairing under the 26px mono H1; integer rule is mono-only, odd Inter sizes fine) · **`SegmentedTabs` 13 → 600 14px mono** (scale gains a 14 step) · **split-button labels never wrap** (`white-space: nowrap`) · **conversational surfaces**: assistant reply prose = mono `14/1.7`, user bubbles = Inter, and in conversational inputs *the typed value renders in the voice of its author* (mono placeholder → Inter as you type; general form inputs unaffected).
    - **New in 1.11.3 (Intelligence gradient dusted — supersedes the 1.11 "vivid" exemption):** the gradient joins Dusk. **Light = "Dusk Rose"** `#1861AF → #4338CA → #BE185D` (primary navy → pal-9 indigo → pal-7 magenta — all existing token values); **dark = the "half-step"** `#9FB6D4 → #929ADB → #D38AAD` (the rose arc at 30% vivid — fully-dusty stops read too flat on the quiet chrome; these bespoke blends are the sanctioned middle). Applies to `--p-intel-gradient` / `--p-intel-start/mid/end` / `--p-intel-tint` (both modes) and the **Echo Pulse** conic rings (dark variant added). **`#007CFF` is now fully retired.** The Conditions map palette remains the sole vivid exemption.
    - **New in 1.11.2 (Dusk refinements — post-port, from real dark-mode usage):** **Toggle knob = `--p-surface`, never `#fff`** — solid-fill ON track, border-strong OFF track (a white knob vanished on the dusty-steel dark track; §9 Toggle, *supersedes the tinted-track/colored-knob spec*) · **check glyphs = `--p-action-fg`** on every check-on-primary-fill control (white checks "disappear" on steel in dark; §9 Checkbox) · **all checkbox-style squares → 1px radius** (drift to 3px/5px unified; radios/pills/knobs exempt by shape; §9/§6) · **Select placeholders lose the trailing `…`** (search inputs keep it; §9 Inputs / §11 Voice) · **`TableShell` radius token-bound to `--radius-lg`** + the *reference-the-token-never-the-number* rule for all surface cards (§9 Tables / §6) · stale vivid-blue hexes swept from the §9 component spec blocks
    - **New in 1.10 (Live Ops · Most-Severe · Expected Impact · Portal Overlays):** **Live View** — a new *live-surface* page archetype (auto-refreshing map + grouped table of every rep's day, a five-state stop vocabulary, a monochrome-routes map law) + an App-Shell **nav alert dot** ([Live Surfaces](#live-surfaces-live-view--110) / §9 App Shell / Maps) · Coverage-Map hexes now aggregate by **Most Severe** business severity *[supersedes the 1.4/1.5 averaging]* (§9 Maps / Inventory Conditions) · **Expected Impact** (categorical) + the **radio-card** input + `ImpactBars` *[supersedes numeric "Anticipated Lift"]* + **conditional Subtype** (§9 Inputs) · shared **DataTable** primitives (`SortHeader`/`TableShell`/`TableHeader`/`DataTableFooter`), **RowKebab** portal row-menu *[supersedes inline kebabs]*, **pinned actions column**, nested-table sorting (§9 Tables) · **Tooltip** measured viewport clamp *[supersedes the 1.4 fixed clamp]* (§9) · search-highlight **yellow-only** (§9) · relative **week selector** (§9 Filters) · nav gating **capability-per-child** *[supersedes 1.9 role-id gating]* + feature-aligned cap catalog (§9 App Shell / Appendix A) · dev sign-in **id-based, no client secrets** (§9 Login) · Help Center → **in-product Messenger** (§9 App Shell) · **Store Layout Templates** tab (§9) · tokens `gr-livedot` / `.g-live-*` / `.g-routemap*` / `.gr-sticky-actions` · `SCREENS-1.10.md`
@@ -144,11 +146,13 @@ There is **one** neutral ramp: the Portal ink-forward ramp. Use the `--p-*` name
 | `--p-surface-tint` | `#F3F4F6` | Tab-strip background |
 | `--p-shell` | `#FDFCF9` | **Page / canvas background** — warm off-white; never for cards |
 
-### Portal Primary — "Dusk" muted navy / dusty steel (1.11 · supersedes the vivid blues)
+### Portal Primary — "Dusk" muted navy / dusty steel (1.11 · dark re-tuned 1.13 · supersedes the vivid blues)
+
+> **1.13 dark re-tune:** standard Dark mode's primary is **`#A8BFDC`** — a half-step bluer/cooler steel than 1.11's `#ADBDD1`, user-picked. Full derived ramp follows the same deltas (`hover #BED1E9 · soft/tint/focus-ring/pulse alphas on 168,191,220 · ink #BACDE6 · --g-blue-10 .16`). Contrast at sign-off: on surface **9.60:1** (was 9.45), surface-alt 8.64, surface-tint 7.37, `::selection` ink 11.18 — all AA+; luminance rose only +1.7%, so the existing alphas produce no extra glow. `--p-intel-start #9FB6D4` stays ("near primary steel" still holds). Black Ops overrides the whole family in its own block. ⚠ When porting: a batched edit once **silently dropped the five core declarations** while the docs already said `#A8BFDC` — after any bulk token edit, grep for BOTH hexes; the only surviving `#ADBDD1` anywhere should be historical prose.
 
 | Token | Light | Dark | Role |
 |---|---|---|---|
-| `--p-primary` | `#1861AF` | `#ADBDD1` | Links, focus, selection (state inside content) |
+| `--p-primary` | `#1861AF` | `#A8BFDC` (1.13 — was `#ADBDD1`) | Links, focus, selection (state inside content) |
 | `--p-primary-hover` | `#134E8C` | `#C3CFDE` | Hover state |
 | `--p-primary-soft` | `#D9E3F0` | `rgba(173,189,209,.18)` | Active count badge backgrounds · `::selection` |
 | `--p-primary-tint` | `#EDF2F8` | `rgba(173,189,209,.10)` | Row hover / info backgrounds |
@@ -189,7 +193,17 @@ The **only sanctioned use of yellow** in Portal. Reserved exclusively for highli
 | `--p-highlight` | `#FDE68A` | `rgba(250,204,21,.32)` | Match fill (`mark.gr-hl` background) |
 | `--p-highlight-fg` | `#4A3000` | `#FDE68A` | Match text |
 
-### Portal General Stock (purple concept accent · 1.7)
+### Portal General Stock (purple concept accent · 1.7 · per-theme ramp 1.13)
+
+**`--p-genstock` is a three-token family per theme (1.13 §J — supersedes the single 1.7 purple):**
+
+| theme | `--p-genstock` | `--p-genstock-ink` | `--p-genstock-tint` |
+|---|---|---|---|
+| Light | `#7C3AED` | `#6B21A8` | `rgba(124,58,237,.12)` |
+| Dark | `#AF98C8` (aligns to pal-1) | `#C9B6DE` | `rgba(175,152,200,.18)` |
+| **Black Ops** | **`#C0A6EC`** (pastel violet) | `#D2BEF2` | `rgba(192,166,236,.16)` |
+
+> **[RULE]** Under Black Ops the GSA accent initially inherited a red-leaning tone and read as a *warning*; the user rejected it. **The General-Stock accent must always read as a CATEGORY hue (the violet family) — never a feedback hue.**
 
 Concept accent for the Store-Layout **"General Stock Area"** section type only. Establishes purple as that feature's identity color, parallel to how blue = action, green = add, red = remove. Reuses the foundation purple but is exposed as **semantic** tokens so it themes and can be reused.
 
@@ -252,19 +266,23 @@ Concept accent for the Store-Layout **"General Stock Area"** section type only. 
 
 ---
 
-### Theming — DARK-FIRST light + dark (1.5 · dark default since 1.11)
+### Theming — THEMES + SKINS (1.5 · dark default 1.11 · skins + Black Ops default 1.13)
 
-The portal ships a full **light + dark theme**, toggled live with no reload. **Since 1.11 "Dusk", dark is the default**: a first-run user (no stored pref) gets **`dark`** — not `system` — and the dark theme is the product's primary authored canvas (docs, previews, and screenshots lead with it). Returning users keep their saved choice; Light / System remain one click away on the toggle.
+The portal ships a full **light + dark theme**, toggled live with no reload — and since 1.13 a second axis: a **SKIN** is a token-override layer applied **on top of a resolved theme** (`html[data-skin="…"]` — one CSS block in the token sheet, after the dark block; **no selectors forked per-component**). **Black Ops is the default theme** (supersedes 1.11's "dark default"): a first-run user (no stored pref) gets **`blackops`**, the product's primary authored canvas. Stored preferences are never overridden; Light / Dark / System remain one click away in the ThemeMenu.
 
-**Theme model — three preferences, two resolved themes:**
+**Theme model — four preferences, two resolved themes, one optional skin:**
 
-- **`pref`** — `"system" | "light" | "dark"`, persisted in `localStorage["gr-theme"]` (**default `"dark"` since 1.11**; was `"system"`).
-- **`resolved`** — `"light" | "dark"`. `system` resolves via `window.matchMedia("(prefers-color-scheme: dark)")` and **follows OS changes live** while the pref is `system`.
-- Applied by setting **`document.documentElement.setAttribute("data-theme", resolved)`**. All dark tokens live under the **`html[data-theme="dark"]`** selector; light is the bare `:root`.
+- **`pref`** — `"light" | "dark" | "blackops" | "system"`, persisted in `localStorage["gr-theme"]` (**default `"blackops"` since 1.13**). A retired experimental pref `"blackops-variant"` (the sandbox skin that *graduated into* Black Ops) migrates silently in `getPref()`.
+- **`resolved`** — `"light" | "dark"`. **`blackops` resolves to `"dark"`** — every dark CSS rule and every `resolved === "dark"` JS check (map tiles, KO logo swaps, Material grade) keeps working untouched. `system` resolves via `window.matchMedia("(prefers-color-scheme: dark)")` and **follows OS changes live**.
+- **`skin`** — `"blackops" | null`; additionally sets **`data-skin`** on `<html>` (`applyPref` sets **or removes** it).
+- Applied by setting **`data-theme`** (+ `data-skin`). All dark tokens live under **`html[data-theme="dark"]`**; light is the bare `:root`; skin overrides live under **`html[data-skin="blackops"]`**.
+- `useTheme()` returns `{ pref, resolved, skin, setPref, cycle }`. The module calls `applyPref(_pref)` **at init** as a safety net — a stale cached `index.html` bootstrap once left the app unthemed after reload.
+
+> **The skin-token contract + THE MAINTENANCE LAW (1.13).** Skins re-tune shape, stroke and type purely through `:root` tokens whose **defaults equal the previous literals** (Light/Dark render pixel-identical): `--hair` (hairline width) · `--r-ctl/--r-card/--r-nav` (control/container/nav radii) · `--r-tgl/--r-tgl-knob` (switch) · `--st-badge` + the unset `--badge-fill`/`--badge-stroke` fallback pair (§9 Pills) · `--tab-on` (selected-tab ink) · `--font-cell` (table-cell prose) · `--font-h1` (§4) · `--tz-h1/-h1-m/-h1-ent/-sub/-tab/-btn` + `--tw-h1/-tab/-btn` (text sizing). **New components must consume these tokens, never shape/type literals** — a component that hardcodes `borderRadius: 2` or `"Inter"` silently refuses to reshape under a skin.
 
 > **Single-store rule (this caused a real bug — keep it).** Theme state **must live in one module-level store** read via **`useSyncExternalStore`**, not per-component `useState`. JS-driven views (the Leaflet Coverage Map) rebuild their tiles inside an effect keyed on `resolved`; if each `useTheme()` hook held its own copy, the map would **not** re-render on toggle. Reference module: `ui_kits/portal/theme.js`.
 
-> **No-flash bootstrap (required).** A tiny inline script in `index.html` must read `localStorage["gr-theme"]` and set `data-theme` **before React mounts**, so there is no light→dark flash on load — doubly important now that dark is the default. (Every `preview/*.html` page carries the same bootstrap since 1.11.)
+> **No-flash bootstrap (required).** A tiny inline script in `index.html` must read `localStorage["gr-theme"]` and set `data-theme` **AND `data-skin`** before React mounts — for any stored pref beginning `blackops` it hardcodes `data-skin="blackops"` + `data-theme="dark"`; no stored pref = Black Ops (the default). (Every `preview/*.html` page carries the same bootstrap.)
 
 **Dark token model.** The dark theme is a complete inverted-neutral set using **deep tinted blacks** (Vercel/Linear lineage) — re-based in 1.11: a **near-black shell** with clearly-lifted surfaces (shell `#0F0F0F` → nav `--p-surface-nav` `#131316` → surface `#161618` → surface-alt `#202022`, borders `#34343B`/`#45454D`) while text stays off-white (ink `#F2F2F4` — never pure white). The nav sidebar deliberately sits **between shell and surface**, so content cards lift above the nav. **Elevation in dark is expressed by surface lightening + an inset highlight + a deep shadow** — *not* the light-mode soft drop shadows (see §7). The full block is in `colors_and_type.css` under `html[data-theme="dark"]`.
 
@@ -276,13 +294,30 @@ The portal ships a full **light + dark theme**, toggled live with no reload. **S
 
 **Motion.** Limit the theme transition to large resting surfaces only — `body, aside { transition: background-color .2s ease, color .2s ease; }`. **Never** put `transition: all` on everything (it breaks transforms and janks the map).
 
-**Toggle.** A single App-Shell utility-nav control cycles **light → dark → system** (`data-testid="theme-toggle"`; tooltip/aria announce the next state). On **Login** the same control sits **flat, bottom-left**, no card chrome.
+**ThemeMenu (1.13 — SUPERSEDES the 1.5 cycling toggle).** Theme selection is a **popover menu**: one stable component (`ThemeControl`, `ui_kits/portal/ThemeMenu.jsx`) drives every surface via `variant`:
 
-| pref | icon | label |
-|------|------|-------|
-| `light` | `light_mode` | Light |
-| `dark` | `dark_mode` | Dark |
-| `system` | `contrast` | System |
+| variant | placement | trigger anatomy |
+|---|---|---|
+| `row` | expanded sidebar utility area | `.gr-util`-style row: theme icon + current label ("Black Ops") + `unfold_more` chevron |
+| `rail` | collapsed sidebar | 40×36 icon tile; panel opens to the right (`left: calc(100% + 10px)`) |
+| `iconbtn` | mobile app bar | 44×44 icon button; panel opens below-right |
+| `login` | login screen corner | bare text+icon link, muted → ink on hover, mono 12px |
+
+Options catalog (order fixed): **Light** `light_mode` · **Dark** `dark_mode` · **Black Ops** `shield_moon` · **System** `contrast` (row labels "Light Mode / Dark Mode / Black Ops / System Theme"). Panel: min-width 176, `var(--p-surface)` on `var(--hair) solid var(--p-border)`, `var(--r-card)`, `var(--shadow-float)`, `gr-pop-in .12s`, z-index 10001; an uppercase mono overline **"Theme"** (500 10px `--font-control`, `.08em`) heads the list; the active option is marked. Test-ids: `theme-toggle` / `mobile-theme-toggle` / `login-theme-toggle` (triggers), `theme-menu` (panel), `theme-option-{id}` (items).
+
+### The Black Ops skin (1.13 — the first skin · the default theme)
+
+A near-black **"ops console"**, born from the Theme Lab export and iterated via a live "Variant" sandbox that **graduated into the base theme** (its deltas — teal selection, dimmed pill strokes, apricot pal-6, high-contrast zebra — were folded in; the variant pref was deleted and stored `blackops-variant` prefs migrate). It layers on dark and overrides colors, shape, stroke and type through the skin-token contract. The verbatim block lives in `colors_and_type.css` under `html[data-skin="blackops"]`. Highlights:
+
+- **Neutrals:** shell `#0F0F0F` · surface/nav `#131316` · alt `#202022` · tint `#26262B` · zebra `#212127` (deliberately high-contrast, ~14/channel above surface — user-approved after an A/B against a subtler stripe) · ink `#FAFAFB`.
+- **The teal selection story [RULE]:** `#86EAE8` was the export's **pal-6 badge color**, promoted to the selection role (`--p-primary` family + focus ring + pulse + `--g-blue-10`); pal-6 was **re-slotted to pastel apricot `#EFB08A`** so teal reads **only** as the selection signal. The 1.6 blue-law applies unchanged — in Black Ops "blue" simply *is* teal.
+- **Badge ramp:** pastel ops palette (`--p-pal-1…10`); genstock goes pastel violet `#C0A6EC` (§9 General Stock).
+- **Badges:** tinted fills removed — `--badge-fill: transparent`, `--st-badge: 0.5px`, `--badge-stroke: color-mix(in oklab, currentColor 45%, transparent)` (dimmed stroke, full-bright text; full-brightness strokes and a no-stroke text-only pass were both tried and rejected). **Status badges are exempt** — the Badge Vocabulary Law (§9 Status Badge).
+- **Type:** `--font-sans` is overridden to the **mono stack** — the machine speaks EVERYWHERE; the Cockpit "Inter survivals" intentionally do NOT survive here. **Exception: table cells** read **IBM Plex Sans 14** via `--font-cell` and one scoped rule — `html[data-skin="blackops"] .g-tbl [style*="var(--font-sans)"] { font-family: var(--font-cell) !important; }` (`TableShell` carries `className="g-tbl"`; the attribute-selector retarget is the sanctioned skin-level re-fonting trick — brittle by design, documented where used). H1 = **22px/700** (all H1 tokens collapse to 22, incl. entity titles); subtitles 12; tabs 500 12; buttons weight 500.
+- **Nav:** **ALL-CAPS** top-level parent + bottom utility rows only — child/sub items keep natural case. ⚠ Never add a nav font-size rule here: an earlier revision matched `span.material-symbols-sharp` and shrank the 22px icons (if ever needed, exclude icons with `:not(.material-symbols-sharp)` and reset their letter-spacing). **Selection rows do NOT use the ink fill in this skin** [supersedes 1.6 *for this skin only*]: teal text, weight 600, on a 10% teal fill box (hover 18% soft); flyout active child + its dot and the collapsed-rail active tile follow the same recipe; focus ring `inset 0 0 0 2px var(--p-primary)`. (A text-only pass was tried first and rejected as too subtle.) **Brand:** the sidebar shows the **crow mark**, not the wordmark, in expanded and mobile headers.
+- **Shape:** flat — every radius token 0px, toggles square to 3px/2px, hairlines thicken to **1px**; shadows at 25% intensity.
+- **One-offs:** Live View incomplete-banner text 13px (between the 12px subtitle and 22px H1); other themes stay 14px.
+- **Deliberate non-coverage:** `theme-lab.html` (a design tool) and doc-local toggles are NOT skinned; `palette.html` / `user-guide.html` *describe* Black Ops.
 
 ---
 
@@ -292,12 +327,29 @@ The portal ships a full **light + dark theme**, toggled live with no reload. **S
 
 | Token | Stack | Role |
 |---|---|---|
-| `--font-sans` | Inter stack | **Content humans read:** account/product names, prose, helper copy, nav destinations, category & role pills, the Home greeting |
-| `--font-display` | → the mono stack | **Titles & headlines** (`.g-h1/h2/h3`, modal & drawer titles) — Cockpit, 1.12 |
+| `--font-sans` | Inter stack | **Content humans read:** account/product names, prose, helper copy, nav destinations, category & role pills, **entity titles** (`.g-h1-entity`, 1.12.2) |
+| `--font-h1` | → `var(--font-sans)` | **Page H1s re-humanized (1.13 — narrows Cockpit):** `.g-h1` is Inter in Light/Dark; Black Ops overrides `--font-sans` itself to mono, so its H1 resolves mono with **no skin-specific rule**. The H1 addresses the person's current place — and the H1 slot is frequently an entity/record context |
+| `--font-display` | → the mono stack | **Section titles & headlines** (`.g-h2/h3`, modal & drawer titles — UNCHANGED by 1.13; only the H1 re-pointed) — Cockpit, 1.12 |
 | `--font-control` | → the mono stack | **Everything the user operates** (buttons, inputs, selects, filter chips, tabs, menus, pagination) **+ machine labels** (table headers, stat labels, section titles, overlines) **+ status vocabulary** (badges, toasts, liveness chips) — Cockpit, 1.12 |
 | `--font-mono` | `"JetBrains Mono", "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace` | Data cells, IDs, numerals, kbd — JetBrains Mono since 1.11 (self-hosted in `fonts/`) |
 
-> **The Cockpit law (1.12): HUMANS READ INTER; THE MACHINE SPEAKS MONO.** It sits beside the color laws (*ink = commitment, blue = selection*): anything that is a title, a control, a machine label, or a system state renders in JetBrains Mono; anything a person *reads* — names, prose, helpers — stays Inter, so reading speed is untouched where it matters. `--font-display` / `--font-control` are **semantic aliases** of the mono stack: components reference the role, never the family, so a future re-tune re-points one token. **Deliberate Inter exceptions (do not "fix"):** nav destination labels (they're place *names*), the Home greeting (it addresses the human), account/product names in tables, category & role pills (content attributes), all prose. **Status badges render UPPERCASE mono** (1–2 word machine states). **Mono sizes land on an INTEGER scale (1.12.1 — no fractional font sizes):** **10** micro badges/tags/stat labels · **11** caps labels (table headers, field labels, footers, overlines) · **12** controls (buttons, selects, filter chips, menu items) · **13** large controls (primary auth button, tabs, toasts). Caps labels used for *scanning* (table headers) sit at 11+ — field/phone legibility; nothing below 10. Buttons keep **Title Case** (the casing law survives; mono alone carries the register). Older §9 spec blocks citing Inter shorthand for controls are superseded by this mapping; the kit files are canonical.
+> **The Cockpit law (1.12): HUMANS READ INTER; THE MACHINE SPEAKS MONO.** It sits beside the color laws (*ink = commitment, blue = selection*): anything that is a title, a control, a machine label, or a system state renders in JetBrains Mono; anything a person *reads* — names, prose, helpers — stays Inter, so reading speed is untouched where it matters. `--font-display` / `--font-control` are **semantic aliases** of the mono stack: components reference the role, never the family, so a future re-tune re-points one token. **Status badges render UPPERCASE mono** (1–2 word machine states). Buttons keep **Title Case** (the casing law survives; mono alone carries the register). Older §9 spec blocks citing Inter shorthand for controls are superseded by this mapping; the kit files are canonical.
+>
+> **The litmus test (1.12.2 — resolves every edge case):** *is this text a **destination or descriptor** a human reads to find their way or understand content? → Inter. Is it a **control, datum, or the machine addressing the operator**? → Mono.* Four corollaries from applied review:
+> 1. **"Navigation" is a role, not a location.** Category rails inside a filter popover are navigation even though they live inside a machine control — they stay Inter (see Filter Menu).
+> 2. **"Page title" is a role, not a literal.** A dynamic, personalized greeting is still a page title AND the machine speaking — it goes mono. *(Reverses the 1.12 "Home greeting stays Inter" exception.)*
+> 3. **An entity's name is content wherever it appears — including the H1 slot.** The machine doesn't speak someone's name; it presents it → `.g-h1-entity` (Inter). See the two-tier title system below.
+> 4. **Machine speech is mono even at paragraph length — but machine *documents* are content.** A chat reply is the machine talking (mono); a generated report/export is an artifact the machine *hands you* (Inter).
+>
+> **Deliberate Inter survivals (do not "fix"):** nav destination labels (place *names*), account/product names in tables, entity titles, category & role pills, all prose. **Content pill vs status badge — the discriminator is the *vocabulary*, not the shape:** if the word is machine state (ACTIVE, PENDING, DRAFT) it's a status badge → UPPERCASE mono; if it's a human-domain noun (Beer, Sales Rep, an account type) it's a content pill → Inter, Title Case.
+>
+> **Two-tier titles (1.12.2 §8):** `.g-h1` (system title — mono 600 26/1.25, ls −0.03em) names a *surface or tool*; `.g-h1-entity` (entity title — Inter 700 28/1.1, ls −0.02em, nowrap + ellipsis) names a *record*. The title font tells you which kind of place you're in: mono H1 = system surface, Inter H1 = you're looking at a record. Mixed surfaces switch per state (aggregate Coverage Map = "Coverage Map" → mono; scoped to one product = the product's name → Inter). Practical bonus: mono at display size is very wide and makes human names read as variables.
+>
+> **Text links are machine directions (1.12.2 §3):** a link that does something or navigates on click renders `500 var(--font-control)`, primary color, hover underline (`.g-link`, `BackLink`, inline action links). Links *inside running sentences* follow their sentence's voice (`.g-textlink` stays Inter). Retained link sizes of 11/12/13px are all **legal** — the size rule is *integer*, not even-only.
+>
+> **Conversational surfaces (1.12.2 §9):** an assistant's reply IS the machine addressing the operator — chat response prose renders **mono `400 14/1.7`** (line-height raised from 1.65: mono needs more air at length); user bubbles stay Inter (`14/1.5`); entity names inside response tables stay Inter (corollary 3); numeric cells/titles/headers mono. **In conversational inputs the typed value renders in the voice of its author:** placeholder = mono (the machine inviting you to speak), typed value = Inter (your speech — no costume change on submit). This does NOT extend to general form/search inputs — values entering records are data and stay mono per 1.12. Speech vs document: chat replies, confirmations, inline explanations = speech (mono); long-form generated artifacts (analyst reports, export previews) = documents (Inter).
+>
+> **Mono sizes land on an INTEGER scale (1.12.1, extended 1.12.2 — no fractional font sizes):** **10** micro badges/tags/stat labels · **11** caps labels (table headers, field labels, footers, overlines) · **12** controls (buttons, selects, filter chips, menu items) · **13** large controls (primary auth button, toasts, standalone text links) · **14** page-level tabs (`SegmentedTabs`) & chat prose. Caps labels used for *scanning* (table headers) sit at 11+ — field/phone legibility; nothing below 10. The integer rule applies to **mono only** — Inter body sizes may be odd (`.g-body-1` is 15px, 1.12.2 §5, re-paired under the 26px mono H1).
 
 ### Type Scale
 
@@ -330,22 +382,23 @@ The portal ships a full **light + dark theme**, toggled live with no reload. **S
 | Class | Spec | Usage |
 |---|---|---|
 | `.g-h1-display` | Inter Bold 32 / 1.05, ls 0 | Reporting / detail page title (brand-tier; not cockpit chrome) |
-| `.g-h1` | **Mono Semibold 26 / 1.25, ls −0.03em** (1.12) | Portal page title |
+| `.g-h1` | `var(--tw-h1) var(--tz-h1)/1.25 var(--font-h1)` → **Inter 600 26** in Light/Dark; **mono 700 22** in Black Ops (1.13 — supersedes the 1.12 all-mono H1) | **System title** — H1 naming a surface or tool (incl. dynamic greetings; **no vocative comma**: "Good evening Adam." — 1.13 §F4) |
+| `.g-h1-entity` | **Inter Bold `var(--tz-h1-ent)` (28; 22 in Black Ops) / 1.1, ls −0.02em, nowrap + ellipsis** (1.12.2 · tokenized 1.13) | **Entity title** — H1 holding a record's name (account, user, product) |
 | `.g-h2` | **Mono Semibold 18 / 1.25, ls −0.02em** (1.12) | Compact page title |
 | `.g-h3` | **Mono Medium 17 / 1.35, ls −0.01em** (1.12) | Secondary heading, sign-in heading |
 | `.g-section-title` | **Mono Medium 12 UPPERCASE, ls +0.07em, muted** (1.12) | Section title, column header |
 | `.g-subtitle-1` | **Mono Medium 12 UPPERCASE, ls +0.06em, medium-gray** (1.12) | Subtitle under H1 |
 | `.g-subtitle-2` | Inter Regular 11 / 1.3, medium-gray | Fine print / legal (prose — stays Inter) |
-| `.g-body-1` | Inter Regular 16 / 1.4 | Standard page & table content |
+| `.g-body-1` | Inter Regular **15** / 1.4 (16 → 15, 1.12.2) | Standard page & table content / page subtitle |
 | `.g-body-2` | Inter Bold 16 / 1.4 | Emphasized body |
 | `.g-body-3` | Inter Regular 16 / 1.4, medium-gray | Subdued body |
 | `.g-body-4` | Inter Regular 16 / 1.4, ls +0.025em | Toggle descriptions |
 | `.g-overline` | **Mono Regular 11 UPPERCASE, ls +0.06em, dark-gray** (1.12) | Overline labels |
 | `.g-overline-tag` | As overline, on soft-gray pill | Overline on soft-gray pill |
-| `.g-link` | Inter Medium, primary blue, no underline (underline on hover) | Text hyperlinks |
-| `.g-textlink` | Inter Medium 14, primary blue, button-as-link (no border/bg), underline on hover | Inline links inside banners / sentences |
+| `.g-link` | **Mono Medium, primary blue** (1.12.2 — links are machine directions), no underline (dotted baseline; hover color) | Standalone text hyperlinks / action links |
+| `.g-textlink` | Inter Medium 14, primary blue, button-as-link (no border/bg), underline on hover | Inline links **inside sentences** — they follow the sentence's voice (stays Inter, 1.12.2) |
 | `.g-error` | Inter Medium 12, danger red | Error messages below fields |
-| `.g-mono` | Geist Mono 12 | Code / IDs |
+| `.g-mono` | JetBrains Mono 12 (`--font-mono`) | Code / IDs |
 | `.g-info` | Inter Regular 14, blue-tint bg, 8px radius | Inline info callout |
 | `.g-info.danger` | As above, red-tint bg | Inline danger callout |
 | `.g-tooltip-headline` | Inter Medium 14, `--p-ink` | Tooltip heading |
@@ -429,7 +482,9 @@ Base unit is **4px**. All spacing tokens are multiples of this base.
 | Inputs (error) | `1px solid #C94A4E` |
 | Inputs (disabled) | `1px solid #E5E7EB`, bg `#fff` (white, dimmed via uniform `#99A1AF`) |
 
-### Border Radius Tokens — squared off (1.11 "Dusk"; supersedes the 4/6/8/10 scale)
+### Border Radius Tokens — squared off (1.11 "Dusk") · skin-tunable (1.13)
+
+> **1.13:** components consume the skin shape tokens — `--r-ctl` (controls, 1px), `--r-card` (containers/menus, 2px), `--r-nav` (nav rows, 2px), `--r-tgl`/`--r-tgl-knob` (switch, 999/50%), `--hair` (stroke width, 0.5px) — never numeric literals (THE MAINTENANCE LAW, §3 Theming). The legacy `--radius-*` scale remains for existing call sites; Black Ops zeroes both sets and thickens `--hair` to 1px. Sticky header bands inside cards use `borderRadius: "var(--r-card) var(--r-card) 0 0"`, never literal `"10px 10px 0 0"`.
 
 | Token | Value | Usage |
 |---|---|---|
@@ -537,7 +592,7 @@ Use variable-font axes (`FILL`, `wght`, `GRAD`, `opsz`) sparingly — prefer out
 
 **New in 1.10:** `radar` (**Live View** — nav + the `SaveViewButton` section icon), `my_location` (Locate a rep's route on the live map), `refresh` (manual live refresh), `signal_cellular_alt` / `signal_cellular_alt_2_bar` / `signal_cellular_alt_1_bar` (**Expected-Impact scale** — `ImpactBars`, §9 Inputs), `help_center` (Help Center → Messenger row), `dashboard_customize` (Apply Template to Accounts).
 
-### Entity icons (the canon · 1.7)
+### Entity icons (the canon · 1.7 · +GSA 1.13)
 
 Each first-class Portal entity has exactly **one** canonical Material Symbol (Sharp). Use it everywhere the entity is *represented* — global search (⌘K) page-jumps and result rows, related-entity deep-link chips, nav, and empty-state badges. Authoritative source: the shipped `CommandPalette` `PAGES` table + the App Shell nav.
 
@@ -554,11 +609,11 @@ Each first-class Portal entity has exactly **one** canonical Material Symbol (Sh
 | **Audit Log** | `history` | Immutable ledger. |
 | Settings | `settings` | — |
 | **Home** (landing) | `home` | Post-login dashboard — the sidebar's first item (§ Home dashboard, 1.9). |
-| **General Stock Area** | `shuffle` | The variable / unmerchandised section type — used **consistently** for the meta-row toggle, the confirm-modal icon badge, *and* the body empty-state (a prior bug used `inventory_2`; corrected to `shuffle`). See §9 Arrangement Board. |
+| **General Stock Area** | `inventory_2` (1.13 §I2 — supersedes `shuffle`) | The optionally-pinned stock section type — used **consistently** for the meta-row toggle, the in-section hint panel, and the "Erase par levels?" confirm-modal icon. See §9 General Stock Area 2.0. |
 
 **Dual-emitter rule.** Changing an entity glyph means updating **both** emitters — the frontend `CommandPalette.js` `PAGES` table *and* the backend `search_router.py` `related` / group `icon` fields — or the deep-link chips and the page-jumps diverge.
 
-> **History:** POD Planner moved `inventory_2 → blur_medium`; Store Promotions moved `sell → award_star`.
+> **History:** POD Planner moved `inventory_2 → blur_medium`; Store Promotions moved `sell → award_star`; the GSA glyph has flip-flopped — `inventory_2` (early) → `shuffle` (1.7, when "no product list" made a swap-mark apt) → **`inventory_2`** (1.13, when GSAs regained pinned product lists). POD Planner no longer uses `inventory_2`, so there is no collision.
 
 (Row / overflow menus still use horizontal `more_horiz`, never `more_vert` — the new tray kebab follows it.)
 
@@ -587,6 +642,8 @@ Each first-class Portal entity has exactly **one** canonical Material Symbol (Sh
 **External links** (e.g. Help Center) are a **real** `<a href="…" target="_blank" rel="noopener noreferrer">` — *not* `onClick={() => window.open(...)}`. Because shared wrappers (e.g. the bottom nav rows) set the link reset, that wrapper style **must** include `text-decoration: none; color: inherit` or the external anchor inherits the default blue underline. *(Learning: a plain `<a>` that doesn't go through `AppLink` doesn't get the reset for free.)*
 
 ### Buttons
+
+> **1.13 §M4 — `warning` → `dangerOutline`.** The red-outline destructive variant is named for what it *is*. The `warning` name no longer maps to destructive red (it was a footgun — a "warning" that rendered danger-red, with its hover/disabled styles orphaned under the other key); the rename fixed both. Destructive interaction states are token-driven (1.13 §M5): hover `--p-danger-hover`, disabled `--p-danger-dim` / `--p-danger-dim-bg` — no destructive control hardcodes its hover/dim.
 
 All buttons share a base: `height: 36px`, `border-radius: 4px`, `font: 500 14px/1 Inter` (no extra letter-spacing — only the Neo variant is tracked), `padding: 0 20px`, `min-width: 88px`, `transition: background .12s`.
 
@@ -714,7 +771,7 @@ Actions attached to a table row. There is **one primitive and two triggers** —
 
 #### Specs
 
-- **Split button:** `height: 28px`, `border-radius: 6px`, `font: 500 13px Inter`. Main area `padding: 0 11px`; caret area `26px` wide with a `1px` **neutral** divider (`rgba(127,127,127,.32)` — survives both the ink fill and the white dark-mode action surface; a white divider would vanish on the latter). Intents: **primary** (`--p-action` fill / `--p-action-fg` text — ink, inverts in dark) and **error** (`#E5484D` fill, white — unchanged). Optional leading icon (`report` for error, `check_circle` for confirm-style).
+- **Split button:** `height: 28px`, `border-radius: var(--radius-md)`, `font: 500 12px var(--font-control)`, **`white-space: nowrap`** — a split button grows to fit its label and the label **never wraps** (1.12.2 §7); if space genuinely can't fit the button, shorten the label. Main area `padding: 0 11px`; caret area `26px` wide with a `1px` **neutral** divider (`rgba(127,127,127,.32)` — survives both the ink fill and the white dark-mode action surface; a white divider would vanish on the latter). Intents: **primary** (`--p-action` fill / `--p-action-fg` text — ink, inverts in dark) and **error** (`#E5484D` fill, white — unchanged). Optional leading icon (`report` for error, `check_circle` for confirm-style).
 - **Kebab:** `28×28px`, `border-radius: 6px`, `more_horiz` at 20px, `--p-muted`; hover `rgba(0,0,0,.05)`.
 - **Menu popover:** `border-radius: 8px`, `--shadow-float`, 1px `--p-border`, `padding: 4px`, `min-width: ~208px`. Items `34px`, `padding: 0 10px`, `400 14px Inter`, optional 18px `--p-muted` leading icon. Group with an uppercase label + `1px --p-border` divider when there are more than ~5 items; destructive items go **last**, in `--p-danger`. Opens on click; closes on outside-click, `Escape`, or selection.
 
@@ -757,6 +814,8 @@ A dark popover (`--p-ink` bg, white text) anchored to its trigger; hover-only, `
 ---
 
 ### Inputs & Forms
+
+> **Grouped `Select` headers (1.13 §M3).** The shared `Select`/menu supports `{header: 'LABEL'}` options as **prominent category bands** — tinted `--p-surface-alt` background, uppercase mono `600 10px` with `.09em` tracking, full-width band (−6px margins), and a top divider between consecutive groups; items pass `{grouped: true}` to indent 22px and nest under their band; ungrouped items (e.g. "Custom…") stay flush-left. Canonical use: the section-name preset picker (Customer Facing / Stock Areas — §9 General Stock Area 2.0).
 
 All form inputs use the **floating-label** pattern — one canonical style across all pages.
 
@@ -1034,6 +1093,21 @@ Chips always include a filter icon (left) and chevron-down icon (right). Count b
 
 The canonical pattern for filtering tables. **One** "Filters" button opens a two-pane popover that holds every filterable attribute, so the bar stays compact no matter how many columns are filterable. Reference implementation: `ui_kits/portal/FilterMenu.jsx`.
 
+**Fonts (1.12.2 §1) — the Inter ↔ mono boundary drawn inside one control.** "Navigation is a role, not a location": the rail categories and pane header are *wayfinding* (same role as side-nav labels) and the value rows hold *entity names* (content) — all Inter — while the trigger, overlines, counts, and bulk actions are machine vocabulary — mono:
+
+| Element | Spec | Voice |
+|---|---|---|
+| Trigger button ("Filters") | `500 12px var(--font-control)` | control |
+| Rail category item | `400 14px Inter` (active `600`) | navigation destination |
+| Pane header (active category name) | `600 14px Inter` | navigation destination |
+| Value row (entity names) | `400 14px Inter` | content |
+| Value sub-label / helper notes | `400 12–13px Inter` | content |
+| Group overline (`SELECTED · N`, `N matches`) | `500 10px var(--font-control)`, uppercase, ls .08em | machine label |
+| Count pill (trigger + rail) | `500 11px var(--font-control)` | datum |
+| "Select all N matches" row | `500 12px var(--font-control)` | control |
+| Footer result count | `400 11px var(--font-control)` | datum |
+| "Clear all" | `500 13px var(--font-control)` | action link (§3) |
+
 **Anatomy**
 
 - **Trigger** — a single button styled like a Filter Chip: `sliders-horizontal` icon + "Filters" + total-active-count badge + chevron. Turns primary (`border`/`text` `#1861AF`, `background: var(--p-primary-tint)`) whenever any filter is active or the menu is open.
@@ -1049,6 +1123,7 @@ The canonical pattern for filtering tables. **One** "Filters" button opens a two
 | Small enumerable (Category, Coverage, Status) | Plain checkbox list of all options. |
 | Large (Account, Brand, Product — hundreds–thousands) | `type: 'search'` — a search `Input` at the top of the pane filters the list live (placeholder names the count, e.g. "Search 3,600 accounts…"). A **Select all N matches** row sits at the very top of the results (primary blue) — it selects/deselects the *entire* current match set, not just the rendered rows, so a search-then-select-all flow works even past the render cap. Currently-selected items pin to the top under a **`SELECTED · N`** group; results render under an **`N matches`** group, **capped at 50** with a "keep typing to narrow" note. Each row may show a secondary value (e.g. account type) right-aligned in `--p-muted`. |
 | Date range (`type: 'daterange'`) | Embedded **`DateRangeCalendar`** (preset rail + calendar) — see below. The pane widens to **640px** (vs 540) because the calendar is wider than a facet list. |
+| Numeric range (`type: 'numrange'` · 1.13 §M1) | Two numeric inputs (**≥ min / ≤ max**); value is `{ min, max }` (numbers or `''`). Participates in `attrCount` (1 when either bound is set), the applied-token summary (`5 – 12`, `≥ 5`, `≤ 12`) and clear-token handling (reset `{ min:'', max:'' }`). Test-ids `filter-numrange-min\|max-<slug>`. First use: "Units per Case" on the inventory-flow report. |
 
 **Date-range attribute (`daterange`) — §1.4.** A date range is a **first-class Filter Menu attribute**, not a separate toolbar button. Declare it as `{ id: "GoLive", label: "Go-Live Date", icon: "date_range", type: "daterange" }`. Its **value is an object `{ from, to }`** (ISO date strings) — *not* a `Set` like checkbox/search facets — so the component handles it specially without breaking existing attrs:
 
@@ -1163,9 +1238,19 @@ border-radius: 999px;
 
 > **Tabs are wayfinding → ink.** Both the page-level underline and the segmented active text use ink, the same family as the active nav row. The active count badge is **neutral** — don't confuse it with **filter** chips/badges, which are applied-filter _state_ and **stay blue**.
 
+**Font (1.12.2 §6 · tokenized 1.13).** `SegmentedTabs` labels render `var(--tw-tab) var(--tz-tab)/1 var(--font-control)` — **600 14** in Light/Dark (page-level tabs sit one step above the 13px large-control tier); Black Ops compresses to 500 12. The count badge stays `500 11px` mono.
+
+**Selected-tab color = `var(--tab-on)` (1.13).** Default `var(--p-ink)` — the 1.6 ink-forward law unchanged; Black Ops overrides it to `var(--p-primary)` so selected tabs speak the teal selection color.
+
 ---
 
 ### Pills (Category · Role · label)
+
+> **THE BADGE VOCABULARY LAW (1.13 §G — user-mandated, portal-wide).** Stroke-outline + no-fill styling is **RESERVED for category/type badges** (product-category Pill, RolePill, AccountTypePill, ServicePill — *what kind of thing is this*). **STATUS badges** (*what state is it in*) must be either **fill + dot** or **text-only + dot** — they **never** take the outline treatment, in any theme.
+>
+> **The recipe (every category/type badge renders):** `background: var(--badge-fill, <its tint>)` + `border: var(--st-badge) solid var(--badge-stroke, currentColor)`. In Light/Dark this computes to the classic tinted fill with a 0-width border — nothing changes. In Black Ops it computes to a transparent-fill, 0.5px dimmed-stroke badge (text at full pastel brightness inside a stroke at 45% alpha of that same color — quiet outlines, loud text). Status badges do **not** reference these tokens.
+>
+> **Corollaries:** count/delta chips (`+N` / `−N` / `~N` on Accounts / Store Layouts / In the Market) went **bare** — no fill, padding, or radius; just colored mono text (tooltips + deep-links unchanged). **`ServicePill`** (Planned Assignments / Live View / Visualize Impact / edit rows) is category-class: the recipe, with color = a **deterministic hash of the service name → pal slot 1–10** ("Default" hashes to slot 6) — a service keeps its hue everywhere without a registry.
 
 One flat **tinted-label** component — used for product categories, user roles, and any short label. Tinted background + deep text only, **no dot** (the dot is reserved for the Status Badge). The shell is the shared `.g-role-pill` class in `colors_and_type.css` (single source of truth); colors are passed inline per palette entry. Sizes `md` (default) and `sm` (11px).
 
@@ -1213,6 +1298,8 @@ font: 500 12px/1.5 Inter;
 ```
 
 **Six tones, two forms.** The standard is a soft tinted pill + dot; the **borderless variant** (below) drops the fill for rows that already carry a pill. The *tone* carries both meaning and how much it draws the eye (amber leans in, gray recedes); the single in-progress state earns a **live, pulsing dot**.
+
+> **1.13 — Status badges are EXEMPT from the Black Ops stroke treatment** (the Badge Vocabulary Law, §9 Pills): they never reference `--badge-fill`/`--st-badge` and always render **fill + dot** or **text-only + dot**, UPPERCASE mono per 1.12, in every theme. The outline register is reserved for *category/type* vocabulary — if a badge answers "what state is it in", it keeps its fill and dot.
 
 | Tone | Background | Text | Dot | Typical states |
 |---|---|---|---|---|
@@ -1349,6 +1436,36 @@ A **Neutral** Button toggles the whole stat row's visibility, **persisted per pa
 ---
 
 ### Tables
+
+> ## Tables 2.0 — content-hugging SUBGRID (1.13 §H; SUPERSEDES the 1.10 fixed templates)
+>
+> Four user complaints about inconsistent column padding led to a complete re-architecture. **All portal tables** (Planned Assignments, In the Market, Accounts, Users, Store Layouts + Templates, POD Planner, Promotions, Live View, Route Assignments, Orchestration, Audit Log) share one recipe:
+>
+> ```
+> TableShell  — `template` prop → the scroll container's inner div becomes the grid:
+>               display:grid; gridTemplateColumns:<template>; columnGap:8;
+>               alignContent:start; minWidth:'min-content'
+>               (min-content floor = intrinsic track minimums → natural h-scroll
+>               threshold; row backgrounds span the full scrollWidth)
+> TableHeader — cols="subgrid" → spans 1/-1, inherits the parent gap, owns sticky z-index
+> Rows/skeletons — gridTemplateColumns:'subgrid'; gridColumn:'1 / -1' (no per-row gap)
+> ```
+>
+> **Template rule (final form):** every data column = `minmax(max-content, 1fr)` (hugs the widest *visible* value, shares extra width proportionally) · the primary text column = `minmax(<px-min>, 2fr)` (e.g. 160–180px) with ellipsis — **the one column allowed to truncate** · control columns (checkbox / skip / drag / kebab / chevron / map button) = fixed px or `max-content` — they never inflate.
+>
+> **The 8px gap standard [RULE]:** `columnGap: 8` on the header (TableHeader's default) **and** every row/skeleton grid. The gap **is** the buffer — never bake padding into column widths, never pad a `minmax()` minimum.
+>
+> **Zebra rows (`--p-row-alt` + `.g-zebra`):** light `#F7F8FA` · dark `#1B1B1E` · blackops `#212127` (deliberately high-contrast, user-approved). Every data row AND skeleton row carries `g-zebra` (loading stripes match loaded); `:nth-child(even of .g-zebra)` skips non-row siblings. Rows must NOT hardcode `background: var(--p-surface)` inline (inline wins over zebra); conditional inline backgrounds (selected / dirty) are allowed — they *should* win. Hover rules keep priority via `!important`; `.gr-sticky-actions` uses `background: inherit` to match its row's stripe. **[RULE — §N2] zebra is for PEER rows only** — never nested/child rows inside an expanded parent (alternating stripes on Orchestration's revision rows read as "not part of the parent row"; they stay flat `--p-surface-alt` with a divider).
+>
+> **Row dividers are REMOVED [RULE §H2]:** zebra carries row separation ("stripes + dividers" was A/B'd and rejected even under the stronger Black Ops stripe). Kept borders: the table header (1px), GroupHead section rows, Orchestration revision rows (consecutive revisions share a flat bg and need the separator), and nested sub-panels.
+>
+> **Subgrid laws (§H5 — hard-won):**
+> 1. **Full-width spanning items** (empty states, GroupHead rows, group wrappers, expansion panels) span `gridColumn: '1 / -1'` — and if their content is wide or nowrap they **must carry `contain: 'inline-size'`** (+ `minWidth: 0`, `overflow: hidden`). A spanning item's *max-content contribution* distributes into `max-content`-min tracks and can inflate the table to thousands of px — `overflow: hidden` only zeroes the MIN contribution, not the MAX. (Found live: a promotions expansion panel inflated tracks to 10,065px.)
+> 2. **Edge tracks absorb the row padding.** A subgrid row's own `padding: 0 16px` is *subtracted from its edge tracks* — a leading checkbox column must be sized `16 (padding) + 18 (checkbox) + 10 (slack) = 44px`. Standard: **leading checkbox track 44px; trailing kebab track 44px (36px small)**. The first column *measuring* 16px narrower at cell level is expected, not a bug.
+> 3. Group wrappers containing rows are themselves **nested subgrids** spanning 1/-1; skeleton wrappers can use `display: contents`.
+> 4. Accepted known minors: a header's sort icon inflates a hugging column ~16px; skeletons can cause a small track reflow on first data paint.
+>
+> **Assorted (§H6):** disabled `SortHeader` = `--p-muted`, not placeholder (unsortable headers must not read as faint/broken — they just lose the arrows) · **all table footers route through the shared `DataTableFooter`** (mono 11 control; hand-rolled Inter-13 footers are retired; it gains a **`trailing`** prop — right-side custom content before pageSize/pager) · header label abbreviations for hugging columns: **"Service Time" → "Est Time"** (renders EST TIME), **"SEQUENCE" → "SEQ"** — CSV exports keep the long words · sticky header bands inside cards use `borderRadius: "var(--r-card) var(--r-card) 0 0"`, never a numeric literal.
 
 ```css
 /* Wrapper (large surface — border + soft shadow on shell, see §7) */
@@ -1743,6 +1860,8 @@ New-entity state: Avatar placeholder is a 52px gray circle (`#F3F4F6`) with `per
 
 ### App Shell & Navigation Sidebar
 
+> **1.13:** the utility-area theme control is the **ThemeMenu popover** (`ThemeControl variant="row"` expanded / `variant="rail"` collapsed — §3 Theming); the 1.5 cycle toggle is retired. Under **Black Ops**: parent + utility rows render ALL-CAPS (children keep natural case); active rows take the **teal selection recipe** instead of the ink fill (this skin only); and the sidebar brand is the **crow mark**, not the wordmark, in expanded and mobile headers. Nav rows consume `--r-nav`.
+
 The portal frame: a persistent left navigation sidebar + a scrolling content area. Reference: `ui_kits/portal/AppShell.jsx`.
 
 > **New in 1.8 — the sidebar navigates through the guard.** The sidebar calls `navigate()` **programmatically** (not via `<a>`/`<Link>`); swap that one hook for **`useGuardedNavigate()`** (`ui_kits/portal/NavGuard.jsx`) and every nav routes through the global unsaved-changes guard (§ Unsaved-changes guard). No other App Shell change is needed.
@@ -1956,6 +2075,11 @@ A new **operational page archetype**: an auto-refreshing "what is happening righ
 ---
 
 ### Maps
+
+> **1.13 §K — theme-aware maps.**
+> - **Dark basemap contrast filter (K1):** CARTO `dark_all` tiles are too one-note — labels (~`#6B`) sit *below* mid-gray, so `contrast()` alone darkens them; brightness-lift first, then a light contrast clamp: `html[data-theme="dark"] .g-map .leaflet-tile-pane { filter: brightness(2.1) contrast(1.08) saturate(1.15); }`. **Tile pane ONLY** — pins, polylines, popups and hexbins live in separate Leaflet panes. Covers Dark + Black Ops automatically (both resolve `data-theme="dark"`).
+> - **Selection colors tokenized (K2 — supersedes hardcoded map blues):** `.g-map-pin.is-active` (+ halo rings via `color-mix(in srgb, var(--p-primary) N%, transparent)`), `.g-live-pin.is-in_progress`, `.g-live-rep .core/.ping` all follow **`var(--p-primary)`** — dusty navy in light · steel in dark · teal in Black Ops. **JS-drawn geometry can't consume CSS vars** — polylines resolve the concrete value at map build via `getComputedStyle(document.documentElement).getPropertyValue("--p-primary")`, and the build effects must include **`skin`** in their dependency arrays (a blackops↔dark toggle keeps `resolved === "dark"` and would not retrigger).
+> - **Deliberate exception:** Leaflet **popups keep hardcoded light-navy `#1861AF`** — popups are always white surfaces regardless of theme; the steel/teal primaries would fail contrast on white. Do not tokenize.
 
 Maps use **Leaflet 1.9.x** with **CARTO @2x retina tiles** (muted neutral — never satellite): **`light_all`** in light, **`dark_all`** in dark.
 
@@ -2311,6 +2435,8 @@ Collapse long ranges with an ellipsis, always keeping first, last, and current �
 
 ### Date Picker
 
+> **1.13 §M2 — preset additions.** `reportRange` gains a **"Yesterday"** preset, and page-specific preset rails are first-class config (`cfg.ranges` / `defaultRange`) — e.g. a flow report ships Last 30 / 60 / 120 Days · This Quarter · Last Quarter with a 60-day default. **Rule:** navigating between report pages snaps the range to the new page's default.
+
 Single-date and range, both built on the floating-label field. Reference: `preview/components-datepicker.html`.
 
 #### Trigger
@@ -2469,7 +2595,9 @@ The shared diff primitive used by the audit modal **and** the wizard Review step
 
 ---
 
-### Login (single page) (updated 1.9 · 1.10)
+### Login (single page) (updated 1.9 · 1.10 · 1.13 theme menu)
+
+> **1.13:** the bottom-left theme control is `ThemeControl variant="login"` — a bare text+icon link (muted → ink on hover, mono 12) opening the standard theme panel; testid `login-theme-toggle`.
 
 The authentication screen: the raven centered on `--p-shell` (the restraint *is* the brand — see §3 Color Rules).
 
@@ -2490,6 +2618,19 @@ A brand-forward loading mark shown on the post-auth transition into the portal: 
 
 - Markup: `.echo-pulse` wraps the raven `<img>`; two `::before` / `::after` rings, conic-gradient masked to a 2px stroke, animated by `ep-echo` (scale .55 → 1.9, fading out) and offset by half the cycle.
 - Respects `prefers-reduced-motion` (rings disabled). Use it **only** for the auth → portal transition — not as a general spinner (that's the Spinner in Loading & Skeleton).
+
+---
+
+### The Oracle (conversational surface · 1.13, renames the Insights "Explore" assistant)
+
+The Insights assistant is **"The Oracle"** (route `/insights/the-oracle`; the old `/insights/explore` redirects; nav child label "The Oracle").
+
+- **The brand mark goes bare.** No more circled avatar: the new-chat hero shows a bare **32px crow**; each response row floats a bare **20px crow in the left margin** (`position:absolute; left:-34; top:4` on a relative full-width row). The thinking state runs the sonar **echo-pulse directly around the bare 20px crow** in the same margin position, with cycling `gr-shimmer-text` phrases starting at the column edge.
+- **Responses span the full column width**, edge-aligned with the composer — no bubble for the assistant; the user's message stays an ink bubble on the right. Voice split per 1.12.2: assistant prose = mono, user bubble = Inter, composer typed value = Inter with a mono placeholder.
+- **New Chat is a primary button** (was neutral — design reviewers couldn't find how to start a new conversation).
+- **Copy [VERBATIM]:** page subtitle **"Ask and your data shall answer."** (no comma — later ruling) · hero headline **"What would you like to know?"** · hero subline **"A 30K foot view of your business. Down to the smallest detail."** (supersedes "Answers drawn from an all-seeing view of your business." — grammar note preserved: *"all-seeing" must modify a perceiving noun (view/eye), never "answers"*).
+- **Composer:** the **"Hairline" variant** ships — no box; a hairline underline sweeps into the intelligence gradient on focus (`.xc-hairline::after`, `scaleX` 0→1, `.35s cubic-bezier(.22,.8,.36,1)`, 35% opacity gradient). The terminal caret (`.explore-caret`, 8×14 ink block, `steps(2)` blink) marks the thinking state; reduced-motion stills it at 60% opacity. The `?composerPreview` terminal variant (`.xc-term`) keeps its deliberately theme-fixed mono input — its literals are scoped as component-local vars (`--xc-term-key-bg/-fg`) with a comment marking the fixation intentional (the **console-fixed palette pattern**, distinguishable from un-tokenized debt).
+- Evaluated and dropped: a per-tab route line under the Oracle title (reconfirms the 1.12 ruling); a `>` caret prompt for the composer is **deferred** ("wait and see").
 
 ---
 
@@ -2602,21 +2743,40 @@ Condenses a section's secondary config into one ~28px row: a rep **Note** (left,
 
 ---
 
-### General Stock Area (Arrangement Board sub-pattern)
+### General Stock Area (Arrangement Board sub-pattern) — 2.0, THE MODEL REVERSED (1.13 §I; supersedes 1.7 + the Phase-3 "no product list" rule)
 
-A section that holds **variable inventory with no fixed list / sequence** (back stock, cold storage). Marking it "General Stock" means **no product list, no sequence, no drops** — just a tracked container.
+> **The new law.** A General Stock Area (GSA) **may optionally hold a pinned product list with an arranged sequence** — a convenience for counting, not a merchandising plan. **Par levels and Display flags are customer-facing concepts and never apply inside a GSA.** (The old "no product list, no sequence, no drops" law is retired — it came from the mobile-app handoff spec evolving.)
 
-- Toggling **on while placements exist** opens a **confirm** first (placements return to Unassigned): title **"Mark As General Stock Area?"**, body *"General stock areas do not have a stable and defined list of products within them. Any products that are currently listed in this section will be removed."* + *"{n} product placement(s) will be removed from this section."*; action **"Mark As General Stock Area"** (`Modal tone="general"` + `icon="shuffle"` — the purple concept accent).
-- When **on**: Add Product / Set Capacity hidden, drops blocked, and the body becomes a centered **info empty-state** (`1px dashed --p-border` on `--p-surface-alt`, **`shuffle`** 24px): "General Stock Area" + *"Products can't be placed here. Use this section to track variable inventory."*
-- **Single-indicator rule (1.7):** don't over-signal the state. The redundant purple **"General Stock" header pill was removed** — a General Stock section is communicated by exactly **two** cues: the purple **toggle** (meta row) + the gray **empty-state** in the body. Non-general sections still show the `{n} items` count in the header; general sections show nothing there.
-- **Accent (1.7):** the toggle label + icon, the toggle fill, and the confirm-modal icon badge all use the **General Stock purple** tokens (`--p-genstock*`), never primary blue.
-- **Nudge, don't force:** the amber "Suggested →" Chip only *hints* for back-stock-like section names; never auto-enable.
+**Behavior contract (§I1):**
+
+- **Drag-and-drop into a GSA is allowed** (the old drop-block is removed). Reordering works; each row shows its **sequence chip** (min 22×22, `--r-card`, `--p-surface-alt` bg, `600 12px` mono position number).
+- GSA rows **hide** the Par Level control and the Display chip.
+- Section kebab in a GSA: **"Add Product" shows**, **"Set Par Level For All" hides**.
+- The Unassigned-tray "Add to Section…" picker **includes** GSAs (old exclusion removed).
+- **Section → Area conversion is NON-destructive** — products stay pinned. A confirm appears **only** when a member actually carries a par level or Display flag, and it confirms only the erasure: `Modal variant="confirm" tone="general" icon="inventory_2"`; buttons neutral **Cancel** / danger **Erase Par Levels** — **[VERBATIM]** title **"Erase par levels?"**, body *"Par levels only apply to customer-facing locations. The par levels on this section's products will be erased — the products stay pinned here."* Area → Section is silent and keeps membership.
+- Serialization/API: GSA instances are stripped to `parLevel: null` / `displayRelated: false` at **both** the frontend serializer and the API boundary.
+
+**Iconography (§I2) [RULE]:** the GSA glyph is **`inventory_2`** — the toggle label, the in-section hint panel, and the confirm-modal icon (supersedes the earlier `shuffle`/⇄ mark; see the entity-icon canon, §8). The **Unassigned-tray header icon was removed entirely** — the tray is a plain "Unassigned" label (600 14px Inter); it is a place, not an entity.
+
+**Components (§I3):**
+
+- **`GsaBadge`** — replaces the old "General Stock" header badge: an UPPERCASE mono pill in the genstock tint (`600 10px/1.5 --font-control`, `.05em`, `--p-genstock-tint` bg, `--p-genstock-ink` fg), shown in the section header next to the name and in template detail views. Status-badge-adjacent in tone but *categorical* in meaning; **it takes no stroke anywhere**.
+- **`GeneralStockToggle`** — the section-meta-row control: label `500 12px var(--font-control)` + `inventory_2` 14px (ON: `--p-genstock` icon / `--p-genstock-ink` label · OFF: `--p-muted` / `--p-text-2`), an info `ⓘ` tooltip (`maxWidth 340`, `side="bottom"`), and `Toggle color="var(--p-genstock)"` — the switch fills **violet** when on, never primary blue. An amber `Chip tone="amber" iconRight="arrow_forward"` reading **"Suggested"** appears when the section's preset name is a stock-area name and the toggle is off.
+- **Section name presets** (grouped `Select`, §M3) — the groups drive GSA nudging: **Customer Facing** (Item Cooler · Warm Shelves · Walk-in Cooler · Checkout · Display · End Cap · Tap / Fountain Lines) · **Stock Areas** (Backstock · Floor Overstock · Top Stock · Cold Storage) · + Custom…. Picking a Stock-Area name on an empty non-GSA section nudges (or auto-enables) General Stock; the "Suggested" chip keys off the same set.
+
+**Copy deck (§I4) [VERBATIM — user-approved, do not edit]:**
+
+- Toggle explainer (tooltip): *"General stock areas are not customer-facing or merchandised to a set plan. Inventory often changes with each delivery, so arranging a set product list is optional and for convenience of pinning products commonly found in this area. Par levels cannot be set."*
+- In-section hint panel (violet-tint band, `inventory_2` 15px, `400 12.5px/1.5` Inter): *"Any product can be found and counted in a general stock area. Add products commonly found here to pin them for convenience while counting."*
+- Empty drop target (dashed border, `move_down` — same as normal sections; testid `lb-gsa-empty-*`): *"Drag products here"*
 
 ---
 
-### Inline Quantity Control
+### Inline Par Level Control (renamed from "Inline Quantity Control" · 1.13 §I5)
 
-A dense, encouraged-but-optional **capacity + unit** control for a placement row.
+> **Vocabulary rename [RULE]:** the per-placement quantity is a **"Par Level"** (`parLevel` / `parLevelUnit`), not "Capacity" — control label "Par Level" (morphing to "Display Size" when the placement's Display chip is on), kebab action **"Set Par Level For All"**. The kit exports `ParLevelControl` (`CapacityControl` remains a deprecated alias).
+
+A dense, encouraged-but-optional **par level + unit** control for a placement row.
 
 ```css
 display: inline-flex; align-items: center; height: 30px; border-radius: 6px; overflow: hidden;
@@ -2624,10 +2784,10 @@ border: 1px solid var(--p-border-strong);   /* unset → 1px solid var(--p-warni
 background: #fff;                            /* unset → var(--g-gold-10) */
 ```
 
-- A muted **label** ("Capacity"), a right-aligned `<input type=number>` (46px), and a **unit toggle** ("units" ⇄ "cases") separated by a 1px divider.
-- **Unset cue:** when empty, the control takes the amber border + `--g-gold-10` fill — the canonical **"soft-required"** affordance (amber, *not* red; see Inputs & Forms).
-- **Animated label swap:** when the placement's **Display** toggle is on, the label morphs "Capacity" → "Display Size" via the `gr-label-swap` keyframe (keyed span so React re-mounts).
-- **Bulk apply:** a section kebab action **"Set Capacity For All"** opens a small modal (number + units / cases) that writes one value to every placement — the pattern: *per-row control + a "set for all" bulk shortcut in the container's menu*.
+- A muted **label** ("Par Level"), a right-aligned `<input type=number>` (46px), and a **unit toggle** ("units" ⇄ "cases") separated by a 1px divider.
+- **Unset cue:** when empty, the control takes the amber border + `--g-gold-10` fill + `title="No par level set — adding one is encouraged"` — the canonical **"soft-required"** affordance (amber, *not* red; see Inputs & Forms).
+- **Animated label swap:** when the placement's **Display** toggle is on, the label morphs "Par Level" → "Display Size" via the `gr-label-swap` keyframe (keyed span so React re-mounts).
+- **Bulk apply:** a section kebab action **"Set Par Level For All"** opens a small modal (number + units / cases) that writes one value to every placement — the pattern: *per-row control + a "set for all" bulk shortcut in the container's menu*. Hidden in GSAs (§I1).
 
 ---
 
@@ -2669,6 +2829,29 @@ A two-step **upload / paste → validate → preview → commit** flow — the c
 - **Partial success is fine:** invalid rows are listed and skipped; valid rows still import.
 - Pair every import with a **Download Template** and a round-trippable **Export** (the editor emits the same CSV shape).
 - **CSV shape** (one row per placement; section fields repeat per row): `account_id, section_name, section_note, general_stock, product_id, capacity, capacity_unit, display, sequence`.
+
+---
+
+### Known debt & open questions (1.13 §O — recorded honestly; don't silently "fix")
+
+1. **[DEBT]** Light-mode `--p-focus-ring` is still `rgba(0,124,255,.15)` — the last derivative of retired vivid `#007CFF`. Deliberately left matching on both sides (app + repo); decide once, change both.
+2. **[DEBT]** Black Ops `--p-success-fg #34D399` / `--p-atrisk-fg #E7B45C` are literals that break the pal-derived chain (`var(--p-pal-3)` / `var(--p-pal-6)`) used by Light/Dark.
+3. **[DEBT]** Portal-side: four tokens are referenced in app code but never defined, silently rendering their hex fallbacks (`--g-gold-50`, `--g-gold-60`, `--g-green-60`, `--p-success-ink`, `--p-restore-fg`). Define them or inline the fallbacks.
+4. **[DEBT]** Portal-side: `Skeleton` radius 6 and `.g-kebab` radius 2px don't square under Black Ops (pre-token literals).
+5. **[RESOLVED DS-side]** The 1.12.2 "odd-sized mono links (13/11px) vs the even-size rule" open question: **there is no even-only rule** — the 1.12.1 scale is *integer*, so 11/12/13px links are legal as shipped. (Recorded here because the portal still lists it as open.)
+6. **[OPEN]** The "bare-text-plus-icon" tag pattern (the GSA toggle label, several inline icon+label tags) has inline copies across the app — planned to formalize as a `TextTag` primitive; the repo may pre-empt with a spec.
+7. **[DEBT]** Portal-side: `Drawer` / `MobileSheet` exist but are unused; Tailwind + shadcn/ui files are installed but never imported. Kept here so the repo stays honest about what the kit actually exercises.
+
+### Engineering gotchas (1.13 §P — for the kit's notes)
+
+- **CSS vars don't resolve in SVG presentation attributes** — set `element.style.fill` (Coverage-Map hexes) or resolve via `getComputedStyle` for JS-drawn geometry (§9 Maps).
+- **`:nth-child(even of .g-zebra)`** — the `of S` selector-list syntax is what lets zebra skip non-row siblings (headers, group heads) without JS.
+- **Subgrid:** spanning items need `contain: inline-size`; edge tracks absorb row padding (the 44px checkbox rule) — §9 Tables 2.0.
+- **Duplicate `class` attributes are dropped by the browser (first wins)** — when adding classes to markup that may already carry `class` after `data-*` attributes, merge instead of prepending.
+- **Inline styles beat class-based zebra/hover — that's load-bearing** (selected/dirty states must win); don't "clean up" inline conditional backgrounds into classes without re-establishing priority.
+- **Attribute-selector retargeting** (`[style*="var(--font-sans)"]`) is the sanctioned trick for skin-level re-fonting of inline-styled cells without touching call sites — brittle by design; document it where used.
+- **Theme-driven Leaflet layers must key rebuild effects on `skin`**, not just `resolved` (§9 Maps).
+- **Workflow:** batched parallel edits to the *same file* can drop changes while reporting success (three incidents portal-side, incl. the §3 primary-ramp transcription) — after any bulk token edit, **grep-verify both the old and new values**.
 
 ---
 
@@ -3076,4 +3259,4 @@ So the affordance rules in §Permissions & Affordances have a shared vocabulary,
 
 ---
 
-*Greater Design System · Portal 1.12 "Cockpit" · Exported July 2026*
+*Greater Design System · Portal 1.13 "Black Ops" · Exported July 2026*

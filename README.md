@@ -160,3 +160,63 @@ This repository is our **shared design system** — the single source of truth f
 - **Inter deliberately survives** where humans actually read: account/product names, prose, helper copy, nav destinations, category/role pills, and the Home greeting (it addresses the person, not the system).
 - **Details:** status badges go UPPERCASE mono (1–2 word machine states); buttons keep Title Case (mono alone carries the register); mono sizes on an **integer scale** (10 / 11 / 12 / 13 — fractional sizes evaluated and removed in 1.12.1; scanning caps sit at 11+ for reps on phones); no route line (evaluated and dropped).
 - Kit primitives + flagship previews (buttons, controls, live-view, login, table, stat cards, home) updated; remaining specimen pages pick up the pass as they're next touched.
+
+### 1.12.2 — Cockpit typography clarifications (post-port, from real usage)
+
+- **The litmus test** that resolves every Inter ↔ mono edge case: *a **destination or descriptor** a
+  human reads to find their way or understand content → Inter; a **control, datum, or the machine
+  addressing the operator** → mono.* Corollaries: navigation is a **role, not a location**; page
+  title is a **role, not a literal**; **an entity's name is content wherever it appears**; machine
+  **speech** is mono at any length, but machine **documents** are content.
+- **Filter Menu boundary drawn:** rail categories, pane header, and value rows (entity names) are
+  wayfinding/content → **Inter**; the trigger, group overlines, count pills, Select-all, and footer
+  count are machine vocabulary → **mono** (spec table in §9 Filter Menu).
+- **The Home greeting reverses to mono** (`.g-h1`) — it *is* the page's H1 AND the machine speaking;
+  supersedes the 1.12 Inter exception.
+- **Two-tier titles:** new **`.g-h1-entity`** (Inter 700 28/1.1, nowrap + ellipsis) for an H1 holding
+  a *record's* name — mono H1 = system surface, Inter H1 = you're looking at a record. Mixed surfaces
+  switch per state (aggregate Coverage Map → mono; scoped to one product → the product's name, Inter).
+- **Text links go mono** (`.g-link`, `BackLink`, standalone action links — machine directions);
+  links inside running sentences (`.g-textlink`) keep their sentence's voice. 11/12/13px link sizes
+  are all legal — the size rule is *integer*, never even-only.
+- **Content pills stay Inter Title Case** (Beer, Sales Rep, account types) vs UPPERCASE-mono status
+  badges (ACTIVE, PENDING) — the discriminator is *vocabulary*, not shape.
+- **Sizing:** `.g-body-1` 16 → **15px** (pairing under the 26px mono H1; the integer rule is
+  mono-only) · `SegmentedTabs` 13 → **600 14px mono** (the scale gains a 14 step) · split-button
+  labels **never wrap** (`white-space: nowrap` — shorten the label instead).
+- **Conversational surfaces:** assistant reply prose = **mono 14/1.7** (machine speech, verbatim);
+  user bubbles = Inter; entity names in response tables stay Inter; and in conversational inputs
+  **the typed value renders in the voice of its author** — mono placeholder, Inter as you type.
+  General form/search inputs are unaffected (values entering records are data → mono).
+
+## What's new in Portal 1.13 — "Black Ops"
+
+> *(the theme-skin + governed-tables + General-Stock-2.0 pass.)*
+
+- **Theme SKINS.** A second theming axis: `data-skin` layers a token-override block on a resolved
+  `data-theme` — no component forks. First skin: **Black Ops**, a near-black ops console (teal
+  selection `#86EAE8`, pastel stroke-only badges, 0px radii, 1px hairlines, all-mono type with
+  IBM-Plex table cells, ALL-CAPS nav) — and it's the **default theme**. New skin-token contract:
+  `--hair`, `--r-ctl/card/nav/tgl(-knob)`, `--st-badge`, `--badge-fill/stroke`, `--tab-on`,
+  `--font-cell`, `--tz-*/--tw-*`, `--font-h1`. Theme picker is now a **popover menu** (supersedes
+  the cycle toggle).
+- **Dark primary re-tuned** to `#A8BFDC` (supersedes 1.11's `#ADBDD1`).
+- **The Badge Vocabulary Law**: outlines are for category/type badges only; status badges are
+  always fill+dot or text-only+dot. Count/delta chips go bare; new `ServicePill` (name-hash → pal
+  slot).
+- **Tables 2.0**: content-hugging **CSS subgrid** templates (`minmax(max-content,1fr)`), the
+  **8px gap standard**, **zebra rows** (`--p-row-alt` + `.g-zebra`), row dividers removed,
+  `contain:inline-size` law for spanning panels (supersedes the 1.10 fixed templates).
+- **General Stock Areas 2.0**: GSAs may hold an optional **pinned, sequenced product list**
+  (supersedes "no product list"); pars/Display never apply; non-destructive conversion with an
+  "Erase par levels?" confirm; glyph = `inventory_2`; violet `--p-genstock` ramp per theme
+  (pastel `#C0A6EC` in Black Ops). "Capacity" renames to **"Par Level"**.
+- **Maps**: dark-tile contrast filter; selection colors follow `--p-primary` (JS geometry
+  resolves the computed value; rebuilds keyed on skin).
+- **The Oracle**: the assistant renamed; bare crow marks, full-width responses, "Ask and your
+  data shall answer."
+- Plus: `--font-h1` (H1 back to Inter outside Black Ops), FilterMenu `numrange`,
+  `DataTableFooter trailing`, grouped `Select` headers, `dangerOutline` rename,
+  danger-interaction tokens, and the greeting drops its vocative comma.
+
+

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script>/* dark-first (1.11 Dusk): stored pref wins; no pref = dark */(function(){var t=null;try{t=localStorage.getItem('gr-theme')}catch(e){}var d=t==='light'?'light':t==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):'dark';document.documentElement.setAttribute('data-theme',d);})()</script>
+<script>/* blackops-first (1.13): stored pref wins; no pref = blackops = dark + data-skin */(function(){var t=null;try{t=localStorage.getItem('gr-theme')}catch(e){}if(t==='blackops-variant')t='blackops';var p=(t==='light'||t==='dark'||t==='system'||t==='blackops')?t:'blackops';var d=p==='light'?'light':p==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):'dark';document.documentElement.setAttribute('data-theme',d);if(p==='blackops')document.documentElement.setAttribute('data-skin','blackops');})()</script>
 <title>Greater — Navigation Sidebar</title>
 <link rel="stylesheet" href="../colors_and_type.css">
 <link rel="stylesheet" href="../fonts/fonts.css">
@@ -65,7 +65,7 @@
   .badge-new { background: #ECFDF5; color: #047857; }
   .skel {
     height: 12px;
-    border-radius: 2px;
+    border-radius: var(--r-card);
     background: var(--p-border);
     animation: shimmer 1.6s ease-in-out infinite;
   }
@@ -162,7 +162,7 @@ function FlyoutPanel({ item, currentRoute, onSelect, style = {} }) {
     <div style={{
       width: 208,
       background: 'var(--p-surface)',
-      border: `0.5px solid ${BORDER_LIGHT}`,
+      border: `var(--hair) solid ${BORDER_LIGHT}`,
       borderRadius: 2,
       boxShadow: 'var(--shadow-float)',
       overflow: 'hidden',
@@ -180,7 +180,7 @@ function FlyoutPanel({ item, currentRoute, onSelect, style = {} }) {
             return (
               <li key={c.id}>
                 <button
-                  className={on ? '' : 'flyout-child'}
+                  className={on ? 'gr-subactive' : 'flyout-child'}
                   onClick={() => onSelect?.(c.id)}
                   style={{ width:'100%', border:'none', padding:'7px 14px', background: on ? 'var(--p-action)' : 'transparent', color: on ? 'var(--p-action-fg)' : '#101828', font:`${on ? 600 : 400} 13px/20px var(--font-sans)`, cursor:'pointer', textAlign:'left', transition:'background 100ms', display:'flex', alignItems:'center', gap:8 }}>
                   {on && <span style={{ width:4, height:4, borderRadius:'50%', background:'var(--p-action-fg)', opacity:.7, flexShrink:0 }} />}
@@ -260,7 +260,7 @@ function Sidebar({ collapsed, onToggleCollapse, currentRoute, onNavigate, intera
     return (
       <li style={{ listStyle:'none' }}>
         <button onClick={handleClick} style={{ width:'100%', border:'none', background:'transparent', padding:0, cursor: interactive ? 'pointer' : 'default' }}>
-          <div className={'gr-row' + (leafActive ? ' is-active' : '')} style={{ display:'flex', alignItems:'center', padding:'8px 8px', borderRadius: 2, gap:10, transition:'background 100ms', minWidth:0, background: leafActive ? 'var(--p-action)' : groupActive ? 'var(--p-surface-tint)' : 'transparent' }}>
+          <div className={leafActive ? 'gr-rowactive is-active' : 'gr-row'} style={{ display:'flex', alignItems:'center', padding:'8px 8px', borderRadius: 2, gap:10, transition:'background 100ms', minWidth:0, background: leafActive ? 'var(--p-action)' : groupActive ? 'var(--p-surface-tint)' : 'transparent' }}>
             <MS name={item.icon} size={20} color={leafActive ? 'var(--p-action-fg)' : '#364153'} />
             <span style={{ flex:1, minWidth:0, textAlign:'left', font:'400 14px/1.25 var(--font-sans)', color: leafActive ? 'var(--p-action-fg)' : INK, whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis' }}>{item.label}</span>
             {hasKids && (
@@ -278,7 +278,7 @@ function Sidebar({ collapsed, onToggleCollapse, currentRoute, onNavigate, intera
                 <li key={c.id}>
                   <button className="gr-sub-btn" onClick={() => interactive && onNavigate?.(c.id)}
                     style={{ width:'100%', border:'none', padding:0, cursor: interactive ? 'pointer' : 'default', background:'transparent' }}>
-                    <div className="gr-sub" data-on={on ? '1' : '0'} style={{ display:'flex', alignItems:'center', padding:'6px 8px 6px 34px', borderRadius: 2, background: on ? 'var(--p-action)' : 'transparent', color: on ? 'var(--p-action-fg)' : GRAY_800, font:`${on ? 500 : 400} 13px/20px var(--font-sans)`, transition:'background 100ms', minHeight:30 }}>
+                    <div className={on ? 'gr-sub gr-subactive' : 'gr-sub'} data-on={on ? '1' : '0'} style={{ display:'flex', alignItems:'center', padding:'6px 8px 6px 34px', borderRadius: 2, background: on ? 'var(--p-action)' : 'transparent', color: on ? 'var(--p-action-fg)' : GRAY_800, font:`${on ? 500 : 400} 13px/20px var(--font-sans)`, transition:'background 100ms', minHeight:30 }}>
                       {c.label}
                     </div>
                   </button>
@@ -339,7 +339,7 @@ function Sidebar({ collapsed, onToggleCollapse, currentRoute, onNavigate, intera
       {/* ── Collapse/expand toggle ── */}
       {interactive && (
         <button onClick={onToggleCollapse} className="gr-collapse-btn" title={collapsed ? 'Expand' : 'Collapse'}
-          style={{ position:'absolute', top:28, right:-13, zIndex:10, width:26, height:26, borderRadius:'50%', border:`0.5px solid ${BORDER_LIGHT}`, background:'var(--p-surface)', display:'flex', alignItems:'center', justifyContent:'center', cursor:'pointer', boxShadow:'0 1px 3px rgba(0,0,0,.10)', transition:'background 120ms' }}>
+          style={{ position:'absolute', top:28, right:-13, zIndex:10, width:26, height:26, borderRadius:'50%', border:`var(--hair) solid ${BORDER_LIGHT}`, background:'var(--p-surface)', display:'flex', alignItems:'center', justifyContent:'center', cursor:'pointer', boxShadow:'0 1px 3px rgba(0,0,0,.10)', transition:'background 120ms' }}>
           <MS name={collapsed ? 'chevron_right' : 'chevron_left'} size={16} color={GRAY_600} />
         </button>
       )}
@@ -355,10 +355,10 @@ function Sidebar({ collapsed, onToggleCollapse, currentRoute, onNavigate, intera
         {!collapsed && (
           <div style={{ minWidth:0 }}>
             <p style={{ margin:'0 0 8px', font:'400 13px/20px var(--font-sans)', color:INK, whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis' }}>Coastal Beverage Company</p>
-            <button type="button" style={{ display:'flex', alignItems:'center', width:'100%', minHeight:32, padding:'0 8px', gap:8, borderRadius: 2, border:'0.5px solid var(--p-border-strong)', background:'var(--p-surface)', font:'400 13px/1 var(--font-sans)', color:'var(--p-placeholder)', cursor:'text', overflow:'hidden', minWidth:0 }}>
+            <button type="button" style={{ display:'flex', alignItems:'center', width:'100%', minHeight:32, padding:'0 8px', gap:8, borderRadius: 2, border:'var(--hair) solid var(--p-border-strong)', background:'var(--p-surface)', font:'400 13px/1 var(--font-sans)', color:'var(--p-placeholder)', cursor:'text', overflow:'hidden', minWidth:0 }}>
               <MS name="search" size={18} color={GRAY_800} />
               <span style={{ flex:1, textAlign:'left' }}>Search…</span>
-              <span style={{ font:'500 10px/1 var(--font-mono)', color:'var(--p-muted)', border:'0.5px solid var(--p-border)', borderRadius: 1, padding:'3px 5px' }}>⌘K</span>
+              <span style={{ font:'500 10px/1 var(--font-mono)', color:'var(--p-muted)', border:'var(--hair) solid var(--p-border)', borderRadius: 1, padding:'3px 5px' }}>⌘K</span>
             </button>
           </div>
         )}
@@ -377,7 +377,7 @@ function Sidebar({ collapsed, onToggleCollapse, currentRoute, onNavigate, intera
           <UtilRow icon="help_center"        label="Help Center" external />
           <UtilRow icon="history"            label="Audit Log" />
           <UtilRow icon="settings"           label="Settings" />
-          <UtilRow icon="contrast"           label="System Theme" trailing={<span style={{ font:'500 11px/1 Inter', color:'var(--p-placeholder)', textTransform:'uppercase', letterSpacing:'.04em' }}>Auto</span>} />
+          <UtilRow icon="contrast"           label="System Theme" trailing={<span style={{ font:'500 11px/1 var(--font-sans)', color:'var(--p-placeholder)', textTransform:'uppercase', letterSpacing:'.04em' }}>Auto</span>} />
           <UtilRow icon="person_raised_hand" label="Greater CBC" />
           <UtilRow icon="logout"             label="Sign Out" />
         </ul>
@@ -443,7 +443,7 @@ function App() {
         {/* Expanded */}
         <div style={{ display:'flex', flexDirection:'column', gap:10 }}>
           <div className="sec-label">Expanded <span className="badge badge-w">248px</span></div>
-          <div style={{ background:'var(--p-surface)', border:'0.5px solid var(--p-border)', borderRadius: 2, overflow:'hidden', boxShadow:'var(--shadow-card)', height:520 }}>
+          <div style={{ background:'var(--p-surface)', border:'var(--hair) solid var(--p-border)', borderRadius: 2, overflow:'hidden', boxShadow:'var(--shadow-card)', height:520 }}>
             <div style={{ height:'100%', position:'relative', width:248 }}>
               <Sidebar collapsed={false} currentRoute="planned-assignments" interactive={false} />
             </div>
@@ -453,7 +453,7 @@ function App() {
         {/* Collapsed */}
         <div style={{ display:'flex', flexDirection:'column', gap:10 }}>
           <div className="sec-label">Collapsed <span className="badge badge-n">72px</span></div>
-          <div style={{ background:'var(--p-surface)', border:'0.5px solid var(--p-border)', borderRadius: 2, overflow:'hidden', boxShadow:'var(--shadow-card)', height:520 }}>
+          <div style={{ background:'var(--p-surface)', border:'var(--hair) solid var(--p-border)', borderRadius: 2, overflow:'hidden', boxShadow:'var(--shadow-card)', height:520 }}>
             <div style={{ height:'100%', position:'relative', width:72 }}>
               <Sidebar collapsed={true} currentRoute="planned-assignments" interactive={false} />
             </div>
@@ -463,9 +463,9 @@ function App() {
         {/* Anatomy */}
         <div style={{ flex:1, minWidth:260, display:'flex', flexDirection:'column', gap:10 }}>
           <div className="sec-label">Anatomy</div>
-          <div style={{ background:'var(--p-surface)', border:'0.5px solid var(--p-border)', borderRadius: 2, overflow:'hidden', boxShadow:'var(--shadow-card)' }}>
+          <div style={{ background:'var(--p-surface)', border:'var(--hair) solid var(--p-border)', borderRadius: 2, overflow:'hidden', boxShadow:'var(--shadow-card)' }}>
             {anatomy.map((a, i) => (
-              <div key={i} style={{ display:'grid', gridTemplateColumns:'24px 1fr', gap:10, alignItems:'start', padding:'11px 16px', borderBottom: i < anatomy.length-1 ? '0.5px solid var(--p-border)' : 'none', background: a.highlight ? 'var(--p-primary-tint)' : 'transparent' }}>
+              <div key={i} style={{ display:'grid', gridTemplateColumns:'24px 1fr', gap:10, alignItems:'start', padding:'11px 16px', borderBottom: i < anatomy.length-1 ? 'var(--hair) solid var(--p-border)' : 'none', background: a.highlight ? 'var(--p-primary-tint)' : 'transparent' }}>
                 <div style={{ width:20, height:20, borderRadius:'50%', background: a.highlight ? BRAND_BLUE : 'var(--p-ink)', color:'var(--p-surface)', font:'600 10px/20px var(--font-sans)', textAlign:'center', flexShrink:0, marginTop:1 }}>{a.num}</div>
                 <div>
                   <div style={{ font:'600 13px/1.3 var(--font-sans)', color:'var(--p-ink)', marginBottom:2 }}>{a.name}</div>
@@ -486,12 +486,12 @@ function App() {
           {/* Frame A: icon hover state */}
           <div style={{ display:'flex', flexDirection:'column', gap:8 }}>
             <div style={{ font:'400 12px/1 var(--font-sans)', color:'var(--p-muted)', letterSpacing:'0.03em' }}>① Hover icon</div>
-            <div style={{ background:'var(--p-surface)', border:'0.5px solid var(--p-border)', borderRadius: 2, overflow:'hidden', boxShadow:'var(--shadow-card)', display:'flex', height:380 }}>
+            <div style={{ background:'var(--p-surface)', border:'var(--hair) solid var(--p-border)', borderRadius: 2, overflow:'hidden', boxShadow:'var(--shadow-card)', display:'flex', height:380 }}>
               <div style={{ width:72, height:'100%', position:'relative', flexShrink:0 }}>
                 <Sidebar collapsed={true} currentRoute="planned-assignments" interactive={false} highlightItemId="insights" />
               </div>
               {/* Dimmed content area */}
-              <div style={{ width:180, height:'100%', background:'var(--p-shell)', borderLeft:'0.5px solid var(--p-border)', display:'flex', alignItems:'center', justifyContent:'center' }}>
+              <div style={{ width:180, height:'100%', background:'var(--p-shell)', borderLeft:'var(--hair) solid var(--p-border)', display:'flex', alignItems:'center', justifyContent:'center' }}>
                 <span style={{ font:'400 12px var(--font-sans)', color:'var(--p-placeholder)', textAlign:'center', padding:'0 16px' }}>page content</span>
               </div>
             </div>
@@ -504,7 +504,7 @@ function App() {
           {/* Frame B: flyout open */}
           <div style={{ display:'flex', flexDirection:'column', gap:8 }}>
             <div style={{ font:'400 12px/1 var(--font-sans)', color:'var(--p-muted)', letterSpacing:'0.03em' }}>② Flyout open — navigate without expanding</div>
-            <div style={{ background:'var(--p-surface)', border:'0.5px solid var(--p-border)', borderRadius: 2, overflow:'visible', boxShadow:'var(--shadow-card)', display:'flex', height:380, position:'relative' }}>
+            <div style={{ background:'var(--p-surface)', border:'var(--hair) solid var(--p-border)', borderRadius: 2, overflow:'visible', boxShadow:'var(--shadow-card)', display:'flex', height:380, position:'relative' }}>
               <div style={{ width:72, height:'100%', position:'relative', flexShrink:0, borderRight:`1px solid ${BORDER_LIGHT}`, borderRadius:'2px 0 0 2px', background:'var(--p-surface-nav)', overflow:'hidden' }}>
                 <Sidebar collapsed={true} currentRoute="planned-assignments" interactive={false} highlightItemId="insights" />
               </div>
@@ -524,7 +524,7 @@ function App() {
           {/* Frame C: leaf label */}
           <div style={{ display:'flex', flexDirection:'column', gap:8 }}>
             <div style={{ font:'400 12px/1 var(--font-sans)', color:'var(--p-muted)', letterSpacing:'0.03em' }}>③ Leaf item — label tooltip</div>
-            <div style={{ background:'var(--p-surface)', border:'0.5px solid var(--p-border)', borderRadius: 2, overflow:'visible', boxShadow:'var(--shadow-card)', display:'flex', height:380, position:'relative' }}>
+            <div style={{ background:'var(--p-surface)', border:'var(--hair) solid var(--p-border)', borderRadius: 2, overflow:'visible', boxShadow:'var(--shadow-card)', display:'flex', height:380, position:'relative' }}>
               <div style={{ width:72, height:'100%', position:'relative', flexShrink:0, borderRight:`1px solid ${BORDER_LIGHT}`, borderRadius:'2px 0 0 2px', background:'var(--p-surface-nav)', overflow:'hidden' }}>
                 <Sidebar collapsed={true} currentRoute="planned-assignments" interactive={false} highlightItemId="accounts" />
               </div>
@@ -543,7 +543,7 @@ function App() {
       {/* ══ Section 3: Interactive demo ══ */}
       <div style={{ marginBottom:40 }}>
         <div className="sec-label">Interactive Demo</div>
-        <div style={{ background:'var(--p-surface)', border:'0.5px solid var(--p-border)', borderRadius: 2, overflow:'visible', boxShadow:'var(--shadow-card)', height:520, display:'flex' }}>
+        <div style={{ background:'var(--p-surface)', border:'var(--hair) solid var(--p-border)', borderRadius: 2, overflow:'visible', boxShadow:'var(--shadow-card)', height:520, display:'flex' }}>
           {/* Live sidebar */}
           <div style={{ height:'100%', position:'relative', flexShrink:0, overflow:'visible' }}>
             <Sidebar
@@ -564,7 +564,7 @@ function App() {
             </div>
             <div style={{ display:'flex', gap:12 }}>
               {[80, 60, 72].map((w,i) => (
-                <div key={i} style={{ background:'var(--p-surface)', border:'0.5px solid var(--p-border)', borderRadius: 2, padding:'14px 16px', flex:1, display:'flex', flexDirection:'column', gap:8 }}>
+                <div key={i} style={{ background:'var(--p-surface)', border:'var(--hair) solid var(--p-border)', borderRadius: 2, padding:'14px 16px', flex:1, display:'flex', flexDirection:'column', gap:8 }}>
                   <div className="skel" style={{ width:`${w}%` }} />
                   <div className="skel" style={{ width:'40%', height:20, borderRadius: 1 }} />
                 </div>
@@ -586,7 +586,7 @@ function App() {
         <div className="sec-label">Specs</div>
         <div style={{ display:'grid', gridTemplateColumns:'repeat(4, 1fr)', gap:8 }}>
           {specs.map((s,i) => (
-            <div key={i} style={{ background:'var(--p-surface)', border:'0.5px solid var(--p-border)', borderRadius: 2, padding:'12px 14px', borderLeft: i >= 12 ? `3px solid ${BRAND_BLUE}` : '0.5px solid var(--p-border)' }}>
+            <div key={i} style={{ background:'var(--p-surface)', border:'var(--hair) solid var(--p-border)', borderRadius: 2, padding:'12px 14px', borderLeft: i >= 12 ? `3px solid ${BRAND_BLUE}` : 'var(--hair) solid var(--p-border)' }}>
               <div style={{ font:'500 10px/1 var(--font-sans)', letterSpacing:'0.05em', textTransform:'uppercase', color: i >= 12 ? BRAND_BLUE : 'var(--p-muted)', marginBottom:6 }}>{s.label}</div>
               <div style={{ font:'400 12px/1.5 var(--font-mono)', color:'var(--p-ink)' }}>{s.value}</div>
             </div>

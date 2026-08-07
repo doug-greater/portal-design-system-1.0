@@ -6,7 +6,7 @@
 const gMonths = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 const gFmt = (d) => d ? `${gMonths[d.getMonth()].slice(0,3)} ${d.getDate()}, ${d.getFullYear()}` : '';
 const gSameDay = (a, b) => a && b && a.toDateString() === b.toDateString();
-const gNavStyle = { width: 28, height: 28, borderRadius: 2, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'var(--p-muted)', cursor: 'pointer' };
+const gNavStyle = { width: 28, height: 28, borderRadius: 'var(--r-card)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'var(--p-muted)', cursor: 'pointer' };
 
 function CalendarGrid({ view, value, range, onPick, min, max }) {
   const y = view.getFullYear(), m = view.getMonth();
@@ -34,7 +34,7 @@ function CalendarGrid({ view, value, range, onPick, min, max }) {
   return (
     <div style={{ width: '100%', boxSizing: 'border-box', padding: '0 14px 14px' }}>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7,1fr)', marginBottom: 2 }}>
-        {['S','M','T','W','T','F','S'].map((w, i) => <span key={i} style={{ textAlign: 'center', font: '500 11px/1 Inter, sans-serif', color: 'var(--p-muted)', padding: '6px 0' }}>{w}</span>)}
+        {['S','M','T','W','T','F','S'].map((w, i) => <span key={i} style={{ textAlign: 'center', font: '500 11px/1 var(--font-sans)', color: 'var(--p-muted)', padding: '6px 0' }}>{w}</span>)}
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7,1fr)' }}>
         {cells.map((c, i) => {
@@ -45,7 +45,7 @@ function CalendarGrid({ view, value, range, onPick, min, max }) {
               borderRadius: c.isStart ? '999px 0 0 999px' : c.isEnd ? '0 999px 999px 0' : 0 }}>
               <span onClick={() => !c.disabled && onPick && onPick(c.d)} style={{
                 width: 32, height: 32, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                font: '500 13px/1 Inter, sans-serif', cursor: c.disabled ? 'default' : 'pointer', opacity: c.disabled ? 0.5 : 1,
+                font: '500 13px/1 var(--font-sans)', cursor: c.disabled ? 'default' : 'pointer', opacity: c.disabled ? 0.5 : 1,
                 color: c.disabled ? 'var(--p-placeholder)' : endpt ? '#fff' : !c.inMonth ? 'var(--p-placeholder)' : c.isToday ? 'var(--p-primary)' : 'var(--p-text)',
                 background: endpt && !c.disabled ? 'var(--p-primary)' : 'transparent',
                 boxShadow: c.isToday && !endpt && !c.disabled ? 'inset 0 0 0 1.5px var(--p-primary)' : 'none',
@@ -84,22 +84,22 @@ function Calendar({ value, range, onChange, onPickRange, min, max, direction }) 
   const [view, setView] = useState(value || (range && range.start) || new Date());
   const presets = direction ? RANGE_PRESETS[direction] : null;
   return (
-    <div style={{ display: 'flex', background: '#fff', border: '0.5px solid var(--p-border)', borderRadius: 2, boxShadow: 'var(--shadow-float)', overflow: 'hidden' }}>
+    <div style={{ display: 'flex', background: '#fff', border: 'var(--hair) solid var(--p-border)', borderRadius: 'var(--r-card)', boxShadow: 'var(--shadow-float)', overflow: 'hidden' }}>
       {presets && (
-        <div style={{ width: 150, background: 'var(--p-surface-alt)', borderRight: '0.5px solid var(--p-border)', padding: 8, display: 'flex', flexDirection: 'column', gap: 2 }}>
+        <div style={{ width: 150, background: 'var(--p-surface-alt)', borderRight: 'var(--hair) solid var(--p-border)', padding: 8, display: 'flex', flexDirection: 'column', gap: 2 }}>
           {presets.map((p) => (
             <button key={p.label} onClick={() => onPickRange && onPickRange(computePreset(p.d))}
-              style={{ textAlign: 'left', border: 'none', background: 'transparent', borderRadius: 2, padding: '7px 10px', font: '500 13px/1 Inter, sans-serif', color: 'var(--p-text-2)', cursor: 'pointer' }}>{p.label}</button>
+              style={{ textAlign: 'left', border: 'none', background: 'transparent', borderRadius: 'var(--r-card)', padding: '7px 10px', font: '500 13px/1 var(--font-sans)', color: 'var(--p-text-2)', cursor: 'pointer' }}>{p.label}</button>
           ))}
           <div style={{ flex: 1, minHeight: 8 }} />
           <button onClick={() => onPickRange && onPickRange({ start: null, end: null })}
-            style={{ textAlign: 'left', border: 'none', background: 'transparent', borderRadius: 2, padding: '7px 10px', font: '500 13px/1 Inter, sans-serif', color: 'var(--p-danger)', cursor: 'pointer' }}>Clear</button>
+            style={{ textAlign: 'left', border: 'none', background: 'transparent', borderRadius: 'var(--r-card)', padding: '7px 10px', font: '500 13px/1 var(--font-sans)', color: 'var(--p-danger)', cursor: 'pointer' }}>Clear</button>
         </div>
       )}
       <div style={{ width: 280 }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '14px 14px 4px' }}>
           <span onClick={() => setView(new Date(view.getFullYear(), view.getMonth() - 1, 1))} style={gNavStyle}><MIcon name="chevron_left" size={20} /></span>
-          <span style={{ font: '600 14px/1 Inter, sans-serif', color: 'var(--p-ink)' }}>{gMonths[view.getMonth()]} {view.getFullYear()}</span>
+          <span style={{ font: '600 14px/1 var(--font-sans)', color: 'var(--p-ink)' }}>{gMonths[view.getMonth()]} {view.getFullYear()}</span>
           <span onClick={() => setView(new Date(view.getFullYear(), view.getMonth() + 1, 1))} style={gNavStyle}><MIcon name="chevron_right" size={20} /></span>
         </div>
         <CalendarGrid view={view} value={value} range={range} onPick={onChange} min={min} max={max} />
@@ -124,8 +124,8 @@ function DateField({ value, onChange, label = 'Date', range = false, min, max, d
     : (value ? gFmt(value) : '');
   return (
     <div ref={ref} style={{ position: 'relative', width: isRange ? 280 : 240 }}>
-      <label style={{ position: 'absolute', top: -7, left: 10, padding: '0 4px', background: '#fff', font: '400 12px/1 Inter, sans-serif', color: open ? 'var(--p-primary)' : 'var(--p-muted)', zIndex: 2 }}>{label}</label>
-      <div onClick={() => setOpen((o) => !o)} style={{ width: '100%', height: 44, border: `1px solid ${open ? 'var(--p-primary)' : 'var(--p-border-strong)'}`, borderRadius: 2, padding: '0 14px 0 40px', font: '400 15px Inter, sans-serif', color: display ? 'var(--p-ink)' : 'var(--p-placeholder)', background: '#fff', boxSizing: 'border-box', display: 'flex', alignItems: 'center', cursor: 'pointer', boxShadow: open ? '0 0 0 3px var(--p-focus-ring)' : 'none' }}>
+      <label style={{ position: 'absolute', top: -7, left: 10, padding: '0 4px', background: '#fff', font: '400 12px/1 var(--font-sans)', color: open ? 'var(--p-primary)' : 'var(--p-muted)', zIndex: 2 }}>{label}</label>
+      <div onClick={() => setOpen((o) => !o)} style={{ width: '100%', height: 44, border: `1px solid ${open ? 'var(--p-primary)' : 'var(--p-border-strong)'}`, borderRadius: 'var(--r-card)', padding: '0 14px 0 40px', font: '400 15px var(--font-sans)', color: display ? 'var(--p-ink)' : 'var(--p-placeholder)', background: '#fff', boxSizing: 'border-box', display: 'flex', alignItems: 'center', cursor: 'pointer', boxShadow: open ? '0 0 0 3px var(--p-focus-ring)' : 'none' }}>
         <span style={{ position: 'absolute', left: 12, color: 'var(--p-muted)' }}><MIcon name={isRange ? 'date_range' : 'calendar_today'} size={20} /></span>
         {display || (isRange ? 'Select a range' : 'Select a date')}
       </div>

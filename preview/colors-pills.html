@@ -1,9 +1,13 @@
 <!doctype html><html><head><meta charset="utf-8">
-<script>/* dark-first (1.11 Dusk): stored pref wins; no pref = dark */(function(){var t=null;try{t=localStorage.getItem('gr-theme')}catch(e){}var d=t==='light'?'light':t==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):'dark';document.documentElement.setAttribute('data-theme',d);})()</script><link rel="stylesheet" href="../colors_and_type.css"><link rel="stylesheet" href="../fonts/fonts.css"><style>
+<script>/* blackops-first (1.13): stored pref wins; no pref = blackops = dark + data-skin */(function(){var t=null;try{t=localStorage.getItem('gr-theme')}catch(e){}if(t==='blackops-variant')t='blackops';var p=(t==='light'||t==='dark'||t==='system'||t==='blackops')?t:'blackops';var d=p==='light'?'light':p==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):'dark';document.documentElement.setAttribute('data-theme',d);if(p==='blackops')document.documentElement.setAttribute('data-skin','blackops');})()</script><link rel="stylesheet" href="../colors_and_type.css"><link rel="stylesheet" href="../fonts/fonts.css"><style>
 body{margin:0;padding:20px;background:var(--p-shell)}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.pill{display:inline-flex;align-items:center;padding:3px 10px;border-radius:999px;font:500 12px/1 Inter;letter-spacing:.04em}
-.lbl{font:500 12px/1.2 Inter;color:var(--p-ink);margin:0 0 10px}
+.pill{display:inline-flex;align-items:center;padding:3px 10px;border-radius:999px;font:500 12px/1 var(--font-sans);letter-spacing:.04em;box-sizing:border-box;
+  /* the 1.13 badge recipe — category pills go stroke-only under Black Ops; the inline background
+     participates via the cascade below */
+  border:var(--st-badge) solid var(--badge-stroke, currentColor)}
+html[data-skin="blackops"] .pill{background:var(--badge-fill) !important}
+.lbl{font:500 12px/1.2 var(--font-sans);color:var(--p-ink);margin:0 0 10px}
 </style></head><body>
 <div class="lbl">Category pills — used inline in tables</div>
 <div class="row">

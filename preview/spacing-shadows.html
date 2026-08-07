@@ -1,13 +1,13 @@
 <!doctype html><html><head><meta charset="utf-8">
-<script>/* dark-first (1.11 Dusk): stored pref wins; no pref = dark */(function(){var t=null;try{t=localStorage.getItem('gr-theme')}catch(e){}var d=t==='light'?'light':t==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):'dark';document.documentElement.setAttribute('data-theme',d);})()</script><link rel="stylesheet" href="../colors_and_type.css"><link rel="stylesheet" href="../fonts/fonts.css"><style>
+<script>/* blackops-first (1.13): stored pref wins; no pref = blackops = dark + data-skin */(function(){var t=null;try{t=localStorage.getItem('gr-theme')}catch(e){}if(t==='blackops-variant')t='blackops';var p=(t==='light'||t==='dark'||t==='system'||t==='blackops')?t:'blackops';var d=p==='light'?'light':p==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):'dark';document.documentElement.setAttribute('data-theme',d);if(p==='blackops')document.documentElement.setAttribute('data-skin','blackops');})()</script><link rel="stylesheet" href="../colors_and_type.css"><link rel="stylesheet" href="../fonts/fonts.css"><style>
 body{margin:0;padding:20px;background:var(--p-shell);display:flex;gap:16px;flex-wrap:wrap}
 .box{padding:24px 40px;background:#fff}
-.shadow-tooltip{box-shadow:var(--shadow-tooltip);border-radius:2px}
-.shadow-card{box-shadow:var(--shadow-card);border-radius:2px}
-.shadow-surface{box-shadow:var(--shadow-surface);border:0.5px solid var(--p-border);border-radius:2px}
-.shadow-float{box-shadow:var(--shadow-float);border-radius:2px}
-.shadow-brutal{box-shadow:var(--shadow-brutal);border:1px solid var(--p-ink);border-radius:1px}
-.lbl{font:500 11px/1.2 'JetBrains Mono',monospace;color:var(--p-muted);margin-top:6px;text-align:center}
+.shadow-tooltip{box-shadow:var(--shadow-tooltip);border-radius: var(--r-card)}
+.shadow-card{box-shadow:var(--shadow-card);border-radius: var(--r-card)}
+.shadow-surface{box-shadow:var(--shadow-surface);border:var(--hair) solid var(--p-border);border-radius: var(--r-card)}
+.shadow-float{box-shadow:var(--shadow-float);border-radius: var(--r-card)}
+.shadow-brutal{box-shadow:var(--shadow-brutal);border:1px solid var(--p-ink);border-radius: var(--r-ctl)}
+.lbl{font:500 11px/1.2 var(--font-mono);color:var(--p-muted);margin-top:6px;text-align:center}
 .wrap{display:flex;flex-direction:column;align-items:center}
 </style></head><body>
 <div class="wrap"><div class="box shadow-tooltip">Tooltip</div><div class="lbl">--shadow-tooltip</div></div>

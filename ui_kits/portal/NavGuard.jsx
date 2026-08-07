@@ -56,7 +56,7 @@ export function NavGuardProvider({ children }) {
         title="Discard Unsaved Changes?" testid="discard-changes-modal"
         footer={<>
           <Button variant="ghost" onClick={keep} data-testid="discard-cancel">Keep Editing</Button>
-          <Button variant="warning" onClick={leave} data-testid="discard-confirm">Discard &amp; Leave</Button>
+          <Button variant="dangerOutline" onClick={leave} data-testid="discard-confirm">Discard &amp; Leave</Button>
         </>}>
         You have unsaved changes that haven't been saved yet. Leave this page anyway?
       </Modal>

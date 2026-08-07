@@ -21,7 +21,7 @@ function WizardShell({
   return (
     <div style={{ position: "fixed", inset: 0, zIndex: 9000, height: "100vh", display: "flex", flexDirection: "column", background: "var(--p-surface-alt)" }}>
       {/* Top bar */}
-      <div style={{ height: 60, flexShrink: 0, display: "flex", alignItems: "center", gap: 16, padding: "0 24px", background: "#fff", borderBottom: "0.5px solid var(--p-border)" }}>
+      <div style={{ height: 60, flexShrink: 0, display: "flex", alignItems: "center", gap: 16, padding: "0 24px", background: "#fff", borderBottom: "var(--hair) solid var(--p-border)" }}>
         <img src="../../assets/greater-logotype.png" alt="Greater" style={{ height: 22, width: "auto", display: "block" }} />
         <span style={{ width: 1, height: 24, background: "var(--p-border-strong)" }} />
         <span style={{ font: "600 16px/1 Inter", color: "var(--p-ink)", letterSpacing: "-.01em" }}>{title}</span>
@@ -30,7 +30,7 @@ function WizardShell({
       </div>
 
       {/* Step indicator */}
-      <div style={{ flexShrink: 0, background: "#fff", borderBottom: "0.5px solid var(--p-border)", padding: "12px 32px" }}>
+      <div style={{ flexShrink: 0, background: "#fff", borderBottom: "var(--hair) solid var(--p-border)", padding: "12px 32px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8, maxWidth: 1320, margin: "0 auto" }}>
           {steps.map((label, i) => {
             const n = i + 1;
@@ -40,13 +40,13 @@ function WizardShell({
             return (
               <React.Fragment key={label}>
                 <button onClick={() => clickable && onJump?.(n)} disabled={!clickable}
-                  style={{ display: "inline-flex", alignItems: "center", gap: 8, border: "none", background: "transparent", padding: "4px 6px", borderRadius: 1, cursor: clickable ? "pointer" : "default", flexShrink: 0 }}>
+                  style={{ display: "inline-flex", alignItems: "center", gap: 8, border: "none", background: "transparent", padding: "4px 6px", borderRadius: 'var(--r-ctl)', cursor: clickable ? "pointer" : "default", flexShrink: 0 }}>
                   <span style={{ width: 24, height: 24, borderRadius: "50%", display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
                     background: active || done ? "var(--p-action)" : "var(--p-surface-tint)",
-                    color: active || done ? "var(--p-action-fg)" : "var(--p-placeholder)", font: "600 12px/1 Geist Mono, monospace" }}>
+                    color: active || done ? "var(--p-action-fg)" : "var(--p-placeholder)", font: "600 12px/1 var(--font-control)" }}>
                     {done ? <Icon name="check" size={14} color="var(--p-action-fg)" /> : n}
                   </span>
-                  <span style={{ font: `${active ? 600 : 500} 14px/1 Inter`, whiteSpace: "nowrap", color: active ? "var(--p-ink)" : done ? "var(--p-text)" : "var(--p-placeholder)" }}>{label}</span>
+                  <span style={{ font: `${active ? 600 : 500} 14px/1 var(--font-sans)`, whiteSpace: "nowrap", color: active ? "var(--p-ink)" : done ? "var(--p-text)" : "var(--p-placeholder)" }}>{label}</span>
                 </button>
                 {n < steps.length && <span style={{ flex: 1, height: 1, background: "var(--p-border)", minWidth: 16 }} />}
               </React.Fragment>
@@ -63,7 +63,7 @@ function WizardShell({
       </div>
 
       {/* Footer nav — Prev/Next live ONLY here */}
-      <div style={{ flexShrink: 0, height: 72, background: "#fff", borderTop: "0.5px solid var(--p-border)", boxShadow: "0 -2px 12px rgba(16,24,40,.05)", display: "flex", alignItems: "center", padding: "0 32px" }}>
+      <div style={{ flexShrink: 0, height: 72, background: "#fff", borderTop: "var(--hair) solid var(--p-border)", boxShadow: "0 -2px 12px rgba(16,24,40,.05)", display: "flex", alignItems: "center", padding: "0 32px" }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, maxWidth: 1320, width: "100%", margin: "0 auto" }}>
           <Button variant="neutral" size="lg" icon="arrow_back" onClick={onPrev} disabled={current === 1}>Back</Button>
           <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
@@ -82,7 +82,7 @@ function StepHeader({ title, children }) {
     <div style={{ flexShrink: 0, marginBottom: 16 }}>
       <h1 style={{ margin: 0, font: "600 20px/1.3 Inter", color: "var(--p-ink)", letterSpacing: "-.01em" }}>{title}</h1>
       {children && (
-        <div style={{ marginTop: 10, background: "var(--p-primary-tint)", color: "var(--p-text)", borderRadius: 2, padding: "10px 14px", font: "400 14px/1.45 Inter" }}>{children}</div>
+        <div style={{ marginTop: 10, background: "var(--p-primary-tint)", color: "var(--p-text)", borderRadius: 'var(--r-card)', padding: "10px 14px", font: "400 14px/1.45 Inter" }}>{children}</div>
       )}
     </div>
   );
@@ -137,16 +137,16 @@ function SelectionTable({
       </div>
 
       {/* Table */}
-      <div style={{ border: "0.5px solid var(--p-border)", borderRadius: 2, overflow: "hidden", flex: 1, minHeight: 0, display: "flex", flexDirection: "column", background: "#fff" }}>
+      <div style={{ border: "var(--hair) solid var(--p-border)", borderRadius: 'var(--r-card)', overflow: "hidden", flex: 1, minHeight: 0, display: "flex", flexDirection: "column", background: "#fff" }}>
         <div style={{ flex: 1, minHeight: 0, overflow: "auto" }}>
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
               <tr style={{ position: "sticky", top: 0, zIndex: 2, background: "var(--p-surface-alt)" }}>
-                <th style={{ width: 44, padding: "0 0 0 16px", height: 40, borderBottom: "0.5px solid var(--p-border-strong)" }}>
+                <th style={{ width: 44, padding: "0 0 0 16px", height: 40, borderBottom: "var(--hair) solid var(--p-border-strong)" }}>
                   <Check on={allSelected} onChange={() => onToggleAll(filteredIds)} />
                 </th>
                 {columns.map((c) => (
-                  <th key={c.key} style={{ textAlign: c.align || "left", padding: "0 16px", height: 40, borderBottom: "0.5px solid var(--p-border-strong)", whiteSpace: "nowrap" }}>
+                  <th key={c.key} style={{ textAlign: c.align || "left", padding: "0 16px", height: 40, borderBottom: "var(--hair) solid var(--p-border-strong)", whiteSpace: "nowrap" }}>
                     {c.sortAccessor ? (
                       <button onClick={() => setSortKey(c.key)}
                         style={{ display: "inline-flex", alignItems: "center", gap: 4, border: "none", background: "transparent", cursor: "pointer", padding: 0, font: "500 11px/1 Inter", letterSpacing: ".07em", textTransform: "uppercase", color: sort.key === c.key ? "var(--p-primary)" : "var(--p-muted)" }}>
@@ -162,7 +162,7 @@ function SelectionTable({
             <tbody>
               {loading ? (
                 Array.from({ length: 8 }).map((_, i) => (
-                  <tr key={`sk-${i}`} style={{ borderBottom: "0.5px solid var(--p-border)" }}>
+                  <tr key={`sk-${i}`} style={{ borderBottom: "var(--hair) solid var(--p-border)" }}>
                     <td style={{ padding: "0 0 0 16px", height: 52 }}><Skeleton width={18} height={18} radius={4} /></td>
                     {columns.map((c, ci) => (
                       <td key={c.key} style={{ padding: "0 16px", height: 52 }}><Skeleton width={ci === 1 ? 160 : 70} height={12} /></td>
@@ -176,7 +176,7 @@ function SelectionTable({
                 const on = selectedSet.has(id);
                 return (
                   <tr key={id} onClick={() => onToggle(id)} className={"wz-row" + (on ? " wz-row-selected" : "")}
-                    style={{ cursor: "pointer", borderBottom: "0.5px solid var(--p-border)" }}>
+                    style={{ cursor: "pointer", borderBottom: "var(--hair) solid var(--p-border)" }}>
                     <td style={{ padding: "0 0 0 16px", height: 52 }} onClick={(e) => e.stopPropagation()}>
                       <Check on={on} onChange={() => onToggle(id)} />
                     </td>
@@ -189,7 +189,7 @@ function SelectionTable({
             </tbody>
           </table>
         </div>
-        <div style={{ flexShrink: 0, padding: "10px 16px", background: "var(--p-surface-alt)", borderTop: "0.5px solid var(--p-border)", font: "400 13px Inter", color: "var(--p-muted)" }}>
+        <div style={{ flexShrink: 0, padding: "10px 16px", background: "var(--p-surface-alt)", borderTop: "var(--hair) solid var(--p-border)", font: "400 13px Inter", color: "var(--p-muted)" }}>
           {loading ? `Loading ${itemNoun}s…` : (
             <>
               Showing <b style={{ color: "var(--p-text)", fontWeight: 600 }}>{filtered.length}</b> of {rows.length} {itemNoun}s
@@ -216,8 +216,8 @@ function SelectedPopover({ rows, getId, selectedIds, onToggle, itemNoun, renderS
         {selectedIds.length} selected <Icon name="expand_more" size={16} style={{ transform: open ? "rotate(180deg)" : "none", transition: "transform .15s" }} />
       </button>
       {open && (
-        <div style={{ position: "absolute", right: 0, top: 38, zIndex: 50, width: 300, background: "#fff", border: "0.5px solid var(--p-border)", borderRadius: 2, boxShadow: "var(--shadow-float)", overflow: "hidden", animation: "gr-pop-in .12s ease-out" }}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 12px", borderBottom: "0.5px solid var(--p-border)" }}>
+        <div style={{ position: "absolute", right: 0, top: 38, zIndex: 50, width: 300, background: "#fff", border: "var(--hair) solid var(--p-border)", borderRadius: 'var(--r-card)', boxShadow: "var(--shadow-float)", overflow: "hidden", animation: "gr-pop-in .12s ease-out" }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 12px", borderBottom: "var(--hair) solid var(--p-border)" }}>
             <span style={{ font: "500 11px/1 Inter", letterSpacing: ".06em", textTransform: "uppercase", color: "var(--p-muted)" }}>{selectedIds.length} {itemNoun}{selectedIds.length !== 1 ? "s" : ""} selected</span>
             <button onClick={() => selectedIds.forEach(onToggle)} style={{ border: "none", background: "transparent", color: "var(--p-danger)", font: "500 12px Inter", cursor: "pointer" }}>Clear All</button>
           </div>
@@ -239,7 +239,7 @@ function SelectedPopover({ rows, getId, selectedIds, onToggle, itemNoun, renderS
 function Check({ on, onChange }) {
   return (
     <span onClick={(e) => { e.stopPropagation(); onChange?.(); }} role="checkbox" aria-checked={!!on}
-      style={{ width: 18, height: 18, borderRadius: 1, cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+      style={{ width: 18, height: 18, borderRadius: 'var(--r-ctl)', cursor: "pointer", display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
         border: on ? "1.5px solid var(--p-primary)" : "1.5px solid var(--p-border-strong)",
         background: on ? "var(--p-primary)" : "var(--p-surface)", color: "var(--p-action-fg)", transition: "background .1s, border-color .1s" }}>
       {on ? <Icon name="check" size={14} color="var(--p-action-fg)" /> : null}
@@ -263,7 +263,7 @@ function ActionSegment({ value, onChange }) {
     const on = value === val;
     return (
       <button onClick={() => onChange(val)}
-        style={{ height: 30, padding: "0 14px", borderRadius: 1, border: "1px solid", cursor: "pointer", font: "600 13px/1 Inter", transition: "background .12s, border-color .12s, color .12s",
+        style={{ height: 30, padding: "0 14px", borderRadius: 'var(--r-ctl)', border: "1px solid", cursor: "pointer", font: "600 13px/1 Inter", transition: "background .12s, border-color .12s, color .12s",
           borderColor: on ? color : "var(--p-border-strong)", background: on ? color : "#fff", color: on ? "#fff" : "var(--p-text-2)" }}>
         {val}
       </button>
