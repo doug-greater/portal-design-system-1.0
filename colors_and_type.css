@@ -16,19 +16,13 @@
    ======================================================================= */
 
 :root {
-  /* ---------- Neutrals — alias the ink-forward ramp (one ramp, no separate gray scale) ---------- */
-  --g-black:        var(--p-ink);            /* brand ink (was #000000) */
-  --g-dark-gray:    var(--p-text-2);         /* secondary text */
-  --g-medium-gray:  var(--p-muted);          /* metadata / placeholder text */
-  --g-light-gray:   var(--p-border-strong);  /* inactive / dividers */
-  --g-off-white:    var(--p-surface-tint);   /* surface-tint backgrounds */
-  --g-white:        #FFFFFF;                  /* constant white (inverted foreground) */
-
-  /* Transparency ladder — subtle overlays */
-  --g-black-100: rgba(0,0,0,1);
-  --g-black-25:  rgba(0,0,0,.25);  /* inactive buttons           */
-  --g-black-10:  rgba(0,0,0,.10);  /* label-tag backgrounds      */
-  --g-black-05:  rgba(0,0,0,.05);  /* selected row backgrounds   */
+  /* ---------- RETIRED (1.13.1): the legacy Figma-era gray ramp + black transparency
+     ladder. They had become pure aliases of the ink-forward ramp; consumers were
+     re-pointed and the tokens deleted. Old name → use instead:
+       --g-black → --p-ink · --g-dark-gray → --p-text-2 · --g-medium-gray → --p-muted
+       --g-light-gray → --p-border-strong · --g-off-white → --p-surface-tint
+       --g-white → #FFFFFF (true-white-on-color) · --g-black-100/-25/-10/-05 → deleted
+       (nearest modern: --p-overlay-hover / --p-backdrop) ---------- */
 
   /* Tinted surfaces (25%/10%/5% of the accent) — follow the Dusk navy (1.11) */
   --g-blue-25:   rgba(24,97,175,.25);
@@ -270,7 +264,7 @@
   --fg-link: var(--p-primary);    /* links/focus/selection stay blue */
   --action: var(--p-action);       /* commitment & active‑nav (ink‑forward) */
   --action-fg: var(--p-action-fg);
-  --fg-invert: var(--g-white);
+  --fg-invert: #FFFFFF;   /* TRUE WHITE on colored fills — constant across themes (was --g-white) */
 
   --bg-1: var(--p-surface);
   --bg-2: var(--p-surface-alt);
@@ -606,13 +600,13 @@ html[data-skin="blackops"] .lv-banner-text { font-size: 13px !important; }
   font: 500 12px/1.15 var(--font-control);
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--g-medium-gray);
+  color: var(--p-muted);
 }
 
 /* Fine print / legal */
 .g-subtitle-2 {
   font: 400 var(--fs-11)/1.3 var(--font-sans);
-  color: var(--g-medium-gray);
+  color: var(--p-muted);
 }
 
 /* Body 1 — standard page & table content / page subtitle. 16 → 15px (1.12.2 §5):
@@ -624,7 +618,7 @@ html[data-skin="blackops"] .lv-banner-text { font-size: 13px !important; }
 .g-body-2 { font: 700 var(--fs-16)/1.4 var(--font-sans); color: var(--fg-1); }
 
 /* Body 3 — subdued */
-.g-body-3 { font: 400 var(--fs-16)/1.4 var(--font-sans); color: var(--g-medium-gray); }
+.g-body-3 { font: 400 var(--fs-16)/1.4 var(--font-sans); color: var(--p-muted); }
 
 /* Body 4 — toggle descriptions (105% tracking) */
 .g-body-4 { font: 400 var(--fs-16)/1.4 var(--font-sans); letter-spacing: 0.025em; color: var(--fg-2); }
@@ -634,15 +628,15 @@ html[data-skin="blackops"] .lv-banner-text { font-size: 13px !important; }
   font: 400 11px/1.2 var(--font-control);
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--g-dark-gray);
+  color: var(--p-text-2);
 }
 
 /* Overline-tag — overline on soft-gray pill */
 .g-overline-tag {
   font: 400 11px/1.2 var(--font-control);
   letter-spacing: 0.06em;
-  color: var(--g-dark-gray);
-  background: var(--g-off-white);
+  color: var(--p-text-2);
+  background: var(--p-surface-tint);
   padding: 1px 4px;
   border-radius: var(--radius-sm);
 }
@@ -689,7 +683,7 @@ mark.gr-hl { background: var(--p-highlight); color: var(--p-highlight-fg); borde
 
 /* Tooltip (used on hover popovers) */
 .g-tooltip-headline { font: 500 var(--fs-14)/1 var(--font-sans); color: var(--p-ink); }
-.g-tooltip-body     { font: 400 var(--fs-14)/1.4 var(--font-sans); color: var(--g-dark-gray); }
+.g-tooltip-body     { font: 400 var(--fs-14)/1.4 var(--font-sans); color: var(--p-text-2); }
 
 /* ── Shared component shells (single source of truth; cards reference these) ── */
 
