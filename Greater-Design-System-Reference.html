@@ -1,0 +1,1006 @@
+<!doctype html><html><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Greater Design System — Reference · Portal 1.13 "Black Ops"</title>
+<script>document.documentElement.setAttribute('data-theme','dark');document.documentElement.setAttribute('data-skin','blackops');</script>
+<style>
+/* Web fonts (needs internet; falls back to system stacks offline). JetBrains Mono is
+   self-hosted in the repo — this standalone file pulls it from Google instead. */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+
+/* ============================================================================
+   THE TOKEN SHEET — embedded VERBATIM from colors_and_type.css at generation
+   time. This file is a generated snapshot: regenerate it when tokens change
+   (see the footer). Canonical source: the repo.
+   ========================================================================== */
+/* =======================================================================
+   Greater Design System — Colors & Type
+   =======================================================================
+   The Greater portal uses TWO coexisting visual languages:
+
+   (A) "Portal" — the current product UI: neutral grays, a single brand
+       blue #007CFF for links/selection (primary actions are ink — --p-action), colored category pills, tight
+       14–16px Inter. StatCards, tables, filter bars.
+   (B) "Foundation" — the Figma color section (authoritative tokens):
+       a pure blue primary #007CFF, black headings, warm accent quintet
+       (blue/green/red/gold/purple) + seldom sky.
+
+   Both are modeled here. When in doubt, prefer the PORTAL tokens — that's
+   what ships. Fall back to FOUNDATION tokens for marketing / onboarding /
+   brand moments. Many portal semantic tokens resolve to FOUNDATION values.
+   ======================================================================= */
+
+:root {
+  /* ---------- Neutrals — alias the ink-forward ramp (one ramp, no separate gray scale) ---------- */
+  --g-black:        var(--p-ink);            /* brand ink (was #000000) */
+  --g-dark-gray:    var(--p-text-2);         /* secondary text */
+  --g-medium-gray:  var(--p-muted);          /* metadata / placeholder text */
+  --g-light-gray:   var(--p-border-strong);  /* inactive / dividers */
+  --g-off-white:    var(--p-surface-tint);   /* surface-tint backgrounds */
+  --g-white:        #FFFFFF;                  /* constant white (inverted foreground) */
+
+  /* Transparency ladder — subtle overlays */
+  --g-black-100: rgba(0,0,0,1);
+  --g-black-25:  rgba(0,0,0,.25);  /* inactive buttons           */
+  --g-black-10:  rgba(0,0,0,.10);  /* label-tag backgrounds      */
+  --g-black-05:  rgba(0,0,0,.05);  /* selected row backgrounds   */
+
+  /* Tinted surfaces (25%/10%/5% of the accent) — follow the Dusk navy (1.11) */
+  --g-blue-25:   rgba(24,97,175,.25);
+  --g-blue-10:   rgba(24,97,175,.10);
+  --g-blue-05:   rgba(24,97,175,.05);
+  --g-red-10:    rgba(201,74,78,.12);
+  --g-green-10:  rgba(33,192,107,.12);
+  --g-gold-10:   rgba(185,138,46,.14);
+  --g-gold-04:   rgba(185,138,46,.06);   /* faintest amber — whole-row "this row changed" tint (§Amber/Red editing law, 1.8) */
+  --g-purple-10: rgba(123,104,238,.12);
+  --g-orange-10: #FFF7ED;   /* 10% orange tint over white — Chip "atrisk" bg (§C) */
+
+  /* ---------- Portal: neutral ramp (cool, slightly warmer than iOS) ---------- */
+  --p-ink:          #101828;   /* headings                            */
+  --p-text:         #364153;   /* body text, icon defaults            */
+  --p-text-2:       #4A5565;   /* body secondary                      */
+  --p-muted:        #6A7282;   /* metadata / captions                 */
+  --p-placeholder:  #99A1AF;   /* input placeholder / muted count     */
+  --p-border:       #E5E7EB;   /* 1px dividers, table borders         */
+  --p-border-strong:#D1D5DC;   /* input borders                       */
+  --p-surface:      #FFFFFF;
+  --p-surface-nav:  #FFFFFF;   /* the nav sidebar (1.11.1) — same as surface in light; one step DARKER than surface in dark, so the nav reads recessed */
+  --p-surface-alt:  #F9FAFB;   /* table header zebra                  */
+  --p-surface-tint: #F3F4F6;   /* tab-strip background                */
+  --p-shell:        #FDFCF9;   /* page / canvas background — warm off-white; NOT for cards */
+
+  /* ---------- Portal: primary blue — "Dusk" muted navy (1.11) ----------
+     Supersedes the vivid #007CFF. Links / selection / focus keep the blue LAW
+     but the hue goes dusty: #1861AF clears 6.3:1 on white (the old blue was
+     3.9:1 — link text is finally AA). All derived tints re-based on the navy. */
+  --p-primary:       #1861AF;
+  --p-primary-hover: #134E8C;
+  --p-primary-soft:  #D9E3F0;  /* pill bg for active count badges · ::selection */
+  --p-primary-tint:  #EDF2F8;  /* row hover / info backgrounds        */
+  --p-primary-ink:   #1861AF;  /* link text — the single brand navy   */
+
+  /* ---------- Portal: action (INK‑FORWARD) ----------
+     The primary‑action & active‑navigation color. Ink‑forward: the brand's near‑black is the
+     commitment color; --p-primary (blue, above) is reserved for links/focus/selection/info.
+     Inverts to a white surface in dark mode (see the dark block). Components must reference these
+     tokens — never hardcode #000/#fff for primary actions or active nav, or dark mode breaks. */
+  --p-action:             var(--p-ink);   /* #101828 — near‑black primary in light */
+  --p-action-hover:       #000000;        /* press deeper to pure black            */
+  --p-action-fg:          #FFFFFF;        /* label/icon on the action surface      */
+  --p-action-disabled-bg: #C7CBD3;        /* clearly‑disabled ink‑family gray      */
+  --p-action-disabled-fg: #FFFFFF;        /* label on disabled action surface      */
+
+  /* ---------- Portal: search-highlight (the ONLY sanctioned yellow) ----------
+     Paints the literal characters a search query matched (see <Highlight>, §9). Readable,
+     not neon; never for warnings / selection / emphasis. Dimmed in dark. */
+  --p-highlight:    #FDE68A;   /* fill */
+  --p-highlight-fg: #4A3000;   /* text */
+
+  /* ---------- Portal: General Stock (purple concept accent) ----------
+     Identity color of the Store-Layout "General Stock Area" section type — parallel to
+     blue=action, green=add, red=remove. Reuses the foundation purple, exposed as semantic. */
+  --p-genstock:      #7C3AED;                /* toggle fill / icon    */
+  --p-genstock-ink:  #6B21A8;                /* label / strong fg     */
+  --p-genstock-tint: rgba(124,58,237,.12);   /* badge / modal disc bg */
+
+  /* ---------- Portal: badge palette ramp — --p-pal-1…10 (ported from the app, 1.11) ----------
+     ONE theme-aware foreground per slot; a badge's background is always a computed
+     15% tint (color-mix) of its slot — never a hand-picked pastel. Roles & product
+     categories reference slot numbers (the app's roles.py stores the slot). The
+     legacy --p-role-* / --p-pill-* pairs below are COMPAT ALIASES derived from the
+     ramp — new work should reference slots directly. Light stays vivid (Dusk Q3);
+     the dark block carries the dusty variants. */
+  --p-pal-1: #6B21A8;  /* violet — exec, wine */
+  --p-pal-2: #1447E6;  /* blue — deptmgr, rtd */
+  --p-pal-3: #047857;  /* green — itadmin, non-alc */
+  --p-pal-4: #BB4D00;  /* amber — beer */
+  --p-pal-5: #4A5565;  /* slate — rep */
+  --p-pal-6: #C2410C;  /* orange — supervisor, spirits */
+  --p-pal-7: #BE185D;  /* pink — reserved */
+  --p-pal-8: #0E7490;  /* cyan — reserved */
+  --p-pal-9: #4338CA;  /* indigo — reserved */
+  --p-pal-10: #57534E; /* stone — reserved */
+
+  /* ---------- Portal: semantic category pills — pal-derived (1.11) ---------- */
+  --p-pill-beer-bg:    color-mix(in oklab, var(--p-pal-4) 15%, transparent);  --p-pill-beer-fg:    var(--p-pal-4);
+  --p-pill-wine-bg:    color-mix(in oklab, var(--p-pal-1) 15%, transparent);  --p-pill-wine-fg:    var(--p-pal-1);
+  --p-pill-spirits-bg: color-mix(in oklab, var(--p-pal-6) 15%, transparent);  --p-pill-spirits-fg: var(--p-pal-6);
+  --p-pill-rtd-bg:     color-mix(in oklab, var(--p-pal-2) 15%, transparent);  --p-pill-rtd-fg:     var(--p-pal-2);
+  --p-pill-nonalc-bg:  color-mix(in oklab, var(--p-pal-3) 15%, transparent);  --p-pill-nonalc-fg:  var(--p-pal-3);
+
+  /* ---------- Portal: feedback — dusted (1.11) ---------- */
+  --p-success:       #21C06B;   /* was #00BC57 — non-text use (dots/fills), same as before */
+  --p-warning:       #B98A2E;   /* was #DB9E03 — dustier amber, still icon/dot-grade */
+  --p-danger:        #C94A4E;   /* was #E5484D — 4.6:1 on white (up from 4.0) */
+  --p-danger-strong: #DC2626;
+  --p-danger-soft:   #F8EAEA;   /* red WASH for "conflict" calendar cells / buffer flags (§Amber/Red law, 1.8) — fill counterpart to --p-danger text; distinct from the --g-red-10 chip/banner tint */
+  --p-atrisk-strong: var(--p-pal-6);  /* readable orange text on --g-orange-10 — Chip "atrisk" / "draining" (§C); pal-derived since 1.11 */
+
+  /* ---------- Inventory Condition palette — "Palette A" (1.5) ----------
+     Colour-blind-safe (deuteranopia/protanopia) diverging ramp Orange → Gold → Teal →
+     Blue → Purple, WCAG ≥3:1 against BOTH CARTO basemaps. Supersedes the 1.4 scale.
+     Fixed 6-level ordinal severity (L0 Out of Stock → L5 Heavy Overstock); the two
+     "bad" ends are maximally distinct, Optimal (teal) is the calm middle. SEMANTIC —
+     never re-skin per theme; values here are map-tuned (CARTO light_all ~#ededed) and
+     are also legible on --p-surface. Dark variants live in the dark block. Token names,
+     ordinal severity, and the conditions.js helper API are unchanged from 1.4. */
+  --cond-out_of_stock:     #C83214;   /* L0 Out of Stock      */
+  --cond-high_risk:        #E65C00;   /* L1 High Risk of OOS  */
+  --cond-at_risk:          #AD7300;   /* L2 At Risk of OOS    */
+  --cond-optimal:          #007A66;   /* L3 Optimal           */
+  --cond-slight_overstock: #2D6BBA;   /* L4 Slight Overstock  */
+  --cond-heavy_overstock:  #6B3D99;   /* L5 Heavy Overstock   */
+  --cond-empty:            #C9CDD2;   /* no data              */
+  --cond-pending:          #171717;   /* pending-change pin    */
+
+  /* ---------- Restore / audit action accents ---------- */
+  --p-restore:        #0D9488;             /* teal — restore / revert action + `restored` audit state */
+  --g-teal-10:        rgba(20,184,166,.12);/* teal tint surface                                       */
+  --p-audit-created:  var(--p-primary);    /* created  → blue (flag)                                  */
+  --p-audit-updated:  #B7791F;             /* updated  → gold (edit)                                  */
+  --p-audit-restored: var(--p-restore);    /* restored → teal (settings_backup_restore)               */
+  --p-audit-deleted:  var(--p-danger);     /* deleted  → red  (delete)                                */
+
+  /* ---------- Intelligence Gradient — AI / Confidence / Predictive features ----------
+     DUSTED in 1.11.3 (supersedes the vivid brand-moment exemption, Dusk Q2). Light =
+     "Dusk Rose": primary navy → pal-9 indigo → pal-7 magenta — every stop an existing
+     token value. Dark (see the dark block) = the "half-step": the same rose arc at 30%
+     vivid, deliberately BESPOKE stops so the gradient still registers on the quiet
+     chrome. This retires the last #007CFF in the system. */
+  --p-intel-start:    #1861AF;
+  --p-intel-mid:      #4338CA;
+  --p-intel-end:      #BE185D;
+  --p-intel-gradient: linear-gradient(90deg, #1861AF 0%, #4338CA 50%, #BE185D 100%);
+  --p-intel-tint:     linear-gradient(90deg, rgba(24,97,175,.10) 0%, rgba(67,56,202,.10) 50%, rgba(190,24,93,.10) 100%);
+
+  /* ---------- Radii — squared off (1.11 "Dusk") ----------
+     Controls (buttons, inputs, search, nav rows) sharpen 4px → 1px; containers
+     (cards, panels, menus, floating map cards) sharpen 6–10px → 2px. Pills stay
+     fully round. Anything referencing these tokens updates automatically. */
+  --radius-xs: 1px;
+  --radius-sm: 1px;      /* buttons, pills-with-text, inputs        */
+  --radius-md: 2px;      /* filter chips, stat cards, menus         */
+  --radius-lg: 2px;      /* prompt callouts, large cards            */
+  --radius-xl: 2px;      /* elevated floating cards (TableView)     */
+  --radius-pill: 999px;  /* badges, "tag"                           */
+
+  /* ---------- The SKIN-TOKEN CONTRACT (1.13 "Black Ops") ----------
+     A *skin* (html[data-skin="…"]) is a token-override layer applied ON TOP of a
+     resolved data-theme — no component forks. These tokens are the override points.
+     Defaults EQUAL the previous literals, so Light/Dark render pixel-identical;
+     only a skin block changes them. THE MAINTENANCE LAW: new components must
+     consume these tokens, never shape/type literals — a component that hardcodes
+     `borderRadius: 2` or `"Inter"` silently refuses to reshape under a skin. */
+  --hair: 0.5px;                                /* hairline border width (cards, fields, dividers) */
+  --r-ctl: 1px; --r-card: 2px; --r-nav: 2px;    /* controls / containers / nav rows */
+  --r-tgl: 999px; --r-tgl-knob: 50%;            /* switch track / knob */
+  --st-badge: 0px;                              /* badge outline width (0 = fill only) */
+  /* --badge-fill / --badge-stroke are deliberately UNSET here — every category/type
+     badge renders `background: var(--badge-fill, <its tint>)` and
+     `border: var(--st-badge) solid var(--badge-stroke, currentColor)`, so Light/Dark
+     fall back to the classic tinted fill and only a skin flips them (see §Black Ops). */
+
+  /* Skin-tunable text sizing (defaults = Cockpit 1.12 values) */
+  --tz-h1: 26px; --tw-h1: 600; --tz-h1-m: 22px; --tz-h1-ent: 28px; --tz-sub: 15px;
+  --tz-tab: 14px; --tw-tab: 600; --tz-btn: 12px; --tw-btn: 600;
+  --tab-on: var(--p-ink);                       /* selected-tab ink (1.6 law; skins may re-point) */
+  --font-cell: var(--font-sans);                /* table-cell prose family (skin override point) */
+
+  /* Zebra rows (1.13 Tables 2.0) — see .g-zebra below */
+  --p-row-alt: #F7F8FA;
+
+  /* ---------- Elevation — whisper-quiet (1.11: light alphas × 0.25) ----------
+     Dusk pulls light-mode shadows down to a quarter of their former weight; the
+     hairline borders now carry the structure. Dark-mode elevation (inset highlight
+     + deep shadow) is untouched — it's a strategy, not an alpha. */
+  --shadow-tooltip: 0 2px 6px 0 rgba(0,0,0,.04);
+  --shadow-card:    0 1px 2px -1px rgba(0,0,0,.03), 0 1px 3px 0 rgba(0,0,0,.03);
+  --shadow-surface: 0 1px 2px 0 rgba(16,24,40,.01), 0 6px 16px -8px rgba(16,24,40,.03);  /* large resting surfaces (cards/tables) on shell */
+  --shadow-float:   0 4px 6px -4px rgba(0,0,0,.03), 0 10px 15px -3px rgba(0,0,0,.03);
+  --shadow-brutal:  2px 2px 0 0 var(--p-ink);  /* adaptive (black in light / white in dark) — Greater-brand "neo" buttons; a solid offset, exempt from the ×0.25 */
+
+  /* ---------- Spacing (4px base) ---------- */
+  --space-0-5: 2px;
+  --space-1:   4px;
+  --space-2:   8px;
+  --space-3:   12px;
+  --space-4:   16px;
+  --space-5:   20px;
+  --space-6:   24px;
+  --space-8:   32px;
+  --space-10:  40px;
+  --space-12:  48px;
+  --space-16:  64px;
+
+  /* ---------- Type families — the COCKPIT split (1.12) ----------
+     HUMANS READ INTER; THE MACHINE SPEAKS MONO.
+     --font-sans    = content humans read: account/product names, prose, helper copy,
+                      nav destinations, category & role pills, the Home greeting.
+     --font-display = titles & headlines (g-h1/h2/h3, modal & drawer titles).
+     --font-control = everything the user OPERATES (buttons, inputs, selects, filter
+                      chips, tabs, menus, pagination) + machine labels (table headers,
+                      stat labels, section titles, overlines) + status vocabulary
+                      (badges, toasts, liveness chips).
+     display/control both resolve to the mono stack — they stay SEMANTIC so a future
+     re-tune can re-point one role without touching components.
+     --font-mono    = data cells, ids, numerals, kbd (unchanged since 1.11). */
+  --font-h1: var(--font-sans);   /* 1.13: page H1s re-humanized — Inter in Light/Dark. Black Ops
+                                    overrides --font-sans itself to the mono stack, so its H1
+                                    resolves mono with NO skin-specific rule (§F1 narrowing of
+                                    the Cockpit law: the H1 names the person's current place;
+                                    g-h2/h3 + modal/drawer titles stay --font-display mono). */
+  --font-sans: "Inter", "Inter Fallback", -apple-system, BlinkMacSystemFont,
+               "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-mono: "JetBrains Mono", "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;  /* JetBrains Mono since 1.11 (self-hosted, fonts/); Geist kept as fallback */
+  --font-display: var(--font-mono);   /* Cockpit titles (1.12) */
+  --font-control: var(--font-mono);   /* Cockpit controls + machine labels (1.12) */
+
+  /* ---------- Type — raw sizes (px) ---------- */
+  --fs-10: 10px;  /* legal / fine print                             */
+  --fs-11: 11px;  /* subtitle-2, micro-labels                       */
+  --fs-12: 12px;  /* overline, table-header caps, mono              */
+  --fs-14: 14px;  /* body, section title caps                       */
+  --fs-16: 16px;  /* default page body                              */
+  --fs-18: 18px;  /* headline 3 / sign-in heading                   */
+  --fs-20: 20px;  /* headline 2 / stat values                       */
+  --fs-24: 24px;  /* compact headline (phone page title)            */
+  --fs-28: 28px;  /* headline 1 (page title — 1.11, resolves the 24/30 drift) */
+  --fs-32: 32px;  /* Headline 1 display (reporting)                 */
+  --fs-40: 40px;  /* hero                                           */
+  --fs-48: 48px;  /* brand                                          */
+
+  /* ---------- Letter-spacing presets (% of font size) ---------- */
+  --tracking-tight:   -0.02em;   /* large headings                  */
+  --tracking-normal:   0;
+  --tracking-wide:     0.05em;   /* buttons, "105% letter spacing"  */
+  --tracking-caps:     0.05em;
+  --tracking-micro:    0.025em;  /* 14px filter labels              */
+
+  /* ---------- Semantic tokens — fg / bg aliases ---------- */
+  --fg-1: var(--p-ink);          /* strongest text                  */
+  --fg-2: var(--p-text);
+  --fg-3: var(--p-muted);
+  --fg-4: var(--p-placeholder);
+  --fg-link: var(--p-primary);    /* links/focus/selection stay blue */
+  --action: var(--p-action);       /* commitment & active‑nav (ink‑forward) */
+  --action-fg: var(--p-action-fg);
+  --fg-invert: var(--g-white);
+
+  --bg-1: var(--p-surface);
+  --bg-2: var(--p-surface-alt);
+  --bg-3: var(--p-surface-tint);
+  --bg-hover: var(--p-primary-tint);
+
+  --border-1: var(--p-border);
+  --border-2: var(--p-border-strong);
+  --border-focus: var(--p-primary);
+
+  /* ---------- 1.5 — Dark-mode flip-pairs (LIGHT values) ----------
+     FLIP-PAIRS RULE: any tinted status/role/category surface is authored as a
+     bg/fg token PAIR so the html[data-theme="dark"] block can flip both. Light =
+     pale tint bg + saturated fg; dark = low-alpha rgba tint of the same hue +
+     luminous fg. Components must NEVER hardcode hex for these surfaces — always
+     reference the token, or dark mode silently breaks. */
+  /* Status tint pairs */
+  --p-success-bg: #ECFDF5;              --p-success-fg: var(--p-pal-3);
+  --p-atrisk-bg:  var(--g-orange-10);   --p-atrisk-fg:  var(--p-atrisk-strong);
+  --p-neutral-bg: var(--p-surface-tint);--p-neutral-fg: var(--p-text-2);
+  /* Role tone pairs (role pills + avatars) — pal-derived compat aliases (1.11).
+     fg = the slot; bg = the computed 15% tint. They flip in dark automatically
+     because the PAL flips — the dark block no longer overrides these pairs. */
+  --p-role-exec-bg: color-mix(in oklab, var(--p-pal-1) 15%, transparent);       --p-role-exec-fg: var(--p-pal-1);
+  --p-role-deptmgr-bg: color-mix(in oklab, var(--p-pal-2) 15%, transparent);    --p-role-deptmgr-fg: var(--p-pal-2);
+  --p-role-itadmin-bg: color-mix(in oklab, var(--p-pal-3) 15%, transparent);    --p-role-itadmin-fg: var(--p-pal-3);
+  --p-role-supervisor-bg: color-mix(in oklab, var(--p-pal-6) 15%, transparent); --p-role-supervisor-fg: var(--p-pal-6);
+  --p-role-rep-bg: color-mix(in oklab, var(--p-pal-5) 15%, transparent);        --p-role-rep-fg: var(--p-pal-5);
+  /* Interaction helpers */
+  --p-overlay-hover: rgba(0,0,0,.04);
+  --p-focus-ring:    rgba(0,124,255,.15);
+  --p-backdrop:      rgba(16,24,40,.45);
+  --p-skeleton-1:    #F1F3F5;           --p-skeleton-2: #E5E7EB;
+  --g-gold-30:       rgba(219,158,3,.30);
+  --p-scroll-thumb:  #D1D5DC;           --p-scroll-thumb-hover: #B9BBBF;
+  --p-pulse:         rgba(24,97,175,.45);  /* live-pulse halo (gr-livedot) — follows --p-primary (1.11) */
+  --p-underline-muted: #C4C9D2;    /* DS voice: neutral links underline one step lighter than text (StatCard links) */
+  --p-danger-hover:  #C93B40;      /* 1.13 §M5 — no destructive control hardcodes its hover */
+  --p-danger-dim:    color-mix(in srgb, var(--p-danger) 35%, transparent);
+  --p-danger-dim-bg: color-mix(in srgb, var(--p-danger) 45%, transparent);
+  --ms-grad:         0;   /* Material Symbols grade — 0 in light, negative in dark */
+}
+
+/* =======================================================================
+   DARK THEME (1.5) — html[data-theme="dark"]
+   =======================================================================
+   A complete inverted-neutral set using deep tinted blacks (Vercel/Linear
+   lineage). Elevation is expressed by surface lightening + inset highlight +
+   deep shadow — NOT the light-mode soft drop shadows. Every tinted
+   status/role/category surface flips via its bg/fg pair (see the flip-pairs
+   rule in :root). Light :root is unchanged from 1.4 except the Conditions
+   palette (§D). Applied by setting data-theme="dark" on <html>; a no-flash
+   inline bootstrap in index.html sets it before React mounts. */
+html[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Neutral ramp (inverted) — deepened (1.11.1 Theme-Lab tweak on the softened ramp):
+     a near-black shell with clearly-lifted surfaces; text stays off-white (never pure).
+     Dark is the DEFAULT theme since 1.11 — this ramp is the product's primary canvas. */
+  --p-ink: #F2F2F4; --p-text: #DCDCE0; --p-text-2: #A1A1AA; --p-muted: #71717A;
+  --p-placeholder: #52525B; --p-border: #34343B; --p-border-strong: #45454D;
+  --p-surface: #161618; --p-surface-alt: #202022; --p-surface-tint: #2C2C32; --p-shell: #0F0F0F;
+  --p-surface-nav: #131316;   /* nav sidebar — between shell and surface: the nav recedes, content lifts */
+
+  /* Primary — dusty steel, re-tuned 1.13 to #A8BFDC (a half-step bluer/cooler than
+     1.11's #ADBDD1; user-picked). Contrast at sign-off: on surface 9.60:1 (was 9.45),
+     on surface-alt 8.64, on surface-tint 7.37; ::selection ink 11.18 — all AA+.
+     Luminance rose only +1.7%, so the soft/tint alphas produce no extra glow.
+     (--p-intel-start #9FB6D4 stays — "near primary steel" still holds.) */
+  --p-primary: #A8BFDC; --p-primary-hover: #BED1E9; --p-primary-soft: rgba(168,191,220,.18);
+  --p-primary-tint: rgba(168,191,220,.10); --p-primary-ink: #BACDE6;
+  --g-blue-10: rgba(168,191,220,.16);
+
+  /* Action (ink‑forward) — INVERTS to a white surface on dark (Linear/macOS treatment) */
+  --p-action: #FFFFFF; --p-action-hover: #E4E4E7; --p-action-fg: #0A0A0B;
+  --p-action-disabled-bg: #3F3F46; --p-action-disabled-fg: #71717A;
+
+  /* Search-highlight + General Stock purple — dark (genstock aligned to the dusty pal-1, 1.11) */
+  --p-highlight: rgba(250,204,21,.32); --p-highlight-fg: #FDE68A;
+  --p-genstock: #AF98C8; --p-genstock-ink: #C9B6DE; --p-genstock-tint: rgba(175,152,200,.18);
+
+  /* Badge palette ramp — DUSTY dark variants (1.11 Theme-Lab export). The pill/role
+     pairs are pal-derived in :root, so flipping the ramp flips every badge — no
+     per-pair dark overrides needed anymore. */
+  --p-pal-1: #AF98C8;
+  --p-pal-2: #84A8D2;
+  --p-pal-3: #9CCEBA;
+  --p-pal-4: #D8C997;
+  --p-pal-5: #B8B8C1;
+  --p-pal-6: #E5CAAE;
+  --p-pal-7: #C9A6B6;
+  --p-pal-8: #96C3CB;
+  --p-pal-9: #A6AFD2;
+  --p-pal-10: #D6D3D1;
+
+  /* Feedback — dusted (1.11 Theme-Lab export) */
+  --p-success: #44AB89; --p-warning: #E2A336; --p-danger: #D84B4B; --p-danger-strong: #E38080;
+  --p-atrisk-strong: var(--p-pal-6);
+
+  /* Foundation rgba tints (Chip / InfoBanner) — re-based on the dusty feedback hues */
+  --g-red-10: rgba(216,75,75,.16); --g-green-10: rgba(68,171,137,.16);
+  --g-gold-10: rgba(226,163,54,.16); --g-purple-10: rgba(175,152,200,.18);
+  --p-danger-soft: rgba(216,75,75,.18); --g-gold-04: rgba(226,163,54,.08);   /* §Amber/Red editing law — dark */
+  --g-orange-10: rgba(229,202,174,.15); --g-blue-10: rgba(173,189,209,.16);
+
+  /* Intelligence gradient — the "HALF-STEP" Dusk Rose (1.11.3; supersedes the 1.11
+     vivid exemption). The rose arc at 30% vivid: fully-dusty pal stops read too flat
+     on the quiet dark chrome, fully-vivid was off-palette — these bespoke blends are
+     the sanctioned middle. Starts near --p-primary steel, ends dusty rose. */
+  --p-intel-start: #9FB6D4; --p-intel-mid: #929ADB; --p-intel-end: #D38AAD;
+  --p-intel-gradient: linear-gradient(90deg, #9FB6D4 0%, #929ADB 50%, #D38AAD 100%);
+  --p-intel-tint: linear-gradient(90deg, rgba(159,182,212,.12) 0%, rgba(146,154,219,.12) 50%, rgba(211,138,173,.12) 100%);
+
+  /* Elevation — inset highlight + deep shadow (NOT light drop shadows) */
+  --shadow-tooltip: inset 0 1px 1px rgba(255,255,255,.08), 0 4px 8px rgba(0,0,0,.6), 0 0 0 1px var(--p-border);
+  --shadow-card:    inset 0 1px 1px rgba(255,255,255,.04), 0 1px 2px rgba(0,0,0,.5);
+  --shadow-surface: inset 0 1px 1px rgba(255,255,255,.04), 0 4px 10px rgba(0,0,0,.5);
+  --shadow-float:   inset 0 1px 1px rgba(255,255,255,.07), 0 12px 24px rgba(0,0,0,.6), 0 0 0 1px var(--p-border-strong);
+
+  /* Status tint pairs — fgs are pal-derived (flip via the ramp); bgs re-based dusty */
+  --p-success-bg: rgba(68,171,137,.16); --p-success-fg: var(--p-pal-3);
+  --p-atrisk-bg:  rgba(229,202,174,.14); --p-atrisk-fg: var(--p-pal-6);
+  --p-neutral-bg: #2C2C32;              --p-neutral-fg: #A1A1AA;
+  /* (Role tone pairs no longer need dark overrides — pal-derived in :root, 1.11.) */
+
+  /* Interaction helpers */
+  --p-overlay-hover: rgba(255,255,255,.06);
+  --p-focus-ring: rgba(168,191,220,.35);   /* follows the 1.13 #A8BFDC primary */
+  --p-backdrop: rgba(0,0,0,.62);
+  --p-skeleton-1: #212126; --p-skeleton-2: #2C2C32;
+  --g-gold-30: rgba(226,163,54,.35);
+  --p-scroll-thumb: #45454D; --p-scroll-thumb-hover: #52525B;
+  --p-pulse: rgba(168,191,220,.45);   /* live-pulse halo — follows the 1.13 steel */
+  --p-row-alt: #1B1B1E;               /* zebra stripe — dark (1.13 Tables 2.0) */
+  --p-underline-muted: #45454D;       /* neutral-link underline, one step lighter than text */
+  --p-danger-hover: #E06363;
+  --ms-grad: -25;
+
+  /* Condition scale — Palette A dark variants, brightened to clear ≥3:1 against
+     CARTO dark_all (~#262626). Same token names / severity as light (§D). */
+  --cond-out_of_stock: #FF6B4A; --cond-high_risk: #FF9933; --cond-at_risk: #FFC940;
+  --cond-optimal: #2EE6C3; --cond-slight_overstock: #66A3FF; --cond-heavy_overstock: #C299EB;
+  --cond-empty: #2A2A30; --cond-pending: #F5F5F5;
+}
+
+/* =======================================================================
+   BLACK OPS — the first SKIN (1.13) · and the DEFAULT THEME
+   A near-black "ops console" layered ON dark: the pref "blackops" resolves to
+   data-theme="dark" (every dark rule + JS check keeps working) AND sets
+   data-skin="blackops". Colors, shape, stroke and type re-tune purely through
+   tokens — no component forks. Born from the user's Theme Lab export; the
+   "Variant" sandbox (teal selection, dimmed pill strokes, apricot pal-6,
+   high-contrast zebra) graduated into this base block (§N1).
+   ======================================================================= */
+html[data-skin="blackops"] {
+  /* Neutrals — near-black console */
+  --p-ink: #FAFAFB; --p-text: #F2F2F3; --p-text-2: #C6C6CB; --p-muted: #A3A3A8;
+  --p-surface: #131316; --p-surface-alt: #202022; --p-surface-tint: #26262B;
+  --p-shell: #0F0F0F; --p-surface-nav: #131316;
+  --p-row-alt: #212127;       /* zebra stripe — high-contrast (~14/channel vs surface), user-approved */
+
+  /* Selection — bright teal pulled out of the badge ramp. #86EAE8 was the export's
+     pal-6; promoted to the selection role, and pal-6 re-slotted to apricot so teal
+     reads ONLY as the selection signal. The 1.6 blue-law applies unchanged — in
+     Black Ops "blue" simply IS teal. */
+  --p-primary: #86EAE8; --p-primary-hover: #A3F0EE; --p-primary-soft: rgba(134,234,232,.18);
+  --p-primary-tint: rgba(134,234,232,.10); --p-primary-ink: #9CEEEC;
+
+  /* Feedback */
+  --p-success: #10B981; --p-warning: #E2A336; --p-danger: #EF4444;
+  --p-danger-strong: #F87171; --p-danger-soft: rgba(239,68,68,.18);
+  --p-danger-hover: #F65E5E;
+  --g-red-10: rgba(239,68,68,.16); --g-green-10: rgba(16,185,129,.16);
+  --g-gold-10: rgba(226,163,54,.16); --g-purple-10: rgba(233,139,139,.18);
+  --g-blue-10: rgba(134,234,232,.14);
+
+  /* Badge ramp — pastel ops palette (pal-6 vacated by the selection teal → apricot) */
+  --p-pal-1: #E98B8B; --p-pal-2: #A2B8EC; --p-pal-3: #EDFDCE; --p-pal-4: #E8D38C;
+  --p-pal-5: #A1A1AA; --p-pal-6: #EFB08A; --p-pal-7: #ECB4CD; --p-pal-8: #9AD4DE;
+  --p-pal-9: #B4BCEC; --p-pal-10: #D6D3D1;
+  --p-genstock: #C0A6EC; --p-genstock-ink: #D2BEF2; --p-genstock-tint: rgba(192,166,236,.16);
+
+  /* Status pairs — [DEBT §O2] -fg literals break the pal-derived chain Light/Dark use */
+  --p-success-bg: rgba(16,185,129,.16); --p-success-fg: #34D399;
+  --p-atrisk-bg: rgba(226,163,54,.15); --p-atrisk-fg: #E7B45C;
+  --p-neutral-bg: #26262B; --p-neutral-fg: #A3A3A8;
+
+  /* Badges: tinted fills removed + 0.5px outline at a dimmed tone of each pill's
+     own color (text stays full-brightness). STATUS badges are exempt — see the
+     Badge Vocabulary Law (§9 Status Badge). */
+  --badge-fill: transparent; --st-badge: 0.5px;
+  --badge-stroke: color-mix(in oklab, currentColor 45%, transparent);
+
+  /* Tabs — selected tab speaks the teal selection color (default = ink) */
+  --tab-on: var(--p-primary);
+
+  /* Interaction */
+  --p-focus-ring: rgba(134,234,232,.35); --p-pulse: rgba(134,234,232,.45);
+  --p-backdrop: rgba(0,0,0,.66);
+
+  /* Elevation — 25% shadow intensity */
+  --shadow-tooltip: inset 0 1px 1px rgba(255,255,255,.02), 0 4px 8px rgba(0,0,0,.15), 0 0 0 1px var(--p-border);
+  --shadow-card: inset 0 1px 1px rgba(255,255,255,.01), 0 1px 2px rgba(0,0,0,.13);
+  --shadow-surface: inset 0 1px 1px rgba(255,255,255,.01), 0 4px 10px rgba(0,0,0,.13);
+  --shadow-float: inset 0 1px 1px rgba(255,255,255,.02), 0 12px 24px rgba(0,0,0,.15), 0 0 0 1px var(--p-border-strong);
+
+  /* Type — the machine speaks EVERYWHERE; table cells are the one exception */
+  --font-sans: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --font-cell: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* Text sizing */
+  --tz-h1: 22px; --tw-h1: 700; --tz-h1-m: 22px; --tz-h1-ent: 22px;
+  --tz-sub: 12px; --tz-tab: 12px; --tw-tab: 500; --tw-btn: 500;
+
+  /* Shape — flat panels & controls (0px), squared toggles; hairlines thicken to 1px */
+  --hair: 1px;
+  --r-ctl: 0px; --r-card: 0px; --r-nav: 0px; --r-tgl: 3px; --r-tgl-knob: 2px;
+  --radius-xs: 0px; --radius-sm: 0px; --radius-md: 0px; --radius-lg: 0px; --radius-xl: 0px;
+}
+
+/* Black Ops scoped rules — the ONLY selector-level skin CSS (everything else is tokens) */
+
+/* Table cells re-humanize: IBM Plex Sans via --font-cell. The attribute selector
+   retargets every inline `var(--font-sans)` cell without editing call sites
+   (TableShell carries className="g-tbl"). Brittle by design — documented here. */
+html[data-skin="blackops"] .g-tbl [style*="var(--font-sans)"] { font-family: var(--font-cell) !important; }
+
+/* ALL-CAPS navigation — top-level parent rows & bottom utility rows only; child
+   (sub) items keep natural case for readability. ⚠ Do NOT add a font-size rule
+   here — an earlier revision matched span.material-symbols-sharp and shrank the
+   22px nav icons; if a size change is ever needed, exclude icons with
+   :not(.material-symbols-sharp) and reset their letter-spacing. */
+html[data-skin="blackops"] .gr-row,
+html[data-skin="blackops"] .gr-rowactive,
+html[data-skin="blackops"] .gr-util { text-transform: uppercase; }
+
+/* Selection rows (active nav) — NOT the ink/--p-action fill in this skin
+   [supersedes the 1.6 ink active-nav treatment FOR THIS SKIN ONLY]: teal text,
+   weight 600, on a 10% teal fill box; hover lifts to the 18% soft. A text-only
+   pass was tried first and rejected as too subtle (§N4). */
+/* .gr-rowactive = active PARENT/leaf rows (also uppercased above);
+   .gr-subactive = active CHILD rows — expanded sub-items + flyout children —
+   same teal recipe but natural case. */
+html[data-skin="blackops"] .gr-rowactive,
+html[data-skin="blackops"] .gr-subactive {
+  background: var(--p-primary-tint) !important;
+  color: var(--p-primary) !important;
+  font-weight: 600 !important;
+}
+html[data-skin="blackops"] .gr-rowactive:hover,
+html[data-skin="blackops"] .gr-subactive:hover { background: var(--p-primary-soft) !important; }
+/* Row descendants (label span + icon span) carry inline `color: var(--p-action-fg)`
+   from the ink treatment — retarget them to teal (same attribute-selector trick as
+   the table-cell re-font; inline styles lose to !important). */
+html[data-skin="blackops"] .gr-rowactive [style*="--p-action-fg"],
+html[data-skin="blackops"] .gr-subactive [style*="--p-action-fg"] { color: var(--p-primary) !important; }
+html[data-skin="blackops"] .gr-rowactive:focus-visible,
+html[data-skin="blackops"] .gr-subactive:focus-visible { box-shadow: inset 0 0 0 2px var(--p-primary); }
+
+/* Live View incomplete-stops banner — sits hierarchically between the 12px subtitle
+   and the 22px H1 in this skin; other themes stay 14px. */
+html[data-skin="blackops"] .lv-banner-text { font-size: 13px !important; }
+
+/* =======================================================================
+   Zebra rows (1.13 Tables 2.0) — opt-in class; peer data rows ONLY, never
+   nested/child rows inside an expanded parent (§N2). Skeleton rows carry it
+   too so loading stripes match loaded. Rows must NOT hardcode an inline
+   `background: var(--p-surface)` (inline wins over zebra); conditional inline
+   backgrounds (selected / dirty) are allowed — they SHOULD win. The
+   `of .g-zebra` syntax skips non-row siblings (headers, group heads).
+   ======================================================================= */
+.g-zebra { background: var(--p-surface); }
+:nth-child(even of .g-zebra) { background: var(--p-row-alt); }
+
+/* =======================================================================
+   Semantic typography — drop these class names on elements
+   ======================================================================= */
+
+/* Headline 1 — reporting / detail page title (Figma spec: Inter Bold 32) */
+.g-h1-display {
+  font: 700 var(--fs-32)/1.05 var(--font-sans);
+  letter-spacing: 0;
+  color: var(--fg-1);
+}
+
+/* SYSTEM title — the H1 when it names a surface or tool (JetBrains Mono since 1.12 "Cockpit") */
+.g-h1 {
+  font: var(--tw-h1) var(--tz-h1)/1.25 var(--font-h1);   /* 1.13: Inter 600 26 in Light/Dark; Black Ops → mono 700 22 via its token overrides */
+  letter-spacing: -0.03em;
+  color: var(--fg-1);
+}
+
+/* ENTITY title — the H1 slot when it holds a RECORD'S name (1.12.2 §8). The machine
+   doesn't speak someone's name; it presents it — so an account / user / product name
+   in the H1 stays Inter, matching that name's voice everywhere else (table cells, ⌘K).
+   Mono H1 = "you're on a system surface"; Inter H1 = "you're looking at a record."
+   Long names truncate — never wrap. Mixed surfaces switch per state (aggregate
+   Coverage Map → .g-h1; scoped to one product → .g-h1-entity). */
+.g-h1-entity {
+  font: 700 var(--tz-h1-ent)/1.1 var(--font-sans);
+  letter-spacing: -0.02em;
+  color: var(--fg-1);
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Headline 2 — compact page title (mono since 1.12) */
+.g-h2 {
+  font: 600 18px/1.25 var(--font-display);
+  letter-spacing: -0.02em;
+  color: var(--fg-1);
+}
+
+/* Headline 3 — secondary heading (mono since 1.12; auth title) */
+.g-h3 {
+  font: 500 17px/1.35 var(--font-display);
+  letter-spacing: -0.01em;
+  color: var(--fg-1);
+}
+
+/* Section title / column header — mono UPPERCASE machine label (1.12) */
+.g-section-title {
+  font: 500 12px/1 var(--font-control);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--p-muted);
+}
+
+/* Subtitle under H1 — mono UPPERCASE machine label (1.12) */
+.g-subtitle-1 {
+  font: 500 12px/1.15 var(--font-control);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--g-medium-gray);
+}
+
+/* Fine print / legal */
+.g-subtitle-2 {
+  font: 400 var(--fs-11)/1.3 var(--font-sans);
+  color: var(--g-medium-gray);
+}
+
+/* Body 1 — standard page & table content / page subtitle. 16 → 15px (1.12.2 §5):
+   16 read too heavy under the 26px mono H1 (mono runs optically wider/denser than the
+   sans it replaced). Odd size is fine — the integer-scale rule applies to mono only. */
+.g-body-1 { font: 400 var(--tz-sub)/1.4 var(--font-sans); color: var(--fg-2); }   /* 15px default; skins may compress */
+
+/* Body 2 — emphasized */
+.g-body-2 { font: 700 var(--fs-16)/1.4 var(--font-sans); color: var(--fg-1); }
+
+/* Body 3 — subdued */
+.g-body-3 { font: 400 var(--fs-16)/1.4 var(--font-sans); color: var(--g-medium-gray); }
+
+/* Body 4 — toggle descriptions (105% tracking) */
+.g-body-4 { font: 400 var(--fs-16)/1.4 var(--font-sans); letter-spacing: 0.025em; color: var(--fg-2); }
+
+/* Overline — mono machine label (1.12), caps */
+.g-overline {
+  font: 400 11px/1.2 var(--font-control);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--g-dark-gray);
+}
+
+/* Overline-tag — overline on soft-gray pill */
+.g-overline-tag {
+  font: 400 11px/1.2 var(--font-control);
+  letter-spacing: 0.06em;
+  color: var(--g-dark-gray);
+  background: var(--g-off-white);
+  padding: 1px 4px;
+  border-radius: var(--radius-sm);
+}
+
+/* Text hyperlink — mono Medium, primary blue. Mono since 1.12.2 §3: a link that does
+   something or takes you somewhere on click is a MACHINE DIRECTION, not prose.
+   (Links inside running sentences follow their sentence's voice — see .g-textlink.) */
+.g-link {
+  display: inline;
+  font-family: var(--font-control);
+  font-weight: 500;
+  color: var(--p-primary);
+  text-decoration: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='3' viewBox='0 0 6 3'><circle cx='1.5' cy='1.5' r='1.5' fill='%231861AF'/></svg>");
+  background-repeat: repeat-x;
+  background-position: 0 100%;
+  background-size: 6px 3px;
+  padding-bottom: 4px;
+}
+/* the dotted underline is a baked data-URI, so it needs its own dark variant (dusty steel) */
+html[data-theme="dark"] .g-link {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='6' height='3' viewBox='0 0 6 3'><circle cx='1.5' cy='1.5' r='1.5' fill='%23A8BFDC'/></svg>");   /* 1.13 steel */
+}
+.g-link:hover { color: var(--p-primary-hover); }
+
+/* Search-match highlight — painted by <Highlight> around the chars a query matched (§9). */
+mark.gr-hl { background: var(--p-highlight); color: var(--p-highlight-fg); border-radius: 2px; padding: 0 .5px; }
+
+/* Error message */
+.g-error { font: 500 var(--fs-12)/1.2 var(--font-sans); color: var(--p-danger); }
+
+/* Mono / code */
+.g-mono, code, kbd, pre { font-family: var(--font-mono); font-size: var(--fs-12); }
+
+/* Inline info/warning callouts */
+.g-info {
+  background: var(--p-primary-tint);
+  border-radius: var(--radius-lg);
+  padding: 8px 8px;
+  font: 400 var(--fs-14)/1.4 var(--font-sans);
+  color: var(--fg-1);
+}
+.g-info.danger { background: var(--g-red-10); }
+
+/* Tooltip (used on hover popovers) */
+.g-tooltip-headline { font: 500 var(--fs-14)/1 var(--font-sans); color: var(--p-ink); }
+.g-tooltip-body     { font: 400 var(--fs-14)/1.4 var(--font-sans); color: var(--g-dark-gray); }
+
+/* ── Shared component shells (single source of truth; cards reference these) ── */
+
+/* Role Pill — flat tinted label, NO dot. Pass background/color inline per palette color. */
+.g-role-pill { display: inline-flex; align-items: center; padding: 2px 10px; border-radius: var(--radius-pill); font: 500 var(--fs-12)/1.5 var(--font-sans); letter-spacing: .02em; white-space: nowrap;
+  border: var(--st-badge) solid var(--badge-stroke, currentColor); box-sizing: border-box; }   /* 1.13 badge recipe — role pills are category-class */
+.g-role-pill.sm { padding: 1px 8px; font-size: var(--fs-11); }
+/* consumers set the tint via inline background (role token pairs) — the skin zeroes it */
+html[data-skin="blackops"] .g-role-pill { background: var(--badge-fill) !important; }
+
+/* Avatar — initials circle. Pass size (width/height/font-size) + background/color inline; ring via box-shadow. */
+.g-avatar { display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-family: var(--font-sans); font-weight: 600; letter-spacing: .01em; flex-shrink: 0; }
+
+/* Row-action overflow trigger. Horizontal `more_horiz` ONLY — `more_vert` is banned (see §9 Row Actions). */
+.g-kebab { width: 28px; height: 28px; border-radius: var(--radius-md); display: inline-flex; align-items: center; justify-content: center; color: var(--p-muted); cursor: pointer; border: none; background: transparent; transition: background .12s, color .12s; }
+.g-kebab:hover { background: rgba(0,0,0,.05); color: var(--p-text); }
+
+/* Split button — main action + caret disclosure. Intents: .primary / .error. Mono since 1.12. */
+/* A split button grows to fit its label; the label NEVER wraps (1.12.2 §7) — if space
+   genuinely can't fit it, shorten the label. */
+.g-split { display: inline-flex; height: 28px; border-radius: var(--radius-md); overflow: hidden; font: 500 12px/1 var(--font-control); white-space: nowrap; vertical-align: middle; box-sizing: border-box; }
+.g-split .g-split-main  { display: inline-flex; align-items: center; gap: 6px; padding: 0 11px; cursor: pointer; border: none; background: transparent; font: inherit; color: inherit; }
+.g-split .g-split-caret { display: inline-flex; align-items: center; justify-content: center; width: 26px; cursor: pointer; border: none; background: transparent; color: inherit; }
+/* Ink fill + a NEUTRAL caret divider that survives BOTH fills (a white divider would
+   vanish on the white dark‑mode action surface). .g-split.error stays red — see below. */
+.g-split.primary { background: var(--p-action); color: var(--p-action-fg); }
+.g-split.primary .g-split-caret { border-left: 1px solid rgba(127,127,127,.32); }
+.g-split.primary .g-split-main:hover, .g-split.primary .g-split-caret:hover { background: var(--p-action-hover); }
+.g-split.error { background: var(--p-danger); color: #fff; }
+.g-split.error .g-split-caret { border-left: 1px solid rgba(255,255,255,.32); }
+.g-split.error .g-split-main:hover, .g-split.error .g-split-caret:hover { background: rgba(255,255,255,.14); }
+.g-split .g-split-main:focus-visible, .g-split .g-split-caret:focus-visible { outline: none; background: rgba(255,255,255,.22); }
+
+/* Pinned right-hand actions column (1.10 §M) — keeps a row's kebab / navigation
+   chevron glued to the visible right edge while the table scrolls horizontally.
+   Requires the DataTable TableShell skeleton (ONE overflow:auto container wrapping a
+   minWidth div, sticky header INSIDE it) and OPAQUE row backgrounds (the cell uses
+   background:inherit to mask content scrolling beneath it). No divider/shadow — the
+   column pins silently. In grouped tables the header identity cluster pins left:16
+   and any trailing button right:16. */
+.gr-sticky-actions { position: sticky; right: 0; z-index: 1; background: inherit; align-self: stretch; display: flex; align-items: center; justify-content: flex-end; }
+.gr-sticky-actions-head { z-index: 3; }
+
+/* Stacked mono ID under a name (tables / wizards) */
+.g-mono-id { font-family: var(--font-mono); font-size: var(--fs-11); line-height: 1; color: var(--p-muted); letter-spacing: .02em; }
+
+/* Wizard selection-table row states */
+.wz-row:hover { background: var(--p-surface-alt) !important; }
+.wz-row-selected { background: var(--p-primary-tint) !important; }
+.wz-row-selected:hover { background: #E2EAF3 !important; }
+.wz-num:focus { outline: none; border-color: var(--p-primary) !important; box-shadow: 0 0 0 3px var(--p-focus-ring); }
+
+/* Base body reset */
+html, body {
+  font-family: var(--font-sans);
+  font-size: var(--fs-16);
+  color: var(--fg-2);
+  background: var(--p-shell);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Theme transition — limited to large resting surfaces only (1.5). Never
+   `transition: all` on everything: it breaks transforms and janks the map. */
+body, aside { transition: background-color .2s ease, color .2s ease; }
+
+/* Selection uses primary blue */
+::selection { background: var(--p-primary-soft); color: var(--p-ink); }
+
+/* Inline button-as-link (inside banners / sentences) */
+.g-textlink { color: var(--p-primary); font: 500 14px/1.4 var(--font-sans); border: none; background: transparent; padding: 0; cursor: pointer; }
+.g-textlink:hover { color: var(--p-primary-hover); text-decoration: underline; text-underline-offset: 2px; }
+
+/* =======================================================================
+   Motion — keyframes & entrance utilities
+   All transform/opacity, ease-out, no bounce (see §10). Entrance animations
+   are transform-first: a backgrounded iframe can freeze an opacity-only
+   keyframe at 0, leaving content permanently invisible.
+   ======================================================================= */
+@keyframes gr-fade-in    { from { opacity: 0; } to { opacity: 1; } }
+@keyframes gr-pop-in     { from { opacity: 0; transform: translateY(6px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes gr-flyout-in  { from { opacity: 0; transform: translateX(-7px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes gr-toast-in   { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes gr-spin       { to { transform: rotate(360deg); } }
+@keyframes gr-shimmer    { 0% { background-position: -480px 0; } 100% { background-position: 480px 0; } }
+@keyframes gr-rise-in    { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes gr-slide-fwd  { from { opacity: 0; transform: translateX(18px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes gr-slide-back { from { opacity: 0; transform: translateX(-18px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes gr-tab-in     { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes gr-bar-in     { from { opacity: 0; transform: translate(-50%, 16px); } to { opacity: 1; transform: translate(-50%, 0); } }
+@keyframes gr-label-swap { from { opacity: 0; transform: translateY(5px); filter: blur(1px); } to { opacity: 1; transform: translateY(0); filter: blur(0); } }
+@keyframes gr-drawer-in  { from { opacity: .6; transform: translateX(24px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes gr-emptyfloat { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-4px); } }
+
+/* Entrance utility classes */
+.gr-rise      { animation: gr-rise-in .62s cubic-bezier(0.22,1,0.36,1) both; animation-delay: calc(var(--i, 0) * 80ms); }
+.gr-step-fwd  { animation: gr-slide-fwd .28s cubic-bezier(0.22,1,0.36,1) both; }
+.gr-step-back { animation: gr-slide-back .28s cubic-bezier(0.22,1,0.36,1) both; }
+.gr-tab-in    { animation: gr-tab-in .26s cubic-bezier(0.22,1,0.36,1) both; }
+.gr-bar-in    { animation: gr-bar-in .26s cubic-bezier(0.22,1,0.36,1) both; }
+.gr-emptybadge{ animation: gr-emptyfloat 3.6s ease-in-out infinite; will-change: transform; }  /* floating empty‑state badge (§ Empty States); auto‑off under prefers‑reduced‑motion */
+
+/* Live "pulsing dot" (1.10) — a small status dot that breathes a blue halo. Used by
+   the Live View table + group-header live-activity line (rep en_route / on_site) and
+   the Orchestration "Active" plan badge. Auto-stilled by the reduced-motion rule below. */
+@keyframes gr-livedot { 0% { box-shadow: 0 0 0 0 var(--p-pulse); } 70% { box-shadow: 0 0 0 4px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+.gr-livedot { animation: gr-livedot 1.8s ease-out infinite; }
+
+/* Echo Pulse — branded post-auth loading mark: raven + expanding intelligence-gradient rings. */
+.echo-pulse { --ep-size: 92px; --ep-ring: 150px; --ep-speed: 2.4s; position: relative; display: inline-flex; align-items: center; justify-content: center; }
+.echo-pulse img { display: block; width: var(--ep-size); height: auto; position: relative; z-index: 1; user-select: none; }
+.echo-pulse::before,
+.echo-pulse::after {
+  content: ''; position: absolute; top: 50%; left: 50%;
+  width: var(--ep-ring); height: var(--ep-ring);
+  margin: calc(var(--ep-ring) / -2) 0 0 calc(var(--ep-ring) / -2);
+  border-radius: 50%; opacity: 0;
+  background: conic-gradient(from -90deg, #1861AF 0deg, #4338CA 130deg, #BE185D 250deg, #4338CA 310deg, #1861AF 360deg);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 2px), #000 calc(100% - 2px));
+          mask: radial-gradient(farthest-side, #0000 calc(100% - 2px), #000 calc(100% - 2px));
+  animation: ep-echo var(--ep-speed) ease-out infinite;
+}
+/* dark: the half-step rose arc (1.11.3) */
+html[data-theme="dark"] .echo-pulse::before,
+html[data-theme="dark"] .echo-pulse::after {
+  background: conic-gradient(from -90deg, #9FB6D4 0deg, #929ADB 130deg, #D38AAD 250deg, #929ADB 310deg, #9FB6D4 360deg);
+}
+.echo-pulse::after { animation-delay: calc(var(--ep-speed) / -2); }
+@keyframes ep-echo { 0% { transform: scale(.55); opacity: .55; } 80% { opacity: 0; } 100% { transform: scale(1.9); opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  .echo-pulse::before, .echo-pulse::after { animation: none !important; opacity: 0 !important; }
+}
+
+
+/* ---- reference-page chrome (token-driven, so the switcher re-themes it) ---- */
+.ref-wrap { max-width: 1080px; margin: 0 auto; padding: 40px 28px 80px; }
+.ref-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.ref-eyebrow { font: 500 11px/1 var(--font-control); letter-spacing: .09em; text-transform: uppercase; color: var(--p-muted); }
+.ref-h1 { font: var(--tw-h1) var(--tz-h1)/1.2 var(--font-h1); letter-spacing: -.03em; color: var(--p-ink); margin: 6px 0 4px; }
+.ref-sub { font: 400 var(--tz-sub)/1.5 var(--font-sans); color: var(--p-muted); margin: 0; max-width: 70ch; }
+.ref-switch { display: inline-flex; gap: 6px; }
+.ref-switch button { height: 30px; padding: 0 14px; border-radius: var(--r-ctl); border: 1px solid var(--p-border-strong); background: var(--p-surface); color: var(--p-text-2); font: 500 11px/1 var(--font-control); letter-spacing: .05em; text-transform: uppercase; cursor: pointer; }
+.ref-switch button.on { border-color: var(--p-primary); color: var(--p-primary); background: var(--p-primary-tint); }
+.ref-sec { margin-top: 46px; }
+.ref-sec > h2 { font: 600 18px/1.25 var(--font-display); letter-spacing: -.02em; color: var(--p-ink); margin: 0 0 4px; }
+.ref-sec > .note { font: 400 13px/1.55 var(--font-sans); color: var(--p-muted); margin: 0 0 16px; max-width: 82ch; }
+.law { border-left: 2px solid var(--p-primary); padding: 10px 14px; margin: 10px 0; background: var(--p-surface); border-radius: 0 var(--r-card) var(--r-card) 0; font: 400 13px/1.55 var(--font-sans); color: var(--p-text); }
+.law b { color: var(--p-ink); }
+.swrow { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+.sw { width: 118px; }
+.sw .chipbox { height: 44px; border-radius: var(--r-card); border: var(--hair) solid var(--p-border); }
+.sw .nm { font: 500 10px/1.4 var(--font-control); color: var(--p-text-2); margin-top: 5px; letter-spacing: .02em; }
+.sw .vx { font: 400 10px/1.3 var(--font-mono); color: var(--p-placeholder); }
+.tt { width: 100%; border-collapse: collapse; margin: 10px 0; font: 400 13px/1.5 var(--font-sans); }
+.tt th { text-align: left; font: 500 11px/1 var(--font-control); letter-spacing: .07em; text-transform: uppercase; color: var(--p-muted); border-bottom: 1px solid var(--p-border); padding: 8px 12px 8px 0; }
+.tt td { padding: 8px 12px 8px 0; border-bottom: var(--hair) solid var(--p-border); vertical-align: top; color: var(--p-text); }
+.tt code, .ref-sec code { font: 400 12px var(--font-mono); background: var(--p-surface-tint); padding: 1px 5px; border-radius: var(--r-ctl); color: var(--p-text); }
+.card { background: var(--p-surface); border: var(--hair) solid var(--p-border); border-radius: var(--radius-lg); box-shadow: var(--shadow-surface); padding: 18px; margin: 12px 0; }
+.row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+/* mini component recreations */
+.btn { display: inline-flex; align-items: center; justify-content: center; height: 36px; padding: 0 20px; min-width: 88px; border-radius: var(--r-ctl); font: var(--tw-btn) var(--tz-btn)/1 var(--font-control); letter-spacing: .01em; border: 1px solid transparent; cursor: default; white-space: nowrap; }
+.b-primary { background: var(--p-action); color: var(--p-action-fg); }
+.b-secondary { background: var(--p-surface); color: var(--p-ink); border-color: var(--p-ink); }
+.b-dangeroutline { background: var(--p-surface); color: var(--p-danger); border-color: var(--p-danger); }
+.b-danger { background: var(--p-danger); color: #fff; }
+.pillx { display: inline-flex; align-items: center; padding: 2px 10px; border-radius: 999px; font: 500 12px/1.5 var(--font-sans); letter-spacing: .02em; border: var(--st-badge) solid var(--badge-stroke, currentColor); box-sizing: border-box; }
+.sbadge { display: inline-flex; align-items: center; gap: 6px; padding: 2px 10px; border-radius: 999px; font: 500 11px/1.5 var(--font-control); text-transform: uppercase; letter-spacing: .04em; }
+.sbadge .dot { width: 6px; height: 6px; border-radius: 50%; }
+.tabsx { display: inline-flex; gap: 12px; border-bottom: var(--hair) solid var(--p-border); }
+.tabx { padding: 12px 14px; margin-bottom: -1px; font: var(--tw-tab) var(--tz-tab)/1 var(--font-control); letter-spacing: -.005em; color: var(--p-text-2); border-bottom: 2px solid transparent; }
+.tabx.on { color: var(--tab-on); border-bottom-color: var(--tab-on); }
+.mini-tbl { width: 100%; border: var(--hair) solid var(--p-border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-surface); background: var(--p-surface); }
+.mini-h { display: grid; grid-template-columns: 1.6fr 1fr .7fr; column-gap: 8px; padding: 0 16px; height: 38px; align-items: center; background: var(--p-surface-alt); border-bottom: 1px solid var(--p-border); font: 500 11px/1 var(--font-control); letter-spacing: .08em; text-transform: uppercase; color: var(--p-muted); }
+.mini-r { display: grid; grid-template-columns: 1.6fr 1fr .7fr; column-gap: 8px; padding: 0 16px; height: 42px; align-items: center; font: 400 13px var(--font-cell); color: var(--p-text); }
+.mini-r:nth-child(even) { background: var(--p-row-alt); }
+.mini-r .num { font: 500 12px var(--font-mono); color: var(--p-text-2); }
+.mini-f { display: flex; align-items: center; gap: 16px; padding: 9px 16px; background: var(--p-surface-alt); border-top: var(--hair) solid var(--p-border); font: 400 11px/1 var(--font-control); color: var(--p-muted); }
+.gsab { display: inline-flex; padding: 2px 8px; border-radius: 999px; background: var(--p-genstock-tint); color: var(--p-genstock-ink); font: 600 10px/1.5 var(--font-control); letter-spacing: .05em; text-transform: uppercase; }
+.intelbar { height: 26px; border-radius: var(--r-card); background: var(--p-intel-gradient); }
+.ref-foot { margin-top: 56px; padding-top: 18px; border-top: var(--hair) solid var(--p-border); font: 400 12px/1.7 var(--font-sans); color: var(--p-muted); }
+body { margin: 0; background: var(--p-shell); color: var(--p-ink); font: 400 14px var(--font-sans); -webkit-font-smoothing: antialiased; }
+
+</style></head><body>
+<div class="ref-wrap">
+  <div class="ref-top">
+    <div>
+      <div class="ref-eyebrow">Greater Industries · Single-file reference (generated snapshot)</div>
+      <h1 class="ref-h1">Greater Design System</h1>
+      <p class="ref-sub">Portal 1.13 "Black Ops" · August 2026. The complete token sheet is embedded verbatim below this page's chrome — every swatch, type sample, and component here renders <b>live from the tokens</b> in whichever theme you pick. Canonical sources: <code>Greater Design System.md</code> (full spec), <code>ui_kits/portal/</code> (reference components), <code>preview/index.html</code> (specimen directory).</p>
+    </div>
+    <div class="ref-switch" id="sw">
+      <button data-p="light">Light</button><button data-p="dark">Dark</button><button data-p="blackops" class="on">Black Ops</button>
+    </div>
+  </div>
+
+  <div class="ref-sec"><h2>The Laws</h2>
+    <div class="law"><b>Ink-forward (1.6).</b> Primary actions &amp; active navigation are <b>ink</b> (near-black; inverts to white in dark). Blue — <code>--p-primary</code> — is reserved for links, focus, and <i>selection/state inside content</i>. In Black Ops, "blue" is the teal <code>#86EAE8</code>; the law is unchanged.</div>
+    <div class="law"><b>Humans read Inter; the machine speaks mono (1.12, litmus 1.12.2).</b> A <i>destination or descriptor a human reads</i> → Inter. A <i>control, datum, or the machine addressing the operator</i> → mono. Mono sizes land on an integer scale (10/11/12/13/14). 1.13 narrows it: page H1s are Inter via <code>--font-h1</code> (Black Ops re-monos everything except table cells — IBM Plex via <code>--font-cell</code>).</div>
+    <div class="law"><b>The Badge Vocabulary Law (1.13).</b> Stroke-outline styling is reserved for <b>category/type</b> badges (what kind of thing is this). <b>Status</b> badges (what state is it in) are always fill+dot or text-only+dot — never outlined, in any theme.</div>
+    <div class="law"><b>The Maintenance Law (1.13).</b> Components consume the skin tokens — <code>--hair</code>, <code>--r-ctl/--r-card/--r-nav</code>, <code>--tz-*/--tw-*</code>, <code>--tab-on</code>, <code>--badge-fill/--st-badge</code> — never shape/type literals. A hardcoded <code>2px</code> or <code>"Inter"</code> silently refuses to reshape under a skin.</div>
+    <div class="law"><b>Amber = unsaved edit · Red = real-world conflict (1.8).</b> Yellow is the search-highlight only (1.7). Zebra stripes are for <b>peer rows only</b>, never nested children (1.13).</div>
+  </div>
+
+  <div class="ref-sec"><h2>Themes &amp; Skins</h2>
+    <p class="note">Two axes since 1.13: a <b>theme</b> (<code>data-theme="light|dark"</code>) is the resolved token set; a <b>skin</b> (<code>data-skin="blackops"</code>) layers one token-override block on top — no component forks. <b>Black Ops is the default theme</b>: it resolves to dark and re-tunes shape (0px radii, 1px hairlines), stroke-only badges, all-mono type, and the teal selection. Selection ships as the ThemeMenu popover: Light · Dark · Black Ops · System.</p>
+    <div class="swrow"><div class="sw"><div class="chipbox" style="background:var(--p-shell)"></div><div class="nm">shell</div><div class="vx">--p-shell</div></div><div class="sw"><div class="chipbox" style="background:var(--p-surface)"></div><div class="nm">surface</div><div class="vx">--p-surface</div></div><div class="sw"><div class="chipbox" style="background:var(--p-surface-nav)"></div><div class="nm">surface-nav</div><div class="vx">--p-surface-nav</div></div><div class="sw"><div class="chipbox" style="background:var(--p-surface-alt)"></div><div class="nm">surface-alt</div><div class="vx">--p-surface-alt</div></div><div class="sw"><div class="chipbox" style="background:var(--p-surface-tint)"></div><div class="nm">surface-tint</div><div class="vx">--p-surface-tint</div></div><div class="sw"><div class="chipbox" style="background:var(--p-row-alt)"></div><div class="nm">row-alt (zebra)</div><div class="vx">--p-row-alt</div></div><div class="sw"><div class="chipbox" style="background:var(--p-border)"></div><div class="nm">border</div><div class="vx">--p-border</div></div><div class="sw"><div class="chipbox" style="background:var(--p-border-strong)"></div><div class="nm">border-strong</div><div class="vx">--p-border-strong</div></div></div>
+    <div class="swrow"><div class="sw"><div class="chipbox" style="background:var(--p-primary)"></div><div class="nm">primary</div><div class="vx">--p-primary</div></div><div class="sw"><div class="chipbox" style="background:var(--p-primary-hover)"></div><div class="nm">primary-hover</div><div class="vx">--p-primary-hover</div></div><div class="sw"><div class="chipbox" style="background:var(--p-action)"></div><div class="nm">action</div><div class="vx">--p-action</div></div><div class="sw"><div class="chipbox" style="background:var(--p-action-fg)"></div><div class="nm">action-fg</div><div class="vx">--p-action-fg</div></div><div class="sw"><div class="chipbox" style="background:var(--p-success)"></div><div class="nm">success</div><div class="vx">--p-success</div></div><div class="sw"><div class="chipbox" style="background:var(--p-warning)"></div><div class="nm">warning</div><div class="vx">--p-warning</div></div><div class="sw"><div class="chipbox" style="background:var(--p-danger)"></div><div class="nm">danger</div><div class="vx">--p-danger</div></div><div class="sw"><div class="chipbox" style="background:var(--p-genstock)"></div><div class="nm">genstock</div><div class="vx">--p-genstock</div></div></div>
+    <p class="note" style="margin-top:6px">Primary by theme: light <code>#1861AF</code> dusty navy · dark <code>#A8BFDC</code> steel (re-tuned 1.13; was <code>#ADBDD1</code>) · Black Ops <code>#86EAE8</code> teal (promoted from pal-6; pal-6 re-slotted to apricot so teal reads only as selection).</p>
+  </div>
+
+  <div class="ref-sec"><h2>The Badge Ramp &amp; Intelligence</h2>
+    <div class="swrow"><div class="sw"><div class="chipbox" style="background:color-mix(in oklab, var(--p-pal-1) 15%, transparent);display:flex;align-items:center;justify-content:center"><span style="font:600 12px var(--font-sans);color:var(--p-pal-1)">pal-1</span></div><div class="nm">--p-pal-1</div></div><div class="sw"><div class="chipbox" style="background:color-mix(in oklab, var(--p-pal-2) 15%, transparent);display:flex;align-items:center;justify-content:center"><span style="font:600 12px var(--font-sans);color:var(--p-pal-2)">pal-2</span></div><div class="nm">--p-pal-2</div></div><div class="sw"><div class="chipbox" style="background:color-mix(in oklab, var(--p-pal-3) 15%, transparent);display:flex;align-items:center;justify-content:center"><span style="font:600 12px var(--font-sans);color:var(--p-pal-3)">pal-3</span></div><div class="nm">--p-pal-3</div></div><div class="sw"><div class="chipbox" style="background:color-mix(in oklab, var(--p-pal-4) 15%, transparent);display:flex;align-items:center;justify-content:center"><span style="font:600 12px var(--font-sans);color:var(--p-pal-4)">pal-4</span></div><div class="nm">--p-pal-4</div></div><div class="sw"><div class="chipbox" style="background:color-mix(in oklab, var(--p-pal-5) 15%, transparent);display:flex;align-items:center;justify-content:center"><span style="font:600 12px var(--font-sans);color:var(--p-pal-5)">pal-5</span></div><div class="nm">--p-pal-5</div></div><div class="sw"><div class="chipbox" style="background:color-mix(in oklab, var(--p-pal-6) 15%, transparent);display:flex;align-items:center;justify-content:center"><span style="font:600 12px var(--font-sans);color:var(--p-pal-6)">pal-6</span></div><div class="nm">--p-pal-6</div></div><div class="sw"><div class="chipbox" style="background:color-mix(in oklab, var(--p-pal-7) 15%, transparent);display:flex;align-items:center;justify-content:center"><span style="font:600 12px var(--font-sans);color:var(--p-pal-7)">pal-7</span></div><div class="nm">--p-pal-7</div></div><div class="sw"><div class="chipbox" style="background:color-mix(in oklab, var(--p-pal-8) 15%, transparent);display:flex;align-items:center;justify-content:center"><span style="font:600 12px var(--font-sans);color:var(--p-pal-8)">pal-8</span></div><div class="nm">--p-pal-8</div></div><div class="sw"><div class="chipbox" style="background:color-mix(in oklab, var(--p-pal-9) 15%, transparent);display:flex;align-items:center;justify-content:center"><span style="font:600 12px var(--font-sans);color:var(--p-pal-9)">pal-9</span></div><div class="nm">--p-pal-9</div></div><div class="sw"><div class="chipbox" style="background:color-mix(in oklab, var(--p-pal-10) 15%, transparent);display:flex;align-items:center;justify-content:center"><span style="font:600 12px var(--font-sans);color:var(--p-pal-10)">pal-10</span></div><div class="nm">--p-pal-10</div></div></div>
+    <div class="intelbar"></div>
+    <p class="note" style="margin-top:6px">The intelligence gradient (<code>--p-intel-gradient</code>): Dusk Rose in light (<code>#1861AF → #4338CA → #BE185D</code>), the half-step blend in dark (<code>#9FB6D4 → #929ADB → #D38AAD</code>) — the brand's one gradient, reserved for AI/intelligence affordances. The Conditions map palette is the sole vivid exemption.</p>
+  </div>
+
+  <div class="ref-sec"><h2>Typography</h2>
+    <table class="tt"><tr><th>Token</th><th>Resolves</th><th>Role</th></tr>
+      <tr><td><code>--font-sans</code></td><td>Inter (Black Ops: the mono stack)</td><td>Content humans read — names, prose, helpers, nav destinations, entity titles, content pills</td></tr>
+      <tr><td><code>--font-h1</code></td><td>→ <code>--font-sans</code></td><td>Page H1s (1.13): Inter in Light/Dark, mono in Black Ops automatically</td></tr>
+      <tr><td><code>--font-display</code></td><td>mono stack</td><td>Section titles (g-h2/h3), modal &amp; drawer titles</td></tr>
+      <tr><td><code>--font-control</code></td><td>mono stack</td><td>Everything operated + machine labels + status vocabulary</td></tr>
+      <tr><td><code>--font-mono</code></td><td>JetBrains Mono</td><td>Data cells, IDs, numerals, kbd</td></tr>
+      <tr><td><code>--font-cell</code></td><td>→ <code>--font-sans</code> (Black Ops: IBM Plex Sans)</td><td>Table-cell prose — the one all-mono exception</td></tr>
+    </table>
+    <div class="card">
+      <div class="g-h1" style="margin:0 0 6px">System title — the surface's name</div>
+      <div class="g-h1-entity" style="margin:0 0 10px">Coastal Beverage Company of the Carolinas</div>
+      <div class="g-section-title" style="margin-bottom:8px">Section title — machine label</div>
+      <p class="g-body-1" style="margin:0 0 8px">Body copy stays in the human voice. Entity names are content wherever they appear — including the H1 slot above (Inter, nowrap, ellipsis).</p>
+      <span class="g-link">Standalone links are machine directions</span>
+    </div>
+  </div>
+
+  <div class="ref-sec"><h2>Components</h2>
+    <p class="note">Static recreations rendering from the embedded tokens — flip the theme to watch the recipes work. The canonical implementations live in <code>ui_kits/portal/</code>.</p>
+    <div class="card"><div class="row">
+      <span class="btn b-primary">Save Changes</span>
+      <span class="btn b-secondary">Duplicate</span>
+      <span class="btn b-dangeroutline">Deactivate</span>
+      <span class="btn b-danger">Erase Par Levels</span>
+    </div></div>
+    <div class="card"><div class="row">
+      <span class="pillx" style="background:var(--badge-fill, var(--p-pill-beer-bg)); color:var(--p-pill-beer-fg)">Beer</span>
+      <span class="pillx" style="background:var(--badge-fill, var(--p-pill-wine-bg)); color:var(--p-pill-wine-fg)">Wine</span>
+      <span class="pillx" style="background:var(--badge-fill, color-mix(in oklab, var(--p-pal-9) 15%, transparent)); color:var(--p-pal-9)">Route 7</span>
+      <span class="gsab">General Stock Area</span>
+      <span style="width:14px"></span>
+      <span class="sbadge" style="background:var(--p-success-bg); color:var(--p-success-fg)"><span class="dot" style="background:var(--p-success)"></span>Active</span>
+      <span class="sbadge" style="background:var(--p-atrisk-bg); color:var(--p-atrisk-fg)"><span class="dot" style="background:var(--p-atrisk-fg)"></span>At Risk</span>
+      <span class="sbadge" style="background:var(--g-red-10); color:var(--p-danger-strong)"><span class="dot" style="background:var(--p-danger)"></span>Incomplete</span>
+      <span style="width:14px"></span>
+      <span style="font:500 11px var(--font-mono); color:var(--p-success)">+12</span>
+      <span style="font:500 11px var(--font-mono); color:var(--p-danger)">−3</span>
+    </div>
+    <p class="note" style="margin:12px 0 0">Left of the gap: <b>category/type</b> badges — tinted fills in Light/Dark, stroke-only under Black Ops (the recipe: <code>var(--badge-fill, tint)</code> + <code>var(--st-badge) solid var(--badge-stroke, currentColor)</code>). Right: <b>status</b> badges keep fill+dot in every theme, and count deltas are bare mono text (1.13).</p></div>
+    <div class="card">
+      <div class="tabsx"><span class="tabx on">Active</span><span class="tabx">Drafts</span><span class="tabx">Archived</span></div>
+      <p class="note" style="margin:10px 0 0">Selected tabs speak <code>--tab-on</code> — ink by default (the 1.6 law), teal under Black Ops.</p>
+    </div>
+    <div class="mini-tbl">
+      <div class="mini-h"><span>Product</span><span>Account</span><span style="text-align:right">In Market</span></div>
+      <div class="mini-r"><span>Estrella Damm Lager</span><span>Midtown Grocery</span><span class="num" style="text-align:right">214</span></div>
+      <div class="mini-r"><span>Ravenswood Zinfandel</span><span>D'Amica's Corner Store</span><span class="num" style="text-align:right">88</span></div>
+      <div class="mini-r"><span>Tito's Handmade Vodka</span><span>Harbor Point Bar</span><span class="num" style="text-align:right">142</span></div>
+      <div class="mini-f">Showing <b style="color:var(--p-text);font-weight:600">1–3</b>&nbsp;of&nbsp;<b style="color:var(--p-text);font-weight:600">3,600</b>&nbsp;accounts</div>
+    </div>
+    <p class="note" style="margin-top:8px">Tables 2.0 (1.13): content-hugging subgrid templates, the 8px gap standard, zebra rows (<code>--p-row-alt</code>) instead of dividers, machine-speak mono footers. Under Black Ops the cells above re-humanize to IBM Plex via <code>--font-cell</code>.</p>
+  </div>
+
+  <div class="ref-sec"><h2>Version history (recent)</h2>
+    <table class="tt">
+      <tr><td><b>1.13 "Black Ops"</b></td><td>Theme skins (+ Black Ops as default), teal selection, stroke-only category badges, subgrid Tables 2.0 + zebra, General Stock 2.0 ("Par Level", <code>inventory_2</code>), ThemeMenu, dark primary → <code>#A8BFDC</code>, The Oracle</td></tr>
+      <tr><td><b>1.12 "Cockpit"</b> (+.1/.2)</td><td>Humans read Inter / machine speaks mono; integer type scale; the litmus test; two-tier titles (<code>.g-h1-entity</code>); mono text links</td></tr>
+      <tr><td><b>1.11 "Dusk"</b> (+.2/.3)</td><td>Dark-first; dusty palette (<code>#1861AF</code>/steel); pal-ramp; squared radii + hairlines; JetBrains Mono; dusted intelligence gradient</td></tr>
+      <tr><td><b>1.10</b></td><td>Live View archetype, most-severe aggregation, Expected Impact, DataTable/RowKebab/Tooltip overlays, capability-per-child nav</td></tr>
+    </table>
+  </div>
+
+  <div class="ref-foot">
+    <b>Generated snapshot</b> — regenerate from the repo when tokens change (the token sheet above is embedded verbatim from <code>colors_and_type.css</code> at Portal 1.13). Full spec: <code>Greater Design System.md</code> · live components: <code>ui_kits/portal/index.html</code> · specimen directory: <code>preview/index.html</code>. Web fonts load from Google Fonts; offline, system stacks substitute.
+  </div>
+</div>
+<script>
+(function(){
+  var sw = document.getElementById('sw');
+  sw.addEventListener('click', function(e){
+    var b = e.target.closest('button'); if (!b) return;
+    var p = b.dataset.p;
+    document.documentElement.setAttribute('data-theme', p === 'light' ? 'light' : 'dark');
+    if (p === 'blackops') document.documentElement.setAttribute('data-skin','blackops');
+    else document.documentElement.removeAttribute('data-skin');
+    sw.querySelectorAll('button').forEach(function(x){ x.classList.toggle('on', x === b); });
+  });
+})();
+</script>
+</body></html>

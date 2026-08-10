@@ -6,6 +6,14 @@ This repository is our **shared design system** — the single source of truth f
 
 **Read [`Greater Design System.md`](./Greater%20Design%20System.md) first — it is the source of truth.** Treat it as authoritative for tokens, components, patterns, and voice before doing any design or implementation work.
 
+## Viewing the system
+
+Three HTML entry points, all current at the repo's head version:
+
+- **[`Greater-Design-System-Reference.html`](./Greater-Design-System-Reference.html)** — the shareable **one-file overview**: laws, themes/skins, tokens, type, and component recreations, with a live Light / Dark / Black Ops switcher. A *generated snapshot* (the token sheet is embedded verbatim) — regenerate it whenever tokens change.
+- **[`ui_kits/portal/index.html`](./ui_kits/portal/index.html)** — the **interactive UI Kit**: the real reference components running live (App Shell, screens, tables, ThemeMenu). Needs internet for CDN React/fonts.
+- **[`preview/index.html`](./preview/index.html)** — the **specimen directory**: all 53 token-driven component/foundation pages, grouped, with a theme switcher.
+
 **Before creating any new component, review this design system first.** Most needs are already covered by existing components, tokens, and patterns. Only build something new once you've confirmed an existing component can't be used or extended — a new component should be the exception, not the default.
 
 ## What's here
