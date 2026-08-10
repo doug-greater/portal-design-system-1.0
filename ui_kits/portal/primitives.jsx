@@ -407,7 +407,7 @@ function FilterChip({ icon = 'filter_list', label, count, active, onClick }) {
       <Icon name={icon} size={12} color={active ? 'var(--p-primary)' : 'var(--p-muted)'} />
       {label}
       {count != null && (
-        <span style={{ background: active ? 'var(--p-primary-soft)' : 'var(--g-off-white)', color: active ? 'var(--p-primary)' : 'var(--p-muted)', padding: '1px 6px', borderRadius: 999, font: '500 11px var(--font-control)', marginLeft: 2 }}>{count}</span>
+        <span style={{ background: active ? 'var(--p-primary-soft)' : 'var(--p-surface-tint)', color: active ? 'var(--p-primary)' : 'var(--p-muted)', padding: '1px 6px', borderRadius: 999, font: '500 11px var(--font-control)', marginLeft: 2 }}>{count}</span>
       )}
       <Icon name="expand_more" size={14} color={active ? 'var(--p-primary)' : 'var(--p-muted)'} />
     </button>
@@ -436,7 +436,7 @@ function SegmentedTabs({ value, onChange, items }) {
               <span style={{
                 font: '500 11px var(--font-control)',
                 color: on ? 'var(--p-text)' : 'var(--p-muted)',
-                background: on ? 'var(--p-surface-tint)' : 'var(--g-off-white)',
+                background: on ? 'var(--p-surface-tint)' : 'var(--p-surface-tint)',
                 padding: '1px 6px', borderRadius: 999,
               }}>{it.count}</span>
             )}

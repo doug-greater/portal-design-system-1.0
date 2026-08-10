@@ -46,6 +46,7 @@
    - **New in 1.9 (Home + shareable URLs + anchor navigation):** **AppLink** — navigation renders a real `<a href>` (open-in-new-tab / ⌘-click) while routing plain clicks through the NavGuard; the **anchor-navigation law** (§9 / §12 / §15) · **stretched-link rows** for clickable table rows (§9 Tables) · `BackLink` gains `to`; external links are real `<a target=_blank>` · **URL filter-state** (`urlFilters.js`) is the single source of truth, relative presets persist as a key *[supersedes `sessionStorage`/`filterPersist`]* (§ Deep-linking / State & URLs) · **Saved Views** + `SaveViewButton` (§9) · **Home dashboard** — role-gated drag-orderable Health Stat Cards + a Saved-Views grid + the Crow Fact easter egg (§9 / §12) · **Login → single page** *[supersedes the 1.5 two-step]* (§9) · App Shell nav **collapsed-by-default + auto-expand-active + animated** (grid-rows + stagger), landing item **Home** (`home`) (§8 / §9 / §10) · role-gating keys off **real role ids** (§15)
    - **New in 1.11 "Dusk" (dark-first · dusty palette · sharp corners · JetBrains Mono):** **dark is the default theme** — first-run pref = `dark`, previews bootstrap dark, docs author dark-first (§3 Theming) · **Dusk palette** — primary `#007CFF/#3B82F6 → #1861AF/#ADBDD1` (light link contrast 3.9→6.3:1; dark selection goes quiet steel), feedback trio dusted in both modes, all derived tints/focus rings/`::selection`/live-pulse re-based (§3) · the **`--p-pal-1…10` badge ramp** ported from the app — one fg per slot + computed 15% `color-mix` tints; role/category pill pairs are now pal-derived compat aliases; **dusty dark variants** incl. reserved slots 7–10; dark genstock aligns to pal-1 (§3 / §9 Role Pills) · **deepened dark neutrals** (near-black shell `#0F0F0F` → nav `#131316` → surface `#161618` → surface-alt `#202022`; ink stays off-white `#F2F2F4`; new `--p-surface-nav` token — the sidebar recedes a step below content) (§3) · **radii squared** — controls 4→**1px**, cards/menus/floats 6–10→**2px**, pills stay round (§6) · **0.5px hairline strokes** on fields/cards/tables + **×0.25 light shadows** (§6/§7) · **JetBrains Mono** replaces Geist Mono (self-hosted variable woff2) (§4 / `fonts/`) · page title **28px** (`--fs-28`) (§4) · **exempt by design:** the Conditions map palette (legibility) and the Intelligence gradient (brand moment) stay vivid · hardcoded old blues swept portal-wide (`BRAND_BLUE`, Toggle/Checkbox, `.g-link` dot, live-map pins, `gr-livedot` → `--p-pulse`)
    - **New in 1.12 "Cockpit" (typography — humans read Inter, the machine speaks mono):** JetBrains Mono expands from data into **titles** (`.g-h1/h2/h3`, modal/drawer titles — new `--font-display`) and **everything the user operates + machine labels + status vocabulary** (buttons, inputs, selects, filter chips, tabs, menus, pagination, table headers, stat labels, section titles/overlines, badges, toasts, liveness chips — new `--font-control`); both tokens are semantic aliases of the mono stack (§4). **Inter deliberately survives** for content humans read: account/product names, prose, helper copy, nav destinations, category/role pills, the Home greeting. **Status badges go UPPERCASE mono**; buttons keep **Title Case**; mono sizes land on an **integer scale** — 10 · 11 · 12 · 13 (no fractional sizes; caps labels used for scanning sit at 11+ for field/phone use). Config locked from the approved Cockpit mock: no route line, Title Case controls. Kit + flagship previews updated; remaining preview pages sweep as touched.
+   - **New in 1.13.1 (legacy gray retirement):** the Figma-era `--g-*` gray ramp (`--g-black/dark-gray/medium-gray/light-gray/off-white/white`) and the `--g-black-100/-25/-10/-05` transparency ladder are **deleted** — they were pure aliases of the ink-forward ramp with zero app usage; the DS's 16 consumers re-pointed to `--p-muted` / `--p-text-2` / `--p-surface-tint` / literal `#FFFFFF` (§3 Neutrals tombstone has the full translation table).
    - **New in 1.13 "Black Ops" (theme skins · governed subgrid tables · General Stock 2.0):** a second theming axis — **`data-skin`** layers a token-override block on a resolved `data-theme`, no component forks; the **skin-token contract** (`--hair`, `--r-ctl/card/nav/tgl(-knob)`, `--st-badge`, `--badge-fill/stroke`, `--tab-on`, `--font-cell`, `--font-h1`, `--tz-*/--tw-*`) with defaults equal to the old literals + THE MAINTENANCE LAW: new components consume the tokens, never shape/type literals (§3 Theming / §6) · first skin **Black Ops** — near-black ops console (teal selection `#86EAE8` promoted from pal-6, which re-slots to apricot; pastel stroke-only category badges; 0px radii + 1px hairlines; all-mono type with **IBM Plex Sans table cells**; ALL-CAPS parent/util nav with teal selection rows; 22/700 H1) — **and it is the DEFAULT THEME** (supersedes 1.11 "dark default") · **ThemeMenu popover** (`row/rail/iconbtn/login` variants) supersedes the 1.5 cycle toggle · **dark primary re-tuned `#ADBDD1` → `#A8BFDC`** (§3) · **the Badge Vocabulary Law** — outlines are for **category/type** badges only; **status** badges are always fill+dot or text-only+dot; count/delta chips go bare; new `ServicePill` (name-hash → pal slot) (§9 Pills / Status Badge) · **Tables 2.0** — content-hugging **CSS subgrid** templates (`minmax(max-content,1fr)`), the **8px gap standard**, **zebra rows** (`--p-row-alt` + `.g-zebra`, peer rows only), row dividers removed, `contain:inline-size` law for spanning items, `DataTableFooter trailing`, all footers via the shared component (§9 Tables) · **General Stock Areas 2.0** — a GSA may hold an **optional pinned, sequenced product list**; pars/Display never apply; non-destructive conversion + "Erase par levels?" confirm; glyph `inventory_2`; **"Capacity" renames to "Par Level"**; per-theme violet `--p-genstock` ramp (§9 Arrangement Board) · **maps** — dark-tile contrast filter; selection colors follow `--p-primary` (JS geometry resolves computed values, rebuilds keyed on `skin`); popups stay hardcoded light-navy by design (§9 Maps) · **The Oracle** — the Insights assistant renamed; bare crow marks, full-width responses, hairline composer (§9) · plus `--font-h1` (H1 re-humanized to Inter outside Black Ops), FilterMenu **`numrange`**, grouped `Select` headers, `dangerOutline` renames `warning`, danger-interaction tokens, greeting drops the vocative comma
    - **New in 1.12.2 (Cockpit typography clarifications — post-port, from real usage; adds the litmus test):** *is it a **destination/descriptor** a human reads → Inter; a **control, datum, or the machine addressing the operator** → mono* — with four corollaries: navigation is a **role, not a location**; page title is a **role, not a literal**; **an entity's name is content wherever it appears**; machine **speech** is mono at any length but machine **documents** are content (§4). Concretely: **Filter Menu** rail/pane-header/value rows = Inter, its trigger/overlines/counts/Select-all/footer = mono (§9 Filter Menu) · the **Home greeting reverses to mono** (`.g-h1` — it's the page title AND the machine speaking; supersedes the 1.12 Inter exception) · **two-tier titles** — new **`.g-h1-entity`** (Inter 700 28/1.1, nowrap+ellipsis) for H1s holding a *record's* name; `.g-h1` mono = system surface (§4) · **text links go mono** (`.g-link`, `BackLink`, action links — machine directions; in-sentence `.g-textlink` keeps its sentence's voice) · **content pills stay Inter Title Case** vs UPPERCASE-mono status badges — the discriminator is *vocabulary*, not shape · **`.g-body-1` 16 → 15px** (pairing under the 26px mono H1; integer rule is mono-only, odd Inter sizes fine) · **`SegmentedTabs` 13 → 600 14px mono** (scale gains a 14 step) · **split-button labels never wrap** (`white-space: nowrap`) · **conversational surfaces**: assistant reply prose = mono `14/1.7`, user bubbles = Inter, and in conversational inputs *the typed value renders in the voice of its author* (mono placeholder → Inter as you type; general form inputs unaffected).
    - **New in 1.11.3 (Intelligence gradient dusted — supersedes the 1.11 "vivid" exemption):** the gradient joins Dusk. **Light = "Dusk Rose"** `#1861AF → #4338CA → #BE185D` (primary navy → pal-9 indigo → pal-7 magenta — all existing token values); **dark = the "half-step"** `#9FB6D4 → #929ADB → #D38AAD` (the rose arc at 30% vivid — fully-dusty stops read too flat on the quiet chrome; these bespoke blends are the sanctioned middle). Applies to `--p-intel-gradient` / `--p-intel-start/mid/end` / `--p-intel-tint` (both modes) and the **Echo Pulse** conic rings (dark variant added). **`#007CFF` is now fully retired.** The Conditions map palette remains the sole vivid exemption.
@@ -98,25 +99,9 @@ The portal is information-dense — big data tables, filter chips, stat cards, c
 
 ### Neutrals — the ink-forward ramp
 
-There is **one** neutral ramp: the Portal ink-forward ramp. Use the `--p-*` names directly. The legacy `--g-*` neutral tokens are kept only as **aliases** of it, so older usages resolve to ink:
+There is **one** neutral ramp: the Portal ink-forward ramp. Use the `--p-*` names directly.
 
-| Alias | Resolves to |
-|---|---|
-| `--g-black` | `--p-ink` |
-| `--g-dark-gray` | `--p-text-2` |
-| `--g-medium-gray` | `--p-muted` |
-| `--g-light-gray` | `--p-border-strong` |
-| `--g-off-white` | `--p-surface-tint` |
-| `--g-white` | `#FFFFFF` (constant — inverted foreground) |
-
-### Foundation Transparency Ladder (overlays on black)
-
-| Token | Value | Role |
-|---|---|---|
-| `--g-black-100` | `rgba(0,0,0,1)` | Full opacity |
-| `--g-black-25` | `rgba(0,0,0,.25)` | Inactive buttons |
-| `--g-black-10` | `rgba(0,0,0,.10)` | Label-tag backgrounds |
-| `--g-black-05` | `rgba(0,0,0,.05)` | Selected row backgrounds |
+> **RETIRED (1.13.1) — the legacy `--g-*` gray ramp + the black transparency ladder.** The Figma-era grays had long been pure aliases of the ink ramp; an audit found the app used them **nowhere** and the DS in only 16 sites (six type classes, two kit count-pills, five specimens), so consumers were re-pointed and the tokens deleted — pixel-identical by construction. If you find one in old code or docs, translate: `--g-black` → `--p-ink` · `--g-dark-gray` → `--p-text-2` · `--g-medium-gray` → `--p-muted` · `--g-light-gray` → `--p-border-strong` · `--g-off-white` → `--p-surface-tint` · `--g-white` → `#FFFFFF` (true-white-on-color) · `--g-black-100/-25/-10/-05` → deleted (nearest modern: `--p-overlay-hover`, `--p-backdrop`).
 
 ### Tinted Surfaces (25% / 10% / 5% of accent over white)
 
@@ -242,7 +227,7 @@ Concept accent for the Store-Layout **"General Stock Area"** section type only. 
 --fg-link: var(--p-primary)   /* links / focus / selection stay blue */
 --action: var(--p-action)     /* commitment & active-nav (ink-forward) */
 --action-fg: var(--p-action-fg)
---fg-invert: var(--g-white)
+--fg-invert: #FFFFFF   /* TRUE WHITE on colored fills (was --g-white, retired 1.13.1) */
 
 --bg-1: var(--p-surface)
 --bg-2: var(--p-surface-alt)
@@ -387,13 +372,13 @@ A near-black **"ops console"**, born from the Theme Lab export and iterated via 
 | `.g-h2` | **Mono Semibold 18 / 1.25, ls −0.02em** (1.12) | Compact page title |
 | `.g-h3` | **Mono Medium 17 / 1.35, ls −0.01em** (1.12) | Secondary heading, sign-in heading |
 | `.g-section-title` | **Mono Medium 12 UPPERCASE, ls +0.07em, muted** (1.12) | Section title, column header |
-| `.g-subtitle-1` | **Mono Medium 12 UPPERCASE, ls +0.06em, medium-gray** (1.12) | Subtitle under H1 |
-| `.g-subtitle-2` | Inter Regular 11 / 1.3, medium-gray | Fine print / legal (prose — stays Inter) |
+| `.g-subtitle-1` | **Mono Medium 12 UPPERCASE, ls +0.06em, `--p-muted`** (1.12) | Subtitle under H1 |
+| `.g-subtitle-2` | Inter Regular 11 / 1.3, `--p-muted` | Fine print / legal (prose — stays Inter) |
 | `.g-body-1` | Inter Regular **15** / 1.4 (16 → 15, 1.12.2) | Standard page & table content / page subtitle |
 | `.g-body-2` | Inter Bold 16 / 1.4 | Emphasized body |
-| `.g-body-3` | Inter Regular 16 / 1.4, medium-gray | Subdued body |
+| `.g-body-3` | Inter Regular 16 / 1.4, `--p-muted` | Subdued body |
 | `.g-body-4` | Inter Regular 16 / 1.4, ls +0.025em | Toggle descriptions |
-| `.g-overline` | **Mono Regular 11 UPPERCASE, ls +0.06em, dark-gray** (1.12) | Overline labels |
+| `.g-overline` | **Mono Regular 11 UPPERCASE, ls +0.06em, `--p-text-2`** (1.12) | Overline labels |
 | `.g-overline-tag` | As overline, on soft-gray pill | Overline on soft-gray pill |
 | `.g-link` | **Mono Medium, primary blue** (1.12.2 — links are machine directions), no underline (dotted baseline; hover color) | Standalone text hyperlinks / action links |
 | `.g-textlink` | Inter Medium 14, primary blue, button-as-link (no border/bg), underline on hover | Inline links **inside sentences** — they follow the sentence's voice (stays Inter, 1.12.2) |
@@ -1076,9 +1061,9 @@ color: #1861AF;
 
 **Inactive count badge:**
 ```css
-background: var(--g-off-white);
+background: var(--p-surface-tint);   /* was --g-off-white (retired 1.13.1) */
 color: var(--p-muted);
-font: 500 11px Geist Mono, monospace;
+font: 500 11px var(--font-control);
 padding: 1px 6px;
 border-radius: 999px;
 ```
@@ -3020,19 +3005,8 @@ All tokens are defined in `colors_and_type.css`. Load it first, then optionally 
 
 ```css
 :root {
-  /* Neutrals — alias the ink-forward ramp (no separate gray scale) */
-  --g-black: var(--p-ink);
-  --g-dark-gray: var(--p-text-2);
-  --g-medium-gray: var(--p-muted);
-  --g-light-gray: var(--p-border-strong);
-  --g-off-white: var(--p-surface-tint);
-  --g-white: #FFFFFF;
-
-  /* Transparency ladder — subtle overlays */
-  --g-black-100: rgba(0,0,0,1);
-  --g-black-25: rgba(0,0,0,.25);
-  --g-black-10: rgba(0,0,0,.10);
-  --g-black-05: rgba(0,0,0,.05);
+  /* Legacy --g-* gray ramp + black transparency ladder: RETIRED 1.13.1
+     (see the §3 Neutrals tombstone for the translation table) */
 
   /* Accent tints */
   --g-blue-25: rgba(24,97,175,.25);
@@ -3157,7 +3131,7 @@ All tokens are defined in `colors_and_type.css`. Load it first, then optionally 
   --fg-3: var(--p-muted);
   --fg-4: var(--p-placeholder);
   --fg-link: var(--p-primary);
-  --fg-invert: var(--g-white);
+  --fg-invert: #FFFFFF;   /* true white on colored fills (was --g-white, retired 1.13.1) */
 
   --bg-1: var(--p-surface);
   --bg-2: var(--p-surface-alt);
