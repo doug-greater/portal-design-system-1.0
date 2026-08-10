@@ -1,0 +1,140 @@
+<!doctype html><html><head><meta charset="utf-8">
+<script>/* blackops-first (1.13): stored pref wins; no pref = blackops = dark + data-skin */(function(){var t=null;try{t=localStorage.getItem('gr-theme')}catch(e){}if(t==='blackops-variant')t='blackops';var p=(t==='light'||t==='dark'||t==='system'||t==='blackops')?t:'blackops';var d=p==='light'?'light':p==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):'dark';document.documentElement.setAttribute('data-theme',d);if(p==='blackops')document.documentElement.setAttribute('data-skin','blackops');})()</script>
+<title>Greater Design System — Specimen Index</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<link rel="stylesheet" href="../fonts/fonts.css">
+<style>
+body { margin: 0; padding: 32px 40px 64px; background: var(--p-shell); font: 400 14px var(--font-sans); color: var(--p-ink); }
+.wrap { max-width: 1180px; margin: 0 auto; }
+h1 { font: var(--tw-h1) var(--tz-h1)/1.25 var(--font-h1); letter-spacing: -.03em; margin: 0; color: var(--p-ink); }
+.sub { margin: 6px 0 0; font: 400 var(--tz-sub)/1.4 var(--font-sans); color: var(--p-muted); }
+.toolbar { display: flex; align-items: center; gap: 8px; margin-top: 18px; }
+.tbtn { height: 28px; padding: 0 12px; border-radius: var(--r-ctl); border: 1px solid var(--p-border-strong); background: var(--p-surface); color: var(--p-text-2); font: 500 11px/1 var(--font-control); letter-spacing: .04em; text-transform: uppercase; cursor: pointer; }
+.tbtn.on { border-color: var(--p-primary); color: var(--p-primary); background: var(--p-primary-tint); }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 14px; margin-top: 16px; }
+.sec { margin-top: 34px; }
+.sec > .lbl { font: 500 11px/1 var(--font-control); letter-spacing: .08em; text-transform: uppercase; color: var(--p-muted); border-bottom: 1px solid var(--p-border); padding-bottom: 8px; }
+a.card { display: block; padding: 12px 14px; background: var(--p-surface); border: var(--hair) solid var(--p-border); border-radius: var(--r-card); box-shadow: var(--shadow-card); text-decoration: none; color: inherit; transition: border-color .12s; }
+a.card:hover { border-color: var(--p-border-strong); background: var(--p-surface-alt); }
+a.card .nm { font: 600 13px/1.3 var(--font-sans); color: var(--p-ink); }
+a.card .ds { font: 400 12px/1.45 var(--font-sans); color: var(--p-muted); margin-top: 3px; }
+a.card code { font: 400 10px var(--font-mono); color: var(--p-placeholder); }
+.foot { margin-top: 44px; padding-top: 16px; border-top: var(--hair) solid var(--p-border); font: 400 12px/1.6 var(--font-sans); color: var(--p-muted); max-width: 860px; }
+.foot a { color: var(--p-primary); font-family: var(--font-control); font-weight: 500; text-decoration: none; }
+</style></head>
+<body>
+<div class="wrap">
+  <h1>Design System — Specimen Index</h1>
+  <p class="sub">One page per component or foundation, all token-driven — every specimen renders live from <code style="font-family:var(--font-mono);font-size:12px">colors_and_type.css</code> in whichever theme you pick here.</p>
+  <div class="toolbar" id="themebar">
+    <button class="tbtn" data-pref="light">Light</button>
+    <button class="tbtn" data-pref="dark">Dark</button>
+    <button class="tbtn" data-pref="blackops">Black Ops</button>
+  </div>
+
+  <div class="sec"><div class="lbl">Brand</div><div class="grid">
+    <a class="card" href="brand-logo.html"><div class="nm">Logo &amp; Crow</div><div class="ds">Wordmark, crow mark, KO variants, clear space</div></a>
+    <a class="card" href="brand-iconography.html"><div class="nm">Iconography</div><div class="ds">Material Symbols Sharp — sizes, grades, entity canon</div></a>
+    <a class="card" href="brand-maps.html"><div class="nm">Maps</div><div class="ds">Basemap treatment, pins, routes, hexbins</div></a>
+  </div></div>
+
+  <div class="sec"><div class="lbl">Color</div><div class="grid">
+    <a class="card" href="colors-neutrals.html"><div class="nm">Neutrals</div><div class="ds">Ink-forward ramp, surfaces, borders</div></a>
+    <a class="card" href="colors-accents.html"><div class="nm">Accents &amp; Feedback</div><div class="ds">Primary, action, success / warning / danger</div></a>
+    <a class="card" href="colors-pills.html"><div class="nm">Badge Palette</div><div class="ds">The --p-pal-1…10 ramp + category pill pairs (1.13 stroke recipe)</div></a>
+    <a class="card" href="colors-conditions.html"><div class="nm">Inventory Conditions</div><div class="ds">The diverging map palette — the sole vivid exemption</div></a>
+    <a class="card" href="colors-intelligence.html"><div class="nm">Intelligence Gradient</div><div class="ds">Dusk Rose (light) + the half-step (dark), Echo Pulse</div></a>
+    <a class="card" href="colors-opacity.html"><div class="nm">Opacity Ladder</div><div class="ds">Foundation transparency + tinted surfaces</div></a>
+    <a class="card" href="dark-mode.html"><div class="nm">Dark Theme &amp; Skins</div><div class="ds">The dark block + the two-axis theme/skin model (1.13)</div></a>
+  </div></div>
+
+  <div class="sec"><div class="lbl">Typography</div><div class="grid">
+    <a class="card" href="type-headings.html"><div class="nm">Headings</div><div class="ds">System vs entity titles, --font-h1 (1.13)</div></a>
+    <a class="card" href="type-body.html"><div class="nm">Body</div><div class="ds">Body classes, subtitles, helpers</div></a>
+    <a class="card" href="type-mono.html"><div class="nm">Mono</div><div class="ds">Machine vocabulary — controls, labels, data, the integer scale</div></a>
+    <a class="card" href="type-voice.html"><div class="nm">Voice &amp; Copy</div><div class="ds">Casing laws, microcopy principles</div></a>
+  </div></div>
+
+  <div class="sec"><div class="lbl">Space, Shape &amp; Elevation</div><div class="grid">
+    <a class="card" href="spacing-scale.html"><div class="nm">Spacing Scale</div><div class="ds">The spacing steps</div></a>
+    <a class="card" href="spacing-radii.html"><div class="nm">Borders &amp; Radii</div><div class="ds">Squared radii + the 1.13 skin shape tokens</div></a>
+    <a class="card" href="spacing-shadows.html"><div class="nm">Elevation</div><div class="ds">Whisper-quiet shadows; dark inset-highlight strategy</div></a>
+  </div></div>
+
+  <div class="sec"><div class="lbl">Controls &amp; Inputs</div><div class="grid">
+    <a class="card" href="components-buttons.html"><div class="nm">Buttons</div><div class="ds">Primary / secondary / dangerOutline / danger / neutral / ghost</div></a>
+    <a class="card" href="components-controls.html"><div class="nm">Toggle · Checkbox · Radio</div><div class="ds">Boolean controls, skin-tunable switch shape</div></a>
+    <a class="card" href="components-inputs.html"><div class="nm">Inputs &amp; Forms</div><div class="ds">Fields, helpers, errors, soft-required amber</div></a>
+    <a class="card" href="components-datepicker.html"><div class="nm">Date Picker</div><div class="ds">Calendar, presets (incl. Yesterday, 1.13), ranges</div></a>
+    <a class="card" href="components-filters-tabs.html"><div class="nm">Filter Menu &amp; Tabs</div><div class="ds">Two-pane facets (list / search / daterange / numrange) + SegmentedTabs</div></a>
+    <a class="card" href="components-search-highlight.html"><div class="nm">Search &amp; Highlight</div><div class="ds">Query grammar + the yellow-only match law</div></a>
+    <a class="card" href="components-command-palette.html"><div class="nm">Command Palette</div><div class="ds">⌘K — pages, entities, deep-link chips</div></a>
+  </div></div>
+
+  <div class="sec"><div class="lbl">Badges &amp; Indicators</div><div class="grid">
+    <a class="card" href="components-status-badge.html"><div class="nm">Status Badge</div><div class="ds">Fill + dot / text + dot — exempt from outlines (the Vocabulary Law)</div></a>
+    <a class="card" href="components-chip.html"><div class="nm">Chip</div><div class="ds">Micro indicator — tones, icons</div></a>
+    <a class="card" href="components-avatar-role-pills.html"><div class="nm">Avatars &amp; Role Pills</div><div class="ds">Pal-derived role pairs; category-class (stroke under Black Ops)</div></a>
+    <a class="card" href="components-account-type.html"><div class="nm">Account Type</div><div class="ds">Type icons + pills</div></a>
+    <a class="card" href="components-count-delta.html"><div class="nm">Count &amp; Delta</div><div class="ds">Bare +N / −N mono chips (1.13)</div></a>
+    <a class="card" href="components-statcards.html"><div class="nm">Stat Cards</div><div class="ds">KPIs, drill-ins, count-up motion</div></a>
+    <a class="card" href="components-expected-impact.html"><div class="nm">Expected Impact</div><div class="ds">Radio-card group + ImpactBars</div></a>
+  </div></div>
+
+  <div class="sec"><div class="lbl">Tables &amp; Data</div><div class="grid">
+    <a class="card" href="components-table.html"><div class="nm">Table</div><div class="ds">Tables 2.0 — subgrid templates, 8px gap, zebra, no dividers</div></a>
+    <a class="card" href="components-pagination.html"><div class="nm">Pagination &amp; Footer</div><div class="ds">Showing X–Y of Z + pager — machine-speak mono</div></a>
+    <a class="card" href="components-batch-actions.html"><div class="nm">Batch Actions</div><div class="ds">Multi-select bar + bulk operations</div></a>
+    <a class="card" href="components-expandable-rows.html"><div class="nm">Expandable Rows</div><div class="ds">Disclosure panels — read in the panel, act on the kebab</div></a>
+    <a class="card" href="components-audit-log.html"><div class="nm">Audit Log</div><div class="ds">Change rows, restore, value diffs</div></a>
+  </div></div>
+
+  <div class="sec"><div class="lbl">Navigation &amp; Shell</div><div class="grid">
+    <a class="card" href="components-nav-sidebar.html"><div class="nm">Navigation Sidebar</div><div class="ds">Expanded / collapsed / flyout; ALL-CAPS + teal selection under Black Ops</div></a>
+    <a class="card" href="components-page-header.html"><div class="nm">Page Header</div><div class="ds">Titles, meta strips, actions</div></a>
+    <a class="card" href="components-login.html"><div class="nm">Login</div><div class="ds">Single-page auth + dev quick sign-in + theme menu</div></a>
+    <a class="card" href="components-home-dashboard.html"><div class="nm">Home Dashboard</div><div class="ds">Greeting, health tiles, saved views</div></a>
+  </div></div>
+
+  <div class="sec"><div class="lbl">Overlays &amp; Feedback</div><div class="grid">
+    <a class="card" href="components-modal-drawer.html"><div class="nm">Modal &amp; Drawer</div><div class="ds">Confirms, tones, sizes</div></a>
+    <a class="card" href="components-menubutton.html"><div class="nm">Menus &amp; Split Button</div><div class="ds">Row actions, kebab, grouped headers (1.13)</div></a>
+    <a class="card" href="components-tooltip.html"><div class="nm">Tooltip</div><div class="ds">Measured viewport clamp</div></a>
+    <a class="card" href="components-toast.html"><div class="nm">Toast</div><div class="ds">Transient feedback</div></a>
+    <a class="card" href="components-loading.html"><div class="nm">Loading &amp; Skeleton</div><div class="ds">Skeletons (zebra-striped in tables), spinners</div></a>
+    <a class="card" href="components-empty-states.html"><div class="nm">Empty States</div><div class="ds">Card-stack compositions, accent dots</div></a>
+  </div></div>
+
+  <div class="sec"><div class="lbl">Patterns &amp; Screens</div><div class="grid">
+    <a class="card" href="components-live-view.html"><div class="nm">Live View</div><div class="ds">The live-surface archetype — auto-refresh map + grouped table</div></a>
+    <a class="card" href="components-arrangement-board.html"><div class="nm">Arrangement Board</div><div class="ds">Drag-and-drop layouts + General Stock Areas 2.0</div></a>
+    <a class="card" href="components-wizard.html"><div class="nm">Wizard</div><div class="ds">Multi-step flows, review, success</div></a>
+    <a class="card" href="components-assignment-edit.html"><div class="nm">Assignment Edit</div><div class="ds">Staged-edit surface — amber pending, red conflict</div></a>
+    <a class="card" href="components-csv-import.html"><div class="nm">CSV Import</div><div class="ds">Upload → map → preview → commit</div></a>
+    <a class="card" href="components-permissions.html"><div class="nm">Permissions</div><div class="ds">Hide vs disable, capability gating</div></a>
+    <a class="card" href="components-roles-permissions.html"><div class="nm">Roles &amp; Permissions</div><div class="ds">The settings matrix</div></a>
+  </div></div>
+
+  <p class="foot">Canonical sources: <a href="../Greater%20Design%20System.md">Greater Design System.md</a> (the full spec) · <a href="../ui_kits/portal/index.html">the interactive UI Kit</a> (live components) · <a href="../Greater-Design-System-Reference.html">the one-file Reference</a> (shareable overview). Specimens are static recreations — where a specimen and the kit disagree, the kit is canonical.</p>
+</div>
+<script>
+(function(){
+  var bar = document.getElementById('themebar');
+  function paint(){
+    var t = null; try { t = localStorage.getItem('gr-theme'); } catch(e) {}
+    var p = (t==='light'||t==='dark'||t==='system'||t==='blackops') ? t : 'blackops';
+    bar.querySelectorAll('.tbtn').forEach(function(b){ b.classList.toggle('on', b.dataset.pref === p); });
+  }
+  bar.addEventListener('click', function(e){
+    var b = e.target.closest('.tbtn'); if (!b) return;
+    var p = b.dataset.pref;
+    try { localStorage.setItem('gr-theme', p); } catch(e2) {}
+    document.documentElement.setAttribute('data-theme', p === 'light' ? 'light' : 'dark');
+    if (p === 'blackops') document.documentElement.setAttribute('data-skin','blackops');
+    else document.documentElement.removeAttribute('data-skin');
+    paint();
+  });
+  paint();
+})();
+</script>
+</body></html>
